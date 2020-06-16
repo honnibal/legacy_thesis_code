@@ -1,0 +1,2098 @@
+\chapter{Combinatory Categorial Grammar}
+\label{chapter:background}
+Categorial grammars (\cg) have their oldest roots in philosophy, as a logical
+notation. Philosophy and logic have always maintained an interest in natural
+language, so the suitability of the formalism for syntactic description was
+commonly noted, even though it was not a central concern. \citet{wood:93} finds
+early kernels of \cg ideas in \citepos{frege:1879} analysis of a proposition
+into function and argument, rather than subject and predicate. The first full
+formulation of a recognisable categorial grammar was presented by
+\citet{ajdukiewicz:35}, but it was not until \citet{bar-hillel:53} that a \cg
+description of a variety of syntactic phenomena was presented, motivated by the
+post-war interest in machine translation that followed the success of digital
+cryptanalysis \citep{wood:93}.
+
+Interest in \cg decreased for some time after \citet{bar-hillel:60} proved that
+categorial grammars could only generate context-free languages, while natural
+languages were considered at the time to be context sensitive.\footnote{\citet{pullum:82}
+showed that the existing arguments for the non-context freeness of
+natural language were flawed, but they were nonetheless taken
+seriously at the time, and \citet{wood:93} ascribes the partial loss of interest in \cg
+to this. Natural languages were finally shown to be non-context free by \citet{shieber:85}
+and \citet{culy:85}.}
+It was considerably later that \cg's advantage --- a simple isomorphism between syntax and
+semantics --- motivated
+proposals that aimed to increase its weak generative capacity. The proposals can be divided
+into two groups. Type-logic grammars \citep{lambek:88,benthem:88,morrill:94,moortgat:88}
+extend \citepos{lambek:58} algebraic categorial calculus, and are largely concerned with the
+grammar's formal and logical properties. The other approach is to extend the
+\citeauthor{ajdukiewicz:35} and \citeauthor{bar-hillel:53} formulation, referred to as either
+\textsc{ab} and pure categorial grammar, using combinatory rules drawn from \citet{curry:58}.
+
+Combinatory Categorial Grammar (\ccg), first formulated by \citet{ades:80},
+and presented more fully in \citet{steedman:00}, can be distinguished from the
+categorical type-logic tradition by its close attention to linguistic and
+psychological plausibility. The upshot of these concerns is a keen interest in
+restricting the generative power of the formalism to precisely match the
+complexity observed in natural languages. The restrictions also improve the
+grammar's computability, making the formalism attractive for use in language
+technology and arguably increasing its psychological plausibility
+\citep{steedman:00}.
+
+This thesis is concerned with the theoretical and practical properties of
+combinatory categorial grammar, but we will start by defining the simpler
+\textsc{ab} categorial grammar it is based on. We will then describe the rules
+\citeauthor{steedman:96} introduced. These rules allow the grammar to handle the
+long-distance dependencies that arise in coordination and extraction
+constructions. We
+also describe an important addition to \ccg that draws on categorical type-logic,
+\citepos{baldridge:03} multi-modal slashes. This extension is the
+limit of our interest in the type-logical tradition of work on categorial
+grammars.
+
+Once we have described the grammar, we turn to its recent use in natural language
+engineering. The work most relevant to this thesis begins with the creation of a corpus of
+\ccg derivations created by semi-automatically adapting
+the Penn Treebank, \ccgbank \citep{hock:acl02}. This initiated a fruitful line of research in statistical \ccg parsing,
+culminating in the \candc parser \citep{clark:cl07}, which we will use for our experiments
+in Chapter~\ref{chapter:results}. We briefly review other prominent applications of \ccg in
+natural language processing; for semantic analysis, natural language generation, and machine
+translation.
+
+
+\section{Category Definition}
+\label{sec:ab_cat}
+
+Categorial grammar (\cg) is a lexicalised framework, which means that the
+majority of the syntactic information required to build a derivation is
+specified in a sequence of composite objects paired with the input. One object
+is assigned to each phonologically realised, meaning-bearing unit in a sentence,
+which in English usually means one object per orthographic token. In a
+categorial grammar, these composite objects are called \emph{categories}.
+
+\cg lexical categories are composed of a result category, and potentially an
+argument. Categories which specify an argument are called \emph{functors}, or
+\emph{complex categories}; categories without an argument are referred to as
+\emph{atomic}. In most \cg formulations, functors can specify the direction of
+their argument. In the notation we will use throughout this thesis, the result
+category is written on the left, with the argument to its right after a forward
+(\cf{/}) or backward (\cf{\bs}) slash, for rightward and leftward arguments
+respectively. We also occasionally use an undirected slash, \cf{|}, to
+under-specify a slash from \cf{\{/, \bs\}}.
+
+The \citet{ajdukiewicz:35} and \citet{bar-hillel:53} formalism
+(termed \abcg) used just two atomic categories in its description,
+\cf{N} (for substantives) and \cf{S} (for clauses).
+This set of categories is generally considered
+insufficient for a detailed linguistic description, but it is a useful
+simplification. The \ccgbank grammar \citep{hock:man05} introduces two extra
+categories, \cf{PP} (for prepositional phrases) and \cf{NP} (for noun phrases).
+Arguably, a fifth category, \cf{PT}, would also
+be useful, to distinguish verb particles from prepositions
+\citep{constable:09}. Some punctuation symbols are also assigned
+unique atomic categories, as are conjunctions.
+
+Categories with multiple arguments can be specified by constructing a functor
+whose result is itself a functor. Thus the category \cf{(S\bs NP)/NP} specifies
+that the word requires two arguments --- an \cf{NP} to the right, and then an
+\cf{NP} to the left --- to build an \cf{S} constituent. The relationship with
+context-free phrase-structure rules is easy to see if we depict the
+category's assignment to the verb \emph{likes} as a tree, and add some lexical
+assignments for nouns:
+\vspace{0.1in}
+\begin{center}
+\begin{tabular}{ccc}
+\ptbegtree
+\ptbeg \ptnode{\cf{NP}} \ptleaf{Casey} \ptend
+\ptendtree
+&
+\ptbegtree
+\ptbeg \ptnode{\cf{S}}
+  \ptleaf{\cf{NP}}
+  \ptbeg \ptnode{\cf{S[dcl]\bs NP}}
+    \ptbeg \ptnode{\cf{(S[dcl]\bs NP)/NP}} \ptleaf{likes} \ptend
+    \ptleaf{NP}
+  \ptend
+\ptend
+\ptendtree
+&
+\ptbegtree
+\ptbeg \ptnode{\cf{NP}} \ptleaf{Pat} \ptend
+\ptendtree
+\end{tabular}
+\end{center}
+\vspace{0.1in}
+In this thesis, we define a category as a 5-tuple
+$\langle\ressc, \featsc, \slashsc, \argsc, \headsc\rangle$, where:
+\begin{itemize}
+\addtolength{\itemsep}{-1mm}
+ \item \ressc is a result category;
+ \item \featsc is a feature structure;
+ \item \slashsc is a directional slash;
+ \item \argsc is an argument category;
+ \item \headsc is a lexical head.
+\end{itemize}
+
+If the \argsc attribute is not empty, the category is complex; if only a \ressc
+is specified the category is atomic. We assume that \featsc is a list of attribute-value
+pairs, where values are always atomic. Attribute values can be underspecified, by assigning
+the attribute an index variable. This allows attributes to be coindexed to each other,
+providing a way for information to be shared across a category.
+
+Figure~\ref{avm:likes} shows an \textsc{avm} representation of the category
+\cf{(S[dcl]\bs NP)/NP}. The category is first broken down into its result
+\cf{S[dcl]\bs NP} and its argument \cf{NP}, along with a slash denoting
+the argument directionality, \cf{/}.
+In general we follow \citet{hock:cl07} in not assigning features to
+complex categories.
+We have omitted attributes with empty
+values, for brevity.
+
+The head of the category is \emph{likes}, and its result is a complex category,
+\cf{S[dcl]\bs NP}, also headed by \emph{likes}. The result has an \cf{NP} argument,
+with a backward slash indicating it must occur to the left. We have specified a feature,
+\emph{case}, for the \cf{NP} arguments, to illustrate the kind of linguistic information
+typically encoded in the feature structures. However, we generally omit such
+features from our analyses, and only assign features to \cf{S} categories. The
+feature \cf{dcl} indicates that its category is a finite declarative.
+
+
+\begin{figure}[t!]
+\centering
+\begin{avm}
+[{}  \ressc  & [{} \ressc  & [{} \ressc  & \cf{S}\\
+	                         \featsc & [{} \textsc{tense} & \emph{dcl}]\\
+			         \headsc & \emph{likes}\\
+		             ]\\
+                    \slashsc& \bks \\
+                    \argsc & [{} \ressc  & \cf{NP}\\
+	                         \featsc & [{} \textsc{case} & \emph{nom}]\\
+			         \headsc & $y$\\
+		             ]\\
+		\headsc & \emph{likes}\\
+	    ]\\
+     \slashsc& \cf{/} \\
+     \argsc  & [{} \ressc  & \cf{NP} \\
+                   \featsc & [{} \textsc{case} & \emph{acc}]\\
+		   \headsc & $z$\\
+	       ]\\
+     \headsc & \emph{likes}\\
+]
+\end{avm}
+\caption{Attribute-value matrix for \emph{likes} $\assign$ \cf{(S[dcl]\bs NP)/NP}
+\label{avm:likes}}
+\end{figure}
+
+The unbound $y$ and $z$ variables that occupy the values of \headsc denote that
+the two arguments must be filled by different lexical items. If two \headsc
+attributes share an index variable, and one attribute is bound to a lexical item,
+the other attribute will be bound to that lexical item too. It is this mechanism
+that allows long-range dependencies to be created. The details of this process are
+explained in Section~\ref{sec:unification}.
+
+\section{Function Application}
+
+\textsc{ab} categorial grammars use only one type of grammatical rule, function
+application:
+
+\begin{eqnarray}
+\cf{X/Y} & \cf{Y} & \Rightarrow\;\; \cf{X}\label{rule:f.app}\\
+\cf{Y} & \cf{X\bs Y} & \Rightarrow\;\; \cf{X}\label{rule:b.app}
+\end{eqnarray}
+
+These rules allow us to complete the derivation of the \emph{Casey likes Pat} example:
+
+\begin{center}
+\deriv{3}{
+\rm Casey & \rm likes & \rm Pat \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{NP} \\
+& \fapply{2} \\
+& \mc{2}{\cf{S[dcl]\bs NP}} \\
+\bapply{3} \\
+\mc{3}{\cf{S[dcl]}}
+}\end{center}
+
+The horizontal lines indicate the span of the constituent created, and the
+symbol at the right edge of the line indicates the grammatical rule that
+licenses the step of the derivation. The resulting category is listed below each
+bracket. This tabular presentation of a \cg derivation will be used
+interchangeably with tree-based representations throughout the thesis. We will
+tend to use derivations where we wish to emphasise the rules being used,
+while parse trees often provide an easier way to view attachment structure.
+
+
+
+\section{Unification}
+\label{sec:unification}
+Unification is a mechanism for finding the union of the information represented in
+two feature structures \citep{shieber:86}. Each \cg rule involves unifying two
+categories during the string concatenation that the rule describes. In forward
+application (\ref{rule:f.app}) and backward application (\ref{rule:b.app}), the
+argument of the functor is unified with the argument category, and the functor's
+result is returned as the product of the rule.
+
+The argument unification can be seen in more detail using the \textsc{avm}
+representation in Figure~\ref{avm:fwd_app}. The left-most \textsc{avm}
+represents the category \cf{(S[dcl]\bs NP)/NP}, and to its right is the category
+\cf{NP}, which will unify with the outer-most argument of \cf{(S[dcl]\bs
+NP)/NP}. The result of this unification is shown in the \textsc{avm} on the
+right. The missing values have been filled in from the \cf{NP} argument.
+Specifically, the category now has a lexical head \emph{Pat}, and it has
+inherited the feature and value pair \emph{type: proper}.
+
+\begin{sidewaysfigure}
+\begin{center}
+\begin{avm}
+[{}  \ressc  & [{} \ressc  & [{} \ressc  & \cf{S}\\
+	                         \featsc & [{} \textsc{tense} & \emph{dcl}]\\
+			         \headsc & \emph{likes}\\
+		             ]\\
+                    \slashsc& \bks \\
+                    \argsc & [{} \ressc  & \cf{NP}\\
+	                         \featsc & [{} \textsc{case} & \emph{nom}]\\
+			         \headsc & $y$\\
+		             ]\\
+		\headsc & \emph{likes}\\
+	    ]\\
+     \slashsc& \cf{/} \\
+     \argsc  & [{} \ressc  & \cf{NP} \\
+                   \featsc & [{} \textsc{case} & \emph{acc}]\\
+		   \headsc & $z$\\
+	       ]\\
+     \headsc & \emph{likes}\\
+]
+\end{avm}\;\;
+\begin{avm}
+\raisebox{-60mm}{[{} \ressc  & \cf{NP} \\
+    \featsc & [{} \emph{type} & proper]\\
+    \headsc & \emph{Pat}\\
+]}
+\end{avm}
+\;\;\raisebox{-55mm}{\Huge $\longrightarrow$}\;\;
+\begin{avm}
+[{}  \ressc  & [{} \ressc  & [{} \ressc  & \cf{S}\\
+	                         \featsc & [{} \textsc{tense} & \emph{dcl}]\\
+			         \headsc & \emph{likes}\\
+		             ]\\
+                    \slashsc& \bks \\
+                    \argsc & [{} \ressc  & \cf{NP}\\
+	                         \featsc & [{} \textsc{case} & \emph{nom}]\\
+			         \headsc & $y$\\
+		             ]\\
+		\headsc & \emph{likes}\\
+	    ]\\
+     \slashsc& \cf{/} \\
+     \argsc  & [{} \ressc  & \cf{NP} \\
+                   \featsc & [{} \textsc{case} & \emph{acc}]\\
+				 \textsc{type} & \emph{proper}\\
+		   \headsc & $z$\\
+	       ]\\
+     \headsc & \emph{likes}\\
+]
+\end{avm}
+\end{center}
+\caption{Attribute-value matrices for \cf{(S[dcl]\bs NP)/NP \;\; NP \;\;
+\longrightarrow \;\; S[dcl]\bs NP}\label{avm:fwd_app}}
+\end{sidewaysfigure}
+
+During unification, each field in the two categories is compared. Where one
+field's value is underspecified --- as is the \scare{type} value of the
+functor's argument --- the union inherits the more specific value. If the two
+values conflict, unification fails, preventing the rule from being applied.
+Unification proceeds recursively, so if \argsc or \ressc contain complex
+categories, or \featsc has a complex value, the components are unified as well.
+
+\section{Logical Forms with Hybrid Dependency Logic Semantics}
+\label{sec:hlds_background}
+
+One of the key properties of categorial grammars is the ease with which they can
+be made semantically transparent. A grammar is said to be semantically transparent if
+it fully specifies an interface between syntax and semantics, such that every
+syntactic derivation corresponds to exactly one semantic analysis.
+
+Categorial grammars are made semantically transparent by associating every lexical
+category with a logical form representation.
+We follow \citet{baldridge:02} in using Hybrid Dependency Logic Semantics
+\citep[\hlds, ][]{kruijff:01} to represent logical forms for \cg categories.
+\hlds is a hybrid logic, which means
+that it extends modal logic with \emph{nominals} to allow states to be referenced
+explicitly. Formulas can be formed using both nominals and propositions, 
+standard boolean operators, and the satisfaction operator $@$. A formula
+$@_i\semf{p}$ states that the formula $\semf{p}$ holds at the state named by $i$.
+
+Meanings are expressed as a conjunction of modalised terms, anchored by the head that
+identifies the head's proposition:
+
+\begin{eqnarray}
+ @_h(\text{proposition} \wedge \langle\delta_i\rangle (d_i \vee dep_i))
+\end{eqnarray}
+
+Dependency relations are modelled as modal relations $\langle\delta_i\rangle$, and the
+discourse referents connected by the dependency relations are each assigned a nominal $d_i$.
+Because \hlds is an indexed representation, propositions can be flattened
+to a conjunction of fixed-size elementary predications. We follow \citet{white:03} in
+adopting this representation. In their approach, syntactic categories are paired with
+a flattened representation, with coindexation connecting the two elementary predications:
+
+\begin{center}
+\begin{tabular}{lcrcl}
+\emph{saw} & $\assign$ & \cf{(S[dcl]_x\bs NP_y)/NP_z} & $:$ &
+$@_x \text{\textbf{see}} \wedge @_x\langle \textsc{tense}\rangle \text{\textbf{past}} \wedge @_x\langle \textsc{act}\rangle y \wedge @_x\langle \textsc{pat}\rangle z$\\
+\emph{Bob} & $\assign$ & \cf{NP_b}  & $:$ & $@_b\text{\textbf{Bob}}$ \\
+\emph{Gil} & $\assign$ & \cf{NP_g}  & $:$ & $@_g\text{\textbf{Gil}}$ \\
+\end{tabular}
+\end{center}
+
+This flattened representation is a graph of
+variable bindings and 
+$\langle \text{parent}, \text{relation}, \text{child}\rangle$ triples, where each triple
+is of the form $@_\text{head}\sematt{relation}\semf{child}$.
+The relations $\sematt{act}$ and $\sematt{pat}$ stand for the semantic roles 
+\textsc{actor} and \textsc{patient} respectively.
+
+During a derivation, the variables are coindexed during unification, and the logical
+forms are conjoined. For example:
+
+\begin{center}
+\deriv{3}{
+\rm Bob & \rm saw & \rm Gil \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP_b\;:} &
+\cf{(S[dcl]_x\bs NP_y)/NP_z\;:} &
+\cf{NP_g\;:} \\
+\cf{@_b\text{\textbf{Bob}}} &
+\cf{
+  @_x \text{\textbf{see}}
+  \wedge @_x\langle \text{\textsc{tense}}\rangle \text{\textbf{dcl}}
+  \wedge @_x\langle \textsc{act}\rangle y
+  \wedge @_x\langle \textsc{pat}\rangle z
+} & \cf{@_g\text{\textbf{Gil}}} \\
+& \fapply{2} \\
+& \mc{2}{\cf{S[dcl]_x\bs NP_y\;:}} \\
+& \mc{2}{\cf{
+  @_x \text{\textbf{see}}
+  \wedge @_x\langle \textsc{tense}\rangle \text{\textbf{dcl}}
+  \wedge @_x\langle \textsc{act}\rangle y
+  \wedge @_x\langle \textsc{pat}\rangle g
+  \wedge @_g \text{\textbf{Gil}}}}\\
+\bapply{3} \\
+\mc{3}{\cf{S[dcl]_x\;:}}\\
+\mc{3}{\cf{
+  @_x \text{\textbf{see}}
+  \wedge @_x\langle \textsc{tense}\rangle \text{\textbf{dcl}}
+  \wedge @_x\langle \textsc{act}\rangle b
+  \wedge @_x\langle \textsc{pat}\rangle g
+  \wedge @_g \text{\textbf{Gil}} \wedge @_b \text{\textbf{Bob}}}}\\
+}\end{center}
+
+The first application rule coindexes the verb's outer argument variable to
+$g$, and a term is added to the semantic representation binding $g$ to Gil.
+The same happens when \emph{Bob} is found by backward application.
+
+\section{Instantiating Dependencies During Unification}
+% New
+
+Instead of a full logical form, \ccgbank \citep{hock:cl07} represents
+predicate-argument structure using dependency
+graphs. These dependency graphs are used to evaluate the \candc parser \citep{clark:cl07}. Dependency
+graphs are often convenient for our purposes, and are important for this thesis
+as they are used in our experiments.
+
+% New
+We follow \citet{hock:cl07} in assuming that the arguments of a complex category are
+numbered 1 to $n$, starting from the innermost argument, where $n$ is the arity of the
+functor, e.g. \cf{((S[dcl]\bs NP_1)/NP_2)/PP_3}.
+
+% New
+A dependency is filled when an argument's \headsc feature has been filled with a lexical
+item during unification. For instance, if the category \cf{(S[dcl]\bs NP_1)/NP_2}, assigned
+to the word \emph{likes}, is the functor in a successful forward application rule with an
+\cf{NP} headed by \emph{Pat}, its outer argument will be bound, and the following dependency
+created:
+
+\begin{center}
+\begin{tabular}{lccr}
+  likes & \cf{(S[dcl]\bs NP_1)/NP_2} & 2 & Pat\\
+\end{tabular} 
+\end{center}
+
+In this thesis, a \emph{labelled \ccg dependency} is thus a 4-tuple consisting of the
+functor word, category, argument number and argument word.  A dependency is unbounded
+if the argument's head was mediated by one or more other categories during unification,
+but we do not include this distinction in our dependency tuples. We sometimes refer to
+unlabelled dependencies, which are a 2-tuple consisting of the functor word and the
+argument word. 
+
+\section{Inadequacy of AB Categorial Grammar}
+\label{sec:ab_sucks}
+
+% Updated
+The formalism we have defined so far, using only the function application rules, is
+the pure applicative categorial grammar elaborated by \citet{bar-hillel:53}.
+The problem with this formalism is that it cannot adequately explain 
+the long-distance dependencies that arise
+from unbounded extraction --- where `explanatory adequacy' is taken to mean an analysis that
+predicts the observed extraction asymmetries efficiently, without \emph{ad hoc}
+additions to the grammar, a sense we adapt from \citet{chomsky:aspects}.
+It also cannot provide an adequate explanation
+of coordination, since spans which would not ordinarily be considered constituents
+can be coordinated:
+
+\begin{lexample}
+Casey likes but Erin hates Pat.
+\end{lexample}
+
+% Updated
+This sentence requires the subject to be bracketed with the verb, so that the two
+equivalent brackets can be coordinated. An applicative categorial grammar can base
+generate such a derivation, which for a \cg means relying on category ambiguity to
+provide the alternative bracketing\footnote{In the context of a transformational grammar,
+an analysis is \emph{base generated} if it is generated by the core phrase-structure rules,
+with no movement operations. We describe a \cg analysis as \emph{base generated} if it
+relies on category ambiguity, instead of assigning canonical categories and using
+associative and/or permutative combinators.}:
+
+\begin{center}
+\deriv{6}{
+\rm Casey & \rm likes & \rm but & \rm Erin & \rm hates & \rm Pat \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S[dcl]/NP)\bs NP} &
+\cf{(X\bs X)/X} &
+\cf{NP} &
+\cf{(S[dcl]/NP)\bs NP} &
+\cf{NP} \\
+\bapply{2} && \bapply{2} \\
+\mc{2}{\cf{S[dcl]/NP}} && \mc{2}{\cf{S[dcl]/NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{(S[dcl]/NP)\bs (S[dcl]/NP)}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[dcl]/NP}} \\
+\fapply{6} \\
+\mc{6}{\cf{S[dcl]}}
+}
+\end{center}
+
+This derivation assigns \emph{hates} the category \cf{(S[dcl]/NP)\bs NP}.
+This is an associative variant of the standard transitive verb category
+\cf{(S[dcl]\bs NP)/NP}. The coordination we observe appears to
+require a novel category that has a specific logical relationship
+to the canonical one, function associativity. However, the base generation
+strategy does not predict any such relationship, as it does not admit any
+constraints on the structure of the novel category. This makes it a weak
+explanation of the phenomenon. A similar situation arises in the analysis of
+extraction phenomena:
+
+\begin{center}
+\deriv{4}{
+\rm Pat, & \rm who & \rm Erin & \rm hates \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/(S[dcl]/NP)} &
+\cf{NP} &
+\cf{(S[dcl]/NP)\bs NP} \\
+&& \bapply{2} \\
+&& \mc{2}{\cf{S[dcl]/NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{NP}}
+}
+\end{center}
+
+Once again, a construction that only requires an associative version of the canonical
+category is analysed as though it could have received any category at all.
+The limitations of relying on category ambiguity
+are even more apparent in the following construction, where an object is extracted
+from within an object clause:
+
+\begin{center}
+\deriv{6}{
+\rm Pat, & \rm who & \rm Casey & \rm knows & \rm Erin & \rm hates \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/(S[dcl]/NP)} &
+\cf{NP} &
+\cf{((S[dcl]/NP)/(S[dcl]/NP))\bs NP} &
+\cf{NP} &
+\cf{(S/NP)\bs NP} \\
+&& \bapply{2} & \bapply{2} \\
+&& \mc{2}{\cf{(S[dcl]/NP)/(S[dcl]/NP)}} & \mc{2}{\cf{S[dcl]/NP}} \\
+&& \fapply{4} \\
+&& \mc{4}{\cf{S[dcl]/NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{NP\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{NP}}
+}
+\end{center}
+
+Here the mediating verb, \emph{knows}, must be assigned a different category
+to transmit the dependency, even though its own arguments are all in their canonical
+positions. This extraction can occur from unbounded depth, so there could be any
+number of such mediating verbs, all requiring novel categories due to a movement
+phenomenon occurring outside their local argument structures.
+
+\section{The \ccg Combinators}
+
+Because the base generation strategy breaks down in these situations,
+\citet{steedman:00} introduces a principle to restrict how much work category
+ambiguity should adopt in the grammar:
+
+\begin{headcat}
+A single non-disjunctive lexical category for the head of a given construction
+specifies both the bounded dependencies that arise when its complements
+are in canonical position and the unbounded dependencies that arise when those
+complements are displaced under relativization, co-ordination, and the like.
+\end{headcat}
+
+Most lexemes can head a great variety of different constructions, and will
+require a variety of distinct syntactic categories, so the principle does not
+stipulate a one-to-one mapping between lexical entries and categories. Natural
+language syntax is ambiguous, so a lexicalised grammar requires ambiguous
+lexical entries. The principle merely asserts that lexical ambiguity should be
+minimised, which constrains its use as a generative strategy.
+
+Having established this, we now need some extra machinery to generate extraction
+and coordination constructions, using only the canonical categories. In \ccg,
+this machinery comes in the form of a lexical operation, \emph{type raising}, which
+can be used with an extra combinatory rule, \emph{composition}, to allow enough
+associativity to solve the vast majority of the problematic long-distance dependencies.
+\citeauthor{steedman:00} also introduces another type of combinatory rule,
+\emph{substitution}, to handle parasitic gaps. However, this construction is rare in
+English \citep{hock:cl07}, so we refer the reader to \citet{steedman:00} for a
+discussion of the construction and the substitution rule.
+
+\subsection{The Need for Associativity}
+
+Some \cg categories can be defined so that they are associative functions.
+If a category has two arguments, one to the left, and the
+other to the right, it does not matter what order the arguments are applied in.
+This means that the two bracketings below are equivalent:
+
+\begin{equation}
+\cf{(S[dcl]\bs NP)/NP} \;\equiv\; \cf{(S[dcl]/NP)\bs NP}
+\end{equation}
+
+Categories with sequences of arguments in a single
+direction, are not associative, however, because switching the bracketing
+would permute the sequence of arguments in the string. \citet{lambek:58} introduces a unary
+\emph{associativity} operator to perform the transformation, given that the two
+bracketings are logically equivalent. This operator would allow us to analyse
+the sentences in Section \ref{sec:ab_sucks} using the canonical categories,
+as we can see in this example of object extraction:
+
+\begin{center}
+\deriv{6}{
+\rm Ashley & \rm likes & \rm Pat & \rm who & \rm Casey & \rm likes \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{NP} &
+\cf{(NP\bs NP)/(S[dcl]/NP)} &
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} \\
+&&&&& \asterisk{1} \\
+&&&&& \mc{1}{\cf{(S[dcl]/NP)\bs NP}} \\
+&&&& \bapply{2} \\
+&&&& \mc{2}{\cf{S[dcl]/NP}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{NP\bs NP}} \\
+&& \bapply{4} \\
+&& \mc{4}{\cf{S[dcl]\bs NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{S[dcl]}}
+}
+\end{center}
+
+The problem is that full associativity for all functors results in substantial
+over-generation, and there is no obvious way to restrict the scope of a single
+unary associativity operator. Instead, \ccg achieves partial binary
+associativity using function composition.
+
+\subsection{Binary Associativity with Composition}
+\label{sec:associativity}
+Instead of a unary grammatical rule, \ccg achieves function associativity with
+a binary grammatical operation, composition.
+Binary composition allows two functors to be merged,
+if the argument of one functor matches the result of another in a direction
+consistent with their slashes:
+
+\begin{eqnarray}
+\cf{X/Y}    & \cf{Y/Z}    & \Rightarrow_\cB\;\; \cf{X/Z}\\
+\cf{Y\bs Z} & \cf{X\bs Y} & \Rightarrow_\cB\;\; \cf{X\bs Z}
+\end{eqnarray}
+
+Composition allows a functor access to arguments \scare{inside} another functor.
+What we now need is a way to transform an argument into a functor of the
+appropriate form. This is done with the type-raising operation, which takes a
+category \cf{X} and transforms it into a functor over a functor over the
+original category \cf{X} with the appropriate directionality:
+
+\begin{eqnarray}
+\cf{X} & \Rightarrow_\cT & \cf{T/(T\bs X)}\\
+\cf{X} & \Rightarrow_\cT & \cf{T\bs (T/X)}
+\end{eqnarray}
+
+The directionality constraint is that the two slashes must be in the opposite
+direction, to avoid permuting the order of a functor's arguments.
+
+Figure \ref{fig:wh_movement} shows how partial associativity is used in an
+analysis of a common case of extraction, WH-movement. The object of
+\emph{hates}, \emph{Pat}, is displaced by the relativiser, \emph{who}. Partial
+associativity allows the responsibility for the movement to be encapsulated in the
+category assigned to \emph{who}, so that the other words can receive the same
+categories they would if there were no extraction phenomena.
+\emph{Casey}'s category, \cf{NP}, is type-raised to \cf{S/(S\bs NP)}.
+In conjunction with the
+composition rule, this allows the arguments of \emph{hates} to be applied in the
+opposite order from the one specified by its category's bracketing.
+Specifically, \emph{Casey} fills the leftward \cf{NP} argument, for the verb's subject.
+This results in a constituent spanning \emph{Casey hates} with the category
+\cf{S[dcl]/NP}.
+
+\begin{figure}
+\centering
+\deriv{6}{
+\rm Ashley & \rm likes & \rm Pat & \rm who & \rm Casey & \rm hates \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{NP} &
+\cf{(NP\bs NP)/(S[dcl]/NP)} &
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} \\
+&&&& \ftype{1} \\
+&&&& \mc{1}{\cf{S/(S\bs NP)}} \\
+&&&& \fcomp{2} \\
+&&&& \mc{2}{\cf{S[dcl]/NP}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{NP\bs NP}} \\
+&& \bapply{4} \\
+&& \mc{4}{\cf{NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{S[dcl]\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{S[dcl]}}
+}
+\caption[Partial associativity provided by type-raising and
+composition.]{Interaction of type-raising and composition to produce partial
+associativity. This allows the WH-movement to be analysed with the canonical
+category assignments.\label{fig:wh_movement}}
+\end{figure}
+
+% Updated
+The logical basis\footnote{The interpretation of a categorial grammar as a logic
+dates to \citet{lambek:58}. We present here only a small and informal illustration.
+A more detailed explication of \cg as a logic can be found in \citet{baldridge:11}.}
+ for these rules is easy to understand when a functor is considered as a kind of
+conditional, where the result is the consequent and the argument is the antecedent.
+If we ignore directionality for a moment, the application rule resembles a simple
+\emph{modus ponens} deduction:
+\begin{eqnarray}
+NP \rightarrow S\\
+NP\\
+\therefore S
+\end{eqnarray}
+%\clearpage
+Composition can be seen as a hypothetical syllogism:
+
+\begin{eqnarray}
+N\rightarrow NP\\
+NP\rightarrow S\\
+\therefore N\rightarrow S
+\end{eqnarray}
+
+And finally, the type-raising rule:
+
+\begin{eqnarray}
+ NP\\
+\therefore (NP\rightarrow S) \rightarrow S
+\end{eqnarray}
+
+% Updated
+Is proved valid by the following truth table:
+
+% Updated
+\begin{center}
+ \begin{tabular}{cccc}
+\hline
+$NP$ & $S$ & $NP\rightarrow S$ & $(NP\rightarrow S) \rightarrow S$\\
+\hline
+\hline
+\textbf{T}    & T   & T                 & \textbf{T} \\
+\textbf{T}    & F   & F                 & \textbf{T} \\
+F    & T   & T                 & T \\
+F    & F   & T                 & F \\
+\hline
+ \end{tabular}
+\end{center}
+
+A conditional is false if and only if its antecedent is true and its consequent is false.
+If $S$ is false, then the antecedent $NP \rightarrow S$ is false, so the conditional
+$(NP \rightarrow S) \rightarrow S$ is true (due to false antecedent).
+If $S$ is true, then the conclusion $(NP\rightarrow S) \rightarrow S$ is also true
+(due to true consequent). The truth of \cf{NP} therefore guarantees the truth of the
+conclusion. The conclusion is contingent, however, as it is false 
+if both \cf{NP} and \cf{S} are false.
+
+% There is therefore a logical intuition behind a non-traditional constituent like
+% \emph{Casey hates}. This bracketing can be linguistically motivated in its own right,
+% and has only been considered non-traditional because phrase-structure grammars encourage
+% a choice between analyses that bracket together the subject and verb, and analyses that
+% bracket together the verb and complements. Phrase-structure grammar analyses typically
+% only assign brackets to the latter. The formalism cannot assign brackets to both
+% simultaneously in one analysis, so traditional analyses selected the verb-object
+% pairing because it allows better analyses for more frequent constructions. The
+% lack of a subject-verb bracket is why subject-verb coordinations, such as
+% \emph{Ashley likes and Casey hates Pat}, have received special attention and specific
+% nomenclature (right node raising), when they are directly analogous to the more common
+% verb-object coordinations, such as \emph{Ashley likes Casey and hates Pat}. Partial
+% associativity does create some problems, such as the so-called spurious ambiguity
+% issue discussed in Section \ref{sec:normal_form}. There are also movement phenomena
+% which it cannot handle. For some constructions, we require a limited degree of
+% \emph{permutativity} --- but only a little, or the grammar loses the ability to
+% specify directionality in lexical categories. \ccg achieves limited permutativity
+% with crossing composition rules. The restrictions that prevent scrambling are
+% described in Section \ref{sec:cross_restrict}.
+
+\subsection{Crossing Composition}
+\label{sec:permutativity}
+The forward and backward composition rules we have seen so far are order
+preserving, or \term{harmonic}. However, there are some syntactic constructions
+that reliably permute the order of constituents. Once again, the formalism must
+decide whether it is preferable to base-generate these analyses, using category
+ambiguity to handle the variation, or whether it is preferable to add some
+grammatical machinery to perform the permutation using the canonical categories.
+
+The order-permuting construction that \citet{steedman:pedia} discuss is heavy
+\cf{NP} shift. In this construction, the order of arguments in a ditransitive
+can be permuted, in order to minimise dependency distances:
+
+\begin{lexamples}
+\item I gave [to him] [a book that was very heavy and difficult to read if it is
+close to the verb].
+\item ? I gave [a book that was very heavy and difficult to read if it is close
+to the verb] [to him].
+\end{lexamples}
+
+Verb-particle constructions present another example of argument order
+permutation:
+
+\begin{lexamples}
+\item They gunned down [the very high-tech and expensive fighter plane].
+\item ? They gunned [the very high-tech and expensive fighter plane] down.
+\item * They gunned down it.
+\end{lexamples}
+
+`Heavy' (long) \cf{NP}s are likely to be pushed after the particle, while a
+pronominal is forced to occur before the particle. We will assume in our
+analyses that the canonical order is verb, particle, object; and that the
+particle final construction is the permutation.
+
+To analyse heavy \cf{NP} shift and verb particle structure alternations without
+category ambiguity, we need composition rules that do not preserve the order of
+a category's arguments. This is referred to as \emph{crossing composition}:
+
+\begin{eqnarray}
+\cf{X/Y} & \cf{Y\bs Z} & \Rightarrow_\cBx\;\; \cf{X/Z}\\
+\cf{Y/Z} & \cf{X\bs Y} & \Rightarrow_\cBx\;\; \cf{X\bs Z}
+\end{eqnarray}
+
+The backward crossing composition rule can be used with the backward type
+raising rule to analyse movement phenomena using the canonical category for
+each word in the sentence.
+
+\begin{figure}
+\centering
+\deriv{4}{
+\rm They & \rm gave & \rm to~him & \rm a~very~heavy~book \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{((S[dcl]\bs NP)/PP)/NP} &
+\cf{PP} &
+\cf{NP} \\
+&& \btype{1} \\
+&& \mc{1}{\cf{(S\bs NP)\bs ((S\bs NP)/PP)}} \\
+&\bxcomp{2} \\
+&\mc{2}{\cf{(S[dcl]\bs NP)/NP}} \\
+&\fapply{3} \\
+&\mc{3}{\cf{S[dcl]\bs NP}}\\
+\bapply{4}\\
+\mc{4}{\cf{S[dcl]}}
+}
+\caption[Heavy \cf{NP} shift with crossed composition.]{\ccg analysis of heavy
+\cf{NP} shift. The analysis uses crossed composition to achieve the required
+permutation of the verb's arguments.\label{fig:heavy_np}}
+\end{figure}
+
+\begin{figure}
+\centering
+\deriv{4}{
+\rm They & \rm gunned & \rm it & \rm down \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{((S[dcl]\bs NP)/PT)/NP} &
+\cf{PP} &
+\cf{NP} \\
+&& \btype{1} \\
+&& \mc{1}{\cf{(S\bs NP)\bs ((S\bs NP)/PT)}} \\
+&\bxcomp{2} \\
+&\mc{2}{\cf{(S[dcl]\bs NP)/NP}} \\
+&\fapply{3} \\
+&\mc{3}{\cf{S[dcl]\bs NP}}\\
+\bapply{4}\\
+\mc{4}{\cf{S[dcl]}}
+}
+\caption[Verb-particle reordering with crossed composition.]{\ccg analysis of
+verb-particle reordering. The analysis uses crossed composition to achieve the
+required permutation of the verb's arguments.\label{fig:vpc}}
+\end{figure}
+
+Figure \ref{fig:heavy_np} shows a \ccg derivation of heavy \cf{NP} shift. The
+long argument, whose canonical position is just right of the verb, is shifted to
+the end to minimise the surface distance between the verb and its arguments. The
+permutation is achieved by type-raising the short \cf{PP} argument so that it
+composes with the inner \cf{PP} argument of the verb, so that it unifies with
+the same argument slot it would occupy had it occurred in its canonical
+position. This requires a crossed composition rule, because the verb's slash is
+rightward. Figure \ref{fig:vpc} shows an analogous analysis for verb-particle
+reordering.
+
+Finally, the composition rules must also be generalised, so that associativity
+is preserved for functions of higher arity. This is shown in Figure
+\ref{fig:gen_comp}. In this derivation, the argument of the category assigned to
+\emph{may}, \cf{(S[dcl]\bs NP)/(S[b]\bs NP)}\footnote{The \cf{b} feature marks
+bare inflection. See \citet{hock:cl07} for other feature values used during the
+thesis.},
+is an extra level deep inside the
+category of \emph{give}. It is the result of the result, instead of just the
+result. The generalised composition rules allow composition over directionally
+consistent argument sequences, to handle such constructions.
+
+\begin{figure}
+\centering
+\scalebox{0.8}{
+\deriv{8}{
+\rm Pat & \rm bought & \rm and & \rm may & \rm give & \rm Casey & \rm a & \rm
+flower \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}
+\\
+\cf{NP} &
+\cf{((S[dcl]\bs NP)/NP)/NP} &
+\cf{(X\bs X)/X} &
+\cf{(S[dcl]\bs NP)/(S[b]\bs NP)} &
+\cf{((S[b]\bs NP)/NP)/NP} &
+\cf{NP} &
+\cf{NP/N} &
+\cf{N} \\
+&&& \fcomp{2} && \fapply{2} \\
+&&& \mc{2}{\cf{((S[dcl]\bs NP)/NP)/NP}} && \mc{2}{\cf{NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{(\cf{((S[dcl]\bs NP)/NP)/NP})\bs (((S[dcl]\bs NP)/NP)/NP)}} \\
+& \bapply{4} \\
+& \mc{4}{\cf{((S[dcl]\bs NP)/NP)/NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{((S[dcl]\bs NP)/NP}} \\
+& \fapply{7} \\
+& \mc{7}{\cf{S[dcl]\bs NP}} \\
+\bapply{8} \\
+\mc{8}{\cf{S[dcl]}}
+}}
+\caption[Example of generalised composition.]{An example of generalised
+composition, between the auxiliary \emph{may} and the ditransitive verb
+\emph{give}.\label{fig:gen_comp}}
+\end{figure}
+
+
+\section{Restricting Rule Productivity}
+
+% Updated
+The unrestricted interaction of the application, composition and type-raising rules
+discussed so far introduces a great deal of syntactic ambiguity and over-generation.
+A number of measures have been proposed to mitigate these problems. First,
+\citet{steedman:00} follows \citet{komagata:97,komagata:99} in
+placing a general restriction on type-raising, in order to ensure that the unary rule
+is not completely unbounded. The restriction prevents a forward type raising rule from
+producing a category \cf{T/(T\bs X)} where \cf{T\bs X} is not a valid category from
+the fixed set of types occurring in the lexicon. An equivalent restriction is placed on
+backward type-raising.
+
+There is also strong motivation for constraining composition. Initially,
+\citet{steedman:00} used the language specific constraints described in Section
+\ref{sec:cross_restrict} to introduce the required restrictions. However,
+\citet{baldridge:03} have since described how these rules can be
+replaced with a more principled lexically sensitive specification. The mechanism
+for doing this, multi-modal slashes, is now widely accepted as an important part
+of the \ccg theory \citep{steedman:pedia}. Multi-modal \ccg is described in
+Section \ref{sec:mmccg_background}.
+
+% Updated
+Finally, the partial associativity added by composition allows multiple equivalent
+bracketings for the same semantic analysis. The alternative brackets allow information
+structure to be expressed in the surface syntax, but for practical parsing purposes,
+it is useful to suppress the ambiguity. We describe a mechanism suggested by
+\citet{eisner:96} to do this in Section \ref{sec:normal_form}.
+
+
+\subsection{Restrictions on Crossing Composition}
+\label{sec:cross_restrict}
+The crossing composition rules allow a functor's arguments to occur in a
+different order from the one specified by the category. This amounts to local
+scrambling --- a desirable property for free word order languages. The problem
+is that we do not want scrambling in a configurational language like English:
+
+\begin{center}
+\deriv{6}{
+\rm *I & \rm Ed & \rm think & \rm that & \rm saw & \rm Ann \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/S[em]} &
+\cf{S[em]/S[dcl]} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{NP} \\
+&&&& \fapply{2} \\
+&&&& \mc{2}{\cf{S[dcl]\bs NP}} \\
+&&& \fxcomp{3} \\
+&&& \mc{3}{\cf{S[em]\bs NP}} \\
+&& \fxcomp{4} \\
+&& \mc{4}{\cf{(S[dcl]\bs NP)\bs NP}} \\
+& \bapply{5} \\
+& \mc{5}{\cf{S[dcl]\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{S[dcl]}}
+}
+\end{center}
+
+The problem is the forward crossed composition rule, which is not necessary in
+English. \citet{steedman:00} therefore proposed language specific subsets of
+the combinatory rules, which are suggested as a theory of universal grammar.
+Additionally, \citet{steedman:00} introduced a restriction that
+backward crossed composition should only be allowed for categories rooted in
+\cf{S}. This prevents further over-generation:
+
+\begin{center}
+ \deriv{4}{
+\rm *powerful & \rm by & \rm Rivaldo & \rm shots \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N/N} &
+\cf{(N\bs N)/NP} &
+\cf{NP} &
+\cf{N} \\
+& \fapply{2} \\
+& \mc{2}{\cf{N\bs N}} \\
+\bxcomp{3} \\
+\mc{3}{\cf{N/N}} \\
+\fapply{4} \\
+\mc{4}{\cf{N}}
+}
+\end{center}
+
+% Updated
+These constraints would presumably be conventions adopted and learnt by speakers of
+a language, rather than fixed constraints in a universal (possibly innate) grammar.
+\citet{baldridge:03} provide a way for such constraints to be represented in the
+lexicon instead, which we will now describe.
+
+
+\subsection{Multi-Modal \ccg}
+\label{sec:mmccg_background}
+\citepos{baldridge:03} solution was to import the approach to resource
+sensitivity taken in the categorical type logic (\ctl) tradition
+\citep{morrill:94,moortgat:97}. \ccg uses a single pair of slashes, $\lbrace /, \bs\rbrace$,
+which means that there there is no way a specific category can restrict which
+rules it can be used with. \ctl instead decorates its slashes with \emph{modes}.
+The mode variables distinguish slashes that can participate in all rules from
+slashes which can only participate in a certain subset.
+
+\citeauthor{baldridge:03} divide the binary rules according to whether they
+allow \emph{associativity}, \emph{permutativity}, or \emph{neither}. Table
+\ref{tab:rule_props} shows how the rules break down according to these
+properties. The harmonic composition rules allow the associativity required to
+analyse the WH-movement and right node raising constructions described in
+Section \ref{sec:associativity}, while the crossing composition rules allow the
+permutativity required to analyse the heavy \cf{NP} shift and verb-particle
+reordering constructions described in Section \ref{sec:permutativity}.
+
+\begin{table}
+ \centering
+
+\begin{tabular}{llllcc}
+\hline
+ Direction & Type     & Combinator  &        & Associative? & Permutative?\\
+\hline
+\hline
+ Forward   &          & Application & $>$    &   & \\
+ Backward  &          & Application & $<$    &   & \\
+ Forward   & Harmonic & Composition & $>\cB$   & $\checkmark$ & \\
+ Backward  & Harmonic & Composition & $<\cB$   & $\checkmark$ & \\
+ Forward   & Crossing & Composition & $>\cBx$ &   & $\checkmark$ \\
+ Backward  & Crossing & Composition & $<\cBx$ &   & $\checkmark$ \\
+\hline
+\end{tabular}
+\caption{Associativity and permutativity properties of the \ccg rules.
+\label{tab:rule_props}}
+\end{table}
+
+The slashes used in these rules can therefore be decorated with types, referred
+to as \emph{modes}, where each mode permits associativity, permutativity, both,
+or neither. Lexical categories can then be assigned modes that reflect which rules
+they are allowed to be used with. A slash decorated with the \dmodetext will allow
+associative rules, \xmodetext decorated slashes allow permutativity, and \smodetext
+decorated slashes allow neither. A fourth mode, \cmodetext, allows both.
+
+\citet{baldridge:thesis02} defined a hierarchy of seven modes, and a simplified
+hierarchy of four modes sufficient for most purposes. The simplified hierarchy
+is shown in Figure \ref{fig:modes}. The most restrictive \emph{application-only}
+mode (\smodetext) occurs at the top, with the more permissive tier of modes
+(\dmodetext, \xmodetext) inheriting from it, and the most permissive mode (\cmodetext)
+inheriting from them. A mode can unify with itself, or with any mode it subsumes.
+This means that the standard unification mechanism can be exploited to restrict
+rule productivity, once the combinators are updated with the appropriate modes
+as shown in Table \ref{tab:ccg_rules}.
+
+\begin{table}
+ \centering
+\begin{tabular}{lcclc}
+\hline
+\Sfapply & \cf{X/\smode Y}   & \cf{Y}            & $\Rightarrow$ & \cf{X}\\
+\Sbapply & \cf{Y}            & \cf{X\bs\smode Y} & $\Rightarrow$ & \cf{X}\\
+\Sfcomp  & \cf{X/\dmode Y}   & \cf{Y/\dmode Z}   & $\Rightarrow_\cB$ &
+\cf{X/\dmode Z}\\
+\Sbcomp  & \cf{Y\bs\dmode Z} & \cf{X\bs\dmode Y} & $\Rightarrow_\cB$ &
+\cf{X\bs\dmode Z}\\
+\Sfxcomp & \cf{X/\xmode Y}   & \cf{Y\bs\xmode Z} & $\Rightarrow_\cBx$ &
+\cf{X\bs\xmode Z}\\
+\Sbxcomp & \cf{Y/\xmode Z}   & \cf{X\bs\xmode Y} & $\Rightarrow_\cBx$ &
+\cf{X/\xmode Z}\\
+\Sftype  &                   & \cf{X}            & $\Rightarrow_\cT$ & \cf{T/_i
+(T\bs_i X)} \\
+\Sbtype  &                   & \cf{X}            & $\Rightarrow_\cT$ &
+\cf{T\bs_i (T/_i X)} \\
+\hline
+\end{tabular}
+\caption{Multi-modal \ccg rules.}
+\label{tab:ccg_rules}
+\end{table}
+
+Let's look at a simple example of how these mode sensitive combinators allow rule
+sensitivity to be restricted in the lexicon. We would like to handle conjunction
+using our current inventory of combinatory rules, rather than using something
+like the ternary conjunction rule described in \citet{steedman:00}. We can do
+this by assigning coordinators categories of the form \cf{(X\bs X)/X}, where
+\cf{X} can be any category.\footnote{This could be expanded into a series of
+non-schematic categories in the lexicon, but for now we will work with the
+schematic version.} \citet{steedman:00} shows that with this formulation,
+we cannot prevent over-generation:
+
+\begin{figure}
+\centering
+
+\begin{tikzpicture}
+\path
+  node (star) at (1, 2) {$\star$}
+  node (times) at (0, 1) {$\times$}
+  node (diamond) at (2, 1) {$\diamond$}
+  node (dot) at (1, 0) {$\cdot$};
+
+\draw [->] (star) -- (times);
+\draw [->] (star) -- (diamond);
+\draw [->] (times) -- (dot);
+\draw [->] (diamond) -- (dot);
+\end{tikzpicture}
+
+\caption{Subsumption hierarchy of the four modes.\label{fig:modes}}
+\end{figure}
+
+\begin{center}
+\deriv{6}{
+\rm *player & \rm that & \rm shoots & \rm and & \rm he & \rm misses \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N} &
+\cf{(N\bs N)/(S[dcl]\bs NP)} &
+\cf{S[dcl]\bs NP} &
+\cf{(X\bs X)/X} &
+\cf{N} &
+\cf{S[dcl]\bs NP} \\
+&&&& \bapply{2} \\
+&&&& \mc{2}{\cf{S[dcl]}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{S[dcl]\bs S[dcl]}} \\
+&& \bcomp{4} \\
+&& \mc{4}{\cf{S[dcl]\bs NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{N\bs N}} \\
+\bapply{6} \\
+\mc{6}{\cf{N}}
+}
+\end{center}
+
+However, if we make use of the multi-modal combinators to assign a more
+restrictive category to \emph{and}, the invalid composition will be blocked.
+Blocked rules are marked with an asterisk:
+
+\begin{center}
+\deriv{6}{
+\rm *player & \rm that & \rm shoots & \rm and & \rm he & \rm misses \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N} &
+\cf{(N\bs N)/(S[dcl]\bs NP)} &
+\cf{S[dcl]\bs NP} &
+\cf{(X\bs\smode X)/\smode X} &
+\cf{N} &
+\cf{S[dcl]\bs NP} \\
+&&&& \bapply{2} \\
+&&&& \mc{2}{\cf{S[dcl]}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{S[dcl]\bs\smode S[dcl]}} \\
+&& \asterisk{4} \\
+&& \mc{4}{\cf{S[dcl]\bs NP}}
+}
+\end{center}
+%\clearpage
+% Updated
+Multi-modal \ccg can thus analyse coordination phenomena without introducing
+a special conjunction rule. We will largely be dealing with the \citet{steedman:00}
+grammar, however, so most of our derivations will use the \ccgbank analysis of
+coordination, which approximates a ternary conjunction rule:
+
+\begin{center}
+ \deriv{6}{
+\rm Casey & \rm and & \rm Pat & \rm sang & \rm and & \rm danced \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{conj} &
+\cf{NP} &
+\cf{S[dcl]\bs NP} &
+\cf{conj} &
+\cf{S[dcl]\bs NP} \\
+& \conj{2} && \conj{2}\\
+& \mc{2}{\cf{NP[conj]}} & & \mc{2}{\cf{S[dc]\bs NP[conj]}}\\
+\conj{3} & \conj{3} \\
+\mc{3}{\cf{NP}} & \mc{3}{\cf{S[dcl]\bs NP}}\\
+\bapply{5}\\
+\mc{5}{\cf{S[dcl]}}
+}
+\end{center}
+
+In multi-modal \ccg, the value of the \slashsc attribute of complex categories
+is a typed feature structure with multiple properties, rather than a single atomic
+value representing directionality. \citet{baldridge:03} suggest that it may be
+useful to extend the definition of \slashsc beyond directionality and mode. They
+propose two additional attributes, to specify the head-directionality of the slash
+and whether the slash can be used in the primary functor of combinatory rules. The
+extended definition of \slashsc might be presented as follows:
+
+\begin{center}
+\begin{avm}
+[{} \slashsc & [{} \textsc{dir} & \cf{\bs}\\
+                   \textsc{mode} & \smodetext\\
+                   \textsc{depdir} & $\leftarrow$\\
+                   \textsc{activity}  & !\\
+               ]
+]
+\end{avm}
+\end{center}
+
+\citet{clark:acl07parseval} implement an equivalent of the \textsc{depdir}
+attribute in the \candc parser to have it generate grammatical relations
+\citep{briscoe:poster06}.
+However, we do not perform a grammatical relations evaluation in our parsing experiments,
+so we do not require the \textsc{depdir} slash attribute in this thesis.
+
+The concept of inert slashes is useful in our analyses, and is important for our definition of
+hat categories, as described in Section \ref{sec:null_mode}.
+The inert slash allows an argument to be structurally defined, but unavailable 
+for application or composition. Because \textsc{activity} is a separate dimension from
+\textsc{mode}, \citet{hoyt:08} denote inert slashes using a superscript, rather
+than a subscript. For instance, \citet{hock:cl07} uses the category
+\cf{S[adj]\bs NP} for predicative adjuncts. The argument of this category
+is a good candidate for an inert slash:
+
+\begin{center}
+\small
+\deriv{7}{
+\rm Pat & \rm is & \rm well & \rm read & \rm and & \rm handy & \rm
+around~the~house \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/(S[adj]\bs^! NP)} &
+\cf{(S\bs^i NP)/(S\bs^i NP)} &
+\cf{S[adj]\bs^! NP} &
+\cf{(X\bs X)/X} &
+\cf{S[adj]\bs^! NP} &
+\cf{(S\bs^i NP)\bs (S\bs^i NP)} \\
+&& \fapply{2} && \bapply{2} \\
+&& \mc{2}{\cf{S[adj]\bs^! NP}} && \mc{2}{\cf{S[adj]\bs^! NP}} \\
+&&&& \fapply{3} \\
+&&&& \mc{3}{\cf{(S[adj]\bs^! NP)\bs (S[adj]\bs NP)}} \\
+&& \bapply{5} \\
+&& \mc{5}{\cf{S[adj]\bs^! NP}} \\
+& \fapply{6} \\
+& \mc{6}{\cf{S[dcl]\bs NP}} \\
+\bapply{7} \\
+\mc{7}{\cf{S[dcl]}}
+}
+\end{center}
+
+The copula, \emph{is}, is assigned the category \cf{(S[dcl]_z\bs
+NP_y)/(S[adj]_z\bs^! NP_y)}. The inert argument offers several advantages. First, it
+enables a dependency to be created between the subject \emph{Casey} and the
+object of the copula, in this case both \emph{read} and \emph{handy}. The
+dependency is created by coindexing the argument of the copula with the argument
+of the predicate. Such a dependency would be impossible if the complement did
+not specify an argument. The \cf{S[adj]\bs^! NP} category also predicts that the
+predicate can be modified by verb phrase modifiers, using their canonical
+categories \cf{(S\bs^i NP)\bs (S\bs^i NP)} and \cf{(S\bs^i NP)/(S\bs^i NP)}.
+\footnote{Note that with the extended slash definition, modifiers must coindex their slashes
+to ensure that they behave as functions that return their arguments unchanged.}
+The inert slash would also allow the \cf{S\bs S} category to modify
+\cf{S[adj]\bs^! NP}, as inert slashes can be the arguments of combinators, but
+not their functors.
+
+What we do not want in this analysis is for the predicate to apply its argument
+directly. Assigning an inert mode prevents this, allowing the argument to fulfill
+desirable structural criteria without increasing ambiguity in the grammar.
+
+One subtlety to note is that inert slashes cannot be circumvented via type-raising.
+At first it might seem that this would succeed:
+
+\begin{center}
+\deriv{2}{
+\rm *Pat & \rm handy \\
+\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{S[adj]\bs ^!NP} \\
+\ftype{1} \\
+\mc{1}{\cf{S/^i(S\bs^i NP)}} \\
+\asterisk{2} \\
+\mc{2}{\cf{S[adj]}}
+}\end{center}
+
+The crucial detail is that the type-raising rules are defined such that the two slashes
+are coindexed. This leaves two possible forward type-raise to \cf{S} categories for Pat:
+either both slashes can be inert, \cf{S/^!(S\bs^! NP)}, or both slashes can be active,
+\cf{S/^+(S\bs^+ NP)}. If the slashes are inert, then the type-raise category cannot be
+the functor, so the application is blocked. If the slashes are active, then unification
+between \cf{S\bs^+NP} and \cf{S[adj]\bs^!NP} will fail because their slashes are
+incompatible, and the categories still cannot combine.
+
+\subsection{Normal Form Constraints}
+\label{sec:normal_form}
+Multi-modal slashes allow \ccg to control the undesirable effects of adding
+permutative rules to the grammar --- namely, over-generation. From a processing
+standpoint, associativity also has drawbacks, because it introduces multiple
+equivalent bracketings of the same semantic analysis. For instance, the
+alternative bracketing required in analysis \ref{bracket_1} can also be used in
+analysis \ref{bracket_2}, where it is not required:
+
+\begin{lexamples}
+ \item (Erin hates) but (Casey likes) Pat. \label{bracket_1}
+ \item (Erin hates) Pat. \label{bracket_2}
+\end{lexamples}
+
+
+\citet{steedman:00} introduces an explanation for this apparently
+uneconomical situation, pointing out that even though the sentence only has one
+valid semantic analysis, it does have two valid information structure analyses
+--- which correspond to the two possible bracketings. \citet{white:10} exploit
+this ability to express information structures in the surface syntax to produce
+more natural speech generation. The ambiguity also allows
+extreme left-corner analyses, which are useful for incremental parsing.
+
+Nevertheless, the ambiguity can still be inconvenient. \ccg grammars can be
+parsed using the \cky algorithm \citep{cocke:70,kasami:65,younger:67}, and the
+extra analyses complicate the task of selecting the best semantic analysis.
+\citet{eisner:96} offers a simple solution. He shows that for every semantic
+analysis, there is exactly one \emph{normal form} derivation, and that
+two simple constraints will ensure that only normal form derivations
+are added to the chart.
+
+The Eisner normal form constraints stipulate that if a category was produced by a
+forward composition rule, it cannot immediately be used as the functor of forward
+application; and similarly, if a category was produced by backward composition, it
+cannot immediately be used as the functor of backward application.
+\citeauthor{eisner:96} shows that these two rules are sufficient to prevent all spurious
+ambiguity in a \ccg grammar that consists of application and composition rules,
+but does not contain type-raising rules. \ccgbank's grammar does contain
+type-raising and type-changing rules, so the normal form constraints do not
+guarantee that derivations uniquely correspond to semantic analyses.
+However \citet{clark:cl07} have found that the
+Eisner normal form constraints are useful for increasing the efficiency of \ccg
+parsing using the \ccgbank grammar.
+
+\section{\ccgbank}
+
+\citet{hock:01,hock:acl03} developed the first wide coverage \ccg parsing system.
+The work that made this possible was the adaptation of the Penn Treebank
+\citep{marcus:93} to \ccg \citep{hock:lrec02,hock:cl07}. This section describes the
+corpus, which plays a central role in the thesis. First, we provide a brief overview
+of the Penn Treebank, with a very brief look at the long history of statistical parsing
+research it initiated. We will then describe the \ccgbank conversion process. Finally, we
+describe the use of type-changing rules in \ccgbank,
+to carry out type-changing operations. These type-changing rules are particularly important
+for this thesis.
+
+\subsection{The Penn Treebank}
+
+
+The Penn Treebank (\penn) \citep{marcus:93} is a syntactically annotated corpus of English.
+Version 3 of the corpus consists of approximately 1.2 million words of newswire text
+from the Wall Street Journal, 900,000 words of text from a variety of written genres
+from the Brown corpus, 1.1 million words of casual conversation between strangers from the
+Switchboard corpus, and 10,000 words of spoken dialogue system queries from the
+\textsc{atis} corpus. Syntactic parsing research has focused almost entirely on the
+Wall Street Journal portion. The initial release of the corpus consisted of the Wall
+Street Journal and \textsc{atis} corpora.
+
+The corpus was annotated according to a theory-neutral annotation scheme intended
+to maximise the cost effectiveness of the project. The exact scheme was determined
+largely by practical considerations, especially the output format of the Fidditch
+parser \citep{hindle:83}, which was used to provide annotators with tree fragments
+to `glue' together. For instance, null elements were included in the annotation
+because Fidditch already produced them, and it was found that they were not expensive
+to correct \citep{marcus:93}. Without these null elements, the conversion to
+\ccg would have been far more difficult.
+
+Two other noteworthy aspects of the annotation scheme are the treatment of
+complement-adjunct distinctions, and the flat noun phrase bracketing. Consistent
+complement-adjunct distinctions were found to slow down annotation by roughly
+150 words per hour, and could not be made consistently. A flat bracketing of noun
+phrases was adopted because inserting more fine-grained brackets than those provided
+by the Fidditch parser would have been quite costly. Full noun phrase bracketing was
+finally added by \citet{vadas:07}, and integrated into \ccgbank by \citet{vadas:08}.
+These additions to the \penn released were late in this project, so were not used in the
+experiments described in Chapter \ref{chapter:results}.
+
+% Updated
+Figure \ref{fig:pierre_ptb} shows the annotation of the first sentence in the Wall
+Street Journal portion of the corpus. This sentence contains two function tags,
+\verb1-TMP1 and \verb1-CLR1, which show some predicate-argument information:
+\verb1-TMP1 notes that the constituent functions as a temporal adjunct, while 
+\verb1-CLR1 records (somewhat vaguely) that the constituent is `closely related'
+to the verb. However, the distinctions are not drawn very consistently.
+Full predicate-argument labels were later annotated and released as Propbank
+\citep{propbank}. The Propbank annotation labels \emph{as a nonexecutive director}
+as an adjunct, rather than a complement --- which is how \citet{hock:cl07} interprets
+the \verb1-CLR1 label. This shows how difficult complement-adjunct distinctions
+can be to annotate. In contrast, noun phrase brackets often involve very easy,
+even trivial, annotation decisions. For instance, the noun phrase \emph{a nonexecutive
+director} should obviously be right branching, but this structure is left unspecified.
+
+\begin{figure}
+ \begin{verbatim}
+  ( (S
+    (NP-SBJ
+      (NP (NNP Pierre) (NNP Vinken) )
+      (, ,)
+      (ADJP
+        (NP (CD 61) (NNS years) )
+        (JJ old) )
+      (, ,) )
+    (VP (MD will)
+      (VP (VB join)
+        (NP (DT the) (NN board) )
+        (PP-CLR (IN as)
+          (NP (DT a) (JJ nonexecutive) (NN director) ))
+        (NP-TMP (NNP Nov.) (CD 29) )))
+    (. .) ))
+ \end{verbatim}
+\caption[A Penn Treebank bracketed sentence.]{The Penn Treebank analysis of the
+first sentence in the corpus. The PP-CLR tag assigned to \emph{as a nonexecutive
+director} produces a complement/adjunct error in the \ccgbank derivation. The
+apposition between \emph{Pierre Vinken} and \emph{61 years old} produces a
+binary type-changing rule.\label{fig:pierre_ptb}}
+\end{figure}
+
+\citet{magerman:95} was the first to exploit the new resource, using \textsc{spatter},
+a decision tree-based statistical parser. \citet{magerman:94} had shown that
+\textsc{spatter} already outperformed the leading manually written system, the
+\textsc{ibm}-Lancaster parser, which had been under development for 10 years. When
+trained on the Lancaster Computer Manuals corpus \citep{black:96}, \textsc{spatter}
+achieved a 0-crossing score of 76\%, substantially higher than the 69\% reported by
+\citeauthor{black:93}\footnote{\citet{magerman:94} followed \citet{black:93} in reporting 0-crossing for
+direct comparison, even though this measure was by then considered less informative
+than $F$-measure as defined by \parseval \citep{black:91}.}
+Once the Penn Treebank was released, development of wide-coverage manually written
+phrase-structure grammars largely ceased, although interest in manually written
+grammars for other formalisms has continued \citep[e.g. ][]{xtag, erg, xle}.
+
+% Updated
+\citet{magerman:95} achieved an $F$-score of 84.1\% on Section 23 of the Penn Treebank on
+sentences of 100 or fewer tokens. All subsequent Penn Treebank parsers have reported
+results that can be compared directly against this figure, allowing us to trace 15 years
+of improvements in statistical parsing.
+
+% Updated
+The first to improve on \citeauthor{magerman:95}'s model was \citet{collins:96}, which
+defined an efficient conditional model using bilexical dependencies. Each constituent
+was assigned a head using head-finding heuristics similar to \citet{magerman:95},
+and base noun phrases (detected by a chunker) were represented solely by their heads.
+Each parent and child node pair in the tree was then considered a bilexical dependency
+labelled by the node label of the argument, the node label of the parent, and the node
+label of the sibling that heads the parent. Dependencies were assigned probabilities
+using maximum likelihood estimation, with part-of-speech backoff as described in
+\citet{collins:95}. The best performing configuration achieved 85.5\% $F$-score.
+
+% Updated
+The first accurate generative grammar parser was described by \citet{charniak:97}.
+The parser used a probabilistic context-free grammar (\pcfg) with several innovations
+to weaken the problematic \pcfg independence assumptions. The most important innovation
+was to extend each node label with the head word and part-of-speech, so that bilexical
+dependency statistics could be estimated. Deleted interpolation smoothing was used to
+mitigate sparse data problems. \citet{charniak:97} achieved 86.6\% $F$-score. After a
+thorough analysis, he concluded that the most important factor in this
+improvement in accuracy between Collins and Magerman was due to Collins' conditioning
+on individual words more often than Magerman, due to Magerman's use of decision trees
+to estimate probabilities. Charniak attributes his improvement over Collins to his superior
+back-off probabilities and smoothing.
+
+% Updated
+\citet{collins:97} then defined three generative parsing models, ultimately improving
+accuracy to 87.8\%. Model 1 was effectively a generative version of \citet{collins:96}.
+Model 2 extended the parser to make complement/adjunct distinctions, using probabilities
+over subcategorisation frames for headwords. Nodes labelled NP, SBAR or S directly under S;
+nodes labelled VP, NP, SBAR or S directly under VP; and nodes labelled SBAR directly under S
+were considered complements if they were not labelled with an adverbial function tag. There
+are two motivations for drawing complement/adjunct distinctions. First, they offer potentially
+useful distinctions to downstream applications. Second, they offer potentially
+useful information for the model. \citeauthor{collins:97} found that conditioning over whole
+subcategorisation frames, rather than assuming that arguments were generated independently,
+improved accuracy slightly. Model 3 pursued further linguistic correctness by modelling traces
+and WH-movement. Once again, the motivation is twofold: the desire for a more detailed
+output, and the suggestion that moved constituents hamper the estimation of subcategorisation
+frame probabilities. Model 3 achieved exactly the same accuracy as Model 2, and traces
+representing non-local dependencies were recovered with only 67.4\% accuracy.
+
+% Updated
+The next breakthrough was made by \citet{ratnaparkhi:97}, who used a conditional
+log-linear model, rather than a generative one. Conditional models allow arbitrary
+features to be encoded --- although, for structured prediction problems such as parsing,
+the features do have to be locally decidable to make the dynamic programming tractable.
+\citeauthor{ratnaparkhi:97}'s model achieved an accuracy of 86.9\% $F$-measure, but
+the introduction of conditional parsing opened the door for substantial subsequent
+improvement.
+\citet{charniak:00} followed \citet{ratnaparkhi:97} in using a conditional model,
+and achieved an accuracy of 89.5\% $F$-measure. Charniak experimented with
+a variety of features, and even performed a self-training experiment, in order to obtain
+more robust estimates for bilexical features. The self-training experiment only improved
+accuracy by 0.4\%.
+
+% Updated
+The next major innovation in this line of research was re-ranking. \citet{collins:00}
+used a conditional model to select the best parse from the $k$-best produced by the
+\citet{collins:97} model, and achieved accuracy comparable to \citet{charniak:00}. The
+advantage of re ranking is that there are no restrictions on the features that can be
+extracted from the parse tree, as it is a conditional model that does not require any
+dynamic programming. \citet{charniak:05} applied re ranking to their statistical parser,
+and achieved an $F$-score of 91.4\%. \citet{mcclosky:06} improved this to 92.1\% using
+self-training, which remains the state-of-the-art.
+
+% Updated
+This line of research is but one of the many that have been pursued in English
+statistical parsing. In particular, there is an extensive literature on dependency
+parsing, using grammars extracted from the Penn Treebank. \citet{kubler:09} describes
+this body of work well. Parsers have also been developed for corpora acquired from the
+Penn Treebank.
+
+% Updated
+In Section \ref{sec:background_candc}, we provide an overview of one such parser.
+The \candc parser \citep{clark:cl07} takes advantage of the fact that \ccg, as a
+lexicalised formalism, naturally presents a way for a parser to include lexical
+information and predicate-argument structure in its probability models. The most
+important development for this approach to parsing was the development of a separate
+supertagging phase \citep{srinivas:99}, where lexical categories are assigned by a
+sequence tagger. \citet{clark:coling04} showed that a multi-tagger could be tightly
+integrated with a chart parser, producing substantial improvements in speed and accuracy.
+Similar findings have since been reported for \hpsg, another lexicalised formalism that
+offers many of the same advantages for parsing as \ccg. In particular, the \enju parser
+\citep{miyao:08} uses many of the same design features as the \candc model, and has been
+found to be the most accurate parser at recovering long range dependencies \citep{rimell:09}.
+
+\subsection{Conversion Process}
+
+\ccgbank was created semi-automatically using a conversion algorithm that proceeds top-down over each tree:
+
+\begin{center}
+\begin{verbatim}
+  foreach tree T:
+    determineConstituentType(T);
+    makeBinary(T);
+    assignCategories(T);
+\end{verbatim}
+\end{center}
+
+% Updated
+This algorithm assumes that the input Penn Treebank trees conform to the
+analyses desired for the \ccg corpus, which is often not the case. Analyses
+diverge because of outright errors and inconsistencies in the Penn Treebank,
+and the different capabilities of the two formalisms.
+\citet{hock:thesis03} provides the following extended description of the conversion
+process:
+
+% Updated
+\begin{center}
+\begin{verbatim}
+  foreach tree T:
+    preprocessTree(T);
+    preprocessArgumentClusters(T);
+    determineConstituentType(T);
+    makeBinary(T);
+    percolateTraces(T);
+    assignCategories(T);
+    treatArgumentClusters(T);
+    cutTracesAndUnaryRules(T);
+\end{verbatim}
+\end{center}
+
+% Updated
+\textbf{preprocessTree}. This stage corrects \pos tag errors and corrects analyses
+for noun phrases, coordinate constructions and small clauses that diverge from the
+desired \ccg analysis. It also eliminates quotation marks.
+Quotation marks are attached inconsistently
+in the Penn Treebank and are difficult to analyse in \ccg, partly because of editorial
+conventions that force quotes outside punctuation, even when they logically belong
+inside it.
+
+% Updated
+\textbf{preprocessArgumentClusters}. \ccg analyses allow argument clusters, as in
+\emph{Give a policeman a rose and a fireman a violet}, to be bracketed together.
+The Penn Treebank analysis of this phenomenon is quite different. The tree is thus
+pre-processed to make use of the \ccg analysis.
+
+% Updated
+\textbf{determineConstituentType}. \emph{Constituent type} here refers to three labels:
+\emph{head}, \emph{argument}, and \emph{adjunct}. These labels were assigned using slight
+variations on the head finding heuristics described by \citet{magerman:95} and
+\citet{collins:96}.
+
+% Updated
+\textbf{makeBinary}. Once the nodes were labelled as head, argument or adjunct,
+the tree was binarised. Dummy nodes were inserted on the tree to the left of the
+head, such that the tree right-branched towards the head. The same was done for
+nodes to the right of the head.
+
+% Updated
+\textbf{percolateTraces}. The conversion algorithm relies on the Penn Treebank
+\verb1*T*1 and \verb1*RNR*1 trace nodes to assign categories correctly when
+arguments have been moved. This stage determines the category of the traces by following
+them to their reference node, and percolates them up to their appropriate level
+in the tree.
+
+% Updated
+\textbf{assignCategories}. The nodes are then assigned categories. The root node
+and complement nodes are determined by a mapping from \penn node labels to \ccg categories.
+Head nodes and adjuncts were then assigned labels based on their siblings.
+
+% Updated
+\textbf{treatArgumentClusters}. This stage inserts type-raising nodes and uses
+composition rules to coordinate nodes in argument clusters, following the standard
+\ccg analysis.
+
+\textbf{cutTracesAndUnaryRules}. This stage cleans up the resulting tree by removing
+traces, and deleting unary \cf{X}$\rightarrow$\cf{X} productions.
+
+\citet{hock:cl07} report that the algorithm does not deal with 306, or 0.76\%, of the 39,832
+trees. The main classes of trees not dealt with are unlike coordinated phrases where
+the types of the conjuncts could not be identified, verb phrase gapping, and trees
+rooted in \verb1X1. Gapping is a very difficult construction to analyse in \ccg,
+and \verb1X1-rooted sentences can largely be considered performance noise, so it is unclear
+how such sentences would have been analysed even by manual annotation.
+
+
+\subsection{Type-Changing Rules in CCGbank}
+
+% Updated
+After applying the \ccgbank conversion process, \citet{hock:acl02} found
+that it caused a proliferation of modifier categories. We explore this problem
+in detail in Chapter \ref{chapter:ling_mot}, arguing that its root cause is the
+difficulty of exploiting generalisations about constituent type in \ccg. Section
+\ref{sec:ling_psg_rules} discusses the theoretical implications of
+\citeauthor{hock:acl02}'s solution, which is to add type-changing rules
+to the grammar.
+
+The example \citet{hock:thesis03} used to demonstrate the modifier category
+proliferation is a sentence from Section 00. Without type-changing rules,
+the \ccg derivation for this sentence might look like this:
+\footnote{See Sections \ref{sec:ling_rrc} and \ref{sec:pure_rrc} for further
+discussion on how reduced relative clauses can be analysed in \ccg without
+type-changing rules or hat categories.}
+ 
+\begin{center}
+\deriv{4}{
+\rm a~form~of~asbestos & \rm once & \rm used & \rm to~make~cigarette~filters \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/(NP\bs NP)} &
+\cf{(NP\bs NP)/(S[to]\bs NP)} &
+\cf{S[to]\bs NP} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{NP\bs NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{NP}}
+}
+\end{center}
+
+The past participle, \emph{used}, receives a different category than it would
+if it occurred in a main verb phrase. Adjuncts modifying
+\emph{used} will also require different categories --- as will any words modifying
+them. As we describe in Section \ref{sec:ling_rrc}, there are more attractive
+analyses of this construction, but this analysis does illustrate how modifier categories
+can proliferate when there are form/function discrepancies.
+
+% Updated
+\citeauthor{hock:acl02}'s solution was to introduce context-free type-changing rules
+into the grammar. The example above can be analysed with the canonical categories by
+employing the type-changing rule \cf{S[pss]\bs NP} $\rightarrow$ \cf{NP\bs NP}
+\footnote{This and following production rules are presented in bottom-up notation.
+Production rules often contain punctuation, so for clarity we often wrap single rules
+in angle brackets.}. We mark such rules \textsc{tc}:
+
+\begin{center}
+\deriv{4}{
+\rm a~form~of~asbestos & \rm once & \rm used & \rm to~make~cigarette~filters \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S\bs NP)/(S\bs NP)} &
+\cf{(S[pss]\bs NP)/(S[to]\bs NP)} &
+\cf{S[to]\bs NP} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{S[pss]\bs NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{S[pss]\bs NP}} \\
+& \psgrule{3} \\
+& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{NP}}
+}
+\end{center}
+
+\begin{figure}
+ \centering
+\begin{center}
+\deriv{10}{
+\rm These & \rm actions & \rm are & \rm risky & \rm and & \rm not & \rm in & \rm
+our & \rm best & \rm interests \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}
+&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{(S[dcl]\bs NP)/(S[adj]\bs NP)} &
+\cf{S[adj]\bs NP} &
+\cf{conj} &
+\cf{PP/PP} &
+\cf{PP/NP} &
+\cf{NP/N} &
+\cf{N/N} &
+\cf{N} \\
+\fapply{2} &&&&&&& \fapply{2} \\
+\mc{2}{\cf{NP}} &&&&&&& \mc{2}{\cf{N}} \\
+&&&&&&& \fapply{3} \\
+&&&&&&& \mc{3}{\cf{NP}} \\
+&&&&&& \fapply{4} \\
+&&&&&& \mc{4}{\cf{PP}} \\
+&&&&& \fapply{5} \\
+&&&&& \mc{5}{\cf{PP}} \\
+&&&& \psgrule{6} \\
+&&&& \mc{6}{\cf{S[adj]\bs NP[conj]}} \\
+&&& \conj{7} \\
+&&& \mc{7}{\cf{S[adj]\bs NP}} \\
+&& \fapply{8} \\
+&& \mc{8}{\cf{S[dcl]\bs NP}} \\
+\bapply{10} \\
+\mc{10}{\cf{S[dcl]}}
+}
+\end{center}
+\caption[Conjunction cued binary type-changing rule in \ccgbank]{Derivation
+using a conjunction cued binary type-changing rule to handle an unlike
+coordinated phrase.\label{fig:conj_raising}}
+\end{figure}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{r|c|c||r|c|c}
+\hline
+Freq & Child & Parent & Freq & Child & Parent\\
+\hline
+\hline
+142,530 & \cf{N} & \cf{NP} & 1,464 & \cf{S[to]\bs NP} & \cf{NP\bs NP} \\
+4,052 & \cf{S[pss]\bs NP} & \cf{NP\bs NP} & 1,070 & \cf{S[dcl]/NP} & \cf{NP\bs NP} \\
+1,818 & \cf{S[ng]\bs NP} & \cf{NP\bs NP} & 370 & \cf{S[ng]\bs NP} & \cf{NP} \\
+1,617 & \cf{S[adj]\bs NP} & \cf{NP\bs NP} & 254 & \cf{S[ng]\bs NP} & \cf{S/S} \\
+1,606 & \cf{S[to]\bs NP} & \cf{(S\bs NP)\bs (S\bs NP)} & 209 & \cf{S[dcl]} & \cf{NP\bs NP} \\
+1,522 & \cf{S[ng]\bs NP} & \cf{(S\bs NP)\bs (S\bs NP)} & 192 & \cf{S[pss]\bs NP} & \cf{S/S} \\
+1,476 & \cf{S[to]\bs NP} & \cf{N\bs N} & 154 & \cf{S[to]\bs NP} & \cf{S/S} \\
+\hline
+\end{tabular}
+\caption{The most frequent unary type-changing rules in CCGbank.}
+\label{tab:background_psg_rules}
+\end{table}
+
+
+Table \ref{tab:background_psg_rules} shows the most frequent unary type-changing rules in
+\ccgbank. Most of the type-changing rules in \ccgbank are unary, but some of the
+rules are cued by punctuation or a conjunction, making them binary. The
+advantage of making these rules binary is that they introduce less ambiguity
+into the grammar. Figure \ref{fig:conj_raising} shows an example where
+a conjunction is used to cue a type-change. This involves a rather \emph{ad hoc}
+type-changing rule:
+
+\begin{eqnarray}
+ \eqnpsrule{\cf{conj}}{\cf{PP}}{\cf{S[adj]\bs NP[conj]}}
+\end{eqnarray}
+
+This rule is also an example of how type-changing rules can allow categories
+to add or delete arguments arbitrarily, breaking the isomorphism between lexically
+assigned syntactic types and the resulting logical forms. This makes the
+type-changing rules unacceptable on a
+theoretical level, because they are incompatible with \citepos{steedman:00} core
+argument. The first sentence of \citet{steedman:00} states the \ccg thesis as:
+
+\begin{quote}
+ This book argues that the Surface Syntax of natural language acts as a
+completely transparent interface between the spoken form of the language,
+including prosodic structure and intonational phrasing, and a compositional
+semantic interface.
+\end{quote}
+
+This type-transparency is impossible to achieve if an atomic category is allowed
+to transform into a functor, as the \psbinary{,}{NP}{S/S} rule used to handle
+extraposition allows. An example of this rule is shown in
+Figure~\ref{fig:extraposition}. In this example, the \cf{NP} \emph{our first
+major decline} is coerced into a sentential modifier. However, there is no room
+for an argument on its original lexical category, so there is no way to
+represent the dependency between \emph{decline} and \emph{fell}. This causes the
+\ccgbank dependency graph of the
+sentence to be unconnected, as \emph{decline} does not have a head. The binary
+type-changing rules are discussed in more detail in Chapter
+\ref{chapter:hat_corpus}. The motivation for the rule is the modifier category
+proliferation problem. If \emph{decline} were assigned a category that reflected
+its function, the categories of its modifiers \emph{first} and \emph{major}
+would have to change too, as would any post-modifiers that might attach, such as
+\emph{this quarter}. We explore this problem with \ccg in more detail in Chapter
+\ref{chapter:hat_cats}.
+
+\begin{figure}
+
+\begin{center}
+\deriv{10}{
+\rm Factory & \rm inventories & \rm fell & \rm 5 & \rm \% & \rm , & \rm our &
+\rm first & \rm major & \rm decline \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}
+&\uline{1}&\uline{1} \\
+\cf{N/N} &
+\cf{N} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{NP} &
+\cf{NP\bs NP} &
+\cf{,} &
+\cf{NP/N} &
+\cf{N/N} &
+\cf{N/N} &
+\cf{N} \\
+\fapply{2} && \bapply{2} &&&& \fapply{2} \\
+\mc{2}{\cf{N}} && \mc{2}{\cf{NP}} &&&& \mc{2}{\cf{N}} \\
+\psgrule{2} & \fapply{3} &&& \fapply{3} \\
+\mc{2}{\cf{NP}} & \mc{3}{\cf{S[dcl]\bs NP}} &&& \mc{3}{\cf{N}} \\
+\bapply{3} &&&& \fapply{4} \\
+\mc{3}{\cf{S[dcl]}} &&&& \mc{4}{\cf{NP}} \\
+&&&&& \psgrule{5} \\
+&&&&& \mc{5}{\cf{S\bs S}} \\
+\bapply{10} \\
+\mc{10}{\cf{S[dcl]}}
+}
+\end{center}
+\caption[Derivation with binary type-changing rule in \ccgbank.]{Derivation
+showing a binary \textsc{psg} rule cued by punctuation. The comma is used to cue
+a rule that changes the \cf{NP} into a sentential modifier. This prevents the
+formation of a connected dependency graph for the sentence, and results in a
+loss of semantic transparency.\label{fig:extraposition}}
+\end{figure}
+
+\section{The \candc Parser}
+\label{sec:background_candc}
+
+The best \ccg parsing results to date have been achieved by the \candc parser.
+The parser uses a global discriminative model, trained on \ccgbank. The most
+similar system is probably the \citet{miyao:08} \hpsg parser, which also uses a
+global model over a packed chart, and a supertagger to assign lexical
+categories.
+
+In this section we will briefly describe the parser, focusing on the aspects of
+its design that are most important for this thesis. We will start with its
+tightly integrated supertagger, before providing an overview of the chart parser
+and the discriminative maximum entropy model used to select the most probable
+parse.
+
+\subsection{Supertagging}
+
+\citet{srinivas:94} showed that \ltag lexical categories can be assigned in a
+sequence tagging stage, using much the same sort of technique as part-of-speech
+and named entity tagging. \citet{clark:tag02} showed that supertagging could be
+applied to \ccg, and that the accuracy of a maximum entropy tagger
+\citep{ratnaparkhi:96} on \ccgbank was comparable to the performance
+\citet{srinivas:99} achieved on a manually constructed \ltag grammar, and
+substantially higher than the performance \citet{chen:00} achieved on an
+automatically extracted \ltag grammar.
+
+The primary appeal of supertagging is that it allows much of the parsing work to
+be transformed into a linear process. The tags can be assigned using well
+understood Markov-based techniques that run in linear time with respect to the length
+of the input sentence. Once the tags are
+assigned, there is relatively little ambiguity remaining for the parser, which
+is why \citeauthor{srinivas:99} referred to supertagging as `almost parsing'.
+
+The efficiency improvement is explained by \citepos{sarkar:00} finding that
+parsing efficiency is not solely related to sentence length. It is also related
+to the syntactic ambiguity of the sentence, which in a lexicalised grammar is
+largely predictable from the lexical category ambiguity. Supertagging allows
+category ambiguity to be reduced, by forwarding only the categories judged most
+likely to the parser.
+
+One obvious configuration is to have the supertagger assign exactly one category
+per word, eliminating all lexical category ambiguity. In this configuration, the
+supertagger and parser interact in a simple cascade model: the supertagger makes
+its predictions, which are fed directly to the parser. This configuration
+suffers from the usual problems of cascaded classification. Errors propagate
+along the pipeline, and the early model cannot benefit from the decisions of
+subsequent models \citep{hollingshead:07}. The later models are also unable to take
+into account any
+uncertainty in the initial model, because they are given only the most likely label,
+instead of the whole probability distribution \citep{finkel:06}.
+
+The clearest problem occurs when the parser fails to assign a parse from the
+supertag sequence that has been assigned. \citet{srinivas:94} address this by
+\emph{multi-tagging}, assigning the $n$-best categories per word.
+\citet{clark:cl07} take a similar approach, assigning all categories whose
+probability is within a factor, $\beta$, of the maximum probability the
+supertagger assigned to a single category for that word.\footnote{That is, the supertagger assigns all categories $t$ whose
+probabilities $p(t) \geq \beta \cdot p\ast$, where $p\ast$
+is the highest ranked tag's probability.}
+Multi-tagging allows the \candc supertagger to make very favourable trade-offs between accuracy and
+lexical ambiguity. 
+
+\subsection{Integrating a Supertagger and Parser}
+
+\citet{clark:emnlp03} and \citet{clark:coling04} present two ways the
+multi-tagger can be integrated into a \ccg parsing system. The initial strategy
+was to initialise $\beta$ at 0.01, and attempt to find a parse. If the ambiguity
+caused too many categories to be added to the chart, the $\beta$ value was increased, tightening
+the beam of categories sent to the parser, and the parser tried again.
+
+This approach assigns as much work to the parser's model as possible, because it
+has the supertagger forward as many categories as the parser can handle.
+\citeauthor{clark:cl07} assumed that this configuration would
+trade speed for accuracy, because it seemed safe to assume that the parser's
+global model would be more accurate than the supertagger's sequence model.
+
+\citet{clark:coling04} describe the critical finding that this was not the case.
+Instead, the system performed both faster \emph{and} more accurately if the
+supertagger was allocated much of the work. In this configuration, the $\beta$
+level is initialised to $0.075$, and subsequently relaxed if parsing fails. This
+is essentially the opposite strategy to the one described above, where the
+$\beta$ levels proceed from low to high.
+
+What is the explanation for this result? For a start, it seems that the limited
+horizon assumption performs quite well --- most of the tagging decisions
+actually are locally decidable. This is partially explained by
+\citepos{gildea:07} finding that most dependencies are quite short-range: the
+average dependency distance in English is 2.3. In fact, \citet{hawkins:90}
+argues that the pressure to minimise dependency distances is a considerable
+influence on the syntax of all human languages.
+
+% Another factor might be that the number of competing analyses the parser's model
+% must consider,  the chart size, grows exponentially with increases in supertag
+% ambiguity. Even if the parser's model were much better suited to making
+% decisions than the supertagger, its advantage might be overwhelmed by the number
+% of competing analyses it has to decide between.
+
+
+\subsection{Discriminative Parsing with Log-Linear Models}
+
+After the supertagger has assigned one or more lexical categories to each word
+in the sentence, the categories are assembled into \ccg derivations and
+corresponding dependency analyses using the modified \cky algorithm first
+described by \citet{hock:01}. Despite the reduction in ambiguity provided by the
+supertagger, the length of the sentences in \ccgbank and the ambiguity in the
+grammar necessary to produce high coverage mean that many sentences produce an
+astronomical number of candidate analyses. For one sentence in Section 00, the
+default configuration of version 1.02 of the parser leads to over
+$6.39\times10^{23}$ unique parses. The sentence is:
+
+\begin{quote}
+For a while in the 1970s it seemed Mr. Moon was on a spending
+spree, with such purchases as the former New Yorker Hotel and its
+adjacent Manhattan Center; a fishing/processing conglomerate with
+branches in Alaska, Massachusetts, Virginia and Louisiana; a former
+Christian Brothers monastery and the Seagram family mansion
+(both picturesquely situated on the Hudson River); shares in banks
+from Washington to Uruguay; a motion picture production
+company, and newspapers, such as the Washington Times, the New
+York City Tribune (originally the News World), and the successful
+Spanish-language Noticias del Mundo.
+\end{quote}
+
+At 108 tokens, this sentence is far from the longest in the Penn Treebank, but the long
+coordinated noun phrase forces the parser to consider an enormous number of
+possible analyses.
+
+The \candc parser implements a modified \ccg grammar optimised for \ccgbank. The
+most important modifications are implementations of the \ccgbank type-changing
+rules, which are hard-coded into the parser. Type-raising rules are handled in
+an equivalent way to unary type-changing rules, except they are not hard-coded
+(possible type-raising operations are listed in text files read by the parser).
+The parser also implements some restrictions on the composition rules, and some
+of its models make use of the \citet{eisner:96} normal-form constraints. Some
+models also use a list of productions seen in the training corpus to further
+restrict the productivity of its grammar. Appendix \ref{appendix:type-changing}
+lists each of the type-changing rules found in \ccgbank and the frequency of its
+occurrence in Section 02-21.
+
+
+\section{Applications of Combinatory Categorial Grammar}
+
+There are a few other strands of \ccg work within the \nlp community that we
+have not yet mentioned. Although we do not want to go into great detail about
+these bodies of work, we will briefly mention the prominent projects, for
+completeness.
+
+\subsection{\ccg for Semantic Analysis}
+
+\ccg's isomorphism between syntax and semantics has been used
+to perform semantic role labelling. The first example of this was \citet{gildea:03},
+who built a semantic role labelling system using the output of the
+\citet{hock:acl03} \ccg parser. However, this research used an early version of
+Propbank \citep{propbank}, which introduced a variety of
+difficulties. For instance, arguments realised by prepositional phrases in \ccg
+were listed as noun phrase arguments in the initial PropBank --- the preposition
+was excluded from the argument span. Despite these issues,
+\citeauthor{gildea:03} found that the semantic role labeller performed well on
+core arguments with a simple feature set, suggesting that \ccg's recovery of
+long-range dependencies and direct representation of verbal subcategorisation
+frames simplified the task. \citet{boxwell:09}, who used the \candc parser
+in a semantic role labelling system, reached a similar conclusion.
+
+\ccg has also been used to recover logical form-based semantic analyses, as well
+as the shallow semantic analysis provided by PropBank-style predicate-argument
+structures. The first example of this was \citet{bos:coling04}, who
+post-processed the output of the \candc parser to provide logical forms. The
+system to do this, dubbed Boxer, can be downloaded and used along with the
+\candc tools. Boxer has been used as the basis for competitive
+question answering systems \citep{leidner:04,bos:06,bos:07}. \citet{bos:05}
+showed that it could also be used for textual entailment. \citet{zettlemoyer:07}
+used \ccg-based logical form parsing in a system that achieved competitive
+results on the GeoQuery task, which is essentially a sort of natural language
+database querying challenge. \citet{zettlemoyer:09} showed that \ccg could be
+used as the basis of a system that retrieved logical forms for sentences in the
+\textsc{atis} corpus with over 83\% accuracy.
+
+\subsection{\ccg for Chart Realisation}
+
+% Updated
+Chart, or surface, realisation is the task of going from a (possibly underspecified)
+semantic representation to one or more surface strings that can express it. It is
+the inverse of the parsing task. Linguistically motivated formalisms have been a
+popular choice for this task since the Penman system \citep{mann:85}, which later
+merged with the \textsc{komet} system to become \kpml \citep{bateman:99}.
+Surface realisers have also been developed for \hpsg \citep{wilcock:98} and
+\lfg \citep{cahill:06}.
+
+% Updated
+Research on the use of \ccg for chart realisation has to some extent paralleled
+research on \ccg parsing. \citet{white:03} describe the architecture of a
+\ccg-based surface realiser. Their system, which was implemented as an extension
+to the OpenCCG parser, uses a bottom-up approach to realising logical forms specified
+in Hybrid Logic Dependency Semantics \citep{kruijff:01}.
+
+% Updated
+This early work on \ccg surface realisation used precise, manually developed grammars
+for dialogue systems. \citet{white:07} began work on a wide-coverage \ccg realiser,
+using a grammar extracted from \ccgbank. Research along these lines has progressed
+rapidly, in two dimensions: modifications to \ccgbank to support more accurate logical
+form recovery, and improvements to their statistical modelling. Modifications to
+\ccgbank have included lexicalised treatment of punctuation \citep{white:punct08},
+alignment with Propbank \citep{boxwell:08}, and integrating BBN named entity analyses
+\citep{rajkumar:09}. Improvements to their statistical models have included a
+perceptron reranker \citep{white:09} and a \emph{hypertagger}, a model which predicts
+which lexical categories to use in the surface realisation. The
+categories then closely constrain the space of possible surface strings, in much the
+same way that the categories output by a supertagger constrain the chart space required
+to build a semantic analysis from an input string.
+
+% Updated
+The hypertagger is inspired by the \citet{clark:tag02} \ccg supertagger, and improves the
+chart realiser's speed and accuracy, and a reranker would likely improve the accuracy of
+the \candc parser. Research on \ccg parsing and generation, then, has encountered similar
+issues, and solutions developed for one problem can be profitably adapted to the other.
+This is especially apparent for refinements to \ccgbank, the key resource for both lines
+of research.
+
+% Updated
+OpenCCG has been used in a number of natural language dialogue applications: the
+COMIC, FLIGHTS, CrAg, Methodius and INDIGO projects in Edinburgh; the DIALOG, SAMMIE and
+CoSy projects in Saarbrucken; the JAST project in Munich; the AdaRTE project in Pavia;
+and the STaR-UI project in Sydney. Many of these projects involve spoken language dialogue
+systems. \ccg has a particular advantage for speech generation, because its non-standard
+constituents allow prosodically salient portions of a sentence to be grouped together.
+This allows the chart realiser to map information structure specifications onto surface
+forms as prosodic tunes, so that a speech synthesiser can produce more natural sounding
+output. \citet{white:10} demonstrated this capability in the FLIGHTS dialogue system,
+showing that the information structure-aware version of the system scored significantly
+higher in user ratings of naturalness, and that the system accurately produced prosodic
+tunes that an expert recognised as contextually appropriate.\footnote{
+The stimuli for these experiments are available at
+http://www.ling.ohio-state.edu/~mwhite/flights-stimuli/} \ccg's flexible notion of
+constituency has also been used to allow a dialogue system to interpret user utterances
+incrementally, in the CoSY project \citep{kruijff:07}.
+
+
+\subsection{\ccg for Machine Translation} 
+
+% Updated
+Finally, there has also been a line of research using \ccg for machine translation.
+\citet{hassan:07} showed that the \candc supertagger could be used to add some syntactic
+awareness to a language model, leading to state-of-the-art performance on Arabic to English
+machine translation. \citet{birch:07} observed a more modest improvement on translation
+between English and Dutch, and concluded that supertags improved the system's reordering.
+\citet{hassan:09} then showed that an incremental \ccg parser could be integrated into a
+phrase-based statistical machine translation system, leading to further improvements in
+Arabic to English translation.
+
+\section{Summary}
+
+Combinatory categorial grammar is a lexicalised grammar formalism that provides
+a transparent interface between syntax and semantics. A \ccg grammar mainly
+consists of a set of lexical categories, which can be interpreted as functions
+from some set of arguments to an atomic result category. The formalism uses a
+very small inventory of rules, some of which were added to allow categories to
+become partially associative. This associativity allows sentences to be
+bracketed in a variety of ways, many of them featuring non-traditional
+constituents --- for instance, subjects can be bracketed with verbs, in addition
+to the traditional bracketing of verb and object. This so-called spurious ambiguity
+has proven to be an advantage of the formalism, and the
+complications it induces for practical parsing are easily overcome.
+
+\ccg has become highly influential in computational linguistics, proving useful
+in a variety of applications. It has become particularly prominent in statistical
+parsing and semantic analysis. The most accurate wide-coverage \ccg parser, \candc,
+is currently a leading parsing system, based on a variety of evaluations. The corpus
+used to train the parser, \ccgbank, was created by semi-automatically converting the
+Penn Treebank, a corpus that used a less informative representation than the target
+analyses desired for \ccgbank. \ccgbank therefore includes certain some suboptimal
+annotations. Corrections for some of these issues have been proposed
+\citep[e.g. ][]{honnibal:pacling07prop,vadas:08,white:punct08}, but updated
+versions of the corpus were released too late for use in this thesis.
+
+The other problem we note with \ccgbank, the presence of unary and binary
+type-changing rules, has received little attention. We will now explore the
+problem that motivated the addition of these rules, and its consequences for a
+wide-coverage \ccg grammar.
+

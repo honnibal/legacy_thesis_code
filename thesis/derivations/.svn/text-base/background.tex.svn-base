@@ -1,0 +1,92 @@
+\documentclass[11pt]{article}
+\usepackage{LI}
+
+\newcommand{\cf}[1]{\mbox{$\it{#1}$}}   % category font
+\begin{document}
+\begin{figure}
+\deriv{10}{
+\rm Factory & \rm inventories & \rm fell & \rm 5 & \rm PC & \rm , & \rm our & \rm first & \rm major & \rm decline \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N/N} &
+\cf{N} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{NP} &
+\cf{NP\bs NP} &
+\cf{,} &
+\cf{NP/N} &
+\cf{N/N} &
+\cf{N/N} &
+\cf{N} \\
+\fapply{2} && \bapply{2} &&& \fapply{2} \\
+\mc{2}{\cf{N}} && \mc{2}{\cf{NP}} &&& \mc{2}{\cf{N}} \\
+\psgrule{2} & \fapply{3} && \fapply{3} \\
+\mc{2}{\cf{NP}} & \mc{3}{\cf{S[dcl]\bs NP}} && \mc{3}{\cf{N}} \\
+\bapply{3} &&&& \fapply{4} \\
+\mc{3}{\cf{S[dcl]}} &&&& \mc{4}{\cf{NP}} \\
+&&&&& \psgrule{5} \\
+&&&&& \mc{5}{\cf{S\bs S}} \\
+\bapply{10} \\
+\mc{10}{\cf{S[dcl]}}
+}\end{figure}
+
+\begin{figure}
+\deriv{10}{
+\rm These & \rm actions & \rm are & \rm risky & \rm and & \rm not & \rm in & \rm our & \rm best & \rm interests \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{(S[dcl]\bs NP)/(S[adj]\bs NP)} &
+\cf{S[adj]\bs NP} &
+\cf{conj} &
+\cf{PP/PP} &
+\cf{PP/NP} &
+\cf{NP/N} &
+\cf{N/N} &
+\cf{N} \\
+\fapply{2} &&&&&&& \fapply{2} \\
+\mc{2}{\cf{NP}} &&&&&&& \mc{2}{\cf{N}} \\
+&&&&&&& \fapply{3} \\
+&&&&&&& \mc{3}{\cf{NP}} \\
+&&&&&& \fapply{4} \\
+&&&&&& \mc{4}{\cf{PP}} \\
+&&&&& \fapply{5} \\
+&&&&& \mc{5}{\cf{PP}} \\
+&&&& \psgrule{6} \\
+&&&& \mc{6}{\cf{S[adj]\bs NP[conj]}} \\
+&&& \conj{7} \\
+&&& \mc{7}{\cf{S[adj]\bs NP}} \\
+&& \fapply{8} \\
+&& \mc{8}{\cf{S[dcl]\bs NP}} \\
+\bapply{10} \\
+\mc{10}{\cf{S[dcl]}}
+}\end{figure}
+
+\begin{figure}
+\deriv{6}{
+\rm Casey & \rm and & \rm Pat & \rm sang & \rm and & \rm danced \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{conj} &
+\cf{NP} &
+\cf{S[dcl]\bs NP} &
+\cf{conj} &
+\cf{S[dcl]\bs NP} \\
+& \conj{2} \\
+& \mc{2}{\cf{NP[conj]}} \\
+& \conj{5} \\
+& \mc{5}{\cf{S[dcl]\bs NP[conj]}} \\
+\conj{3} & \conj{3} \\
+\mc{3}{\cf{NP}} & \mc{3}{\cf{S[dcl]\bs NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{2}{
+\rm *Pat & \rm handy \\
+\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{S[adj]\bs ^!NP} \\
+\ftype{1} \\
+\mc{1}{\cf{S/(S\bs NP)}} \\
+\asterisk{2} \\
+\mc{2}{\cf{S[adj]}}
+}\end{figure}\end{document}

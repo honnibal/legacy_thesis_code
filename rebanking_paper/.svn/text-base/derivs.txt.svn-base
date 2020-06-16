@@ -1,0 +1,51 @@
+destruction|NP of|(NP\NP)/NP Rome|NP
+fapply of Rome NP\NP
+bapply destruction Rome NP
+
+destruction|NP/PP of|PP/NP Rome|NP
+fapply of Rome PP
+fapply destruction Rome NP
+
+Rome|NP 's|(NP/(NP/PP))\NP destruction|NP/PP
+bapply Rome 's NP/(NP/PP)
+fapply Rome destruction NP
+
+Rome|NP 's|(NP/(NP/PP))\NP gift|(NP/PP)/PP)/PP of|PP/NP peace|NP to|PP/NP Europe|NP
+bapply Rome 's NP/(NP/PP)
+fapply of peace PP
+fapply to Europe PP
+fapply gift peace (NP/PP)/PP
+fapply gift Europe NP/PP
+fapply Rome Europe NP
+
+all|NP/N staff|N on|(N\N)/NP casual~contracts|NP
+fapply on 3 N\N
+bapply staff 3 N
+fapply all 3 NP
+
+Four|NP/PP of|PP/NP our|NP/N members|N
+fapply our members NP
+fapply of members PP
+fapply Four members NP
+
+Those|(NP/(N\N))/PP of|PP/NP us|NP who|(N\N)/VP smoke|VP
+fapply of us PP
+fapply who smoke N\N
+fapply Those us NP/(N\N)
+fapply Those smoke NP
+
+destruction|N/PP in~149~B.C.|(N/PP)\(N/PP) of...right|PP
+bapply 0 1 N/PP
+fapply 0 2 N
+
+The|NP/N war|N in|(N\N)/NP 149~B.C.|NP
+fapply in 149~B.C. N\N
+bapply 1 3 N
+fapply The 3 NP
+
+Google|NP 's|(NP/(N/PP))\NP decision|(N/PP_1)/(S[to]_2\NP_1)_2 to|VP[to]/VP[b] buy|VP[b] YouTube|NP
+bapply Google 's NP/(N/PP)
+fapply buy YouTube VP[b]
+fcomp Google decision NP_{decision}/(S[to]_1\NP_{Google}))_1
+fapply to YouTube S[to]_{buy}\NP_1
+fapply Google YouTube NP

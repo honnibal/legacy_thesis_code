@@ -1,0 +1,197 @@
+%
+% File acl-ijcnlp2009.tex
+%
+% Contact  jshin@csie.ncnu.edu.tw
+%%
+%% Based on the style files for EACL-2009 and IJCNLP-2008...
+
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt]{article}
+\usepackage{acl-ijcnlp2009}
+\usepackage{times}
+\usepackage{url}
+\usepackage{latexsym}
+\usepackage{xspace}
+\usepackage{natbib}
+
+\usepackage{lcovington}
+\usepackage{mattLI}
+\usepackage{parsetree}
+
+\include{names}
+
+%\setlength\titlebox{6.5cm}    % You can expand the title box if you
+% really have to
+
+\title{c}
+
+\author{First Author\\
+  Affiliation / Address line 1\\
+  Affiliation / Address line 2\\
+  {\tt email@domain}  \And
+  Second Author\\
+  Affiliation / Address line 1\\
+  Affiliation / Address line 2\\
+  {\tt  email@domain}}
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+This paper reports the first successful use of morphological analysis in
+English grammar induction. Current methods ignore morphology and
+deal purely with word-based tokens, because English is a low morphology
+language.
+
+We show that even low morphology proves a problem for inducing a grammar for
+a lexicalised formalism such as \ccg. We address this by splitting off inflectional
+suffixes for verbs, so that they can receive their own lexical category. This
+factors the inflectional features away from the argument structures, making the category
+set 7.6\% smaller and improving a state-of-the-art \ccg parser's accuracy by 0.8\%.
+
+\end{abstract}
+
+\section{Introduction}
+
+\nlp systems often employ the convenient assumption that the linguistic atom is the word, when in fact it is the morpheme.
+Ignoring morphology is a reasonable strategy when processing English, because most English words consist of only a single morpheme.
+However, ignoring morphology makes the architecture of the system rely on a language-specific assumption.
+Ideally, the architecture should be language-generic, so that our research generalises better across languages.
+
+Linguistically plausible architectures can have practical advantages too. For instance, \citet{clark:cl07} showed that parsing with a linguistically motivated formalism can make a parser far more efficient. Formalisms like Combinatory
+Categorial Grammar (\ccg) \citep{steedman:00} assign each word a category that represents its argument structure.
+These categories, or \emph{supertags}, can be assigned in a sequence-tagging process \citep{srinivas:99}.
+Such a supertagger can be tightly integrated with a chart parser, to make parsing more accurate and far more efficient.
+
+
+% \begin{table}
+% \centering
+%   \begin{tabular}{lll|rrrr}
+% \hline
+%     Morph & Propbank & Hat & No. Cats & Tag Dict Cover  & Tag Dict Size \\
+% \hline\hline
+%           &          &     & 425      & 97.1 & 6.8 \\
+%      x    &          &     & 395      & 97.8 & 6.1 \\
+%           & x        &     & 458      & 97.0 & 6.4 \\
+%      x    & x        &     & 408      & 97.7 & 7.1 \\
+%           &          & x   & 522      & 96.2 & 8.0 \\
+%      x    &          & x   & 445      & 97.2 & 6.9 \\
+%           & x        & x   & 565      & 96.0 & 8.4 \\
+%      x    & x        & x   & 457      & 97.0 & 7.2 \\
+% \hline
+%   \end{tabular}
+% \end{table}
+\pagebreak
+\section{Inflectional Morphology and the Lexicon}
+
+Verbal categories in \ccgbank \citep{hock:cl07} represent both the valency and
+inflectional morphology of the verb they are assigned to. This means $vi$
+categories are required, where $v$ and $i$ are the number of distinct valencies
+and inflectional features in the grammar respectively.
+
+The morphological tokens we propose allow inflectional morphology to be
+largely factored away from the argument structure, so that roughly $v+i$ verbal
+categories are required.\footnote{Section \ref{sec:problems} explains why
+the inflectional categories are somewhat sensitive to argument structure.}
+A smaller category set leads to lower
+category ambiguity, making the assignment decision easier.
+
+There are $XXX$ verbal argument structures\footnote{Defined as
+categories rooted in \cf{S}; excluding \cf{S[adj]}, adjuncts and auxiliaries,
+with features abstracted.}
+in Sections 02-21 of \ccgbank and 4 features. This implies $XXX$ verb categories,
+of which $XXX$ are unattested, $XXX$ are rare\footnote{Defined as $\lequal 10$,
+following \citet{clark:cl07}}, and $XXX$ are in the lexicon. Table
+\ref{tab:verb_gaps} shows examples of the gaps that occur due to the limited
+size of the training data. $XXX$ of these rare or unattested categories occur
+in the development data (\cf{XXX}). Such gaps reduce coverage for a parser.
+They could be automatically generated, but they will still be unseen or rare
+in the training data, so they will be unlikely to be reproduced.
+
+We introduce $XXX$ inflectional categories, many of which are required for
+verbs of speech and passivisation, as shown in Table \ref{tab:inflect_summary}.
+This means we infer a smaller, higher coverage lexicon from Sections 02-21 of
+\ccgbank. The category set is reduced from $XXX$ to $XXX$, once the categories
+that occur fewer than 10 times are pruned away. This smaller category set does
+not have any systematic gaps. Unlike the \ccgbank category set, it is able to
+generate all of the required pairings of argument structures and inflectional
+features, without having to introduce novel categories that a statistical model
+will struggle with.
+
+\subsection{Impact with More Detailed Argument Structures}
+
+\ccg categories, by representing a word's valency, distinguish complements from
+adjuncts. These are difficult to annotate for optional complements such as
+prepositional phrases, so this distinction was only reliably annotated for the Penn
+Treebank \citep{marcus:93} in Propbank \citep{propbank}, which was released
+after \ccgbank was created \citep{hock:lrec02}.
+
+\citet{honnibal:pacling07prop} used Propbank to correct the complement/adjunct
+distinctions in \ccgbank. They converted 1,543 complements to adjuncts and
+13,256 adjuncts to complements. \citet{constable:09} used Propbank to create an
+additional 2,111 complements for verb particles, which are annotated as
+adjuncts in \ccgbank.
+
+We combined both sets of changes into one corpus, and found that together they
+introduced $XXX$ new argument structures in Sections 02-21, $XXX$ of which
+occurred at least 10 times. Taking only the non-rare structures, and given the 
+four inflectional features in \ccgbank, this increased the number of implied
+verb categories to $XXX$, of which $XXX$ occurred at least once, and $XXX$
+occured at least ten times.
+
+The additional argument structures did not require any new inflectional
+categories. Each new argument structure therefore only added one new category
+to the lexicon. This reduced the total number of categories required for the
+corpus by $XXX$, as shown in Table \ref{tab:lexicon}.
+
+\subsection{Impact with Hat Categories}
+
+
+% 
+% Table \ref{tab:lexicon_properties} shows the effect of inflectional tokens on
+% the number of categories, the number of categories $\gequal 10$, and the
+% category ambiguity. Category ambiguity refers to how many different categories
+% might be assigned to each word based on the training data, using the process
+% described by \citet{clark:cl07}, which includes a part-of-speech back-off for
+% rare words.
+
+
+
+\begin{table}
+\centering
+  \begin{tabular}{lll|rrrr}
+\hline
+Corpus     & Before & After & $\Delta$ \\
+\hline\hline
+ CCGbank   & 425    & 395   & 7.6\%  \\
+ +Propbank & 458    & 408   & 12.3\% \\
+ +Hat      & 522    & 445   & 17.3\% \\
+ +Hat+Prop & 565    & 457   & 23.6\% \\
+\hline
+  \end{tabular}
+\end{table}
+\section{Results}
+% \begin{table}
+% \centering
+%   \begin{tabular}{lll|rrrr}
+% \hline
+% Corpus     & Before & After  & $\Delta$ \\
+% \hline\hline
+%  CCGbank   & 67.3   & 69.9   & 2.6  \\
+%  +Propbank & 65.2   & 68.2   & 3.0  \\
+%  +Hat      & 62.3   & 65.5   & 3.2  \\
+%  +Hat+Prop & 60.4   & 65.2   & 4.8  \\
+% \hline
+%   \end{tabular}
+% \caption{Sentence accuracies at the first multi-tagging step for the various corpora, with and without
+% morphological tokens.}
+% \end{table}
+
+\bibliography{thesis}
+\bibliographystyle{aclnat}
+
+\end{document}

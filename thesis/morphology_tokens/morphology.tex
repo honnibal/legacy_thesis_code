@@ -1,0 +1,881 @@
+%
+% File acl-ijcnlp2009.tex
+%
+% Contact  jshin@csie.ncnu.edu.tw
+%%
+%% Based on the style files for EACL-2009 and IJCNLP-2008...
+
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt]{article}
+
+\addtolength{\floatsep}{-3mm}
+\addtolength{\textfloatsep}{-10mm}
+\addtolength{\dbltextfloatsep}{-6mm}
+
+\usepackage{acl-ijcnlp2009}
+\usepackage{times}
+\usepackage{url}
+\usepackage{latexsym}
+\usepackage{xspace}
+\usepackage{natbib}
+
+\usepackage{lcovington}
+\usepackage{mattLI}
+\usepackage{parsetree}
+
+\include{names}
+\renewcommand{\tabcolsep}{0.15cm}
+\raggedbottom
+%\setlength\titlebox{6.5cm}    % You can expand the title box if you
+% really have to
+
+\title{Morphological Analysis Improves a \ccg Parser for English}
+
+\author{First Author\\
+  Affiliation / Address line 1\\
+  Affiliation / Address line 2\\
+  {\tt email@domain}  \And
+  Second Author\\
+  Affiliation / Address line 1\\
+  Affiliation / Address line 2\\
+  {\tt  email@domain}}
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Because English is a low morphology
+language, current statistical parsers prefer to ignore morphology and accept
+some level of redundancy. This paper investigates how costly such redundancy is
+costly for a lexicalised grammar such as \ccg, especially for grammars that
+include finer-grained lexical categories for verbs.
+
+We use morphological analysis to split verb inflectional suffixes into separate
+tokens, so that they can receive their own lexical categories.
+This improves a \ccg parser's accuracy between 0.6 and 0.8\%,
+suggesting the technique may be important for morphologically
+rich languages.
+\end{abstract}
+
+\section{Introduction}
+
+% \nlp systems often assume for convenience that the linguistic atom is
+% the word, when in fact it is the morpheme. Ignoring morphology is a reasonable
+% strategy when processing English, because most English words consist of only
+% a single morpheme. Nevertheless, morphology is an aspect of linguistic
+% structure that has so far been under-exploited in English natural language
+% understanding systems.
+
+% While we are not aware of any statistical parsers of English that use
+% morphological analysers, rule-based systems generally do. Systems
+% like the LinGo \hpsg parser \citep{oepen:04} and the \xle \lfg parser \citep{xle}
+% use a set of lexical rules that match morphological operations with
+% transformations on the lexical categories. For example, a lexical rule is used
+% to ensure that an intransitive verb like \emph{sleeping}
+% receives the same argument structure as the base form \emph{sleep}, but with
+% the appropriate inflectional feature.
+% 
+% This scheme works well for rule-based parsers, but it is less well suited for
+% statistical parsers. If the sentence uses a novel inflected form of a word that
+% occurs in the training data, or if the correct analysis requires a novel category
+% formed from a known feature and a known argument structure, a lexical rule can help
+% generate the correct parse. However, it cannot help the statistical model assign
+% probabilities to such phenomena, which may be why statistical parsers for
+% lexcalised formalisms do not currently use lexical rules.
+\pagebreak
+In this paper, we show how morphological information can be exploited by
+a statistical parser based on a lexicalised formalism, 
+Combinatory Categorial Grammar \citep[\ccg, ][]{steedman:00}.
+\citet{bozsahin:02} describes how a morphologically rich language like Turkish
+can be analysed efficiently with \ccg
+by  splitting off inflectional affixes as morphological tokens. This allows
+the affix to receive a category that performs the feature coercion.
+For instance, \emph{sleeping} would ordinarily be assigned the category
+\cf{S[ng]\bs NP}: a sentence with the \cf{ng} feature requiring a leftward
+\cf{NP} argument. We split the word into two tokens:
+\begin{center}
+\begin{tabular}{cc}
+ sleep & -ing\\
+ \cf{S[b]\bs NP} & \cf{(S[ng]\bs NP)\bs (S[b]\bs NP)}
+\end{tabular}
+\end{center}
+
+The additional token allows an extra category to be assigned, which allows
+inflectional features to be factored away from argument structures. This
+reduces the size of the category set, making the lexical categories
+easier to assign.
+
+% This strategy has many advantages for a statistical parser.
+% Inflectional features are factored away from the argument structures,
+% reducing the size of the category set, as only a few inflectional categories
+% are required. Reducing the size of the category set makes the supertagging
+% phase easier, since there are fewer possible labels. It also means lexical
+% categories make less sparse features. It also generalises the word forms,
+% so that it is easier to learn the valencies of verbs. For previous statistical
+% \ccg parsers, if the word \emph{slept} did not occur in the training data,
+% its valency could not be generalised from instances of \emph{sleeping} that
+% did occur.
+
+Even with only 5 verb forms in English, we found that morphological analysis
+improves parser accuracy. We performed our experiments by pre-processing \ccgbank
+\citep{hock:cl07}, the standard English \ccg treebank, and training the
+state-of-the-art \ccg parser, \candc \citep{clark:cl07}. We evaluated the
+system by post-processing its output to repair the tokens, for evaluation
+on \ccgbank. The morphological analysis improved its accuracy by 0.62\%,
+setting a new state-of-the-art in \ccg parsing.
+
+We also applied this strategy
+to two modified versions of \ccgbank from the literature that introduced
+extra verbal categories. Accuracy on these corpora improved by 0.8\ and TODO
+per cent.
+\pagebreak
+
+
+\section{Combinatory Categorial Grammar}
+
+Combinatory Categorial Grammar (\ccg) \citep{steedman:00}
+is a lexicalised grammar. Each word in the sentence is
+associated with a category that specifies its argument structure and
+the type and features of the constituent that it heads.
+For instance, \emph{in} might head a  \cf{PP}-typed constituent with
+one \cf{NP}-typed argument, written as \cf{PP/NP}. The \cf{/} operator
+denotes an argument to the right; \cf{\bs} denotes an argument to the left.
+
+A category that requires an argument can itself require an argument, so that a
+word can have a complex argument structure. For instance, a verb phrase is
+represented by the category \cf{S\bs NP}: it is a function from a leftward
+\cf{NP} (a subject) to a sentence. A transitive verb requires an object to
+become a verb phrase, producing the category \cf{(S\bs NP)/NP}. The grammar
+consists of a few schematic rules to connect the categories together:
+
+\begin{eqnarray}
+%\addtolength{\itemsep}{-.8\itemsep}
+\cf{X/Y} & \cf{Y} & \Rightarrow_{\Sfapply}\;\;\;\;\;\;\; \cf{X}\nonumber\\
+\cf{Y} & \cf{X\bs Y} & \Rightarrow_{\Sbapply}\;\;\;\;\;\;\; \cf{X}\nonumber\\
+\cf{X/Y}    & \cf{Y/Z}    & \Rightarrow_{\Sfcomp}\;\;\;\;\; \cf{X/Z}\nonumber\\
+\cf{Y\bs Z} & \cf{X\bs Y} & \Rightarrow_{\Sbcomp}\;\;\;\; \cf{X\bs Z}\nonumber\\
+\cf{Y/Z} & \cf{X\bs Y} & \Rightarrow_{\Sbxcomp}\;\; \cf{X/Z}\nonumber
+\end{eqnarray}
+
+\ccgbank extends this compact grammar with a set of phrase-structure rules,
+designed to strike a better balance between sparsity in the category set and
+ambiguity in the grammar. We mark phrase-structure productions
+\textbf{\textsc{psg}} in our derivations.
+
+In wide-coverage descriptions, categories are generally modelled as
+typed-feature structures \citep{shieber:86}, rather than atomic symbols.
+This allows the grammar to include a notion of headedness, and to unify
+under-specified features.
+
+We occassionally must refer to these additional details, for which we employ
+the following notation. Features are annotated in square-brackets, e.g.
+\cf{S[dcl]}. Head-finding indices are annotated on categories as
+subscripts, e.g. \cf{(NP_y\bs NP_y)/NP_z}. The index \cf{x} is reserved for
+the word the category is assigned to, and is left implicit. We will sometimes
+annotate derivations with the heads of categories as they are being built, to help
+the reader keep track of what lexemes have been bound to which categories.
+
+\begin{figure*}
+\small
+\centering
+\deriv{7}{
+\rm be & \rm -ing & \rm good & \rm and & \rm do & \rm -ing & \rm good \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{(S[b]\bs NP)/(S[adj]\bs NP)} &
+\cf{(S[ng]\bs NP)\bs (S[b]\bs NP} &
+\cf{S[adj]\bs NP} &
+\cf{conj} &
+\cf{(S[b]\bs NP)/NP} &
+\cf{(S[ng]\bs NP)\bs (S[b]\bs NP)} &
+\cf{NP} \\
+\bxcomp{2} &&& \bxcomp{2} \\
+\mc{2}{\cf{(S[ng]\bs NP)/(S[adj]\bs NP)}} &&& \mc{2}{\cf{(S[ng]\bs NP)/NP}} \\
+\fapply{3} && \fapply{3} \\
+\mc{3}{\cf{S[ng]\bs NP}} && \mc{3}{\cf{S[ng]\bs NP}} \\
+&&& \conj{4} \\
+&&& \mc{4}{\cf{(S[ng]\bs NP)\bs (S[ng]\bs NP)}} \\
+\bapply{7} \\
+\mc{7}{\cf{S[ng]\bs NP}}
+}
+\caption{A single inflection category can serve many different argument structures.
+\label{fig:multi_arg}}
+\end{figure*}
+\subsection{\ccg Parsing and Morphology}
+
+%Explain the \candc parser here. Mention how morphology works in rule based
+%parsers. Provide background on morphological proposals in \ccg.
+
+In \ccgbank, there are five features that are largely governed by the inflection of the verb:
+
+\begin{lexamples}
+\item \gll writes/wrote
+      \cf{(S[dcl]\bs NP)/NP}
+       \gln
+       \glend
+\item \gll (was)~written
+           \cf{(S[pss]\bs NP)/NP}
+      \gln
+      \glend
+\item \gll (has)~written
+      \cf{(S[pt]\bs NP)/NP}
+      \gln
+      \glend
+\item \gll (to)~write
+      \cf{(S[b]\bs NP)/NP}
+      \gln
+      \glend
+\end{lexamples}
+
+The features are necessary for satisfactory analyses. Without inflectional
+features, there is no way to block over-generation like \emph{has running} or
+\emph{was ran}. However, the inflectional features also create a level of
+redundancy if the different inflected forms are treated as individual lexical
+entries. The different inflected forms of a verb will all share the same set
+of potential argument structures, so some way of grouping the entries together
+is desirable.
+\pagebreak
+
+
+\section{Inflectional Categories}
+\label{sec:inflect_cats}
+We implement the morphemic categories that
+have been discussed in the \ccg literature \citep{bozsahin:02}. The
+inflected form is broken into two morphemes, and each is assigned a category.
+The category for the inflectional suffix is simply a function that provides the
+necessary feature coercion.
+
+The \ccg combinators allow multiple argument structures to share a single
+inflectional category. For instance, the \cf{(S[ng]\bs NP)\bs (S[b]\bs NP)}
+category can supply the \cf{ng} feature to all categories that have one leftward
+\cf{NP} argument and any number of rightward arguments, via the generalised
+backward composition combinator. Figure \ref{fig:multi_arg} shows this
+category serving two different argument structures, using the backward crossed
+composition rule ($\Sbxcomp$).
+
+Table \ref{tab:inflect_cats}
+shows all of the inflection categories we introduce. The
+vast majority of inflected verbs in the corpus have a subject and some number
+of rightward arguments, so we can almost assign one category per inflectional
+feature. The most frequent exceptions are participles that function as
+pre-nominal modifiers and verbs of speech.
+
+Table \ref{tab:inflect_tokens} shows the
+inflectional tokens we introduce and which features they correspond to. Our
+scheme largely follows the Penn Treebank tag set \citep{bies:95}, except we avoided
+distinguishing past participles from past tense (\emph{-en} vs \emph{-ed}),
+because this distinction was a significant source of errors for our
+morphological analysis process, which relies on the part-of-speech tag.
+
+\begin{table}
+\small
+\begin{tabular}{rcl}
+\hline
+ Freq. & Category & Example\\
+\hline\hline
+32.964 & \cf{(S[dcl]\bs NP)\bs (S[b]\bs NP)} & \emph{He ran}\\
+11,431 & \cf{(S[pss]\bs NP)\bs (S[b]\bs NP)} & \emph{He was run down}\\
+11,324 & \cf{(S[ng]\bs NP)\bs (S[b]\bs NP)} & \emph{He was running}\\
+ 4,343 & \cf{(S[pt]\bs NP)\bs (S[b]\bs NP)} & \emph{He has run}\\
+ 3,457 & \cf{(N/N)\bs (S[b]\bs NP)} & \emph{the running man}\\
+ 2,011 & \cf{S[dcl]\bs S} & \emph{``..'', he says}\\
+ 1,604 & \cf{(S[dcl]\bs S)\bs (S[b]\bs S)} & \emph{``..'', said the boy}\\
+   169 & \cf{(S[dcl]\bs ADJ)\bs (S[b]\bs ADJ)} & \emph{Here 's the deal}\\
+    55 & \cf{(S[dcl]\bs PP)\bs (S[b]\bs PP)} & \emph{On it was a bee}\\
+\hline
+\end{tabular}
+\caption{The inflectional categories introduced.\label{tab:inflect_cats}}
+\vspace{-.4in}
+\end{table}
+
+\begin{table}
+ \small
+\centering
+\begin{tabular}{cccl}
+\hline
+ Token & POS & Feat & Example\\
+\hline\hline
+ -es   & VBZ & dcl   & \emph{He write -es letters}\\
+ -e    & VBP & dcl   & \emph{They write -e letters}\\
+ -ed   & VBD & dcl   & \emph{They write -ed letters}\\
+ -ed   & VBN & pt    & \emph{They have write -ed letters}\\
+ -ed   & VBN & pss   & \emph{Letters were write -ed}\\
+ -ing  & VBG & ng    & \emph{They are write -ing letters}\\
+\hline
+\end{tabular}
+\caption{The inflectional tokens introduced.\label{tab:inflect_tokens}}
+\vspace{-.4in}
+\end{table}
+
+
+
+
+\section{Creating Training Data}
+
+We prepared a version of \ccgbank \citep{hock:cl07} with
+inflectional tokens. This involved the following steps:
+
+\textbf{Correct POS tags.} Our morphological analysis relies on the
+part-of-speech tags provided with \ccgbank. We identified and corrected
+words whose POS tags were inconsistent with their lexical category,
+as discussed in Section \ref{sec:pos_tagging} below.
+
+\textbf{Lemmatise inflected verbs, remove features.} We used the morphy WordNet lemmatiser
+implemented in \nltk\footnote{http://www.nltk.org} to recover the lemma of the
+inflected verbs, identified by their POS tag (VBP, VBG, VBN or VBZ). The verb's categories
+were updated by switching their features to \cf{b}.
+
+\textbf{Derive inflectional category.} 
+The generalised backward composition
+rules allow a functor to generalise over some sequence of argument categories,
+so long as they all share the same directionality.
+%For instance, a functor
+%\cf{(S\bs NP)\bs (S\bs NP)} could backward cross-compose into a category
+%\cf{(S\bs NP)/NP)/PP} to its left, generalising over the two rightward arguments
+%that were not specified by the functor's argument. It could not, however,
+%compose into a category like \cf{(S\bs NP)\bs NP)/PP}, because the two
+%arguments (\cf{NP} and \cf{PP}) have differing directionalities
+%(leftward and rightward, respectively).
+Without this restriction, we would only require one inflection category per
+inflectional suffix, using inflectional categories like \cf{S[ng]\bs S[b]}.
+Instead, our inflectional categories must subcategorise for every argument
+except the outermost directionally consistent sequence.
+We discard this outermost consistent sequence, remove all features, and use the
+resulting category as both the argument and result. We then restore the result's feature,
+and set the argument's feature to \cf{b}.
+
+\textbf{Insert inflectional token.} Finally, the inflectional token is in
+serted after the verb, with a new node introduced to preserve binarisation.
+
+\subsection{POS Tag Corrections}
+\label{sec:pos_tagging}
+\begin{table}
+\small
+\centering
+ \begin{tabular}{rccl}
+\hline
+Freq. & From & To & Examples\\
+\hline
+\hline
+1056 & VBG & IN & \emph{including, according, following}\\
+379 & VBN & JJ & \emph{involved, related, concerned}\\
+351 & VBN & IN & \emph{compared, based, given}\\
+274 & VBG & NN & \emph{trading, spending, restructuring}\\
+140 & VBZ & NN & \emph{is, 's, has}\\
+102 & VB & VBP & \emph{sell, let, have}\\
+53 & VBZ & MD & \emph{does, is, has}\\
+45 & VBG & JJ & \emph{pending, missing, misleading}\\
+41 & VBP & MD & \emph{do, are, have}\\
+40 & VBD & MD & \emph{did, were, was}\\
+\hline
+334   & \multicolumn{2}{l}{All others}\\
+\hline
+2,815   & \multicolumn{2}{l}{Total}\\
+\hline
+\end{tabular}
+\caption{\small The most frequent POS tag conversions.
+\label{tab:pos_conversions}}
+\vspace{-.6in}
+\end{table}
+
+
+\citet{hock:cl07} corrected
+several classes of POS tag errors in the Penn Treebank when creating \ccgbank.
+We follow \citet{clark:cl07} in using their corrected POS labels, but found that
+there were still some words with inconsistent POS tags and lexical categories,
+such as \verb1building|NN|(S[dcl]\NP)/NP1. 
+
+In order to make our morphological analysis more consistent, we identify and
+correct such POS tagging errors as follows. We use two regular expressions
+to identify verbal lexical categories and verbal POS tags:
+\verb1^\(*S\[(dcl|pss|ng|pt|b)\]1 and \verb1AUX|MD|V..1 respectively.
+If a word has a verbal lexical category and non-verbal POS, 
+we correct its POS tag with reference to its suffix and its category's
+inflectional feature. If a word has a verbal POS tag and a non-verbal
+lexical category, we select the POS tag that occurs most frequently with
+its lexical category.
+
+The only exception are verbs
+functioning as nominal modifiers, such as \emph{running} in
+\emph{the running man}, which are generally POS tagged VBG but receive a
+lexical category of \cf{N/N}. We leave these POS tagged as verbs, and instead
+analyse their suffixes as performing a form-function transformation that turns
+them from \cf{S[b]\bs NP} verbs into \cf{N/N} adjectives ---
+\cf{(N/N)\bs (S[b]\bs NP)}.
+
+Table \ref{tab:pos_conversions} lists the most common before-and-after POS tag
+pairs that we corrected.
+\pagebreak
+
+
+
+
+\subsection{Impact on \ccgbank Lexicon}
+
+Verbal categories in \ccgbank \citep{hock:cl07} represent both the valency and
+inflectional morphology of the verb they are assigned to. This means $vi$
+categories are required, where $v$ and $i$ are the number of distinct valencies
+and inflectional features in the grammar respectively.
+
+The morphological tokens we propose allow inflectional morphology to be
+largely factored away from the argument structure, so that roughly $v+i$ verbal
+categories are required.\footnote{Section \ref{sec:inflect_cats} explains why
+the inflectional categories are partially sensitive to argument structure.}
+A smaller category set leads to lower
+category ambiguity, making the assignment decision easier.
+
+\citet{clark:cl07} extract a set of 425 categories from the training data that
+consists of all categories that occur at least 10 times.
+It includes 127 verbal categories.
+There are 74 distinct argument structures and 5 distinct features among these verbal categories.
+The grammar \citet{clark:cl07} learn therefore under-generates, because 243 of the 370
+argument structure and feature combinations are rare or unattested in the training data.
+For instance, there is a \cf{(S[dcl]\bs NP)/PP} category, but no corresponding \cf{(S[b]\bs NP)/PP},
+making it impossible for the grammar to generate a sentence like \emph{I want to talk to you}.
+It would be trivial to add them to the set, but a statistical model would be unable to reproduce them.
+There are 8 occurrences of such missing categories in the development data.
+
+We introduce 9 inflectional categories, as shown in Table \ref{tab:inflect_cats}.
+The category set is reduced from 425 to 381. This smaller category
+set does not have any systematic gaps. Unlike the \citet{clark:cl07} category
+set, it is able to generate all of the required pairings of argument structures
+and inflectional features, without having to introduce rare or unattested
+categories that a statistical model will struggle with.
+\pagebreak
+
+\section{Configuration of Parsing Experiments}
+\begin{figure*}
+\small
+\centering
+\deriv{9}{
+\rm The & \rm company & \rm bought & \rm by & \rm Google & \rm last & \rm year & \rm is & \rm profitable \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{(S[pss]\bs NP)^{NP\bs NP}} &
+\cf{(VP\bs VP)/NP} &
+\cf{NP} &
+\cf{NP^{VP\bs VP}/N} &
+\cf{N} &
+\cf{(S[dcl]\bs NP)/(S[adj]\bs NP)} &
+\cf{S[adj]\bs NP} \\
+\fapply{2} && \fapply{2} & \fapply{2} & \fapply{2} \\
+\mc{2}{\cf{NP}} && \mc{2}{\cf{VP\bs VP}} & \mc{2}{\cf{NP^{VP\bs VP}}} & \mc{2}{\cf{S[dcl]\bs NP}} \\
+&& \bapply{3} \\
+&& \mc{3}{\cf{(S[pss]\bs NP)^{NP\bs NP}}} \\
+&& \bapply{5} \\
+&& \mc{5}{\cf{(S[pss]\bs NP)^{NP\bs NP}}} \\
+&& \unhat{5} \\
+&& \mc{5}{\cf{NP\bs NP}} \\
+\bapply{7} \\
+\mc{7}{\cf{NP}} \\
+\bapply{9} \\
+\mc{9}{\cf{S[dcl]}}
+}
+\caption{\ccg derivation showing hat categories and the unhat rule.\label{fig:hat_deriv}}
+\end{figure*}
+%\subsection{Methodology}
+
+We conducted three sets of parsing experiments; comparing the impact
+of inflectional categories on \ccgbank \citep{hock:cl07},
+\citet{honnibal:09} \emph{hat} \ccgbank \citep{honnibal:09}, and 
+\emph{rebanked} \ccgbank \citep{honnibal:10}.
+
+We used revision TODO of the \candc parser \citep{clark:cl07}, checked
+out from trunk on  $TODO$\footnote{\url{http://trac.ask.it.usyd.edu.au/candc}},
+using the best-performing configuration they describe, which included the use
+of the hybrid dependency model.
+
+% We experimented with some modifications to the
+% supertagger to take inflection tokens into account, but they did not improve
+% the parser's performance.
+% The modifications we explored were designed to address our
+% concern that the inflection tokens would interfere with the supertagger's
+% feature functions, by introducing new tokens that would push important
+% information out of the functions' horizon.
+% For instance, when tagging the word
+% \emph{hand} in \emph{bite -ing the hand that feed -s}, the feature
+% functions would skip \emph{-ing} and regard the previous word as
+% \emph{bite}.  Inflection tokens surrounding the word were then added
+% in as separate features. Modifying the feature functions in this way
+% did not improve performance, so our results refer to the
+% unmodified supertagger, which does not special-case inflection tokens.
+Accuracy was evaluated using labelled dependency $F$-scores ($LF$). \ccg 
+dependencies are labelled by the head's lexical category and 
+the argument slot that the dependency fills.
+We evaluated the baseline and inflect parsers on the unmodified dependencies,
+to allow direct comparison. For the inflect parsers, we 
+pre-processing the \textsc{pos}-tagged input to introduce
+inflection tokens, and post-processed it to remove them.
+
+We follow \citet{clark:cl07} in not evaluating accuracy over sentences for which
+the parser returned no analysis. The percentage of sentences analysed is described
+as the parser's \emph{coverage} ($C$). Speed ($S$) figures refer to sentences parsed
+per second (including parse failures) on a dual-\textsc{cpu} Pentium 4 Xeon with 3gb of RAM.
+
+
+%original
+%configuration, where inflection tokens were treated the same as any
+%other word for the purpose of feature calculation.
+
+\section{Results on \ccgbank}
+
+Table \ref{tab:trunk_results} compares the performance of the parser
+on Sections 00 and 23 with and without inflection tokens. The inflection tokens
+had no significant impact on speed or coverage, but did improve accuracy by
+0.62\% $F$-measure, an error reduction of 5\%. Speed, measured in sentences parsed per second,
+ and coverage were largely unaffected.
+
+However, inflection tokens also made the parser more sensitive to part-of-speech
+tagging errors, because our morphological analysis relied solely on the \pos
+tag. A tagging error like \verb1starling|VBG1 causes the word to be
+analysed as \emph{starl -ing}, preventing the parser from recovering from
+the error earlier in the pipeline.
+\pagebreak
+\begin{figure*}
+\small
+\centering
+\deriv{8}{
+\rm The & \rm company & \rm buy & \rm -ed & \rm by & \rm Google & \rm last & \rm year \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{S[b]\bs NP} &
+\cf{(S[pss]\bs NP)^{NP\bs NP}\bs (S[b]\bs NP)} &
+\cf{(VP\bs VP)/NP} &
+\cf{NP} &
+\cf{NP^{VP\bs VP}/N} &
+\cf{N} \\
+\fapply{2} & \bapply{2} & \fapply{2} & \fapply{2} \\
+\mc{2}{\cf{NP}} & \mc{2}{\cf{(S[pss]\bs NP)^{NP\bs NP}}} & \mc{2}{\cf{VP\bs VP}} & \mc{2}{\cf{NP^{VP\bs VP}}} \\
+&& \bapply{4} & \unhat{2} \\
+&& \mc{4}{\cf{(S[pss]\bs NP)^{NP\bs NP}}} & \mc{2}{\cf{VP\bs VP}} \\
+&& \bapply{6} \\
+&& \mc{6}{\cf{(S[pss]\bs NP)^{NP\bs NP}}} \\
+&& \unhat{6} \\
+&& \mc{6}{\cf{NP\bs NP}} \\
+\bapply{8} \\
+\mc{8}{\cf{NP}}
+}
+\caption{\ccg derivation showing how inflectional tokens interact with hat categories.\label{fig:inflect_hat_deriv}}
+\end{figure*}
+
+\begin{table}
+\small
+ \begin{tabular}{ll|ccc|ccc}
+\hline
+          & & \multicolumn{3}{c|}{Gold \pos} & \multicolumn{3}{c}{Auto \pos} \\
+          &  & $LF$ & $S$   & $C$   & $LF$  & $S$   & $C$\\
+\hline\hline
+Baseline & 00 & 87.19 & 22 & 99.22 & 85.28 & 24 & 99.11 \\
+POS Changes & 00& 87.46 & 24 & 99.16 & 85.04 & 23 & 99.05 \\
+Inflect  & 00 & 87.81 & 24 & 99.11 & 85.33 & 23 & 98.95 \\
+\hline
+Baseline & 23 & 87.69 & 36 & 99.63 & 85.50 & 36 & 99.58 \\
+POS Changes & 23 & 87.79 & 36 & 99.63 & 85.06 & 36 & 99.50 \\
+Inflect  & 23 & 88.18 & 36 & 99.58 & 85.42 & 33 & 99.34 \\
+\hline
+ \end{tabular}
+\caption{\small Effect of POS changes and inflection tokens on accuracy ($LF$),
+speed ($S$) and coverage ($C$) on $\S$00 and $\S$23.\label{tab:trunk_results}}
+\vspace{-.6in}
+\end{table}
+
+
+
+\section{Experiments with Hat Categories}
+
+
+%\subsection{Overview of Hat Categories}
+
+In Categorial Grammars, modifiers receive categories of the form \cf{X/X}
+or \cf{X\bs X}, where \cf{X} is the category of their head. This can cause a
+proliferation of modifier categories when the head's category does not
+correspond to its constituent type.
+
+For instance, in a reduced relative clause, a noun phrase is modified by a
+verb phrase, as in \emph{The company bought by Google}. Categories must
+reflect their function in the derivation, so \emph{bought} will receive
+a category like \cf{NP\bs NP}. However, since passives are analysed
+as adverbials in \ccgbank, this will force \cf{by} to adopt a different
+category too: instead of \cf{((S\bs NP)\bs (S\bs NP))/NP}, its category
+will be \cf{((NP\bs NP)\bs (NP\bs NP))/NP}. This causes sparse data problems,
+as categories become sensitive to too much of their context in the
+sentence.
+
+\citet{hock:cl07} address this issue by adding a type-changing grammar
+to \ccgbank. These type-changing rules transform specific categories.
+They are specific to the analyses in the corpus,
+unlike the standard combinators, which are schematic and language universal.
+\citet{honnibal:09} address this by introducing \emph{hat categories} to the
+formalism, which allow the type-changing rules to be lexically specified,
+and replaced in the grammar by a single schematic rule.
+
+Figure \ref{fig:hat_deriv} shows how a reduced relative clause is analysed
+using hat categories. The hat category \cf{(S[pss]\bs NP)^{NP\bs NP}}
+is subject to the \emph{unhat} rule, which unarily replaces it
+with its hat, \cf{NP\bs NP}.
+
+Hat categories have a practical advantage for a parser that uses a supertagging
+phase \citep{srinivas:99}, such as the \candc system \citep{clark:cl07}.
+The supertagging phase is much more efficient than the chart parsing stage,
+so supertagging can improve the efficiency of a parser considerably, by
+suggesting categories that narrow the search space the parser must explore.
+
+\citet{honnibal:09} found that the parser was 37\% faster on the test set,
+at a cost of 0.5\% accuracy. They attribute the drop in accuracy to sparse
+data problems for the supertagger, due to the increase in the number of
+lexical categories. This is a problem inflectional categories may be able to
+mitigate.
+
+\subsection{Inflectional Hat Categories}
+
+Using hat categories to lexicalise type-changing rules offers attractive formal
+properties, and some practical advantages. However, it also misses some generalisations.
+A type-changing operation such as \cf{S[ng]\bs NP} $\rightarrow$ \cf{NP\bs NP}
+must be available to any VP. If we encounter a new word,
+\emph{The company is blagging its employees}, we can generalise to the reduced
+relative form, \emph{She works for that company blagging its employees} with
+no additional information.
+
+Hat categories require some form of lexical rule to preserve this property,
+but a novel word-category pair is difficult for a statistical model to assign.
+Inflection tokens offer an attractive solution to this problem, as shown in
+Figure \ref{fig:inflect_hat_deriv}. Assigning the hat category to the suffix
+makes it available to any verb the suffix follows --- it is just another function the
+inflectional suffix can perform. This generality also makes it much easier to
+learn, because it does not matter whether the training data happens to contain
+examples of a given verb perfoming that grammatical function.
+
+We prepared a version of the \citet{honnibal:09} hat \ccgbank, moving hats on
+to inflectional categories wherever possible. The hat \ccgbank's lexicon contained 105
+hat categories, of which 77 were assigned to inflected verbs. We introduced
+33 inflection hat categories in their place, reducing the number of hat
+categories by 27.9\%. Fewer inflection categories were
+required because different argument structures could be served by the same inflection
+category. For instance, the \cf{(S[ng]\bs NP)^{NP\bs NP}} and \cf{(S[ng]\bs NP)^{NP\bs NP}/NP}
+categories were both replaced by the \cf{(S[ng]\bs NP)^{NP\bs NP}\bs (S[b]\bs NP)} category.
+Table \ref{tab:inflection_hat_cats} lists the most frequent inflection hat categories
+we introduce.
+
+\begin{table}
+\small
+\begin{tabular}{rc}
+\hline
+ Freq. & Category\\
+\hline\hline
+3332 & \cf{(S[pss]\bs NP)^{NP\bs NP}\bs (S[b]\bs NP)}\\
+1518 & \cf{(S[ng]\bs NP)^{NP\bs NP}\bs (S[b]\bs NP)}\\
+1231 & \cf{(S[ng]\bs NP)^{(S\bs NP)\bs (S\bs NP)}\bs (S[b]\bs NP)}\\
+360 & \cf{((S[dcl]\bs NP)/NP)^{NP\bs NP}\bs ((S[b]\bs NP)/NP)}\\
+316 & \cf{(S[ng]\bs NP)^{NP}\bs (S[b]\bs NP)}\\
+234 & \cf{((S[dcl]\bs NP)/S)^{S/S}\bs ((S[b]\bs NP)/S)}\\
+209 & \cf{(S[ng]\bs NP)^{S/S}\bs (S[b]\bs NP)}\\
+162 & \cf{(S[dcl]^{NP\bs NP}\bs NP)\bs (S[b]\bs NP)}\\
+157 & \cf{((S[dcl]\bs NP)/S)^{(S\bs NP)/(S\bs NP)}\bs ((S[b]\bs NP)/S)}\\
+128 & \cf{(S[pss]\bs NP)^{S/S}\bs (S[b]\bs NP)}\\
+% 104 & \cf{(S[ng]\bs NP)^{((S\bs NP)/(S\bs NP))}\bs (S[b]\bs NP)}\\
+% 93 & \cf{((S[pt]\bs NP)/NP)^{(NP\bs NP)}\bs ((S[b]\bs NP)/NP)}\\
+% 87 & \cf{(S[ng]\bs NP)^{(S\bs S)}\bs (S[b]\bs NP)}\\
+% 86 & \cf{(S[pss]\bs NP)^{((S\bs NP)\bs (S\bs NP))}\bs (S[b]\bs NP)}\\
+% 80 & \cf{((S[dcl]\bs NP)/S)^{((S\bs NP)\bs (S\bs NP))}\bs ((S[b]\bs NP)/S)}\\
+% 56 & \cf{(S[dcl]^{(S\bs S)}\bs NP)\bs (S[b]\bs NP)}\\
+% 55 & \cf{(((S[dcl]\bs NP)/PP)/NP)^{(NP\bs NP)}\bs (((S[b]\bs NP)/PP)/NP)}\\
+% 52 & \cf{((S[dcl]\bs NP)/S)^{(S\bs S)}\bs ((S[b]\bs NP)/S)}\\
+% 47 & \cf{((S[ng]\bs NP)/NP)^{(NP\bs NP)}\bs ((S[b]\bs NP)/NP)}\\
+% 44 & \cf{(S[pss]\bs NP)^{((S\bs NP)/(S\bs NP))}\bs (S[b]\bs NP)}\\
+% 34 & \cf{(S[dcl]\bs S)^{(S/S)}\bs (S[b]\bs S)}\\
+% 30 & \cf{(S[dcl]^{(S/S)}\bs NP)\bs (S[b]\bs NP)}\\
+% 22 & \cf{(S[dcl]\bs NP)^{(NP\bs NP)}\bs (S[b]\bs NP)}\\
+% 19 & \cf{(S[dcl]\bs S)^{((S\bs NP)/(S\bs NP))}\bs (S[b]\bs S)}\\
+% 18 & \cf{(S[dcl]^{(((S\bs NP)\bs (S\bs NP))\bs ((S\bs NP)\bs (S\bs NP)))}\bs NP)\bs (S[b]\bs NP)}\\
+% 15 & \cf{(((S[pt]\bs NP)/PP)/NP)^{(NP\bs NP)}\bs (((S[b]\bs NP)/PP)/NP)}\\
+% 15 & \cf{((S[dcl]\bs NP)/S)^{(NP\bs NP)}\bs ((S[b]\bs NP)/S)}\\
+% 13 & \cf{(S[dcl]\bs S)^{((S\bs NP)\bs (S\bs NP))}\bs (S[b]\bs S)}\\
+% 12 & \cf{(S[dcl]^{((S\bs NP)\bs (S\bs NP))}\bs NP)\bs (S[b]\bs NP)}\\
+% 12 & \cf{(S[dcl]^{((S/S)\bs (S/S))}\bs NP)\bs (S[b]\bs NP)}\\
+% 11 & \cf{(S[dcl]\bs S)^{(S\bs S)}\bs (S[b]\bs S)}\\
+% 10 & \cf{(S[ng]^{((S\bs NP)\bs (S\bs NP))}\bs NP)\bs (S[b]\bs NP)}\\
+% 10 & \cf{(S[ng]\bs NP)^{(S[adj]\bs NP)}\bs (S[b]\bs NP)}\\
+\hline
+\end{tabular}
+\caption{\small The most frequent inflection hat categories.\label{tab:inflection_hat_cats}}
+\vspace{-.5in}
+\end{table}
+
+\subsection{Parsing Results}
+
+
+
+Table \ref{tab:hat_results} shows the hat parser's performance with and without
+inflectional categories. We used the values for the $\beta$ and $K$
+hyper-parameters described by \citet{honnibal:09}. We also followed their
+dependency conversion procedure, to allow evaluation over the original \ccgbank
+dependencies, to allow direct comparison between these figures and those in
+Table \ref{tab:trunk_results}. We also merged the changes to the parser they
+described into the version of the \candc parser we are using, to allow parse speeds
+to be compared.
+
+Interestingly, the updates to the \candc parser seem to have had a positive
+interaction with the hat categories. \citeauthor{honnibal:09} report a 39\% improvement
+in speed for the hybrid model (which we are using) on Section 23, using gold standard
+POS tags. With our version of the parser, the improvement is 86\%
+(36 vs. 67 sentences parsed per second).
+
+On Section 23, the inflection tokens improved the hat parser's accuracy by 0.8\%.
+As with the non-hat parser, POS tagging errors proved costly: the improvement dropped
+to 0.52\% when automatic POS tags were used. 
+\begin{table}
+\small
+ \begin{tabular}{ll|ccc|ccc}
+\hline
+          & & \multicolumn{3}{c|}{Gold \pos} & \multicolumn{3}{c}{Auto \pos} \\
+          &  & $LF$ & $S$   & $C$   & $LF$  & $S$   & $C$\\
+\hline\hline
+Hat baseline & 00 & 87.17 & 59 & 99.53 & 84.88 & 34 & 99.11 \\
+Hat inflect  & 00 & 87.81 & 37 & 99.68 & 84.99 & 30 & 98.95 \\
+\hline
+Hat baseline & 23 & 87.26 & 67 & 99.50 & 84.93 & 53 & 99.58 \\
+Hat inflect  & 23 & 88.06 & 54 & 99.63 & 85.45 & 43 & 99.38 \\
+\hline
+ \end{tabular}
+\caption{\small Effect of inflection tokens on accuracy ($LF$), speed ($S$)
+and coverage ($C$) on Sections 00 and 23.\label{tab:hat_results}}
+\vspace{-.5in}
+\end{table}
+\section{Interaction with Updated Argument Structures}
+\begin{figure*}
+\centering
+\small
+\deriv{7}{
+\rm \$1.65bn & \rm pay & \rm -ed & \rm for & \rm YouTube & \rm by & \rm Google \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{((S[b]\bs NP)/NP)/PP} &
+\cf{((S[pss]\bs NP)/PP)\bs ((S[b]\bs NP)/NP)} &
+\cf{PP_y/NP_y} &
+\cf{NP} &
+\cf{PP_y/NP_y} &
+\cf{NP} \\
+& \bxcomp{2} & \fapply{2} & \fapply{2} \\
+& \mc{2}{\cf{((S[pss]\bs NP)/PP)/PP}} & \mc{2}{\cf{PP_\mathrm{YouTube}}} & \mc{2}{\cf{PP_\mathrm{Google}}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{(S[pss]\bs NP)/PP}} \\
+& \fapply{6} \\
+& \mc{6}{\cf{S[pss]\bs NP}} \\
+& \psgrule{6} \\
+& \mc{6}{\cf{NP\bs NP}} \\
+\bapply{7} \\
+\mc{7}{\cf{NP}}
+}
+\caption{\small The inflection token, \emph{-ed}, has a category that transforms
+the active argument structure into the passive one.\label{fig:rebank_passive}}
+\end{figure*}
+The lexical category of a predicate should include its full argument structure,
+in order to achieve semantic transparency \citep{steedman:00}. \ccg categories
+must therefore distinguish complements from adjuncts.
+
+This is a difficult annotation decision for prepositional phrases, especially
+when they are optional, such as \emph{for \$1.65bn} in \emph{Google bought YouTube
+for \$1.65bn}. One strategy, then, is to only regard syntactically obligatory
+PPs as complements. This is the policy the Penn Treebank (loosely) follows
+\citep{bies:95}, and \ccgbank inherits.
+
+Another strategy is to base the distinction on the PP's semantics:
+PPs that realise \emph{core} arguments are made complements, while PPs that
+realise \emph{peripheral} arguments are adjuncts.
+\citet{honnibal:pacling07prop} updated \ccgbank to follow this policy, by
+correcting \ccgbank's complement and adjunct distinctions with reference to
+Propbank \citep{propbank} argument roles.
+
+\citet{honnibal:10} move further in this direction, by using Nombank
+\citep{nombank} to represent argument structures for nominal predicates.
+They build their corpus on a number of previous updates to \ccgbank, generally
+improving the linguistic fidelity of the corpus in a process they dub
+\emph{rebanking}.
+
+The two most relevant changes for our purpose in the rebanked corpus
+are the introduction of Propbank complement/adjunct distinctions, and the
+introduction of a particle category, \cf{PT}, for representing verb-particle
+constructions. Both of these changes introduce many new argument structures,
+introducing sparse data problems that our inflection categories may help
+alleviate.
+
+Another relevant change is that \citeauthor{honnibal:10} regard
+complement prepositions as case markers, which means that their head
+is the head of their NP argument. This offers a greatly improved
+analysis of passivisation.
+
+\subsection{Inflection Categories and Passivisation}
+
+In passivisation, an inflectional suffix re-maps the arguments of a transitive
+verb. Active transitive verbs map agent to subject and patient to direct object.
+passivisation re-maps this to patient as subject, while the agent is either
+unexpressed or supplied by \emph{by}.
+
+In \ccgbank, passive verbs are distinguished by the \cf{pss} feature, and
+\emph{by} agents are regarded as adjuncts, as they are optional. This makes
+the relationship between an active and passive verb non-transparent.
+
+Inflectional categories offer a way to represent the transformation directly,
+by having the passive suffix's category perform the remapping. An agentless
+passive would look like this:
+\begin{center}
+ \small
+\deriv{2}{
+\rm buy & \rm -ed \\
+\uline{1}&\uline{1} \\
+\cf{(S[b]\bs NP)/NP} &
+\cf{(S[pss]\bs NP_z)/((S[b]\bs NP_y)/NP_z)} \\
+\bapply{2} \\
+\mc{2}{\cf{S[pss]\bs NP}}
+}
+
+\end{center}
+
+
+The verb is assigned its canonical active voice category. The suffix's category
+coindexes the object of its argument to the subject of its result, capturing the
+patient-to-subject transformation. The agent is left unexpressed.
+Agentive passives are handled with a different inflectional suffix:
+\begin{center}
+ \small
+\deriv{2}{
+\rm buy & \rm -ed \\
+\uline{1}&\uline{1} \\
+\cf{(S[b]\bs NP)/NP} &
+\cf{((S[pss]\bs NP_z)/PP_y)/((S[b]\bs NP_y)/NP_z)} \\
+\bapply{2} \\
+\mc{2}{\cf{(S[pss]\bs NP)/PP}}
+}
+\end{center}
+
+Here, the direct object is coindexed with the subject as before, but the agent
+is also mapped to a prepositional phrase argument. A feature could be added
+restricting the \cf{PP} to \emph{by} prepositions, but we have not implemented
+this.
+
+In the \citet{honnibal:10} analyses, prepositions are headed by the head of their \cf{NP}
+argument. Figure \ref{fig:rebank_passive} shows this in operation: the head of
+\emph{by Google} is \emph{Google}. This allows the dependency between the agent and the
+verb to be recovered. Without this headedness policy, the dependency would be between
+the verb and \emph{by}, which is incorrect. This is why we have not implemented this
+analysis of passivisation in the previous experiments.
+
+
+
+\subsection{Parsing Results}
+
+
+\pagebreak
+
+\section{Conclusion}
+\pagebreak
+
+\bibliography{thesis}
+\bibliographystyle{aclnat}
+
+\end{document}

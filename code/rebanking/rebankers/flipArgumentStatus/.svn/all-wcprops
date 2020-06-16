@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/matt/!svn/ver/206/code/rebanking/rebankers/flipArgumentStatus
+END
+_PhrasalVerb.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/matt/!svn/ver/206/code/rebanking/rebankers/flipArgumentStatus/_PhrasalVerb.py
+END
+makePropbank.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/matt/!svn/ver/185/code/rebanking/rebankers/flipArgumentStatus/makePropbank.py
+END
+_newTests.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/matt/!svn/ver/124/code/rebanking/rebankers/flipArgumentStatus/_newTests.py
+END
+_AdjunctToArgument.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/matt/!svn/ver/206/code/rebanking/rebankers/flipArgumentStatus/_AdjunctToArgument.py
+END
+_ArgumentToAdjunct.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/matt/!svn/ver/206/code/rebanking/rebankers/flipArgumentStatus/_ArgumentToAdjunct.py
+END
+_GenitiveArguments.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/matt/!svn/ver/206/code/rebanking/rebankers/flipArgumentStatus/_GenitiveArguments.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/matt/!svn/ver/206/code/rebanking/rebankers/flipArgumentStatus/__init__.py
+END
+_no_nombank_or_np_tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/matt/!svn/ver/185/code/rebanking/rebankers/flipArgumentStatus/_no_nombank_or_np_tests.py
+END
+makeTests.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/matt/!svn/ver/185/code/rebanking/rebankers/flipArgumentStatus/makeTests.py
+END
+_PARGRebanker.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/matt/!svn/ver/206/code/rebanking/rebankers/flipArgumentStatus/_PARGRebanker.py
+END
+rebank.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/matt/!svn/ver/185/code/rebanking/rebankers/flipArgumentStatus/rebank.py
+END
+_Cleanup.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/matt/!svn/ver/185/code/rebanking/rebankers/flipArgumentStatus/_Cleanup.py
+END
+makeVPC.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/matt/!svn/ver/185/code/rebanking/rebankers/flipArgumentStatus/makeVPC.py
+END

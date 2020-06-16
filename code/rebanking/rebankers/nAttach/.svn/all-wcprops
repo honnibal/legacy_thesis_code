@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/matt/!svn/ver/206/code/rebanking/rebankers/nAttach
+END
+makePartGen.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/matt/!svn/ver/186/code/rebanking/rebankers/nAttach/makePartGen.py
+END
+reportRestrictiveStats.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/matt/!svn/ver/186/code/rebanking/rebankers/nAttach/reportRestrictiveStats.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/matt/!svn/ver/206/code/rebanking/rebankers/nAttach/__init__.py
+END
+_NAttach.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/matt/!svn/ver/186/code/rebanking/rebankers/nAttach/_NAttach.py
+END
+_PartitiveGenitive.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/matt/!svn/ver/166/code/rebanking/rebankers/nAttach/_PartitiveGenitive.py
+END
+makeRestrictivity.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/matt/!svn/ver/186/code/rebanking/rebankers/nAttach/makeRestrictivity.py
+END
+_NCoord.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/matt/!svn/ver/108/code/rebanking/rebankers/nAttach/_NCoord.py
+END
+_Preprocess.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/matt/!svn/ver/206/code/rebanking/rebankers/nAttach/_Preprocess.py
+END
+_Cleanup.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/matt/!svn/ver/166/code/rebanking/rebankers/nAttach/_Cleanup.py
+END
+_NoisyTR.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/matt/!svn/ver/108/code/rebanking/rebankers/nAttach/_NoisyTR.py
+END

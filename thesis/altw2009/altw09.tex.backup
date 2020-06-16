@@ -1,0 +1,293 @@
+%
+% File acl08.tex
+%
+% Contact: nasmith@cs.cmu.edu
+
+\documentclass[a4paper,11pt]{article}
+\include{names}
+\usepackage{acl08}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{xspace}
+\usepackage{natbib}
+\setlength\titlebox{6.5cm}    % Expanding the titlebox
+
+\title{How Hard is Named Entity Disambiguation with Wikipedia?}
+\author{BLIND REVIEW\\
+  NO Affiliation / Address line 1\\
+  NO Affiliation / Address line 2\\
+  NO Affiliation / Address line 3\\
+  {\tt NO email@domain}  \And
+  BLIND REVIEW\\
+  NO Affiliation / Address line 1\\
+  NO Affiliation / Address line 2\\
+  NO Affiliation / Address line 3\\
+  {\tt NO email@domain}}
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Entity ambigiguity was originally handled as an unsupervised learning problem, but Wikipedia has recently been used to produce supervised entity disambiguation systems.
+The labelled data for these systems consists of links to entity articles in Wikipedia.
+
+This paper describes how the external links in Wikipedia can be used as training data for entity disambiguation. This allows an entity disambiguation system to be trained on text from outside Wikipedia for the first time. Using this strategy, we were able to achieve N\% accuracy, outperforming all entries in a recent shared task.
+%To date, named entity disambiguation systems have used the wealth of information in Wikipedia to create feature-rich complex systems that resolve which entity a mention refers to. However, it is not clear how difficult the task really is, or how much of this complexity is necessary.
+
+%We examine the performance of a minimalist system on four data sets. On data from a recent shared task, which used entities hand-selected for high ambiguity, the simple system performed substantially worse than the state-of-the-art. However, on the two data sets of randomly selected mentions, the simple system achieved over 90\% accuracy, suggesting that complex features and learning may not be required.
+%Named entity disambiguation involves resolving which entry in a knowledge base a potentially ambiguous mention string refers to. Previous results have shown that good performance can be achieved for this task using rich feature sets and sophisticated learning algorithms.
+%However, there has been little investigation into how well simple systems perform at the task.
+
+%This paper investigates how much complexity is really required. We frame the task as a two stage process of building a lexicon that retrieves candidate entities from a mention string, and doing disambiguating between them.
+%We find that with careful lexicon construction, even a very simple disambiguation strategy, such as token overlap, can achieve competitive results.
+
+%The disambiguation systems that have been described so far are quite complex, using sophisticated learners and rich feature structures.  We investigate the difficulty of the task by establishing informed baselines. The key resources for the baselines are redirection and disambiguation dictionaries and a vector-space model.
+
+%The baseline system achieves 76.5\% accuracy, above the median for the \tac participants. However, the \tac entity linking data is non-representative, as the examples were specifically chosen for high ambiguity. On running text the baselines achieves 94.6\% accuracy, suggesting the task is not as difficult as it might appear.
+\end{abstract}
+
+\section{Introduction}
+
+Strings that refer to named entities are often ambiguous, and the same entity can be referred to by many different strings.
+This means information extraction systems can benefit from systems which resolve mentions to an unambiguous node in a knowledge base, instead of assuming that each named entity string refers to a unique entity.
+Wikipedia is a natural choice for a knowledge base, as it has high coverage, comes populated with a variety of interesting data, and is freely available in a number of different languages.
+
+The first system to resolve entity mentions to Wikipedia pages was described by \citet{bunescu06}.
+The system was trained and evaluated using Wikipedia links, a methodology followed by \citet{mihalcea07}.
+The idea is that all incoming links to an entity's Wikipedia article are unambiguous mentions of that entity.
+Wikipedia authors can anchor these links with arbitrary text, allowing them to realise the entity mention however they like.
+The problem is that entity links are still subject to the specific genre conventions of Wikipedia, so may not represent the full diversity of how entities are mentioned in other text types.
+
+Our solution is to utilise the Wikipedia mark up in a different way. Instead of using Wikipedia articles the entity is linked from, we use the external web pages the its article links to.
+We reason that if a web page mentions an entity \emph{Birmingham}, and it was listed as an external link from the article \emph{Birmingham, Alabama}, then we can treat it as a reference to that entity, rather than, say, \emph{Birmingham, England}.
+
+This strategy yields a potentially enormous quantity of \emph{mention, entity} labels.
+We downloaded 400,000 pages externally linked from entities in the knowledge base used in the recent \textsc{nist} Knowledge Base Population shared task.
+We were able to find an entity mention for 220,000 of these pages, using a mention lexicon built using the redirection, disambiguation and link anchor texts in Wikipedia.
+
+We used this data to train a linear regression classifier.
+The classifier outperforms a cosine similarity baseline by N\%.
+Our accuracy of N\% compares favourably with the most accurate submission to the Knowledge Base Population shared task of N\%.
+
+
+
+
+\section{Previous Work}
+
+The entity ambiguity problem has been addressed as both a clustering task, and as a labelled classification problem. The clustering approach was first proposed by \citet{bagga98}, who described the task as cross-document coreference resolution. This formulation of the problem remains popular, with the 2008-2009 Web Person Search task \citep{artiles08} attracting participation from 19 institutions. The labelled disambiguation formulation was first proposed by \citet{bunescu06}, who argued that the growth of Wikipedia provided a new opportunity to link entity mentions to nodes in a knowledge base. This approach has been followed by \citet{mihalcea07} and \citet{cucerzan07}. The 2009 Text Acquisition Conference Knowledge Base Population (\tac-\kbp) challenge included an entity linking evaluation, to investigate the relevance of entity linking for information extraction.
+%Our participation in the task is described in Section \ref{sec:tac}.
+
+\citeauthor{bagga:98} system used a vector-space model to cluster a corpus of 197 document mentioning \emph{John Smith}. The vector space model achieved 78.0\% $F$-measure when the vectors were drawn from the whole document. Extracting a coreference-based summary consisting of all sentences containing an entity in a coreference chain with \emph{John Smith} improved the accuracy to 84.6\%. The vector space model has remained influential for cross-document coreference resolution, and was used by several systems in the WePS challenge \citep{achen07,aelmacioglu07,apopescu07}.
+
+\citet{bunescu06} introduced the use of Wikipedia for entity disambiguation. The size of the free online encylopedia enabled several innovations. First, it straight-forward way to build wide coverage dictionaries mapping mention strings to sets of entities. The construction of such a dictionaries is described in Section \ref{sec:dictionary}. The use of an entity dictionary transformed the task from a clustering problem into a labelled classification task. \citeauthor{bunescu06} were thus able to use support vector machines for the learning phase, which they found to perform better than the vector-space model, which is commonly used in cross-document coreference clustering. The system was trained and evaluated using links between Wikipedia categories. If a link was anchored by ambiguous text, it was used as a positive instance of a mention for that entity, and a negative instance of a mention of all other entities it might have referred to. The fact that the system was test on this data does complicate the evaluation, however, because it is unclear how well the Wikipedia link disambiguation properly models a realistic use case. \citeauthor{bunescu06} tested the system using four scenarios, restricting the set of links used in different ways. In the more ambiguous scenarios, the SVM classifier outperformed the vector space model by over 10\%. The model used features based on the overlap of terms in the page's category hierarchy and the mention's context.
+
+\citet{mihalcea07} describe a system, Wikify!, that annotates a document with links to Wikipedia pages. The editorial guidelines of Wikipedia recommend that only the most important concepts in a document be marked up with page links, so the first step in their system is keyword extraction. Keywords were restricted to words or phrases that had been used to anchor a Wikipedia page link at least five times, producing a vocabulary of roughly two million terms. The candidate n-grams in the document were then ranked according to their ratio of occurrence as link anchors, and the most likely key phrases were then disambiguated, to link them to specific pages. The disambiguation phase used the Wikipedia disambiguation pages to construct a lexicon, and then extracted a feature vector consisting of the local context (defined as the words and their \pos tags within a three word window of the target) and global context (defined as a bag of words over the whole document). The disambiguation phase treats named entity mentions and lexical mentions identically. The system does not perform any processing equivalent to the mention-detection phase of \citet{bunescu06}, for which they use a standard named entity recogniser. The primary contribution of the paper was the introduction of the larger Wikipedia sense disambiguation task. \citet{mihalcea07} showed that this task could be performed with comparable accuracy to the established WordNet all words coarse-grained task, at around 87\% F-measure
+
+\citet{cucerzan07} was the first to evaluate a named entity disambiguation system on hand annotated text. \citeauthor{cucerzan07} also describe a novel disambiguation method that conditions over the set of categories that are hypothesised for a whole document. This means that the quality of an assignment of an entity to a mention depends on the other entities assigned in the document, because each entity assigned implies a different set of category features in the document. The system also uses a lexicon from surface forms extracted from redirection pages, disambiguation pages, apposition truncation of page names, and link anchor texts. Standard bag-of-word document vectors are also computed. \citet{cucerzan07} report very high disambiguation accuracy for news text, of 91\%. This is the only evaluation of a named entity disambiguation system on hand-annotated data that we are aware of.
+
+\section{The \tackbp Entity Linking Task}
+
+The \nist 2009 Text Analysis Conference included a Knowledge Base Population track.
+The track included two phases: entity linking, and knowledge base population.
+The task was to link entity mentions in news text to nodes in a knowledge base extracted from Wikipedia, and then populate the knowledge base with facts about that entity.
+We are only interested in the entity linking phase, which is a named entity disambiguation problem.
+
+\nist distributed a knowledge base consisting of N nodes.
+Each node corresponds to an entity's article in Wikipedia.
+A large collection of news documents (over 1 million) was also released.
+The test data consisted of N \emph{queries}, each consisting of a mention string and a document \textsc{id}, and the \textsc{id} of the entity the mention refers to.
+The task was to predict the entity \textsc{id} for each query.
+
+No labelled development data was distributed for the task.
+We therefore used the entity disambiguation annotation distributed by \citet{cucerzan07} as development data.
+The data consists of the \textsc{url}s and entity disambiguation annotations for 20 news articles published by \textsc{msnbc} in 2007.
+We prepared the development documents by manually extracting sentential text and separating it into sentences.
+
+We were unable to retrieve four of the articles, so our development data consists of 577 entity-mention pairs from 16 news documents.
+\citeauthor{cucerzan}'s test set is disambiguated with reference to a 2006 Wikipedia dump, while our knowledge base consists of a subset of a 2009 Wikipedia dump.
+Unfortunately, these differences hinder comparison between our results and the impressive 91.5\% accuracy \citet{cucerzan} reports.
+
+\section{Training on Externally Linked Pages}
+
+Wikipedia articles frequently refer to external web pages, to provide citations and additional material of interest.
+Web pages linked by an entity's article are likely to mention that entity.
+We therefore use an externally linked web pages as labelled mentions for the entity whose article linked to that page.
+
+We began by collecting all external links from entities in the \tackbp knowledge base.
+There were N such links.
+We downloaded a random set of 450,000 web pages from these links.
+We extracted text from the web pages using the w3m text-based browser, following the suggestion of \citet{??} who evaluated several text-cleaning strategies on the 2007 Web Person Search challenge, and found that this simple and robust strategy performed well.
+The extracted text was split into sentences using the \nltk implementation of the Punkt sentence boundary detector \citet{punkt}.
+The sentences were then white-space tokenised with regular expressions to match the tokenisation in the Penn Treebank \citep{marcus:93}.
+This tokenisation was used to match the training data for the \candc tools' part-of-speech tagger and named entity recogniser \citep{clark:ne}.
+
+Not all externally linked web pages will mention the entity whose article linked to them.
+We filtered out non-referring web pages as follows.
+First, we gathered the set of known \emph{surface forms} for the entity.
+Surface forms were gathered using the name, redirection, disambiguation and link anchor text dictionaries described in Section \ref{sec:dict}.
+The first matching surface form was used as the training query.
+If no surface forms were found in the document, it was discarded as non-referring.
+N of 450,000 web pages we gathered contained a surface form of the entity that linked to them.
+
+These web pages were used to train the disambiguation component of our entity linking system.
+The task of this component was to decide which of several candidates was the correct entity to link a mention to.
+We broke this task into a set of binary classification decisions, where all but one of the candidate entities was labelled \texttt{False}.
+
+Our process of extracting data from externally linked pages can be summarised as follows:
+
+\begin{enumerate}
+ \item Download pages linked by entity articles;
+ \item Exclude non-referring pages;
+ \item Form queries from first occurring surface form;
+ \item Collect candidate entities for each query;
+ \item Label incorrect candidates False and correct candidate True.
+\end{enumerate}
+
+Using the first occurring surface form might be problematic.
+Initial entity mentions tend to be more fully formed, while subsequent mentions tend to be less specific.
+We might therefore extract more negative examples by using more ambiguous mentions from further down the document.
+However, we use a feature set that is more concerned with the whole document than the local context of the mention, so this did not have much of an effect on our learning.
+The feature set is described in Section \ref{sec:features}.
+The use of this training strategy in our experiments is described in Section \ref{sec:experiments}.
+
+\section{Analysis of Surface Form Dictionaries}
+\label{sec:dictionary}
+\begin{table*}
+\centering
+ \begin{tabular}{l|rrrrr}
+\hline
+  Dictionary     & True$_{entity}$ & True$_{nil}$ & False$_{entity}$ & False$_{nil}$ & $|Candidates|$\\
+\hline
+\hline
+  
+  \hline
+  Truncated name & 4.7           & 56.7       & 23.7           & 15.0        & 2.3\\
+  Disambiguation & 12.3          & 51.5       & 16.1           & 20.1        & 5.3\\
+  Link anchors   & 10.6          & 46.8       & 16.8           & 25.8        & 14.5\\
+  Union          & 16.5          & 43.6       & 11.8           & 28.1        & 17.9\\
+\hline
+ \end{tabular}
+\caption{Accuracy and ambiguity rates for candidate sets returned by Wikipedia dictionaries. A candidate set is judged True if it returns the correct entity (or nil).\label{tab:dict_stats}}
+\end{table*}
+
+
+The minimal ambiguity strategy uses a series of look ups, ordered according to their reliability. The first resource we consult is a dictionary of Wikipedia page names. Page names are unique in Wikipedia, so this can return at most one entity. An entity is returned for 19\% of development set queries. Of these, the 86\% were correct. The answer was NIL for 6\% of queries, and a different entity for 8\%.
+
+The next dictionary that we use is drawn from Wikipedia's redirection data. Wikipedia contains pages that simply redirect to other articles, effectively providing synonymy sets. Each redirection page can only point to a single Wikipedia page, so this dictionary is also limited to returning one or zero entities. The redirection dictionary has similar coverage to the name dictionary (19\%), although it is less accurate. 59\% of the entities it returns are correct. The errors were quite evenly split between the two possible cases. For 19\% of the queries, the answer was an entity other than the one returned; for 23\%, the answer was NIL.
+
+The remaining dictionaries can potentially return more than one entity. The first such dictionary is built by \emph{name truncation}. Many Wikipedia page titles contain an appositive or parenthetical part, such as \emph{Alabama} or \emph{band} in \emph{Birmingham, Alabama} or \emph{Garbage (band)}. We form a dictionary keyed by the first part of the page title (identified by all text up to a comma or open bracket), the values of which are collections of entities with titles like \emph{Birmingham, Alabama} and \emph{Birmingham, Michigan}. Similar information can be found in Wikipedia disambiguation pages. For instance, the disambiguation page titled \emph{Birmingham} includes links to 41 different entities that \emph{Birmingham} might refer to. Finally, we can find a similar source of information in the text used to anchor links between pages. For instance, the \emph{Alabama} page might have a link to \emph{Birmingham, Alabama} anchored by the text \emph{Birmingham}. We therefore compile a dictionary mapping anchor texts to the entities they refer to.
+
+Table \ref{tab:dict_stats} summarises the performance of these dictionaries. The $|Candidates|$ column shows the mean cardinality of non-empty candidate sets retrieved by the dictionary. Alarmingly, none of these resources return a high rate of true positives. This means that a disambiguation algorithm will have to perform very well to make using these resources worthwhile. The \emph{union} row shows the figures for a dictionary built from all three resources.
+
+The \emph{false nil} case will be especially hard to account for. In these cases, one or more candidates are returned for a query whose answer is \emph{nil}. This means that the disambiguator must either include a special model to predict \emph{nil} values, or employ a similarity threshold below which an entity is assigned \emph{nil}. For each dictionary, a baseline of always assigning \emph{nil} would outperform a classifier that assumed that one candidate must be assigned, because the number of queries where the answer is nil and a candidate is returned (the True$_{nil}$ column of Table \ref{tab:dict_stats}) is lower than the number of queries where the correct entity is among the candidates returned.
+
+
+
+% If the mention string exactly matches the name of an article or the name of a redirection page, the corresponding entity is returned. Page names are unique in Wikipedia, so if these look ups succeed, there is no ambiguity. This allowed 37\% of queries in the development data to be resolved entirely by the lexicon. The correct entity was returned N\% of the time. 
+% 
+% If this look up fails, we then consult an entity dictionary formed by removing appositive and parenthetical text from the Wikipedia page names. For instance, the name \emph{Birmingham, Alabama} would be truncated to \emph{Birmingham}, and the name \emph{Garbage (band)} would be truncated to \emph{Garbage}. The truncation was performed by stripping text following open parentheses or a comma. The truncated names look up returned 1 or more candidates for 20\% of development queries. The mean non-zero number of candidates returned was N, with an accuracy of N\%. A candidate set is considered accurate if it contains the correct entity.
+% 
+% For the entities where both of these look ups fail we fall back on the disambiguation and link anchor text lexicons described in Sections \ref{sec:disambiguation} and \ref{sec:anchor_text}. These resources return far larger candidate sets. Candidate sets larger than 30 were rejected, and an empty candidate set was returned instead. This was done because it is unlikely that the disambiguator would be able to select the correct entity from such a large set, so we fell back on the high prior for NIL entities. Only N\% of queries were handled this way, at an accuracy of N\%.
+% 
+% Even if the cardinality of the candidate set was less than 30, we performed an additional filtering step to reduce ambiguity. This filtering step improved accuracy by 7\%. We first collected all entity mentions from the document. We then rejected each candidate whose article name or redirection synonyms did not occur in the article. The logic behind this is that entities are likely to be referred to more than once in the document, and at least one of these mentions is likely to be a standard reference to the entity. This was a simple heuristic that allowed us to take into consideration some coreference information, without employing a coreference resolution system. This coreference heuristic filter reduced the mean cardinality of the candidate sets by N, at an accuracy reduction of N\% (from N\% to N\%). We found this to be a favourable trade off, but it may not be worthwhile with a more accurate disambiguation system.
+
+% \subsection{Maximum Coverage Selection}
+% 
+% The maximum coverage selection strategy is a more straightforward use of the Wikipedia resources. The mention string is looked up in the name, truncated name, redirection and disambiguation dictionaries. The candidate set is the union of all candidates returned by these queries.
+
+\section{Feature Extraction}
+
+Our features are based on the similarity between the mention's document and the entity's article.
+We also extracted features to represent the similarity between the document and the article's categories.
+Wikipedia editors can assign articles to one or more categories.
+Although these categories are sometimes noisy, they have been shown to be good evidence for entity disambiguation \citep{bunescu06,cucerzan07}.
+
+The first type of feature we used to model these similarities was the cosine measure, as described in Section \ref{sec:cosine}.
+We also take advantage of our large volume of training data to include features for specific terms.
+If a lexical item occurred in the mention's document and the entity's article, its \emph{article intersection} feature was set to 1.
+An equivalent set of features was used to represent the intersection of terms between the mention's document and the category vocabulary.
+We also included features simply representing which categories the article belonged to, some categories might be less frequently mentioned than others.
+
+
+\begin{itemize}
+ \item Similarity between article and document summary
+ \item Similarity between category vocabulary and document summary
+ \item Intersection between tokens in article and tokens in document summary
+ \item Intersection between tokens in article and category vocabulary
+ \item Categories the article belongs to
+ \item 
+\end{itemize}
+
+
+\subsection{Cosine Similarity}
+\label{sec:cosine}
+% 
+% The cosine measure is used to calculate a similarity measure between two documents. We use this as a disambiguation strategy by simply taking the candidate whose Wikipedia page has the highest similarity to the mention's document context:
+% 
+% \begin{equation}
+%  entity = \arg\max_{c\;\in\;C}\;\;Sim(m,c)
+% \end{equation}
+% 
+% where $c$ is the context of a candidate entity and $m$ is the mention's context. Contexts can calculated from the whole document, or some extracted summary (e.g. the mention's sentence or paragraph, or all sentences containing a coreferring mention, etc). We use the whole document. Contexts are represented as a vector of terms. Terms can be the literal tokens in the context, or some normalisation process can be applied. We form terms by applying a stop list, case normalisation and Porter stemming, using the implementation in \textsc{nltk} \citep{nltk}.
+
+The similarity between the mention's context and the candidate's context is the sum of the weighted product of each term that occurs in both contexts:
+
+\begin{equation}
+ Sim(c,m) = \sum_{common\;terms\;t_j} wc_j\times wm_j
+\end{equation}
+
+where $t_j$ is a term present in $c$ and $m$, $wc_j$ is its weight in $c$ and $wm_j$ is its weight in $m$. The weight of a document $d$ is computed using TF-IDF and cosine normalisation:
+
+\begin{equation}
+ wd_j = \frac{tf\times \log \frac{N}{df} }{\sqrt{w^2_{d1} + w^2_{d2} + ... + w^2_{dn}}}
+\end{equation}
+
+where $tf$ is the frequency of the term $t_j$ in the document $d$, $N$ is the total number of documents in the collection being examined, and $df$ is the number of documents in the collection that the term $t_j$ occurs in. The denominator is the \emph{cosine normalization factor}. An alternative presentation would be to apply the cosine similarity measure to vectors of TF-IDF weighted terms.
+
+\subsection{Token Overlap}
+
+We compared the vector space model against a simple baseline measure. The token overlap measure consisted of simply selecting the entity that had the largest set of tokens in common with the mention's document:
+
+\begin{equation}
+ entity = \arg\max_{c\;\in\;C}\;\;|m \cap c|
+\end{equation}
+
+where $c$ is the context vector of a candidate, and $m$ is the context vector of the mention. The context vectors were formed the same for both disambiguation strategies. The entire document was used as context, and Porter stemming, a stop list, and case normalisation were applied.
+
+%\section{Experiments}
+
+
+
+
+\section{Experiments}
+
+\begin{table*}
+\begin{center}
+\begin{tabular}{ll|rrr}
+\hline
+ Candidate Selection     & Disambiguation & In KB & Nil  & All  \\
+\hline
+\hline
+ High coverage           & Token Overlap  & 71.3  & 60.0 & 64.9 \\
+ High coverage           & Cosine         & 53.1  & 83.0 & 70.1 \\
+ Low ambiguity           & Token Overlap  & 66.6  & 79.1 & 73.7 \\
+ Low ambiguity           & Cosine         & 63.3  & 84.1 & 75.2 \\
+\hline
+ \multicolumn{2}{l|}{Highest accuracy of \tac systems}            & 77.3  & 63.5 & 82.2 \\
+ \multicolumn{2}{l|}{Median accuracy of \tac systems}          & 63.5  & 78.9 & 71.1 \\
+ \multicolumn{2}{l|}{NIL baseline}         & 0.0   & 1.0  & 67.5 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Comparison of our candidate selection and disambiguation strategies against the 12 other participants in the 2009 \tac-\kbp entity linking challenge.}
+\end{table*}
+
+
+
+
+\section{Conclusion}
+
+\bibliographystyle{aclnat}
+\bibliography{altw09}
+\end{document}

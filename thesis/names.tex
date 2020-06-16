@@ -1,0 +1,199 @@
+
+\newcommand{\cf}[1]{\mbox{$\it{#1}$}}   % category font
+\newcommand{\assign}{\vdash}
+
+\newcommand{\gis}{\textsc{gis}\xspace}
+\newcommand{\iis}{\textsc{iis}\xspace}
+\newcommand{\pos}{\textsc{pos}\xspace}
+\newcommand{\wsj}{\textsc{wsj}\xspace}
+\newcommand{\ccg}{\textsc{ccg}\xspace}
+%\newcommand{\tag}{\textsc{tag}\xspace}
+\newcommand{\ltag}{\textsc{ltag}\xspace}
+\newcommand{\hpsg}{\textsc{hpsg}\xspace}
+\newcommand{\psg}{\textsc{psg}\xspace}
+\newcommand{\lbfgs}{\textsc{l-bfgs}\xspace}
+\newcommand{\bfgs}{\textsc{bfgs}\xspace}
+\newcommand{\cfg}{\textsc{cfg}\xspace}
+\newcommand{\pcfg}{\textsc{pcfg}\xspace}
+\newcommand{\nlp}{\textsc{nlp}\xspace}
+\newcommand{\dop}{\textsc{dop}\xspace}
+\newcommand{\lfg}{\textsc{lfg}\xspace}
+\newcommand{\pp}{\textsc{pp}\xspace}
+\newcommand{\cky}{\textsc{cky}\xspace}
+\newcommand{\gb}{\textsc{gb}\xspace}
+\newcommand{\mb}{\textsc{mb}\xspace}
+\newcommand{\ram}{\textsc{ram}\xspace}
+\newcommand{\mpi}{\textsc{mpi}\xspace}
+\newcommand{\cpu}{\textsc{cpu}\xspace}
+\newcommand{\cpp}{\textsc{c++}\xspace}
+\newcommand{\parseval}{\textsc{parseval}\xspace}
+\newcommand{\trec}{\textsc{trec}\xspace}
+\newcommand{\epsrc}{\textsc{epsrc}\xspace}
+\newcommand{\dt}{\textsc{dt}\xspace}
+\newcommand{\hmm}{\textsc{hmm}\xspace}
+\newcommand{\ghz}{\textsc{ghz}\xspace}
+\newcommand{\rasp}{\textsc{rasp}\xspace}
+\newcommand{\ldc}{\textsc{ldc}\xspace}
+\newcommand{\gr}{\textsc{gr}\xspace}
+\newcommand{\qa}{\textsc{qa}\xspace} 
+\newcommand{\jj}{\textsc{jj}\xspace}
+\newcommand{\vbn}{\textsc{vbn}\xspace}
+\newcommand{\cd}{\textsc{cd}\xspace}
+\newcommand{\rp}{\textsc{rp}\xspace}
+\newcommand{\cc}{\textsc{cc}\xspace}
+\newcommand{\susanne}{\textsc{susanne}\xspace}
+\newcommand{\bandc}{\textsc{b{\small \&}c}\xspace}
+\newcommand{\ctl}{\textsc{ctl}\xspace}
+\newcommand{\ccgbank}{CCGbank\xspace}
+\newcommand{\depbank}{DepBank\xspace}
+\newcommand{\markedup}{\emph{markedup}\xspace}
+\newcommand{\candc}{\textsc{c{\scriptsize\&}c}\xspace}
+\newcommand{\cg}{\textsc{cg}\xspace}
+\newcommand{\penn}{\textsc{ptb}\xspace}
+\newcommand{\develtwo}{\textsc{devel-2}}
+\newcommand{\deps}{\mbox{\em deps}}
+\newcommand{\cdeps}{\mbox{\em cdeps}}
+\newcommand{\dmax}{\mbox{\em dmax}}
+\newcommand{\unify}{\equiv}
+\newcommand{\nounify}{\neq}
+\newcommand{\dest}{\textsc{dest}\xspace}
+\newcommand{\nom}{\textsc{nom}\xspace}
+\newcommand{\tccg}{\textsc{tccg}\xspace}
+\newcommand{\abcg}{\textsc{ab} \textsc{cg}\xspace}
+\newcommand{\mmccg}{\textsc{mmccg}\xspace}
+\newcommand{\cfpsg}{\textsc{cf-psg}\xspace}
+\newcommand{\evalb}{evalb\xspace}
+\newcommand{\dol}{\textsc{dol}\xspace}
+\newcommand{\xtag}{\textsc{xtag}\xspace}
+\newcommand{\enju}{\textsc{enju}\xspace}
+\newcommand{\kpml}{\textsc{kpml}\xspace}
+\newcommand{\hlds}{\textsc{hlds}\xspace}
+
+\newcommand{\lexpunct}{LexPunct\xspace}
+\newcommand{\nattach}{NAttach\xspace}
+
+%\newcommand{\unhat}{\textsc{unhat}\xspace}
+% Constants and things
+\newcommand{\calo}{\mathcal{O}}
+\newcommand{\caln}{\mathcal{N}}
+
+% commands for xyling
+\newcommand{\unode}[2][]{\K{#1$_{#2}$}}
+\newcommand{\bnode}[2][]{\K{#1$_{#2}$}\V}
+\newcommand{\vpmod}{}
+\newcommand{\bks}{$\backslash$}
+
+
+\newcommand{\cn}{\emph{\[citation needed\]}\xspace}
+\newcommand{\eqnpsrule}[3]{#1\;\;#2 & \longrightarrow & #3}
+
+\newcommand{\psbinary}[3]{\ensuremath{\langle #1\;\; #2\;\longrightarrow\;#3\rangle\;}}
+\newcommand{\psunary}[2]{\ensuremath{\langle #1\;\longrightarrow\;#2\rangle\;}}
+
+\newcommand{\term}[1]{\emph{#1}}
+%\newcommand{\comment}[1]{\quote{#1}}
+
+\newtheorem*{con}{Constituent}
+\newtheorem*{contype}{Constituent Type}
+\newtheorem*{confunc}{Constituent Function}
+\newtheorem*{edol}{Extended Domain of Locality}
+\newtheorem*{facrec}{Factoring of Recursion}
+\newtheorem*{headcat}{Head Categorial Uniqueness}
+\newtheorem*{combinatorytransparency}{The Principle of Combinatory Type Transparency}
+\newtheorem*{hatpreservation}{Principle of Hat Preservation}
+\newtheorem*{nullhatstip}{Null Hat Stipulation}
+\newtheorem*{nullmodestip}{Null Mode Stipulation}
+\newtheorem*{slashindexstip}{Slash Index Stipulation}
+
+% Corpus names
+\newcommand{\nounary}{\textsc{no unary}\xspace}
+
+% \newcommand{\noabsorb}{NoAbsorb\xspace}
+% \newcommand{\commaconj}{CommaConj\xspace}
+% \newcommand{\hattraise}{HatTRaise\xspace}
+% \newcommand{\rrcsubcat}{RRCSubcat\xspace}
+% \newcommand{\tcpunct}{TCPunct\xspace}
+
+% Small-capped constants for AVM fields
+\newcommand{\ressc}{\textsc{res}\xspace}
+\newcommand{\argsc}{\textsc{arg}\xspace}
+\newcommand{\slashsc}{\textsc{slash}\xspace}
+\newcommand{\headsc}{\textsc{head}\xspace}
+\newcommand{\semsc}{\textsc{sem}\xspace}
+\newcommand{\hatsc}{\textsc{hat}\xspace}
+\newcommand{\catsc}{\textsc{cat}\xspace}
+\newcommand{\featsc}{\textsc{feat}\xspace}
+
+\newcommand{\citepos}[1]{\citeauthor{#1}'s~(\citeyear{#1})\xspace}
+\newcommand{\scare}[1]{#1}
+
+\newcommand{\wikieval}{\textsc{wiki200}\xspace}
+\newcommand{\hatsys}{\textsc{hat}\xspace}
+\newcommand{\trsys}{\textsc{hat+tr}\xspace}
+\newcommand{\lexpunctsys}{\textsc{lex-punct}\xspace}
+\newcommand{\puresys}{\textsc{no~unary}\xspace}
+
+\newcommand{\sew}{\textsc{sew}\xspace}
+\newcommand{\few}{\textsc{few}\xspace}
+
+%\newcommand{\codeterm}[1]{\verb!#1!\xspace}
+\newcommand{\codeterm}[1]{\texttt{#1}\xspace}
+
+\newcommand{\basesys}{BaseSys\xspace}
+
+\newcommand{\smodetext}{$\star$\xspace}
+\newcommand{\xmodetext}{$\times$\xspace}
+\newcommand{\dmodetext}{$\diamond$\xspace}
+\newcommand{\cmodetext}{$\cdot$\xspace}
+%\newcommand{\nullmodetext}{$\bowtie$\xspace}
+
+\newcommand{\smode}{_\star}
+\newcommand{\xmode}{_\times}
+\newcommand{\dmode}{_\diamond}
+\newcommand{\cmode}{_\cdot}
+%\newcommand{\nullmode}{_{\bowtie}}
+\newcommand{\nullhat}{-}
+
+
+
+
+\newcommand{\cB}{\textbf{\textsf{B}}}
+\newcommand{\cBx}{{\ensuremath{\textbf{\textsf{B}}_\times}}}
+\newcommand{\cBf}{>\!\cB\!\!}
+\newcommand{\cBb}{<\!\cB\!\!}
+
+
+\newcommand{\cT}{\textbf{\textsf{T}}}
+\newcommand{\cS}{\textbf{\textsf{S}}}
+\newcommand{\cH}{\textbf{\textsf{H}}\xspace}
+\newcommand{\bk}{\ensuremath{\backslash}}
+\newcommand{\ra}{\ensuremath{\rightarrow}}
+\newcommand{\Ra}{\ensuremath{\Rightarrow}}
+
+\newcommand{\Sfapply}{\ensuremath{\!>\!}}
+\newcommand{\Sbapply}{\ensuremath{\!<\!}}
+\newcommand{\Sfcomp}{\ensuremath{\!>\!\!\cB\!}}
+\newcommand{\Sbcomp}{\ensuremath{\!<\!\cB\!}}
+\newcommand{\Sfxcomp}{\ensuremath{\!>\!\!\cB_{\!\times}\!}}
+\newcommand{\Sbxcomp}{\ensuremath{\!<\!\cB_{\!\times}\!}}
+\newcommand{\Sftype}{\ensuremath{\!>\!\!\cT\!}}
+\newcommand{\Sbtype}{\ensuremath{\!<\!\cT\!}}
+\newcommand{\Sfsubst}{\ensuremath{\!>\!\!\cS\!}}
+\newcommand{\Sbsubst}{\ensuremath{\!<\!\cS\!}}
+\newcommand{\Sfxsubst}{\ensuremath{\!>\!\!\cS_{\!\times\!}}}
+\newcommand{\Sbxsubst}{\ensuremath{\!<\!\cS_{\!\times\!}}}
+
+\newcommand{\derivs}{\textsc{deriv}\xspace}
+\newcommand{\derivsbad}{\textsc{deriv}$_{0.1}$\xspace}
+\newcommand{\derivsrev}{\textsc{deriv}$_{0.0045}$\xspace}
+\newcommand{\derivsthree}{\textsc{deriv}$_{0.003}$\xspace}
+\newcommand{\derivsexp}{\textsc{deriv}$_{0.002}$\xspace}
+\newcommand{\hybrid}{\textsc{hybrid}\xspace}
+\newcommand{\hybridv}{\textsc{hybrid}$^v$\xspace}
+\newcommand{\optbeta}{\textsc{opt}\xspace}
+
+\newcommand{\nltk}{\textsc{nltk}\xspace}
+\newcommand{\act}{\textsc{act}\xspace}
+
+\newcommand{\semf}[1]{\ensuremath{\text{\textbf{#1}}}}
+\newcommand{\sematt}[1]{\ensuremath{\langle \text{\textsc{#1}}\rangle}}

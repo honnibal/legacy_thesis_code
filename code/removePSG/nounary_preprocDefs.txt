@@ -1,0 +1,76 @@
+<NP> (<NP>) (<NP\NP> (<S[a]\NP>))
+<NP 0> (<NP/(S\NP)>) (<S[a]\NP>)
+
+
+<NP> (<NP>) (<NP\NP> (<S[a]/NP>))
+<NP 0> (<NP/(S/NP)>) (<S[a]/NP>)
+
+
+<NP/(S[a]\NP)> (<(NP/(S[a]\NP))/N>) (<N>)
+<NP/(S\NP)> (<NP[nb]/N>) (<N/(S\NP)>)
+
+
+<NP/(S[a]/NP)> (<(NP/(S[a]/NP))/N>) (<N>)
+<NP/(S/NP)> (<NP[nb]/N>) (<N/(S/NP)>)
+
+
+<NP/(S[a]/NP)> (<N>)
+<NP/(S/NP)> (<N/(S\NP)>)
+
+
+<NP/(S[a]/NP)> (<N>)
+<NP/(S/NP)> (<N/(S/NP)>)
+
+
+<NP> (<NP>) (<NP\NP> (<(S[to]\NP)/NP>))
+<NP> (<NP/((S[to]\NP)/NP)>) (<(S[to]\NP)/NP>)
+
+
+<S\S> (<S[a]\S[a]>) (<,>)
+<S[a]\S[a]> (<S[a]\S[a]>) (<,>)
+
+
+# New analysis of reported speech following thesis discussion
+<S\S> (<S[dcl]/S[dcl]> (<S/(S\NP)> (<NP>)) (<(S[dcl]\NP)/S[dcl]>)) (<,>)
+<S[dcl]\S[dcl]> (<S[dcl]\S[dcl]> (<S/(S\NP)> (<NP>)) (<(S[dcl]\NP)\S[dcl]>)) (<,>)
+
+
+# New analysis of reported speech following thesis discussion
+<S\S> (<S[dcl]/S[dcl]> (<S/(S\NP)> (<NP>)) (<(S[dcl]\NP)/S[dcl]>))
+<S[dcl]\S[dcl]> (<S[dcl]\S[dcl]> (<NP>) (<S/(S\NP)> (<NP>)) (<(S[dcl]\NP)\S[dcl]>))
+
+
+<S/S> (<S[dcl]/S[dcl]> (<S/(S\NP)> (<NP>)) (<(S[dcl]\NP)/S[dcl]>)) (<,>)
+<S/S> (<S/S> (<NP>) (<(S/S)\NP>)) (<,>)
+
+
+<S/S> (<S[dcl]/S[dcl]> (<S/(S\NP)> (<NP>)) (<(S[dcl]\NP)/S[dcl]>))
+<S/S> (<S/S> (<NP>) (<(S/S)\NP>))
+
+
+<S/S> (<S[dcl]/S[dcl]> (<S/(S\NP)> (<NP>)) (<(S[dcl]\NP)/S[dcl]>))
+<S/S> (<NP>) (<(S/S)\NP>)
+
+
+<(S\NP)/(S\NP)> (<S[dcl]/S[dcl]> (<S/(S\NP)> (<NP>)) (<(S[dcl]\NP)/S[dcl]>)) (<,>)
+<(S\NP)/(S\NP)> (<(S\NP)/(S\NP)> (<NP>) (<((S\NP)/(S\NP))\NP>)) (<,>)
+
+
+<(S\NP)/(S\NP)> (<S[dcl]/S[dcl]> (<S/(S\NP)> (<NP>)) (<(S[dcl]\NP)/S[dcl]>))
+<(S\NP)/(S\NP)> (<(S\NP)/(S\NP)> (<NP>) (<((S\NP)/(S\NP))\NP>))
+
+
+<(S\NP)\(S\NP)> (<S[dcl]/S[dcl]> (<S/(S\NP)> (<NP>)) (<(S[dcl]\NP)/S[dcl]>)) (<,>)
+<(S\NP)\(S\NP)> (<(S\NP)\(S\NP)> (<NP>) (<((S\NP)\(S\NP))\NP>)) (<,>)
+
+
+<(S\NP)\(S\NP)> (<S[dcl]/S[dcl]> (<S/(S\NP)> (<NP>)) (<(S[dcl]\NP)/S[dcl]>))
+<(S\NP)\(S\NP)> (<(S\NP)\(S\NP)> (<NP>) (<((S\NP)\(S\NP))\NP>))
+
+
+<NP\NP> (<S[dcl]/S[dcl]> (<S/(S\NP)> (<NP>)) (<(S[dcl]\NP)/S[dcl]>)) (<,>)
+<NP\NP> (<NP\NP> (<(NP\NP)/((S[dcl]\NP)/S[dcl])>) (<(S[dcl]\NP)/S[dcl]>)) (<,>)
+
+
+<NP\NP> (<S[dcl]/S[dcl]> (<S/(S\NP)> (<NP>)) (<(S[dcl]\NP)/S[dcl]>))
+<NP\NP> (<NP\NP> (<(NP\NP)/((S[dcl]\NP)/S[dcl])>) (<(S[dcl]\NP)/S[dcl]>))

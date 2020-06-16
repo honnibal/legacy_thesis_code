@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/matt/!svn/ver/206/code/rebanking/rebankers/normalisePunct
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/matt/!svn/ver/187/code/rebanking/rebankers/normalisePunct/__init__.py
+END
+_tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/matt/!svn/ver/187/code/rebanking/rebankers/normalisePunct/_tests.py
+END
+rebank.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/matt/!svn/ver/187/code/rebanking/rebankers/normalisePunct/rebank.py
+END
+_EnsureRightAbs.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/matt/!svn/ver/206/code/rebanking/rebankers/normalisePunct/_EnsureRightAbs.py
+END

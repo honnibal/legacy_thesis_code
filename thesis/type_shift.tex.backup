@@ -1,0 +1,387 @@
+\documentclass{article}
+\usepackage{LI}
+\usepackage{xspace}
+
+\newcommand{\cf}[1]{\mbox{$\it{#1}$}}   % category font
+\newcommand{\assign}{:=\xspace}
+\newcommand{\cg}{CG\xspace}
+
+\begin{document}
+
+\title{Representing Form and Function in a Categorial Grammar}
+
+\maketitle
+
+\section{Introduction}
+
+% missing paragraph
+
+In this chapter, we explore the theoretical consequences of this problem --- the lack of a representation of constituent type in categorial grammars --- in detail. In Chapter \ref{nounary} we show how the failure to capture the generalisations offered by constituent type impact a \ccg lexicon. In Chapter \ref{type-changing} we outline our solution to this problem, and compare it to other proposals.
+
+\subsection{Constituent Function in Categorial Grammars}
+
+Figure \ref{cg_derivation} shows an applicative categorial grammar (\cg) derivation. Each word is assigned a category that represents the grammatical function of the constituent headed by that word. Categories of the form \cf{X\bs X} and \cf{X/X} represent modifier functions. The constituent attaches to a category of the type \cf{X}, occurring either to its left ot right, and returns that category unchanged. In Figure \ref{cg_derivation}, \cf{N/N}, \cf{NP\bs NP} and \cf{VP\bs VP}\footnote{\cf{VP} is a shorthand for the category \cf{S\bs NP}} are modifiers categories.
+
+\begin{figure}
+\deriv{10}{
+\rm Lions & \rm in & \rm the & \rm long & \rm grass & \rm hide & \rm from & \rm gnu & \rm at & \rm night \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/NP} &
+\cf{NP/N} &
+\cf{N/N} &
+\cf{N} &
+\cf{(S\bs NP)/PP} &
+\cf{PP/NP} &
+\cf{NP} &
+\cf{(VP\bs VP)/NP} &
+\cf{NP} \\
+&&& \fapply{2} && \fapply{2} & \fapply{2} \\
+&&& \mc{2}{\cf{N}} && \mc{2}{\cf{PP}} & \mc{2}{\cf{VP\bs VP}} \\
+&& \fapply{3} & \fapply{3} \\
+&& \mc{3}{\cf{NP}} & \mc{3}{\cf{S\bs NP}} \\
+&&&&& \bapply{5} \\
+&&&&& \mc{5}{\cf{S\bs NP}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{NP\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{NP}} \\
+\bapply{10} \\
+\mc{10}{\cf{S}}
+}\label{cg_derivation}
+\end{figure}
+
+Representing constituent function directly allows categorial grammars to treat syntactic structure as a trace of the mapping between the surface form and the semantic structure \citep{steedman96}. It also allows any two constituents that share a function to be coordinated, as Section \ref{background:cg:coordination} explains. However, it also raises some problems, because the \emph{type} of the constituent is not always represented alongside its function.
+
+\subsection{Lack of Constituent Type in Categorial Grammars}
+
+The sentence in Figure \ref{cg_derivation} includes three prepositional phrases, with no common categorial representation:
+
+\begin{enumerate}
+ \item \cf{NP\bs NP} \assign \emph{in the long grass}
+ \item \cf{PP} \assign \emph{from gnu}
+ \item \cf{VP\bs VP} \assign \emph{at night}
+\end{enumerate}
+
+Without a representation of constituent type, it is difficult to exploit the generalisation that all constituents of a given type share the same set of potential grammatical functions. For instance, there is no obvious way a learner might infer the rule that all prepositional phrases can post-modify nouns, since there is no single distinct object that corresponds to \emph{prepositional phrase} in a categorial grammar. Instead, the behaviour of every preposition must be learnt separately: even after a learner has seen the word \emph{to} receive the category \cf{(NP\bs NP)/NP}, it is not apparent that \cf{at} can perform the same function.
+
+\subsection{Chapter Outline}
+
+The chapter is structured as follows. First, we offer a more precise definition of constituent type, in order to show what we claim is missing. We then show that this prevents \cg from constraining the \emph{domain} of its categories, and prevents them from \emph{factoring out recursion} --- two concepts we import from a related formalism, lexical functional grammar. We show that by failing to factor out recursion, a finitely sized \cg lexicon cannot generate some recursive English constructions. We then relate our characterisation of the problem to two proposals for how categorial grammars might take advantage of lexical regularities to reduce the size of a \cg lexicon. We show that the lexical rules proposed by \citet{carpenter} do not allow the domain of \cg categories to be restricted, leaving the core problem unsolved. We contrast this with the phrase-structure rules proposed by \citet{ccgbank}, which do allow domain restriction, but at the expense of type transparency.
+
+
+\subsection{Contributions}
+
+This chapter presents a novel result: that \cg grammars cannot meet Chomsky's definition of \term{descriptive adequacy} using a finitely sized lexicon. The core contribution of the chapter is our characterisation of the problem that underlies this result. Our characterisation provides a clear idea of what sort of constraints \cg categories must obey in order to prevent similar problems from occurring. This description of the problem helps explain the results we present in Chapter \ref{nounary}, where we show that removing the phrase-structure rules from \ccgbank to produce a corpus that only uses rules licensed by \ccg requires a much sparser lexicon. It also helps to motivate the solution we describe in Chapter \ref{type_shift}, where we describe how a categorial grammar can adopt a small extension that allows form and function to be represented simultaneously, allowing lexical categories to exhibit the extended domain of locality and factoring of recursion properties we have imported from \ltag.
+
+%There have been a few proposals to exploit these regularities, in order to ensure the lexicon is as compact as possible.  This prompted \citet{carpenter}, among others, to propose a set of lexicon-expansion rules to capture the missing generalisations. \citet{ccgbank} addressed the problem by modifying the grammar, rather than the lexicon. Instead of lexical expansion rules, phrase-structure rules were introduced, allowing words to receive categories in line with their constituent type. The phrase structure rule can then be used to rewrite the constituent type category with a constituent function category. For example, in Figure \ref{ccgbank_rrc}, the unary rule:
+
+% \begin{eqnarray}
+%  \prs{\cf{NP\bs NP}}{VP[pss]}
+% \end{eqnarray}
+% 
+% operates on the phrase blah. 
+% 
+% \begin{figure}
+% \centering
+% \ptbegtree
+% \small
+% \ptbeg \ptnode{\cf{NP}}
+%   \ptbeg \ptnode{\cf{NP}}
+%     \ptbeg \ptnode{\cf{NP/N}} \ptleaf{One} \ptend
+%     \ptbeg \ptnode{\cf{N}} \ptleaf{man} \ptend
+%   \ptend
+%   \ptbeg \ptnode{\cf{NP\bs NP}}
+%     \ptbeg \ptnode{\cf{VP[pss]}}
+%       \ptbeg \ptnode{\cf{VP[pss]}} \ptleaf{frustrated} \ptend
+%       \ptbeg \ptnode{\cf{VP\bs VP}}
+%         \ptbeg \ptnode{\cf{(VP\bs VP)/N}} \ptleaf{this} \ptend
+%         \ptbeg \ptnode{\cf{N}} \ptleaf{season} \ptend
+%       \ptend
+%     \ptend
+%   \ptend
+% \ptend
+% \ptendtree
+% \label{ccgbank_rrc}
+% \caption{\ccgbank analysis of reduced relative clause.}
+% \end{figure}
+% 
+% In this chapter,
+
+%In this chapter, we argue that without a theory of constituent type, categorial grammars are less suitable for statistical language processing, and psychologically less plausible. There is evidence that humans are able to assign a constituent type to a phrase consisting of unknown words, and use it to form grammaticallity judgments. These results are difficult to explain for a grammar that only labels constituents according to their function. They also introduce a practical dilemma for a statistical \cg-based parser. With no way to infer the set of categories available to a constituent type, the parser must rely on having labelled examples of each word performing each of its possible grammatical functions. As we saw in Section \ref{analysis}, this leads to under-generation, as a sentence cannot be accurately analysed if the lexicon does not contain all of the necessary $(word, category)$ pairs. 
+
+%In this chapter, we present a minimal modification to a categorial grammar that allows constituent type and function to be represented simultaneously. We argue that this has important advantages over other solutions, which stem from the fact that it addresses the fundamental problem, by introducing a way for combinatory grammars to incorporate a theory of constituent type. The chapter is structured as follows. First, we provide a detailed description of the problem and its implications. We then review the two prominent solutions that have been proposed --- lexical rules and phrase-structure rules, and show that they both come with considerable drawbacks. We then review the psycho-linguistic evidence that constituent type is represented in our mental grammars, strongly suggesting that it is a property that categorial grammars should account for.
+
+%We then introduce the two parts of our extension to categorial grammars that allows categories to represent constituent type and constituent function simultaneously. The first part is a new field in the category object, that contains the function category. The second part is a grammatical rule that handles the form-to-function transformation.
+
+
+\section{Definition of Constituent Type}
+
+A \term{constituent} is one or more words that behaves as a single unit in a syntactic analysis. In a phrase-structure derivation, each node in the parse tree corresponds to a constituent that consists of the words spanned by that node. Figure \ref{psg_tree} shows a phrase-structure tree generated by the following grammar:
+\begin{lexamples}
+The swift lioness chased the swift gnu
+\end{lexamples}
+\begin{eqnarray}
+
+\psr{C}{SBJP VP}
+\psr{SBJP}{DT SN}
+\psr{SN}{SA SN}
+\psr{VP}{V OBJP}
+\psr{OBJP}{DT ON}
+\psr{ON}{OA ON}
+\psr{V}{chased}
+\psr{DT}{the}
+\psr{SA}{swift}
+\psr{OA}{swift}
+\psr{SN}{lioness}
+\psr{ON}{gnu}
+
+\end{eqnarray}
+
+This grammar is able to generate the sentence in Figure \ref{psg_tree}, but cannot generate another related to it:
+
+\begin{figure}
+\begin{parsetree}
+(.S.
+  (.SBJP.
+    (.DT. `The')
+    (.SN.
+      (.SA. `swift')
+      (.SN. `lioness')
+    )
+  )
+  (.VP.
+    (.V. `chased')
+    (.OBJP.
+      (.DT. `the')
+      (.ON.
+        (.OA. `swift')
+	(.ON. `gnu')
+      )
+    )
+  )
+)
+\end{parsetree}
+\end{figure}
+
+
+
+\begin{lexamples}
+ \item * The swift gnu chased the swift lioness
+\end{lexamples}
+
+This sentence cannot be generated because the grammar node spanning \emph{the swift lioness} was assigned a different label from the node spanning \emph{the swift gnu}. Having assigned them different labels, the grammar records no assumption that their structure will be at all similar. However, as speakers of English we are aware that any constituent that is grammatical functioning as an object will also be grammatical if it functions as a subject. This knowledge comes from our recognition that the two phrases share a \emph{constituent type}. This property forms the basis of our definition:
+
+\comment{What I'm trying to do here is set up a definition of constituent type that holds despite the labelling of the grammar. I don't think I'm quite there yet, this needs some work.}
+
+\begin{definition}
+ Two nodes share a constituent type if and only if they can yield the same set of strings
+\end{definition}
+
+More formally, let $<p, c, s>$ represent a node $c$'s occurrence in a derivation alongside a set of sibling nodes $s$ beneath a parent node $p$. Two nodes $c_1$ and $c_2$ share a constituent type iff:
+
+\begin{eqnarray}
+ <p, c_1, s> \in G \equiv <p, c_2, s> \in G
+\end{eqnarray}
+
+and
+
+\begin{eqnarray}
+ s(c_1) \equiv s(c_2)
+\end{eqnarray}
+
+where $G$ is the set of valid $<parent, node, siblings>$ contexts in the grammar, and $s(c)$ is the set of strings that can be generated from a node $c$.
+
+Any two SBJP and OBJP nodes in a derivation generated produced by the grammar above will meet this definition, allowing us to describe them as sharing a constituent type even though they do not share a node label.
+
+\section{Constituent Type in Categorial Grammar}
+
+In a well designed phrase-structure grammar, node labels will correspond exactly to constituent types, ensuring the grammar is as compact as possible. Node labels in a categorial grammar derivation are subject to different constraints. As Section \ref{background:cg} describes, the node labels in a categorial grammar derivation reflect the constituent's \emph{function}. Constituents that function as modifiers cannot receive node labels that reflect their internal structure --- their constituent type --- because their node label is dictated by their sibling. Consider two constituents that share a type \cf{N}:
+
+\begin{parsetree}
+(.\cf{N}. `water')
+(.\cf{N}.  `meter')
+\end{parsetree}
+
+When the constituent \emph{water} is made to function as a modifier of the constituent headed by \emph{meter}, its category must change:
+
+\begin{parsetree}
+(.\cf{N}.
+  (.\cf{N/N}. `water')
+  (.\cf{N}.  `meter')
+)
+\end{parsetree}
+
+If this \emph{water meter} constituent itself functions as a modifier, then both categories will change:
+
+\begin{parsetree}
+(.\cf{N}.
+  (.\cf{N/N}.
+    (.\cf{(N/N)/(N/N)}. `water')
+    (.\cf{N/N}.  `meter')
+  )
+  (.\cf{N}. `cover')
+)
+\end{parsetree}
+
+In this constituent, the category assigned to \emph{water} depends on the category assigned to \emph{meter} --- which depends on the category assigned to \emph{cover}.
+
+\section{Recursion Can Cause Infinite Categories}
+
+Noun-noun compounding is recursive in English, so we can extend the pattern above as long as we like. A noun phrase like:
+
+\lexample{water meter cover adjustment screw}
+
+might be vanishingly rare in real text, but it is nevertheless grammatical. But when we consider the category we must assign to \emph{water} to generate this constituent in a categorial grammar --- \cf{(((N/N)/(N/N))/((N/N)/(N/N)))/(((N/N)/(N/N))/((N/N)/(N/N))))} --- it becomes difficult to shake the feeling that something's gone deeply wrong.
+
+In fact, the set of grammatical noun-noun compounds in English cannot be generated by a finite set of categories. If we call one constituent that modifies another a \emph{modifier}, a constituent that modifies the first one will be a \emph{modifier modifier}, which might be modified in turn by a \emph{modifier modifier modifier} --- and so on, into infinity. Such a phrase of length $n$ will require $n$ different categories. Since the phrase is grammatical at any length, a finite category set is inadequate.
+
+The crux of the problem is that the grammaticality of a \emph{(modifier, head)} attachment is determined by the types of the two constituents --- the function of the head is irrelevant. But in a categorial grammar, the head's function cannot be factored out: a modifier must always refer to its heads' category.
+
+\section{The Domain of \cg Lexical Categories}
+
+\citet{steedman96} proposed that \cg lexical categories must obey the principle of type transparency:
+
+\begin{quote}
+blah
+\end{quote}
+
+This principle effectively stipulates that categories must specify the argument structure of the constituent they head, and how that constituent interacts with the rest of the derivation.
+
+Let us call the part of the derivation specified by a category that category's \term{domain}. Figure \ref{edol_domains} shows a \cg derivation divided according to the domains of its lexical categories. Because each category in this derivation specifies only the type and arity of the constituent it heads, the domains do not overlap: each part of the derivation is specified by exactly one lexical category.
+
+Lexicalised tree adjoining grammars (LTAG) \citep{ltag} stipulate that elementary trees --- the lexical categories in LTAG --- exhibit the \term{extended domain of locality} (EDOL) property:
+
+\begin{quote}
+\emph{Every elementary structure must contain all and only the arguments of the anchor in the same structure.}
+\end{quote}
+
+This ensures that the domains of two elementary trees do not overlap. LTAG grammars also stipulate that elementary trees exhibit the \term{Factoring of Recursion} property:
+
+\begin{quote}
+\emph{Recursion is factored away from the domain for the statement of dependencies}.
+\end{quote}
+
+Figure \ref{crossing_domains} shows that when a \cg derivation includes a modifier-of-modifier category, the categories' domains overlap. The categories do not exhibit the EDOL property, leading to their failure to factor away recursion.
+
+The type transparency stipulation ensures that each part of the derivation is under the domain of at least one lexical category. But what we want is for every part of the derivation to fall under the domain of \emph{exactly} one category. If the domains of two categories overlap, then at least one of the categories is more specific than it needs to be, leading to a sparser lexicon. And if the category fails to factor out recursion, we will need a different category for different depths of modification --- and therefore require an infinite set of categories.
+
+
+
+\section{Previous Proposals}
+
+In this section, we brief examine three of the more prominent proposals to address modifier category proliferation in categorial grammars. The definition of category domain we have introduced allows us to quickly establish that none of these proposals solves the problem entirely.
+
+\subsection{Lexical Rules}
+
+\citet{carpenter} begins by noting that certain classes of words must receive predictable sets of categories in order to capture their full range of syntactic behaviours. He introduces a way to capture \emph{lexical regularities} in order to address this.
+
+His solution is a system of lexical rules. Given a lexical entry:
+
+\begin{eqnarray}
+ word \assign a
+\end{eqnarray}
+
+A lexical rule:
+
+\begin{eqnarray}
+ a \Rightarrow a'
+\end{eqnarray}
+
+produces the additional entry:
+
+\begin{eqnarray}
+ word \assign a'
+\end{eqnarray}
+
+The rules are able to operate schematically, using variables to represent features, and the \$ notation described in Section \ref{background:cg_notation} to represent variable argument structures. For instance, the category schema:
+
+\begin{eqnarray}
+ \cf{(S[*]\bs NP)\$}
+\end{eqnarray}
+
+would match the categories \cf{(S[dcl]\bs NP)/NP}, \cf{(S[pss]\bs NP)/NP}, \cf{(S[dcl]\bs NP)/PP}, \cf{((S[ng]\bs NP)/NP)/PP}, etc. The interpretation of the variables is carried across to the right hand side. For instance, the rule:
+
+\begin{eqnarray}
+ \cf{(S[ng]\bs NP)\$ \Rightarrow (NP\bs NP)\$
+\end{eqnarray}
+
+would transform the category \cf{(S[dc]\bs NP)/NP into \cf{(NP\bs NP)/NP, capturing the generalisation that all verbs 
+
+
+\subsection{Phrase-structure Rules}
+
+\begin{figure}
+\deriv{5}{
+\rm Lions & \rm stalking & \rm gnu & \rm is & \rm a~common~sight\\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S\bs NP)/NP} &
+\cf{NP} &
+\cf{(S\bs NP)/NP} &
+\cf{NP} \\
+& \fapply{2} & \fapply{2} \\
+& \mc{2}{\cf{S\bs NP}} & \mc{2}{\cf{S\bs NP}} \\
+\bapply{3} \\
+\mc{3}{\cf{S}} \\
+\psgrule{3} \\
+\mc{3}{\cf{NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S}}
+}\caption{\ccgbank analysis of nominal clause.}\label{ccgbank_nom}
+%\vspace{-0.3in}
+\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Lions & \rm stalking & \rm gnu & \rm is & \rm a~common~sight\\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/NP} &
+\cf{NP} &
+\cf{(S\bs NP)/NP} &
+\cf{NP} \\
+& \fapply{2} & \fapply{2} \\
+& \mc{2}{\cf{NP\bs NP}} & \mc{2}{\cf{S\bs NP}} \\
+\bapply{3} \\
+\mc{3}{\cf{NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S}}
+}\caption{\ccg analysis of nominal clause.}\label{ccg_nom}
+%\vspace{-0.3in}
+\end{figure}
+
+\citet{ccgbank} decided to handle lexical regularities in the grammar, rather than the lexicon. The advantage of this is that the rule only needs to be applied once for each form-function discrepancy. In Figure \ref{ccg_nom}, two lexicon expansion rules are depicted: one transforms blah into blah, and the other transforms its modifier. In Figure \ref{ccgbank_nom}, blah receives its canonical, predicative category. Its modifier therefore does not need a different category.
+
+Figure \ref{ccgbank_domain} shows the domains of the lexical categories of the \ccgbank analysis. The phrase-structure rule:
+
+\begin{eqnarray}
+ blah
+\end{eqnarray}
+
+does not fall under the domain of any lexical category, indicating that the derivation is not lexicalised. That is, the category blah is not \term{type-transparent}, under \citet{steedman96}'s definition.
+
+\comment{Need discussion of consequences of loss of lexicalisation here}
+
+\subsection{Division Operator}
+
+\section{Conclusion}
+%If the categorial lexicon is complete, a prepositional phrase labelled \cf{NP\bs NP} --- that is, functioning as an adnominal --- will yield the same set of strings as a prepositional phrase labelled \cf{(S\bs NP)\bs (S\bs NP)}, functioning adverbially. Unfortunately, complete categorial lexicons do not grow on trees. In reality it is perfectly possible for entries to be missing, leading to under-generation. What we need is some way of ensuring that constituents of the same type can always yield the same set of strings, regardless of their derivational context --- that is, their function. There have been two prominent proposals for how this might be achieved.
+
+%\subsection{Lexical Rules}
+
+%\citet{carpenter}, among others, suggest that the answer lies in exploiting generalisations about constituency type to ensure that the lexicon is complete. Generalisations are implemented as lexical rules. The lexical rule:
+
+%\begin{eqnarray}
+% \psr{\cf{PP/NP}}{\cf{(NP\bs NP)/NP}}
+%\end{eqnarray}
+
+%would extend the lexicon by allowing any word that could receive the category \cf{PP} to also receive the category \cf{(NP\bs NP)/NP}. 
+
+
+%\subsection{Phrase-Structure Rules}
+
+%Instead of lexical rules, \citet{ccgbank} introduces phrase-structure rules to account for lexical regularities, and to handle various noise cases that arose when converting Penn Treebank analyses to \ccg. Phrase-structure rules offer a powerful solution to the problem, as they ensure that all words can receive a category that represents its constituent type. Unfortunately, 
+
+
+\end{document}

@@ -1,0 +1,103 @@
+Presentation notes
+
+Parsing and semantic analysis
+
+- Natural language grammars allow the same information to be expressed in a variety of surface strings
+- Google bought YouTube/YouTube was bought by Google/YouTube, a company that Google bought etc
+- We want to extract bought(Google, YouTube) so that we can search for X(Google, YouTube), bought(X, YouTube), etc
+
+Lexicalisation
+
+- Words impose constraints on parse tree.
+- EG Argument structure: VP headed by `sleep' cannot VP -> VP NP, no object
+- Many words can have multiple argument structures
+- Select these argument structure tags per word in roughly O(n) time, greatly constrain O(n^3) parse time
+
+Good Lexicalisation
+- Maximise constraints on parse tree, minimise tag ambiguity
+- We don't want the parts the tags describe to overlap much --- that'll make the tags sparse (since they represent more information)
+- We also don't want 'gaps' between the structures specified by the tags --- those are bits the parser must discover
+
+Lexical tags in CCG
+- Need argument categories
+- If argument (or main verb): Need the result category (which roots the tree the word heads)
+- If modifier: need the category type modified
+- This allows arguments to be 'blind' to the modifiers that attach to them
+- Advantage: smaller tag set
+
+Example
+- `fast car' N\J
+- `fast red car' (N\J)\J
+- `new fast red car' ((N\J)\J)\J
+- etc
+- Subtree interacts the same with rest of derivation after modification
+- So modifiers are of the form X/X and X\X
+
+Problem
+- But what happens when a modifier modifies a modifier?
+- (X/X)/(X/X)
+- The modifier must know it's parent's function
+
+Examples
+- screw/adjustment screw/cover adjustment screw/meter cover adjustment screw/water meter cover adjustment screw/hot water meter cover adjustment screw/...
+- The woman casually smoking a cigarette/The woman was casually smoking a cigarette
+- The dam is almost at capacity/Sydney has a dam almost at capacity
+
+Formalising these desiderate
+
+- In LTAG, these desirable properties are formalised as requirements the grammar must meet, expressed as the following principles:
+blah blah blah
+
+CCG doesn't exhibit these properties
+
+- CCG (Combinatory Categorial Grammar) builds derivations that are coupled with semantic analyses, by encoding argument structure in syntactic categories
+- This means we give a verb like 'bought' a lexical category that looks much like bought(x, y), and then fill in x and y during the derivation
+- Positions of x and y are specified relative to `bought', so (S\NP)/NP
+- Adjuncts adjoin and leave the category unchanged: X(X) (X\X) or (X/X)
+- Problem: what happens when an adjunct must adjoin to an adjunct? (X(X))(X(X)) eg: (X\X)/(X\X)
+
+Some examples
+
+- Verbs can function as adverbs and adnominals
+- They can receive adverbs when they function in this way
+- We require new adjunct categories for adverb-modifying-adnominal, adverb-modifying-adverb, etc.
+- Modification structures can be recursive, too: adverb-modifying-adverb-modifying-adverb...
+- We therefore need an infinite set of modifier categories
+
+CCGbank's solution
+
+- CCGbank's solution is to reduce the level of lexicalisation, so that there's a "gap" in the derivation the parser must discover
+(example)
+- This introduces lots of extra ambiguity, requires far fewer categories
+- Solution applied judiciously, to categories which are frequently modified. EG PPs don't get this treatment
+
+We need to represent both form and function
+
+- What we want is a way to encode both /form/ and /function/
+- This allows us to modify a VP as a VP, regardless of whether it functions as predicate, an adnominal, an adverb, etc.
+- The grammaticality of modifier-head relations is only sensitive to /form/, not /function/
+- In other words, we want to lexically specify the unary rules used in CCGbank
+
+Our solution
+
+- We do this by specifying a /type-change/ category in the original category: N^(N/N)
+- We then have a rule that says X^Y -> Y to enact the type-change
+- If a category with a null type-change category is unified with a type-change category, the type-change is transmitted:
+- XuX^Y --> X^Y
+- Unification of categories with conflicting type-changes is blocked: X^YuX^Z --> 0
+
+Examples
+
+(blah blah blah)
+
+Experiments
+
+- We create three new versions of CCGbank to test our changes
+- The /no unary/ corpus, reverses CCGbank's unary rules so we can explore the extent of the problem they were designed to solve
+- The /replace unary/ corpus replaces CCGbank's unary rules with our type-change categories
+- The /EDOL/ corpus extends our solution to all adjuncts, so that the corpus exhibits the Extended Domain of Locality and Factoring of Recursion properties LTAG grammars must satisfy
+
+Results
+
+- Supertag results
+- Parser implementation almost done

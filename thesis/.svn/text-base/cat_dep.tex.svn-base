@@ -1,0 +1,197 @@
+\documentclass[11pt]{article}
+\usepackage{LI}
+
+\newcommand{\cf}[1]{\mbox{$\it{#1}$}}   % category font
+\begin{document}
+\begin{figure}
+\deriv{3}{
+\rm water & \rm meter & \rm cover \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N/N} &
+\cf{N/N} &
+\cf{N} \\
+\fcomp{2} \\
+\mc{2}{\cf{N/N}} \\
+& \fapply{2} \\
+& \mc{2}{\cf{N}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm water & \rm meter & \rm cover \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N/N} &
+\cf{N/N} &
+\cf{N} \\
+& \fapply{2} \\
+& \mc{2}{\cf{N}} \\
+\fapply{3} \\
+\mc{3}{\cf{N}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm water & \rm meter & \rm cover \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N/N} &
+\cf{N/N} &
+\cf{N} \\
+\division{1} \\
+\mc{1}{\cf{(N/N)/(N/N)}} \\
+\fapply{2} \\
+\mc{2}{\cf{N/N}} \\
+\fapply{3} \\
+\mc{3}{\cf{N}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm water & \rm meter & \rm cover \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N\bs $/N\bs $} &
+\cf{N/N} &
+\cf{N} \\
+\fapply{2} \\
+\mc{2}{\cf{N/N}} \\
+\fapply{3} \\
+\mc{3}{\cf{N}}
+}\end{figure}
+
+\begin{figure}
+\deriv{4}{
+\rm team & \rm that & \rm Brazil & \rm defeated \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N} &
+\cf{(N\bs N)/(S/NP)} &
+\cf{NP} &
+\cf{(S/NP)\bs NP} \\
+&& \bapply{2} \\
+&& \mc{2}{\cf{S/NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{N\bs N}} \\
+\bapply{4} \\
+\mc{4}{\cf{N}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Seeing & \rm things & \rm clearly & \rm is & \rm important \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/NP} &
+\cf{NP} &
+\cf{NP\bs NP} &
+\cf{(S[dcl]\bs NP)/(S[adj]\bs NP)} &
+\cf{S[adj]\bs NP} \\
+\fapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP}} && \mc{2}{\cf{S[dcl]\bs NP}} \\
+\bapply{3} \\
+\mc{3}{\cf{NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[dcl]}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Seeing & \rm things & \rm clearly & \rm is & \rm important \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/NP} &
+\cf{NP} &
+\cf{NP\bs NP} &
+\cf{(S[dcl]\bs NP)/(S[adj]\bs NP)} &
+\cf{S[adj]\bs NP} \\
+& \bapply{2} \\
+& \mc{2}{\cf{NP}} \\
+\fapply{3} & \fapply{2} \\
+\mc{3}{\cf{NP}} & \mc{2}{\cf{S[dcl]\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[dcl]}}
+}\end{figure}
+
+\begin{figure}
+\deriv{6}{
+\rm asbestos & \rm once & \rm used & \rm for & \rm cigarette & \rm filters \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/(NP\bs NP)} &
+\cf{(NP\bs NP)/PP} &
+\cf{PP} &
+\cf{NP/NP} &
+\cf{NP} \\
+&&&& \fapply{2} \\
+&&&& \mc{2}{\cf{NP}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{PP}} \\
+&& \fapply{4} \\
+&& \mc{4}{\cf{NP\bs NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{NP\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{6}{
+\rm asbestos & \rm once & \rm used & \rm for & \rm cigarette & \rm filters \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/(S\bs NP)} &
+\cf{(S\bs NP)/(S\bs NP)} &
+\cf{(S\bs NP)/PP} &
+\cf{PP} &
+\cf{NP/NP} &
+\cf{NP} \\
+&&&& \fapply{2} \\
+&&&& \mc{2}{\cf{NP}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{PP}} \\
+&& \fapply{4} \\
+&& \mc{4}{\cf{S\bs NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{S\bs NP}} \\
+\fapply{6} \\
+\mc{6}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm See & \rm -ing & \rm things \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{(S\bs NP)/NP} &
+\cf{NP\bs _{\bs times}(S\bs NP)} &
+\cf{NP} \\
+\bxcomp{2} \\
+\mc{2}{\cf{NP/NP}} \\
+\fcomp{3} \\
+\mc{3}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm to & \rm see & \rm things \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/(S\bs NP)} &
+\cf{(S\bs NP)/NP} &
+\cf{NP} \\
+& \fapply{2} \\
+& \mc{2}{\cf{S\bs NP}} \\
+\fapply{3} \\
+\mc{3}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Seeing & \rm things & \rm clearly & \rm is & \rm important \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{(S[ng]\bs NP)/NP} &
+\cf{NP} &
+\cf{(S\bs NP)\bs (S\bs NP)} &
+\cf{(S[dcl]\bs NP)/(S[adj]\bs NP)} &
+\cf{S[adj]\bs NP} \\
+\fapply{2} && \fapply{2} \\
+\mc{2}{\cf{S[ng]\bs NP}} && \mc{2}{\cf{S[dcl]\bs NP}} \\
+\bapply{3} \\
+\mc{3}{\cf{S[ng]\bs NP}} \\
+\psg{3} \\
+\mc{3}{\cf{NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[dcl]}}
+}\end{figure}\end{document}

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/matt/!svn/ver/85/code/Treebank/PTB/_tests
+END
+leafTests.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/matt/!svn/ver/85/code/Treebank/PTB/_tests/leafTests.py
+END
+corpusTests.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/matt/!svn/ver/85/code/Treebank/PTB/_tests/corpusTests.py
+END
+_profile.py
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/matt/!svn/ver/85/code/Treebank/PTB/_tests/_profile.py
+END
+fileTests.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/matt/!svn/ver/85/code/Treebank/PTB/_tests/fileTests.py
+END
+labelTests.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/matt/!svn/ver/85/code/Treebank/PTB/_tests/labelTests.py
+END
+sentenceParseTests.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/matt/!svn/ver/85/code/Treebank/PTB/_tests/sentenceParseTests.py
+END

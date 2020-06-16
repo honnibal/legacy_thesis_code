@@ -1,0 +1,437 @@
+
+
+\usepackage{LI_fix}
+\usepackage{parsetree}
+\usepackage{avm}
+\usepackage{graphicx}
+\usepackage{lcovington}
+\newcommand{\gis}{\textsc{gis}\xspace}
+\newcommand{\iis}{\textsc{iis}\xspace}
+\newcommand{\wsj}{\textsc{wsj}\xspace}
+\newcommand{\ccg}{\textsc{ccg}\xspace}
+\newcommand{\ltag}{\textsc{ltag}\xspace}
+\newcommand{\hpsg}{\textsc{hpsg}\xspace}
+\newcommand{\lbfgs}{\textsc{l-bfgs}\xspace}
+\newcommand{\bfgs}{\textsc{bfgs}\xspace}
+\newcommand{\cfg}{\textsc{cfg}\xspace}
+\newcommand{\pcfg}{\textsc{pcfg}\xspace}
+\newcommand{\nlp}{\textsc{nlp}\xspace}
+\newcommand{\dop}{\textsc{dop}\xspace}
+\newcommand{\lfg}{\textsc{lfg}\xspace}
+\newcommand{\pp}{\textsc{pp}\xspace}
+\newcommand{\cky}{\textsc{cky}\xspace}
+\newcommand{\gb}{\textsc{gb}\xspace}
+\newcommand{\mb}{\textsc{mb}\xspace}
+%\newcommand{\ram}{\textsc{ram}\xspace}
+\newcommand{\mpi}{\textsc{mpi}\xspace}
+\newcommand{\cpu}{\textsc{cpu}\xspace}
+\newcommand{\parseval}{\textsc{parseval}}
+\newcommand{\trec}{\textsc{trec}\xspace}
+\newcommand{\epsrc}{\textsc{epsrc}\xspace}
+\newcommand{\dt}{\textsc{dt}\xspace}
+\newcommand{\hmm}{\textsc{hmm}\xspace}
+\newcommand{\ghz}{\textsc{ghz}\xspace}
+\newcommand{\rasp}{\textsc{rasp}\xspace}
+\newcommand{\ldc}{\textsc{ldc}\xspace}
+\newcommand{\gr}{\textsc{gr}\xspace}
+\newcommand{\qa}{\textsc{qa}\xspace}
+\newcommand{\jj}{\textsc{jj}\xspace}
+\newcommand{\vbn}{\textsc{vbn}\xspace}
+\newcommand{\cd}{\textsc{cd}\xspace}
+\newcommand{\rp}{\textsc{rp}\xspace}
+\newcommand{\cc}{\textsc{cc}\xspace}
+\newcommand{\susanne}{\textsc{susanne}\xspace}
+\newcommand{\bandc}{\textsc{b{\small \&}c}\xspace}
+\newcommand{\ccgbank}{CCGbank\xspace}
+\newcommand{\candc}{\textsc{C}\&\textsc{C}\xspace}
+\newcommand{\cg}{\textsc{cg}\xspace}
+\newcommand{\penn}{\textsc{ptb}\xspace}
+\newcommand{\semf}[1]{\ensuremath{\text{\textbf{#1}}}}
+\newcommand{\sematt}[1]{\ensuremath{\langle \text{\textsc{#1}}\rangle}}
+%\newcommand{\bs}{\backslash}
+\newcommand{\cf}[1]{\mbox{$\it{#1}$}}   % category font
+\newcommand{\lexent}[2]{\mbox{#1}~\mbox{:=}~\cf{#2}}   % lexical entry
+\newcommand{\dep}[1]{\langle\mbox{\small{#1}}\rangle}
+\newcommand{\head}[1]{_{\mbox{\tiny{\it #1}}}}
+\newcommand{\lhead}{\{\mbox{\small{\it l}\/}\}}
+\newcommand{\feat}[1]{[\mbox{\footnotesize{\it #1}\/}]}
+\newcommand{\tfeat}[1]{[\mbox{\tiny{\it #1}\/}]}
+\newcommand{\reln}[1]{\mbox{\small{\it #1}\/}}
+\newcommand{\hd}[1]{\{#1\}}
+\newcommand{\dy}[1]{\langle#1\rangle}
+\newcommand{\tab}{\hspace*{0.3cm}}
+
+\newcommand{\agent}[1]{{\color{blue} #1}}
+\newcommand{\patient}[1]{{\color{purple} #1}}
+\newcommand{\price}[1]{{\color{green} #1}}
+\newcommand{\predicate}[1]{\textbf{#1}}
+
+\title[Rebanking]{Rebanking CCGbank for Improved NP Interpretation}
+
+\author{Matthew Honnibal}
+
+\date{\today}
+
+\begin{document}
+
+\titleslide
+
+\section{Introduction}
+
+\begin{plain}{Motivating Examples}
+ \textbf{CCG/HPSG/LFG/LTAG/etc promise semantic transparency:}
+\begin{small}
+\begin{eqnarray}
+ \text{Google acquired YouTube} & \rightarrow & \text{acquire(G, Y)}\\
+ \text{YouTube was acquired by Google} & \rightarrow & \text{acquire(G, Y)}\\
+ \text{Youtube, which Google acquired} & \rightarrow & \text{acquire(G, Y)}\\
+ \text{Google decided to acquire YouTube} & \rightarrow & \text{acquire(G, Y)}
+\end{eqnarray}
+\end{small}
+\textbf{But what counts as \emph{surface variation}?}
+\begin{small}
+\begin{eqnarray}
+ \text{Google's acquisition of YouTube} & \rightarrow & ??\\
+ \text{Google's decision to acquire YouTube} & \rightarrow & ??\\
+ \text{Google has to make a decision about acquiring YouTube} & \rightarrow & ??
+\end{eqnarray}
+\end{small}
+
+\end{plain}
+
+
+\begin{points}{Overview}
+ \p The project: Produce a \ccg treebank that's as good
+    as one we'd produce if we started from scratch.\\
+\hfill
+ \p The process: Design analyses, then use existing Penn Treebank annotations 
+    to reform CCGbank.\\
+\hfill
+ \p The point: Test semantic transparency against independent semantic annotations;
+               use the corpus to improve CCG parsers and realisers.
+\hfill
+\end{points}
+
+\begin{points}{Semantic transparency in \ccg}
+ \p Each word is assigned a lexical category and a logical form.
+ \p Grammatical rules may only concatenate logical forms and bind variables.
+\begin{center}
+ \deriv{3}{
+\rm Google & \rm acquired & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP_G} &
+\cf{(S\bs NP_y)/NP_z} &
+\cf{NP_Y} \\
+&
+\text{acquire(y, z)} &
+\\
+& \fapply{2} \\
+& \mc{2}{\cf{S\bs NP_y}} \\
+& \mc{2}{\text{acquire(y, YouTube)}}\\
+\bapply{3} \\
+\mc{3}{\cf{S}}\\
+\mc{3}{\text{acquire(Google, YouTube)}}
+}
+\end{center}
+
+\end{points}
+
+\section{NP Semantics}
+
+\begin{plain}{Deverbal Nouns in CCGbank}
+ \deriv{5}{
+\rm Google & \rm 's & \rm acquisition & \rm of & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP_G} &
+\cf{(NP_y/N_y)\bs NP_z} &
+\cf{N} &
+\cf{(NP_y\bs NP_y)/NP_z} &
+\cf{NP_Y} \\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP_y/N_y}} && \mc{2}{\cf{NP_y\bs NP_y}} \\
+\fapply{3} \\
+\mc{3}{\cf{NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{NP}}
+}
+
+\begin{itemize}
+\item CCGbank's analysis is derived from the Penn Treebank.
+\item Offers no support for nominal predicates: they do not subcategorise for their argument structures.
+
+\end{itemize}
+
+\end{plain}
+
+\begin{plain}{Our Analysis of Deverbal Nouns}
+\begin{small}
+\centering
+\deriv{5}{
+\rm Google & \rm 's & \rm acquisition & \rm of & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP_\semf{Google}} &
+\cf{(NP_y/(N_y/PP_z))\bs NP_z} &
+\cf{(N/PP_y)/PP_z} &
+\cf{PP_y/NP_y} &
+\cf{NP_\semf{YouTube}} \\
+&
+&
+\text{acquire(y, z)} &
+&
+\\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP_y/(N_y/PP_\semf{Google})}} && \mc{2}{\cf{PP_\semf{YouTube}}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{N/PP_y}} \\
+&& \mc{3}{\text{acquire(y, YouTube)}}\\
+\fapply{5} \\
+\mc{5}{\cf{NP_\semf{acquisition}}}\\
+\mc{5}{\text{acquire(Google, YouTube)}}
+}
+\end{small}
+\end{plain}
+
+
+\begin{plain}{Deverbal nouns passing long-range dependencies}
+\scalebox{0.7}{
+\deriv{5}{
+\rm G. & \rm 's & \rm decision & \rm to~acquire & \rm Y. \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP_y/(N_y/PP_z)_y)\bs NP_z} &
+\cf{(N/PP_y)/(S[to]_z\bs NP_y)_z} &
+\cf{(S[to]\bs NP_y)/NP_z} &
+\cf{NP} \\
+&
+&
+\text{decide(y, z)} &
+\text{acquire(y, z)} &
+\\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP_y/(N_y/PP_{Google})}} && \mc{2}{\cf{S[to]\bs NP_y}} \\
+&&& \text{acquire(y, Y.)}\\
+&& \fapply{3} \\
+&& \mc{3}{\cf{N/PP_y}} \\
+&& \mc{3}{\text{decide(y, acquire)} \wedge \text{acquire(y, Y.)}}\\
+\fapply{5} \\
+\mc{5}{\cf{NP}}\\
+\mc{5}{\text{decide(Google, acquire)} \wedge \text{acquire(Google, Y.)}}\\
+}
+}
+
+\end{plain}
+
+\begin{points}{Implementation}
+ \p Implementation relied on NomBank, a predicate-argument annotation layer for the Penn Treebank
+ \p Updating \ccg trees intelligently is non-trivial, because label changes must be propagated down the tree
+ \p 34,345 adnominal prepositional phrases converted to complements
+ \p 18,919 left as adjuncts
+ \p Most complementy preposition: \emph{of}, 99.1\% of occurrences as complement
+ \p Most adjuncty preposition: \emph{in}, 59.1\% of occurrences as adjunct
+\end{points}
+
+
+\section{Other Rebanking Processes}
+
+\begin{points}{Merging Previous Changes}
+ \p NP bracketing from Dave Vadas's PhD \\
+e.g. Crude (oil prices) vs (Crude oil) prices
+ \p Punctuation normalisation and quote restoration from Daniel Tse's honours
+ \p Propbank complement/adjunct distinctions from a paper early in my PhD
+ \p Verb particle constructions from James Constable's honours thesis,\\
+e.g. \emph{he made up his mind} vs. \emph{the parts are made up the river}
+\end{points}
+
+\begin{plain}{Restrictive vs. Non-restrictive Adnominals}
+\begin{center}
+\scalebox{0.8}{
+\deriv{5}{
+\rm all & \rm staff & \rm on & \rm casual & \rm contracts \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/NP} &
+\cf{N} &
+\cf{(NP\bs NP)/NP} &
+\cf{N/N} &
+\cf{N} \\
+& \ftype{1} && \fapply{2} \\
+& \mc{1}{\cf{NP}} && \mc{2}{\cf{N}} \\
+&&& \ftype{2} \\
+&&& \mc{2}{\cf{NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{NP\bs NP}} \\
+& \bapply{4} \\
+& \mc{4}{\cf{NP}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}
+}
+\pause
+\scalebox{0.8}{
+ \deriv{5}{
+\rm All & \rm staff & \rm on & \rm casual & \rm contracts \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{(N\bs N)/NP} &
+\cf{N/N} &
+\cf{N} \\
+&&& \fapply{2} \\
+&&& \mc{2}{\cf{N}} \\
+&&& \ftype{2} \\
+&&& \mc{2}{\cf{NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{N\bs N}} \\
+& \bapply{4} \\
+& \mc{4}{\cf{N}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}
+}
+\end{center}
+\end{plain}
+
+\begin{plain}{Partitive Constructions}
+ \begin{center}
+\deriv{4}{
+\rm Four & \rm of & \rm our & \rm members \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP_y\bs NP_y)/NP_z} &
+\cf{NP_y/N_y} &
+\cf{N} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{NP_\mathrm{members}}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{(NP_y\bs NP_y)_\mathrm{of}}} \\
+\bapply{4} \\
+\mc{4}{\cf{NP_\mathrm{Four}}}
+}
+\pause
+\deriv{4}{
+\rm Four & \rm of & \rm our & \rm members \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP_y/PP_y} &
+\cf{PP_y/NP_y} &
+\cf{NP_y/N_y} &
+\cf{N} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{NP_\mathrm{members}}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{PP_\mathrm{members}}} \\
+\fapply{4} \\
+\mc{4}{\cf{NP_\mathrm{members}}}
+}
+\end{center}
+
+\end{plain}
+
+\section{Results}
+
+\begin{plain}{Extent of the Changes}
+ \begin{table}
+\centering
+\small
+ \begin{tabular}{l|rrr}
+\hline
+  Corpus        & \textbf{\textsc{L. Deps}} & \textbf{\textsc{U. Deps}} & \textbf{\textsc{Cats}} \\
+\hline\hline
+ +NP brackets   & 97.2 & 97.7 & 98.5 \\
+ +Quotes        & 97.2 & 97.7 & 98.5 \\
+ +Propbank      & 93.0 & 94.9 & 96.7 \\
+ +Particles     & 92.5 & 94.8 & 96.2 \\
+ \hline
+ +Restrictivity & 79.5 & 94.4 & 90.6 \\
+ +Part. Gen.    & 76.1 & 90.1 & 90.4 \\
+ +NP Pred-Arg   & 70.6 & 83.3 & 84.8 \\
+\hline
+ \end{tabular}
+\caption{\small Effect of the changes on \ccgbank,
+by percentage of dependencies and categories
+left unchanged in Section 00.\label{tab:intersect}}
+\end{table}
+\end{plain}
+
+\begin{plain}{Parsing Results}
+ \begin{table}
+\small
+ \begin{tabular}{l|rrr|rrr}
+
+\hline
+&\multicolumn{3}{c|}{\textsc{wsj} 00}&\multicolumn{3}{c}{\textsc{wsj} 23}\\
+  Corpus        & \textbf{\textsc{lf}}   & \textbf{\textsc{uf}}  & \textbf{\textsc{Cat}} & \textbf{\textsc{lf}}   & \textbf{\textsc{uf}}  & \textbf{\textsc{Cat}}\\
+\hline\hline
+ \ccgbank       & 87.2 & 92.9 & 94.1 & 87.7 & 93.0 & 94.4 \\
+ +NP brackets & 86.9 & 92.8 & 93.8 & 87.3 & 92.8 & 93.9 \\
+ +Quotes        & 86.8 & 92.7 & 93.9 & 87.1 & 92.6 & 94.0 \\
+ +Propbank      & 86.7 & 92.6 & 94.0 & 87.0 & 92.6 & 94.0\\
+ +Particles     & 86.4 & 92.5 & 93.8 & 86.8 & 92.6& 93.8\\
+\hline
++NP rebanking   & 84.2 & 91.2 & 91.9 & 84.7 & 91.3 & 92.2 \\
+\hline
+ \end{tabular}
+\caption{\small Parser evaluation on the rebanked corpora.
+\label{tab:parser}}
+\end{table}
+\end{plain}
+
+\begin{plain}{Intersection Evaluation}
+ \begin{table}
+\centering
+\small
+ \begin{tabular}{l|rr|rr}
+\hline
+  Corpus        & \multicolumn{2}{c|}{Rebanked} & \multicolumn{2}{c}{\ccgbank} \\
+                & \textbf{\textsc{lf}} & \textbf{\textsc{uf}}                      & \textbf{\textsc{lf}} & \textbf{\textsc{uf}} \\
+\hline\hline
++NP brackets & 86.45 & 92.36 & 86.52 & 92.35\\
++Quotes      & 86.57 & 92.40 & 86.52 & 92.35\\
++Propbank    & 87.76 & 92.96 & 87.74 & 92.99\\
++Particles   & 87.50 & 92.77 & 87.67 & 92.93\\
+\hline
++NP Rebanking& 87.23 & 92.71 & 88.02 & 93.51\\
+\hline
+ \end{tabular}
+\caption{\small Comparison of parsers trained on \ccgbank and the rebanked corpora,
+using dependencies that occur in both.
+\label{tab:intersect}}
+\end{table}
+\end{plain}
+
+
+\section{Conclusion}
+ 
+\begin{points}{Replacing the pipeline}
+\p Research in computational linguistics is resource driven.
+\p The standard resource configuration suggests a pipeline:\\
+   POS tagger $\rightarrow$ NE tagger $\rightarrow$ parser $\rightarrow$ semantic role labeller
+\p What we're trying to do is integrate the resources, and thereby integrate the tasks.
+\p Powerful linguistic representations (i.e. CCG) are central to our strategy.
+\end{points}
+
+\begin{points}{Conclusion}
+ \p New and improved CCGbank including all previous updates
+ \p Incorporation of SRL information from NomBank and PropBank into CCGbank
+ \p New analyses to allow transparent interface between grammar and SRL-semantics
+ \p 29.4\% of dependencies in CCGbank updated
+ \p Parsing remains feasible with the new, fine-grained resource
+\end{points}
+
+
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+
+% 
+
+\end{document}
+

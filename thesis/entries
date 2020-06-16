@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="890"
+   name=""
+   committed-date="2007-05-15T05:02:44.708475Z"
+   url="svn://ltsvn/toby/thesis/logos"
+   last-author="toby"
+   kind="dir"
+   uuid="41d9ed4b-0f00-0410-b122-aa6b8933dc32"
+   revision="890"/>
+<entry
+   committed-rev="890"
+   name="su_crest_notext-bb-0-0-61-53.pdf"
+   text-time="2007-05-21T11:16:44.000000Z"
+   committed-date="2007-05-15T05:02:44.708475Z"
+   checksum="44ccb22338f43e4874cf2b76c4fbe222"
+   last-author="toby"
+   kind="file"
+   prop-time="2007-05-21T11:16:44.000000Z"/>
+</wc-entries>

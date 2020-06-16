@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/matt/!svn/ver/132/code/CCG/_Category
+END
+_AtomicCategory.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/matt/!svn/ver/132/code/CCG/_Category/_AtomicCategory.py
+END
+_parse.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/matt/!svn/ver/132/code/CCG/_Category/_parse.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/matt/!svn/ver/131/code/CCG/_Category/__init__.py
+END
+_AbstractCategory.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/matt/!svn/ver/132/code/CCG/_Category/_AbstractCategory.py
+END
+utils.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/matt/!svn/ver/130/code/CCG/_Category/utils.py
+END
+_ComplexCategory.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/matt/!svn/ver/132/code/CCG/_Category/_ComplexCategory.py
+END

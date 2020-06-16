@@ -1,0 +1,649 @@
+\section{Grammars and Parsing}
+
+\emph{Parsing} is the task of determining the syntactic structure of a sentence. This allows variations in the surface form to be regularised, so that semantic relationships can be recovered.
+
+In order to be useful for parsing, a grammar must be \emph{generative}. A generative grammar uses a lexicon and a set of rules to recursively identify syntactic structure
+
+\section{Lexicalised Grammars}
+
+\section{AB Categorial Grammar}
+
+Categorial Grammar (\cg) \citep{bar-hillel:53} is a lexicalised grammar formalism, weakly equivalent to context-free phrase-structure grammars. \cg assigns each word a lexical category. Categories can be simple, such as \cf{NP}, which identifies the word as an argument; or they can be functions from some set of arguments to a result. For example, the category \cf{S\mid NP} indicates that the category requires an \cf{NP} argument to yield an \cf{S} constituent.
+
+Most categorial grammars use two directional slashes instead of the $\mid$ operator. The \cf{/} operator is used to indicate an argument must be found to the right, while the \cf{\bs} operator indicates the argument must be found to the left. We use the $\mid$ operator where the distinction between the directional slashes is irrelevant to discussion.
+
+A categorial grammar that uses directional slashes requires only two grammatical rules:
+\begin{enumerate}
+\item \cf{X/Y}\ \cf{Y} $\Rightarrow$ \cf{X}
+\item \cf{Y}\ \cf{X\bs Y} $\Rightarrow$ \cf{X}
+\end{enumerate}
+The bulk of the derivational structure is specified by the lexical categories. Generally, very few primitive types are required in a categorial grammar. For instance, there is no simple category corresponding to \cf{VP}. Instead, a verb phrase is always a sentence-missing-arguments.
+
+Categories can also specify features. Since we require only very simple feature structures for discussion, we write feature values in square brackets after the category: \cf{(S[pss]\bs NP)/NP}. In the rules above, the \cf{Y} categories would be unified, which also transmits lexical heads.
+
+Because the grammar is lexicalised, and the categories transparently map to semantic functions, the derivation also defines a semantic analysis.
+
+\section{Combinatory Categorial Grammar}
+
+Combinatory Categorial Grammar (\ccg) (\citep{steedman:2000} extends \cg with new rule types. The new rules allow the grammar to handle bounded and unbounded long-range dependencies, increasing its generative capacity to `mildly context-sensitive'. The most frequent rules, \emph{type-raising} and \emph{composition}, are derived from combinatory logic \citep{curry:1958}.
+The only other new rule type in \ccg, \emph{substitution}, is rarely required in English, and does not occur in \ccgbank.
+
+Composition can be \emph{harmonic} or \emph{crossing}. Harmonic composition allows two categories to combine without changing the direction arguments are expected:
+\begin{enumerate}
+\item[3] \cf{X/Y} \cf{Y/Z} $\Rightarrow$ \cf{X/Z}
+\item[4] \cf{Y\bs Z} \cf{X\bs Y} $\Rightarrow$ \cf{X\bs Z}
+\end{enumerate}
+Crossing composition changes the direction arguments are expected:
+\begin{enumerate}
+\item[5] \cf{X/Y} \cf{Y\bs Z} $\Rightarrow$ \cf{X\bs Z}
+\item[6] \cf{Y/Z} \cf{X\bs Y} $\Rightarrow$ \cf{X/Z}
+\end{enumerate}
+
+These rules lead to over-generation if unrestricted, so are typically controlled with a set of constraints. The most noteable of these for our purposes is that the \cf{X} and \cf{Y} categories should be categories of the form \cf{S\$}.
+Similar restrictions are applied to the substitution rules, but since these rules are not used in \ccgbank, we do not discuss them here.
+
+Type-raising is a unary rule type that interacts with composition to make complex functions associative, allowing arguments to be attached in different orders. It can also interact with crossing composition to allow extraction, or in the case of forward composition, scrambling. The forward composition rule is therefore only desirable in free-word order languages, and is not used in English. The two type-raising rules are:
+\begin{enumerate}
+\item \cf{X} $\Rightarrow$ \cf{Y/(Y\bs X)}
+\item \cf{X} $\Rightarrow$ \cf{Y\bs (Y/X)} 
+\end{enumerate}
+
+\subsection{CCGbank and \ccg Parsing}
+
+\section{Other Categorial Grammars}
+
+\section{CCGbank}
+
+\citet{julia_thesis} acquired a \ccg treebank from the Penn Treebank (\penn) \citep{ptb}, dubbed \ccgbank, and showed that the corpus could be used to train a statistical parser. In addition to the combinatory rules described above, \ccgbank includes several non-combinatory production rules. Table \ref{productions} lists the most frequent of these.
+
+The unary productions are generally of the form \cf{X} $\Rightarrow$ \cf{Y\mid Y}. That is, they unarily change an argument into an adjunct category. These rules were introduced to control the proliferation of modifier categories, discussed in detail in Section \ref{proliferation}.
+
+There are a variety of non-combinatory binary productions in \ccgbank. The most frequent of these deal with punctuation, using it as a cue to enact a type-change. There is also a long tail of non-combinatory binary productions introduced to coerce a derivation for sentences where the conversion algorithm encountered some problem, generally due to noise from sub-optimal \ptb bracketing.
+
+\section{Supervised CCG Parsing}
+
+\citet{candc_journal} describe how a fast and accurate \ccg parser can be trained from \ccgbank. One of the keys to the system's success is \emph{supertagging} \citep{srinivas:99}. Supertagging is the assignment of lexical categories as a sequence tagging task. The parser is given only tags assigned a probability close to that of the most likely tag, greatly restricting the search space the parser must explore. We use this system, referred to as \candc, for our parsing experiments.
+
+\section{Complements and Adjuncts in CCGbank}
+
+\section{PropBank}
+
+
+
+
+% One page
+
+PropBank \citep{propbank} provides predicate-argument structure annotation for each sentence in the Penn Treebank. This annotation involves identifying each predicate in the sentence, and which constituents realise its arguments. The arguments then receive detailed labels that specify their semantic role, capturing generalisations that are complicated by surface syntactic constructions such as passivisation and ergativity.
+
+The label scheme begins by describing each argument as either core or peripheral. Core arguments receive a numeric semantic role label, whose interpretation of is specific to each predicate. Peripheral arguments receive a label from a generic set. Peripheral arguments are adjuncts, and are defined by the fact that they are optional, cannot become the subject of the predicate, and can be assigned a function label from a small set generic to all predicates, such as direction, purpose, time, etc.
+
+PropBank is a semantic annotation layer, so the target of the argument labels may not be a single constituent. Annotation is provided in a stand-off format, and labels may refer to multiple nodes, and often include references to traced constituents. However, syntactic distinctions are given priority over semantic differences when determining the frame set of a particular predicate, in order to avoid making distinctions that are too fine grained.
+
+
+\section{Related Work}
+% One page
+\section{Aligning CCGbank and PropBank}
+
+
+% What it means to align them
+In order to use the PropBank annotation for CCGBank, we first align the two resources.
+% Sentence alignment: CCGBank skips sentences, PropBank skips 1 sentence in CCGBank
+First, we align the sentences and tokens in CCGBank with the original PTB text, so that the few sentences missing from CCGBank do not cause the PropBank indices to refer to the wrong sentences.
+% Token alignment: CCGBank skips quotation marks, PropBank token indices include traces
+Token alignment is necessary too, because CCGBank sentences do not include the PTB null elements. CCGBank also omits quotation marks.
+
+% Finding an equivalent group of CCG nodes: find the smallest set of nodes that covers all the words and only the words
+Once we have the correct sentences and token indices, we must select a set of CCG nodes that correspond to the PTB nodes that realise an argument. Since we cannot expect the CCG derivation to match the structure of the original parse, we search for the smallest set of CCG nodes that cover all and only the tokens covered by the PTB nodes PropBank refers to.
+
+To do this, we first collect the tokens covered by the PTB nodes that realise the PropBank argument. For each word, we move up the derivation until we find a node whose parent includes at least one token not in the set we are looking for. We then add this node to the set of CCG nodes that will realise the argument. If two or more tokens in the set have a common ancestor that does not span any tokens not in the set, that ancestor will be referred to instead of the tokens it yields. 
+%Figure \ref{code:align} describes this simple algorithm more formally.
+
+\begin{figure}
+\small
+\begin{verbatim}
+constituents = {}
+for constituent in tokens
+  while ascendTree(constituent, tokens):
+    constituent = constituent.parent
+  constituents[constituent.ID] = constituent
+
+def ascendTree(constituent, tokens):
+  for word in constituent.parent.words:
+    if word not in tokens:
+      return False
+  return True
+\end{verbatim}
+\caption{Algorithm for finding the smallest, highest set of CCG nodes that cover the set of tokens covered by a set of PTB nodes.}
+\label{code:align}
+\end{figure}
+
+\section{Applying Changes}
+
+This section describes the process we used to find inconsistencies between PropBank and CCGBank, and how changes were applied. 
+
+% Overview of "maximise precision" philosophy
+
+% Discuss changing node labels
+\begin{small}
+\begin{figure*}
+\deriv{9}{
+\rm Pierre & \rm will & \rm join & \rm the & \rm board & \rm as & \rm a & \rm nonexecutive & \rm director\\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}\\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/(S[b]\bs NP)} &
+\cf{((S[b]\bs NP)/PP)/NP} &
+\cf{NP/N} &
+\cf{N} &
+\cf{PP/NP} &
+\cf{NP/N} &
+\cf{N/N} & 
+\cf{N} \\
+&&&\fapply{2} & & & \fapply{2} \\ 
+&&& \mc{2}{\cf{N}} &&& \mc{2}{\cf{N}}\\
+&&\fapply{3} & &  \fapply{3} \\
+&&\mc{3}{\cf{(S[b]\bs NP)/PP}} && \mc{3}{\cf{NP}} \\
+&&&&&\fapply{4} \\
+&&&&&\mc{4}{\cf{PP}} \\
+&&\fapply{7} \\
+&&\mc{7}{\cf{S[b]\bs NP}} \\
+&\fapply{8} \\
+&\mc{8}{\cf{S[dcl]\bs NP}}\\
+\bapply{9} \\
+\mc{9}{\cf{S[dcl]}}
+}
+\caption{The original CCGBank derivation of the first sentence of the Penn Treebank.}\label{fig:orig_deriv}
+\end{figure*}
+\end{small}
+
+\begin{small}
+\begin{figure*}
+\deriv{9}{
+\rm Pierre & \rm will & \rm join & \rm the & \rm board & \rm as & \rm a & \rm nonexecutive & \rm director\\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}\\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/(S[b]\bs NP)} &
+\cf{(S[b]\bs NP)/NP} &
+\cf{NP/N} &
+\cf{N} &
+\cf{((S\bs NP)\bs (S\bs NP))/NP} &
+\cf{NP/N} &
+\cf{N/N} & 
+\cf{N} \\
+&&&\fapply{2} & & & \fapply{2} \\ 
+&&& \mc{2}{\cf{NP}} &&& \mc{2}{\cf{N}}\\
+&&\fapply{3} & &  \fapply{3} \\
+&&\mc{3}{\cf{S[b]\bs NP}} && \mc{3}{\cf{NP}} \\
+&&&&&\fapply{4} \\
+&&&&&\mc{4}{\cf{(S\bs NP)\bs (S\bs NP)}} \\
+&&\bapply{7} \\
+&&\mc{7}{\cf{S[b]\bs NP}} \\
+&\fapply{8} \\
+&\mc{8}{\cf{S[dcl]\bs NP}}\\
+\bapply{9} \\
+\mc{9}{\cf{S[dcl]}}
+}
+\caption{The altered derivation, with the \cf{PP} argument changed to an adjunct.}\label{fig:new_deriv}
+\end{figure*}
+\end{small}
+
+
+
+
+
+
+%\rm Pierre & \rm will & \rm join & \rm the & \rm board & \rm as & \rm a & \rm nonexecutive & \rm director\\
+%\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}\\
+%\cf{NP} &
+%\cf{(S[dcl]\bs NP)/(S[b]\bs NP)} &
+%\cf{(S[b]\bs NP)/NP} &
+%\cf{NP/N} &
+%\cf{N} &
+%\cf{((S\bs NP)\bs (S\bs NP))/NP} &
+%\cf{NP/N} &
+%\cf{N/N} & 
+%\cf{N} \\
+%&&&\fapply{2} & & & \fapply{2} \\ 
+%&&& \mc{2}{\cf{N}} &&& \mc{2}{\cf{N}}\\
+%&&\fapply{3} \\
+%&&\mc{3}{\cf{S[b]\bs NP}}\\
+%&\fapply{4} & &  \fapply{3} \\
+%&\mc{4}{\cf{S[dcl]\bs NP}} && \mc{3}{\cf{NP}} \\
+%&&&&&\fapply{4} \\
+%&&&&&\mc{4}{\cf{(S\bs NP)\bs (S\bs NP)}} \\
+%&\bapply{8} \\
+%&\mc{8}{\cf{S[dcl]\bs NP}} \\
+%\bapply{9} \\
+%\mc{9}{\cf{S[dcl]}}
+
+
+
+\subsection{Changing node labels}
+
+% Why propagation
+In a phrase-structure grammar, production rules are arbitrary and unbounded: there is no underlying logic behind why one symbol should be rewritten as the set of symbols that make up its children. As discussed in section \ref{sec:ccg}, this is not true in CCG. We cannot simply replace one node label with another in a derivation, or we will introduce an invalid production rule. When we change a node label, the changes must be reflected in the surrounding tree.
+
+The sibling of the node we are changing will always be the verb, as discussed in section \ref{sec:constraints}. The new verb category will be produced by adding or deleting an argument, depending on whether we are changing an adjunct to a complement or vice versa. The rules for deciding the new sibling category are therefore given in sections \ref{sec:comp-to-adj} and \ref{sec:adj-to-comp}.
+
+We do this by finding instances of the old label in the subtree, and replacing them with the new label. We must replace the old category if it occurs as a whole label, a result, or an argument. Figure \ref{tree:app} shows a tree where the parent category is produced by using the forward application rule on the two children. This means that the parent category will be the result category of the left child, and the left child's argument category will be the right child's whole label.
+
+Unary productions present a special case not covered by the rules discussed above. Unary productions are rules where the parent has only one child.
+
+CCG does license unary type-raising rules, and \citet{ccgbank} discusses the addition of several extra unary rules to simplify the category set. Other unary productions seem to be the result of noise. In the latter two cases, there is no obvious relationship between the parent category and the child category, as there would be with a binary production licensed by the grammar. This prevents us from using the rules discussed above to propagate the changes down the tree. 
+
+Figure \ref{tree:unaryorig} shows a tree which we would like to change to an argument, without introducing a new production rule NP $\rightarrow$ N. If we simply change the parent category and not the child, we will probably be introducing a new rule into the grammar. Since we wish to avoid this, we instead collapse the unary production, moving the grand-children up to the node whose label we have just changed, before propagating the changes to them.  Figure \ref{tree:unaryafter} shows the tree after we have applied this process.
+
+%Handling unary cases in this way prevents us from having to choose between introducing N new rules into the grammar and rejecting Y possible changes.
+
+
+\begin{figure}
+\centering
+\begin{parsetree}
+\small
+( .\cf{\textbf{PP}} .
+  `\cf{\textbf{PP}/NP}'
+  `\cf{NP}'
+)
+\end{parsetree}
+\caption{The parent category is the result category of the left child.}\label{tree:app}
+\end{figure}
+
+\begin{figure}
+\centering
+\ptbegtree
+\small
+\ptbeg \ptnode{\cf{(S\bs NP) \bs (S\bs NP)}}
+  \ptbeg \ptnode{\cf{N}}
+    \ptbeg \ptnode{\cf{N/N[num]}} \ptleaf{\$} \ptend
+    \ptbeg \ptnode{\cf{N[num]}} \ptleaf{6} \ptend
+  \ptend
+\ptend
+\ptendtree
+
+\caption{An adjunct with a unary production.}\label{tree:unaryorig}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{parsetree}
+\small
+( .\cf{\textbf{NP}}.
+  ( .\cf{\textbf{NP}/N[num]} . `\$' )
+  ( .\cf{N[num]} . `6' )
+)
+\end{parsetree}
+
+\caption{The tree relabelled as a complement, with the unary production collapsed and changes propagated through the subtree.}\label{tree:unaryafter}
+\end{figure}
+
+
+\begin{figure*}
+\centering
+\begin{parsetree}
+\small
+( .\cf{NP}. 
+  (.\cf{NP}. ~ `The first time' )
+  (.\cf{NP\bs NP}.
+    (.\cf{S[dcl]}.
+      (.\cf{NP}. `this')
+      (.\cf{S[dcl]\bs NP}. `happened')
+    )
+  )
+)
+\end{parsetree}
+\caption{PropBank annotates `The first time' as a peripheral argument of `happened'. We do not change cases like this.}\label{tree:npnp}
+\end{figure*}
+	
+
+
+\subsection{Finding arguments}
+\label{sec:constraints}
+
+This section discusses how we identify inconsistencies between the PropBank and CCG argument structure annotation. We iterate through each PropBank argument, using several criteria to decide whether its CCG category ought to be changed.
+
+% Single constituent
+The first criterion is that the PropBank argument should be realised by a single CCG constituent. This excludes 1.6\% (6,271) of arguments from consideration. We are not interested in these arguments, because we are looking for cases where we can identify a simple inconsistency between the PropBank label and the CCG category. If there is not a single constituent, the two annotations disagree more fundamentally than our rules are designed to correct. Often, it would not even make sense to consider the PropBank argument as a syntactic constituent, such as the many cases where there is intervening text between the constituents that realise it.
+
+% Inconsistent label
+Next, we check that the CCG category is consistent with the PropBank label. If the PropBank label is ARGM, the constituent should have a sentential adjunct category like \cf{(S\bs NP)\bs (S\bs NP)}, \cf{S/S}, etc. Sentential adjunct categories are distinguished by having identical results and arguments, and having an innermost result category of \cf{S}. If the argument has a numeric PropBank label, indicating that it is a subject or complement, its constituent should not have a CCG adjunct category unless it is the agent of a passive verb. 3.9\% (15,686) of PropBank arguments have labels inconsistent with their CCG categories in this way.
+
+% Attached to verb
+The other criteria we consider are intended to guarantee that in the CCG derivation the argument attaches directly to the predicate, as either a CCG adjunct or a CCG argument. First, we check that the sibling of the constituent is a verb. The first criterion we use to do this is to check that its category's innermost result is \cf{S}. Next, we check that the category is not an adjunct, by checking whether its argument is identical to its result. We also do not wish to change or introduce leftward arguments, so we add an extra constraint rejecting arguments which occur before the verb they attach to. This constraint is very rarely required, rejecting a further 10 arguments only.
+
+6\% (946) of the 15,686 arguments with inconsistent PropBank and CCGBank annotations fail these criteria. The most common case where this criterion is not met is when a relative clause is attached to a noun that PropBank considers a peripheral argument. Figure \ref{tree:npnp} shows a tree fragment that exemplifies this. 62.2\% (583) of the 936 cases described above are like this example.
+
+Once we have established that the constituent is attached to a verb, we check that the head of that verb node is the predicate the PropBank entry refers to. The case this corrects is rare: only 0.7\% (98) of the 14,750 remaining inconsistencies exhibit this problem. Nevertheless, catching this case greatly reduces the number of invalid derivations our changes produce.
+
+
+
+\subsection{Changing complements to adjuncts}
+\label{sec:comp-to-adj}
+
+Changing a complement to an adjunct involves changing the constituent's label, the verb label, and updating the dependencies.
+% The new label is always (S\NP)\(S\NP)
+The new constituent label is always \cf{(S\bs NP)\bs (S\bs NP)}, the standard non-fronted adjunct category. Our constraints ensure that the constituent occurs after the verb and that the verb category is not atomic. 
+
+% Getting the new verb category
+As discussed above, the verb node is the sibling of the constituent. The new category of this constituent will be its current result, as we are simply changing the argument to an adjunct. This also ensures that the parent category will remain unchanged.
+
+These changes alter which CCG rules are invoked in the derivation. In the simplest case, the verb and the constituent no longer combine by forward application of the verb category, but by backward application of the new adjunct. Figure \ref{fig:new_deriv} shows an example of this.
+
+Occassionally, however, the new derivation may require backward composition, as the verb could still looking for rightward arguments.
+%Figure \ref{fig:gbcomp} gives an example where generalised backward composition is used.
+Table \ref{tab:rules} lists the instances of the various combinatory rules in CCGBank derivations before and after our changes, showing that despite our initial concern, the new corpus actually contains slightly fewer productions validated by composition rules.
+
+% Getting the new dependencies
+Having changed the derivation, we must update the dependencies it produces. We must delete one local dependency, and introduce one local dependency, as instead of the verb governing the argument, the argument is now an adjunct -- a functor category that governs the verb.
+
+We change 1,543 complements to adjuncts.
+
+\subsection{Changing adjuncts to complements}
+\label{sec:adj-to-comp}
+
+Changing an adjunct to a complement involves selecting the new label of the complement, adding it as an argument to the verb category, and updating the dependencies. 
+% Finding the new label
+Selecting the appropriate label for the complement can be tricky, as CCG categories reflect the constituent's function, not its form. An \cf{NP} functioning as an adjunct and a \cf{PP} functioning as an adjunct will therefore both have the same category. The first heuristic we use deals with adjuncts formed by unary productions. In these cases, the adjunct node is essentially replaced by its child, as we simply need to undo the unary rule. Otherwise, we try to decide whether the complement is to be labelled \cf{NP} or \cf{PP} by checking whether its head is a noun, based on its part of speech tag.
+
+% Getting the new verb label
+Once we have the category of the complement, we can add it as an argument to the verb. The new verb category will be of the form \cf{X/Y}, where \cf{X} is the old verb category, and \cf{Y} is the complement category.
+
+%As discussed in section \ref{sec:comp-to-adj}, changing the node labels changes which CCG rules are used in the derivation.
+
+%This example illustrates a more subtle issue. In the original derivation, shown in figure \ref{fig:orig_deriv}, the order in which the auxiliary `will' and the adjunct `as' apply is quite arbitrary. When we change `as' to a complement, we simply change its label -- preserving the original order of attachment. Now, however, the order is less arbitrary, as the auxiliary `will' must use forward composition to combine with `join', instead of simply forward application. Because the derivation uses function composition unnecessarily, it now fails \citet{eisner:96}'s criteria to be considered `normal form'.
+
+% Getting the new dependencies
+Having changed the derivation, we must update the dependencies it produces. We must delete one local dependency, and introduce one local dependency, as instead of the compelment governing the verb as an adjunct, the verb now governs the complement as an argument.
+
+% Analysis
+We change 13,256 adjuncts to complements. Many of these are arguments of verbs of price motion.
+
+\section{Evaluation}
+
+This section describes the process we used to find inconsistencies between PropBank and CCGBank, and how changes were applied. 
+
+% Overview of "maximise precision" philosophy
+
+% Discuss changing node labels
+\begin{small}
+\begin{figure*}
+\deriv{9}{
+\rm Pierre & \rm will & \rm join & \rm the & \rm board & \rm as & \rm a & \rm nonexecutive & \rm director\\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}\\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/(S[b]\bs NP)} &
+\cf{((S[b]\bs NP)/PP)/NP} &
+\cf{NP/N} &
+\cf{N} &
+\cf{PP/NP} &
+\cf{NP/N} &
+\cf{N/N} & 
+\cf{N} \\
+&&&\fapply{2} & & & \fapply{2} \\ 
+&&& \mc{2}{\cf{N}} &&& \mc{2}{\cf{N}}\\
+&&\fapply{3} & &  \fapply{3} \\
+&&\mc{3}{\cf{(S[b]\bs NP)/PP}} && \mc{3}{\cf{NP}} \\
+&&&&&\fapply{4} \\
+&&&&&\mc{4}{\cf{PP}} \\
+&&\fapply{7} \\
+&&\mc{7}{\cf{S[b]\bs NP}} \\
+&\fapply{8} \\
+&\mc{8}{\cf{S[dcl]\bs NP}}\\
+\bapply{9} \\
+\mc{9}{\cf{S[dcl]}}
+}
+\caption{The original CCGBank derivation of the first sentence of the Penn Treebank.}\label{fig:orig_deriv}
+\end{figure*}
+\end{small}
+
+\begin{small}
+\begin{figure*}
+\deriv{9}{
+\rm Pierre & \rm will & \rm join & \rm the & \rm board & \rm as & \rm a & \rm nonexecutive & \rm director\\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}\\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/(S[b]\bs NP)} &
+\cf{(S[b]\bs NP)/NP} &
+\cf{NP/N} &
+\cf{N} &
+\cf{((S\bs NP)\bs (S\bs NP))/NP} &
+\cf{NP/N} &
+\cf{N/N} & 
+\cf{N} \\
+&&&\fapply{2} & & & \fapply{2} \\ 
+&&& \mc{2}{\cf{NP}} &&& \mc{2}{\cf{N}}\\
+&&\fapply{3} & &  \fapply{3} \\
+&&\mc{3}{\cf{S[b]\bs NP}} && \mc{3}{\cf{NP}} \\
+&&&&&\fapply{4} \\
+&&&&&\mc{4}{\cf{(S\bs NP)\bs (S\bs NP)}} \\
+&&\bapply{7} \\
+&&\mc{7}{\cf{S[b]\bs NP}} \\
+&\fapply{8} \\
+&\mc{8}{\cf{S[dcl]\bs NP}}\\
+\bapply{9} \\
+\mc{9}{\cf{S[dcl]}}
+}
+\caption{The altered derivation, with the \cf{PP} argument changed to an adjunct.}\label{fig:new_deriv}
+\end{figure*}
+\end{small}
+
+
+
+
+
+
+%\rm Pierre & \rm will & \rm join & \rm the & \rm board & \rm as & \rm a & \rm nonexecutive & \rm director\\
+%\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}\\
+%\cf{NP} &
+%\cf{(S[dcl]\bs NP)/(S[b]\bs NP)} &
+%\cf{(S[b]\bs NP)/NP} &
+%\cf{NP/N} &
+%\cf{N} &
+%\cf{((S\bs NP)\bs (S\bs NP))/NP} &
+%\cf{NP/N} &
+%\cf{N/N} & 
+%\cf{N} \\
+%&&&\fapply{2} & & & \fapply{2} \\ 
+%&&& \mc{2}{\cf{N}} &&& \mc{2}{\cf{N}}\\
+%&&\fapply{3} \\
+%&&\mc{3}{\cf{S[b]\bs NP}}\\
+%&\fapply{4} & &  \fapply{3} \\
+%&\mc{4}{\cf{S[dcl]\bs NP}} && \mc{3}{\cf{NP}} \\
+%&&&&&\fapply{4} \\
+%&&&&&\mc{4}{\cf{(S\bs NP)\bs (S\bs NP)}} \\
+%&\bapply{8} \\
+%&\mc{8}{\cf{S[dcl]\bs NP}} \\
+%\bapply{9} \\
+%\mc{9}{\cf{S[dcl]}}
+
+
+
+\subsection{Changing node labels}
+
+% Why propagation
+In a phrase-structure grammar, production rules are arbitrary and unbounded: there is no underlying logic behind why one symbol should be rewritten as the set of symbols that make up its children. As discussed in section \ref{sec:ccg}, this is not true in CCG. We cannot simply replace one node label with another in a derivation, or we will introduce an invalid production rule. When we change a node label, the changes must be reflected in the surrounding tree.
+
+The sibling of the node we are changing will always be the verb, as discussed in section \ref{sec:constraints}. The new verb category will be produced by adding or deleting an argument, depending on whether we are changing an adjunct to a complement or vice versa. The rules for deciding the new sibling category are therefore given in sections \ref{sec:comp-to-adj} and \ref{sec:adj-to-comp}.
+
+We do this by finding instances of the old label in the subtree, and replacing them with the new label. We must replace the old category if it occurs as a whole label, a result, or an argument. Figure \ref{tree:app} shows a tree where the parent category is produced by using the forward application rule on the two children. This means that the parent category will be the result category of the left child, and the left child's argument category will be the right child's whole label.
+
+Unary productions present a special case not covered by the rules discussed above. Unary productions are rules where the parent has only one child.
+
+CCG does license unary type-raising rules, and \citet{ccgbank} discusses the addition of several extra unary rules to simplify the category set. Other unary productions seem to be the result of noise. In the latter two cases, there is no obvious relationship between the parent category and the child category, as there would be with a binary production licensed by the grammar. This prevents us from using the rules discussed above to propagate the changes down the tree. 
+
+Figure \ref{tree:unaryorig} shows a tree which we would like to change to an argument, without introducing a new production rule NP $\rightarrow$ N. If we simply change the parent category and not the child, we will probably be introducing a new rule into the grammar. Since we wish to avoid this, we instead collapse the unary production, moving the grand-children up to the node whose label we have just changed, before propagating the changes to them.  Figure \ref{tree:unaryafter} shows the tree after we have applied this process.
+
+%Handling unary cases in this way prevents us from having to choose between introducing N new rules into the grammar and rejecting Y possible changes.
+
+
+\begin{figure}
+\centering
+\begin{parsetree}
+\small
+( .\cf{\textbf{PP}} .
+  `\cf{\textbf{PP}/NP}'
+  `\cf{NP}'
+)
+\end{parsetree}
+\caption{The parent category is the result category of the left child.}\label{tree:app}
+\end{figure}
+
+\begin{figure}
+\centering
+\ptbegtree
+\small
+\ptbeg \ptnode{\cf{(S\bs NP) \bs (S\bs NP)}}
+  \ptbeg \ptnode{\cf{N}}
+    \ptbeg \ptnode{\cf{N/N[num]}} \ptleaf{\$} \ptend
+    \ptbeg \ptnode{\cf{N[num]}} \ptleaf{6} \ptend
+  \ptend
+\ptend
+\ptendtree
+
+\caption{An adjunct with a unary production.}\label{tree:unaryorig}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{parsetree}
+\small
+( .\cf{\textbf{NP}}.
+  ( .\cf{\textbf{NP}/N[num]} . `\$' )
+  ( .\cf{N[num]} . `6' )
+)
+\end{parsetree}
+
+\caption{The tree relabelled as a complement, with the unary production collapsed and changes propagated through the subtree.}\label{tree:unaryafter}
+\end{figure}
+
+
+\begin{figure*}
+\centering
+\begin{parsetree}
+\small
+( .\cf{NP}. 
+  (.\cf{NP}. ~ `The first time' )
+  (.\cf{NP\bs NP}.
+    (.\cf{S[dcl]}.
+      (.\cf{NP}. `this')
+      (.\cf{S[dcl]\bs NP}. `happened')
+    )
+  )
+)
+\end{parsetree}
+\caption{PropBank annotates `The first time' as a peripheral argument of `happened'. We do not change cases like this.}\label{tree:npnp}
+\end{figure*}
+	
+
+
+\subsection{Finding arguments}
+\label{sec:constraints}
+
+This section discusses how we identify inconsistencies between the PropBank and CCG argument structure annotation. We iterate through each PropBank argument, using several criteria to decide whether its CCG category ought to be changed.
+
+% Single constituent
+The first criterion is that the PropBank argument should be realised by a single CCG constituent. This excludes 1.6\% (6,271) of arguments from consideration. We are not interested in these arguments, because we are looking for cases where we can identify a simple inconsistency between the PropBank label and the CCG category. If there is not a single constituent, the two annotations disagree more fundamentally than our rules are designed to correct. Often, it would not even make sense to consider the PropBank argument as a syntactic constituent, such as the many cases where there is intervening text between the constituents that realise it.
+
+% Inconsistent label
+Next, we check that the CCG category is consistent with the PropBank label. If the PropBank label is ARGM, the constituent should have a sentential adjunct category like \cf{(S\bs NP)\bs (S\bs NP)}, \cf{S/S}, etc. Sentential adjunct categories are distinguished by having identical results and arguments, and having an innermost result category of \cf{S}. If the argument has a numeric PropBank label, indicating that it is a subject or complement, its constituent should not have a CCG adjunct category unless it is the agent of a passive verb. 3.9\% (15,686) of PropBank arguments have labels inconsistent with their CCG categories in this way.
+
+% Attached to verb
+The other criteria we consider are intended to guarantee that in the CCG derivation the argument attaches directly to the predicate, as either a CCG adjunct or a CCG argument. First, we check that the sibling of the constituent is a verb. The first criterion we use to do this is to check that its category's innermost result is \cf{S}. Next, we check that the category is not an adjunct, by checking whether its argument is identical to its result. We also do not wish to change or introduce leftward arguments, so we add an extra constraint rejecting arguments which occur before the verb they attach to. This constraint is very rarely required, rejecting a further 10 arguments only.
+
+6\% (946) of the 15,686 arguments with inconsistent PropBank and CCGBank annotations fail these criteria. The most common case where this criterion is not met is when a relative clause is attached to a noun that PropBank considers a peripheral argument. Figure \ref{tree:npnp} shows a tree fragment that exemplifies this. 62.2\% (583) of the 936 cases described above are like this example.
+
+Once we have established that the constituent is attached to a verb, we check that the head of that verb node is the predicate the PropBank entry refers to. The case this corrects is rare: only 0.7\% (98) of the 14,750 remaining inconsistencies exhibit this problem. Nevertheless, catching this case greatly reduces the number of invalid derivations our changes produce.
+
+
+
+\subsection{Changing complements to adjuncts}
+\label{sec:comp-to-adj}
+
+Changing a complement to an adjunct involves changing the constituent's label, the verb label, and updating the dependencies.
+% The new label is always (S\NP)\(S\NP)
+The new constituent label is always \cf{(S\bs NP)\bs (S\bs NP)}, the standard non-fronted adjunct category. Our constraints ensure that the constituent occurs after the verb and that the verb category is not atomic. 
+
+% Getting the new verb category
+As discussed above, the verb node is the sibling of the constituent. The new category of this constituent will be its current result, as we are simply changing the argument to an adjunct. This also ensures that the parent category will remain unchanged.
+
+These changes alter which CCG rules are invoked in the derivation. In the simplest case, the verb and the constituent no longer combine by forward application of the verb category, but by backward application of the new adjunct. Figure \ref{fig:new_deriv} shows an example of this.
+
+Occassionally, however, the new derivation may require backward composition, as the verb could still looking for rightward arguments.
+%Figure \ref{fig:gbcomp} gives an example where generalised backward composition is used.
+Table \ref{tab:rules} lists the instances of the various combinatory rules in CCGBank derivations before and after our changes, showing that despite our initial concern, the new corpus actually contains slightly fewer productions validated by composition rules.
+
+% Getting the new dependencies
+Having changed the derivation, we must update the dependencies it produces. We must delete one local dependency, and introduce one local dependency, as instead of the verb governing the argument, the argument is now an adjunct -- a functor category that governs the verb.
+
+We change 1,543 complements to adjuncts.
+
+\subsection{Changing adjuncts to complements}
+\label{sec:adj-to-comp}
+
+Changing an adjunct to a complement involves selecting the new label of the complement, adding it as an argument to the verb category, and updating the dependencies. 
+% Finding the new label
+Selecting the appropriate label for the complement can be tricky, as CCG categories reflect the constituent's function, not its form. An \cf{NP} functioning as an adjunct and a \cf{PP} functioning as an adjunct will therefore both have the same category. The first heuristic we use deals with adjuncts formed by unary productions. In these cases, the adjunct node is essentially replaced by its child, as we simply need to undo the unary rule. Otherwise, we try to decide whether the complement is to be labelled \cf{NP} or \cf{PP} by checking whether its head is a noun, based on its part of speech tag.
+
+% Getting the new verb label
+Once we have the category of the complement, we can add it as an argument to the verb. The new verb category will be of the form \cf{X/Y}, where \cf{X} is the old verb category, and \cf{Y} is the complement category.
+
+%As discussed in section \ref{sec:comp-to-adj}, changing the node labels changes which CCG rules are used in the derivation.
+
+%This example illustrates a more subtle issue. In the original derivation, shown in figure \ref{fig:orig_deriv}, the order in which the auxiliary `will' and the adjunct `as' apply is quite arbitrary. When we change `as' to a complement, we simply change its label -- preserving the original order of attachment. Now, however, the order is less arbitrary, as the auxiliary `will' must use forward composition to combine with `join', instead of simply forward application. Because the derivation uses function composition unnecessarily, it now fails \citet{eisner:96}'s criteria to be considered `normal form'.
+
+% Getting the new dependencies
+Having changed the derivation, we must update the dependencies it produces. We must delete one local dependency, and introduce one local dependency, as instead of the compelment governing the verb as an adjunct, the verb now governs the complement as an argument.
+
+% Analysis
+We change 13,256 adjuncts to complements. Many of these are arguments of verbs of price motion.
+
+
+
+\section{Conclusion}
+
+Treebanks are expensive projects, and limited resources are available
+for their construction. This typically forces compromises to be made
+in the construction of a treebank, both in the information its
+annotation scheme is designed to represent, and how rigorously that
+annotation scheme is enforced.
+
+One of the most common compromises made is to acquire a theory
+specific corpus from a more general one. This is a very effective
+strategy, but one that generally introduces some level of noise into
+the resulting corpus. One of the principle sources of such noise is
+distinctions made in the new annotation scheme that are only partially
+supported by the original corpus.
+ 
+We have shown how new information can be incorporated into a corpus
+automatically acquired from the Penn Treebank, in order to mitigate
+this problem. As supplementary resources are released for the Penn
+Treebank, corpora calculated from it can be updated, thereby
+benefitting from these steady improvements.
+
+%The most promising application for the new corpus is semantic role
+%labelling. The new corpus allows the parser to do more of the work in
+%a semantic role labelling system, as its training data more closely
+%conforms to the PropBank annotation. Since global models have proven
+%so effective for this task \citep{conll05}, this seems like a
+%promising approach. Accurate complement and adjunct labels may also be
+%useful for higher-level NLP applications like question answering and
+%machine translation.
+
+Improving the training data with respect to this distinction may also
+improve parsing results. \citet{candc_journal} report that the
+distinction between complements, adjuncts and NP qualifiers is one of
+the main sources of error. To some extent, this is unsurprising, as PP
+attachment is one of the most difficult distinctions to draw. However,
+the inconsistent and often incorrect complement and adjunct labels
+that CCGBank inherits from the Penn Treebank may well be a problem.
+Although our current results show little change in parsing
+performance, we believe future experimentation will see the benefit of
+making CCGbank more consistent.
+
+We have demonstrated how the practical issues involved in reforming a
+problematic linguistic distinction can be overcome. We have described
+how the three resources required -- CCGBank, the Penn Treebank, and
+PropBank -- can be aligned; and how the PropBank labels can be used to
+correct the CCGBank derivations. The reformed complement and adjunct
+labels, which sometimes involve more subtle semantic distinctions
+drawn by the PropBank annotators, can be replicated by a parser almost
+as accurately as the original annotation, without tuning the parser to
+better handle the changes in the corpus.

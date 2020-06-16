@@ -1,0 +1,105 @@
+This is TeX, Version 3.14159 (Web2C 7.4.5) (format=latex 2005.9.2)  22 MAR 2009 16:35
+**hat_corpus.tex
+(./hat_corpus.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+(/usr/share/texmf/tex/latex/base/article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(/usr/share/texmf/tex/latex/base/size11.clo
+File: size11.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (./LI.sty
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 5.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 5.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 5.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 16.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 16.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 16.
+\c@example=\count87
+\labellength=\skip43
+\textlength=\skip44
+\c@fnexample=\count88
+\c@lexlistcounter=\count89
+\c@nexlistcounter=\count90
+\c@myfigure=\count91
+\mystringwidth=\skip45
+\funnylength=\skip46
+\hanginglength=\skip47
+) (./hat_corpus.aux)
+\openout1 = `hat_corpus.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 32.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 32.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 32.
+
+Overfull \hbox (67.27486pt too wide) in paragraph at lines 32--32
+[]$[]$ 
+ []
+
+
+Overfull \hbox (1.89389pt too wide) in paragraph at lines 53--53
+[]$[]$ 
+ []
+
+
+Overfull \hbox (4.93556pt too wide) in paragraph at lines 72--72
+[]$[]$ 
+ []
+
+
+Overfull \hbox (33.28299pt too wide) in paragraph at lines 93--93
+[]$[]$ 
+ []
+
+
+Overfull \hbox (22.6638pt too wide) in paragraph at lines 106--106
+[]$[]$ 
+ []
+
+
+Overfull \hbox (54.59438pt too wide) in paragraph at lines 140--140
+[]$[]$ 
+ []
+
+[1] [2] (./hat_corpus.aux) ) 
+Here is how much of TeX's memory you used:
+ 330 strings out of 95847
+ 3211 string characters out of 1195949
+ 72330 words of memory out of 1000001
+ 3333 multiletter control sequences out of 10000+50000
+ 8308 words of font info for 29 fonts, out of 500000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 21i,11n,21p,296b,312s stack positions out of 1500i,500n,5000p,200000b,5000s
+
+Output written on hat_corpus.dvi (2 pages, 6976 bytes).

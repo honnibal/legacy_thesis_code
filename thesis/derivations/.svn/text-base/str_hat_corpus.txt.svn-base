@@ -1,0 +1,150 @@
+I|NP gave|((S\NP)/NP)/NP doing|(VP^{NP}/NP)/NP things|N^{NP} his|NP^{(VP\VP}/N way|N a|NP/N chance|N
+unhat things things NP
+fapply his way NP
+fapply a chance NP
+fapply doing things (S\NP)^{NP}/NP
+unhat his way (S\NP)\(S\NP)
+bapply doing way S\NP^{NP}
+unhat doing way NP
+fapply gave way (S\NP)/NP
+fapply gave chance S\NP
+bapply I chance S
+
+That~is~an~issue,|S[dcl] he|NP said,|(S[dcl]\NP)/S[dcl] but|conj we~can~handle~it|S[dcl]
+ftype he he S/(S\NP)
+fcomp he said, S[dcl]/S[dcl]
+psgrule he said, S\S
+bapply 0 said, S[dcl]
+conj but we~can~handle~it S[dcl][conj]
+conj 0 we~can~handle~it S[dcl]
+
+That~is~an~issue,|S[dcl] but|conj we~can~handle~it,|S[dcl] he|NP said|(S[dcl]\NP)/S[dcl]
+ftype he he S/(S\NP)
+conj but we~can~handle~it, S[dcl][conj]
+fcomp he said S[dcl]/S[dcl]
+conj That~is~an~issue, we~can~handle~it, S[dcl]
+psgrule he said S\S
+bapply 0 said S[dcl]
+
+That~is~an~issue,|S[dcl] he|NP said,|((S[dcl]\NP)/S[dcl])^{(S\S)} but|conj we~can~handle~it|S[dcl]
+ftype he he S/(S\NP)
+fcomp he said, (S[dcl]/S[dcl])^{(S\S)}
+unhat he said, S\S
+conj but we~can~handle~it S[dcl][conj]
+bapply 0 said, S[dcl]
+conj That~is~an~issue, we~can~handle~it S[dcl]
+
+Factory~inventories~fell~0.1\%|S[dcl] ,|(S\S)/NP the~first~decline~since~February~1987|NP
+fapply 1 2 S\S
+bapply 0 2 S[dcl]
+
+Factory~inventories~fell~0.1\%|S[dcl] ,|X\X the~first~decline~since~February~1987|NP^(S\S)
+fapply 1 2 S\S
+bapply 0 2 S[dcl]
+
+These~actions|NP are|(S[dcl]\NP)/(S[adj]\NP) risky|S[adj]\NP and|conj not~in~our~best~interests|PP^{(S[adj]\NP)}
+unhat 4 4 S[adj]\NP
+conj 3 4 S[adj]\NP[conj]
+conj 2 4 S[adj]\NP
+fapply 1 4 S[dcl]\NP
+bapply 0 4 S[dcl]
+
+They|NP assume|(S[dcl]\NP)/NP reinvestment|NP and|conj that~the~yield~continues|S[em]^{NP}
+unhat 4 4 NP
+conj 3 4 NP[conj]
+conj 2 4 NP
+fapply 1 4 S[dcl]\NP
+bapply 0 4 S[dcl]
+
+They|NP assume|(S[dcl]\NP)/SUBST reinvestment|NP^{SUBST} and|conj that~the~yield~continues|S[em]^{SUBST}
+unhat 2 2 SUBST
+unhat 4 4 SUBST
+conj 3 4 NP[conj]
+conj 2 4 NP
+fapply 1 4 S[dcl]\NP
+bapply 0 4 S[dcl]
+
+these|NP^((S\NP)\(S\NP))/N days|N
+fapply 0 1 NP^((S\NP)\(S\NP))
+unhat 0 1 (S\NP)\(S\NP)
+
+the|NP/N price|N/(S/NP) they|NP want|(S[dcl]\NP)/NP
+ftype they they S/(S\NP)
+fcomp they want S[dcl]/NP
+fapply price want N
+fapply the price NP
+
+Blatantly|(S\NP)/(S\NP) ignoring|S[ng]\NP^{S/S}/NP the~constition,|NP Congress~...|S[dcl]
+fapply 1 2 S[ng]\NP^{S/S}
+fapply 0 2 S[ng]\NP^{S/S}
+unhat 0 2 S/S
+fapply 0 3 S[dcl]
+
+asbestos|N^{NP} once|(S\NP)/(S\NP) used|(S[pss]\NP)^{NP\NP}/PP in|PP/NP cigarette|N/N filters|N^{NP}
+unhat asbestos asbestos NP
+fapply cigarette filters N
+unhat cigarette filters NP
+fapply in filters PP
+fapply used filters (S[pss]\NP)^{NP\NP}
+fapply once filters (S[pss]\NP)^{NP\NP}
+unhat once filters NP\NP
+bapply asbestos filters NP
+
+The~asbestos|NP cigarette~filters|NP once|(S\NP)/(S\NP) used|((S[pss]\NP)/NP)^{NP\NP}
+fcomp once used ((S[pss]\NP)/NP)^{NP\NP}
+fcomp cigarette~filters used (S[pss]/NP)^{NP\NP}
+unhat cigarette~filters used NP\NP
+bapply cigarette~filters used NP
+bapply The~asbestos used NP
+
+Factory~inventories~fell~0.1\%,|S[dcl] the~first~decline~since~February~1987|NP^{S\S}
+unhat 1 1 S\S
+bapply 0 1 S[dcl]
+
+Casey|NP^{S/(S\NP)} likes|(S[dcl]\NP)/NP but|conj Erin|NP^{S/(S\NP)} hates|(S[dcl]\NP)/NP Pat|NP
+unhat Casey Casey S/(S\NP)
+unhat Erin Erin S/(S\NP)
+fcomp Casey likes S[dcl]/NP
+fcomp Erin hates S[dcl]/NP
+conj but hates S[dcl]/NP[conj]
+conj Casey hates S[dcl]/NP
+fapply Casey Pat S[dcl]
+
+They~held|((S[dcl]/PP)/NP a|NP^{(S/PP)\((S/PP)/NP)}/N treaty|N in|PP^{S\(S/PP)} one|NP/N hand|N and~a~pistol~in~the~other|S\((S/PP)/NP)
+fapply a treaty NP^{S\((S/PP)/NP)}
+fapply one hand NP
+unhat a treaty (S/PP)\((S/PP)/NP)
+fapply in hand PP^{S\(S/PP)}
+unhat in hand S\(S/PP)
+bcomp a hand S\((S/PP)/NP)
+conj a 6 S\((S/PP)/NP)
+bapply 0 6 S[dcl]
+
+They|NP held|((S[dcl]\NP)/PP)/NP a|NP^{((S\NP)/PP)\(((S\NP)/PP)/NP)}/N treaty|N in|PP^{(S\NP)\((S\NP)/PP)} one|NP/N hand|N and~a~pistol~in~the~other|(S\NP)\(((S\NP)/PP)/NP)[conj]
+fapply a treaty NP^{(S\NP)\(((S\NP)/PP)/NP)}
+fapply one hand NP
+unhat a treaty ((S\NP)/PP)\(((S\NP)/PP)/NP)
+fapply in hand PP^{(S\NP)\((S\NP)/PP)}
+unhat in hand (S\NP)\((S\NP)/PP)
+bcomp a hand (S\NP)\(((S\NP)/PP)/NP)
+conj a 7 (S\NP)\(((S\NP)/PP)/NP)
+bapply They 7 S[dcl]\NP
+bapply 0 7 S[dcl]
+
+They|NP held|((S[dcl]\NP)/PP)/NP a|NP^{((S\NP)/PP)\((S\NP)/PP)/NP)}/N treaty|N in|PP^{(S\NP)\((S\NP)/PP)}/NP one|NP/N hand|N and|conj a|NP^{((S\NP)/PP)\((S\NP)/PP)/NP)}/N pistol|N in2|PP^{(S\NP)\((S\NP)/PP)}/NP  the|NP/N other|N
+fapply a treaty NP^{((S\NP)/PP)\(((S\NP)/PP)/NP)}
+fapply one hand NP
+unhat a treaty ((S\NP)/PP)\(((S\NP)/PP)/NP)
+fapply in hand PP^{(S\NP)\((S\NP)/PP)}
+unhat in hand (S\NP)\((S\NP)/PP)
+bcomp a hand (S\NP)\(((S\NP)/PP)/NP)
+conj a 7 (S\NP)\(((S\NP)/PP)/NP)
+bapply 1 7 S[dcl]\NP
+bapply They 7 S[dcl]
+
+The|NP/N effects|N/(S\NP) of|((NP/(S\NP))\((NP/(S\NP)))/NP this|NP/N policy|N seen|S[pss]\NP today|(S\NP)\(S\NP)
+fcomp The effects NP/(S\NP)
+fapply this policy NP
+bapply seen today S[pss]\NP
+bapply The policy NP/(S\NP)
+fapply The today NP

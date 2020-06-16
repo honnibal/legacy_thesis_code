@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank
+END
+validate.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/validate.py
+END
+changeNodeLabel.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/changeNodeLabel.py
+END
+testDump.txt
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/testDump.txt
+END
+test.prof
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/test.prof
+END
+matchWithPTB.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/matchWithPTB.py
+END
+removeQuotes.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/removeQuotes.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/__init__.py
+END
+productionTypes.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/productionTypes.txt
+END
+search.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/search.py
+END
+CCGNodeVisitors.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/CCGNodeVisitors.py
+END
+invalid_npbank.txt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/invalid_npbank.txt
+END
+diff.py
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/diff.py
+END
+invalid.txt
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/invalid.txt
+END
+new_02.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/new_02.txt
+END
+CCGNodes.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/CCGNodes.py
+END
+invalid_ccgbank.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/invalid_ccgbank.txt
+END
+CCGConstructors.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/CCGConstructors.py
+END
+output.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/matt/!svn/ver/87/code/LegacyTreebank/CCGBank/output.txt
+END

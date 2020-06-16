@@ -1,0 +1,373 @@
+\newcommand{\system}{}
+\newcommand{\jargon}{}
+\newcommand{\function}{}
+\newcommand{\example}{}
+\newcommand{\feature}{}
+\newcommand{\node}{}
+\documentclass[11pt]{article}
+\usepackage{colacl06}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{natbib}
+\setlength\titlebox{6.5cm}    % Expanding the titlebox
+\usepackage{graphicx}
+\usepackage{placeins}
+%\usepackage{qtree}
+\usepackage{parsetree}
+\title{Creating a Systemic Functional Grammar Corpus from the Penn Treebank}
+
+\author{BLIND REVIEW NO First Author\\
+  NO Affiliation / Address line 1\\
+  NO Affiliation / Address line 2\\
+  NO Affiliation / Address line 3\\
+  {\tt NO email@domain}  \And
+  BLIND REVIEW NO Second Author\\
+  NO Affiliation / Address line 1\\
+  NO Affiliation / Address line 2\\
+  NO Affiliation / Address line 3\\
+  {\tt NO email@domain}}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Systemic functional grammar describes a heirarchically organised feature system to present grammatical information. These features concisely describe semantic or pragmatic choices made by the author. While significant thought has gone into the organisation of this set of features, little research has gone into how they can be automatically calculated from a standard parse tree, limiting the theory's use for computational linguistics.
+
+This paper describes how most systemic functional grammar features can be extracted from Penn Treebank parses. The annotation records distinctions such as mood, voice, tense, modality and topic that are typically normalised away by standard predicate-argument semantic representations, allowing this information to be captured for applications such as document classification, question answering or word sense disambiguation. It also provides a large corpus of annotated sentences to a group of linguists who have had to rely largely on manually coded data to develop their theory.
+
+%This paper describes the creation of a systemic functional grammar corpus by adapting the Penn Treebank using manually written conversion rules. This yields a large corpus annotated according to a detailed linguistic theory that has until now been difficult to work with computationally. 
+\end{abstract}
+
+\section{Introduction}
+
+% Describe what SFG is and how it's different, in order to explain what the corpus is and why it's interesting. Try to do this with as little blanket linguistic history as possible
+System functional grammar \citep{ifg} aims to describe the set of meaningful choices a speaker makes when putting a thought into words. Each of these choices is seen as a resource for shaping the meaning in a particular way, and the selection will have a distinct grammatical outcome as well as a semantic implication. The choices are presented heirarchically, so that early selections restrict other choices. For instance, if a speaker chooses imperative mood for a clause, they cannot choose a tense. Each selection is linked to a syntactic expression rule. When imperative mood is selected, the subject of the clause is supressed; when interrogative mood is selected, the order of the subject and first auxiliary are reversed.
+
+% Explain the advantages/disadvantages of structuring the description like this
+Systemic grammars are very different from formal grammars, with clear strengths and weaknesses. Systemic analysis locates a constituent within a typology, and yields a set of features that describe its salient properties. These features have proven useful for research in applied linguistics, on topics such as stylistics \citep{some sfl}, discourse analysis \citep{some more sfl} and translation \citep{more sfl}. On the other hand, as a generative theory, systemic grammars are ineffective \citep{odonnell}. There have been a few attempts, but as yet a wide coverage systemic parser has not been developed.
+
+The lack of a corpus and parser has limited research on systemic grammars, as corpus studies have been restricted to small samples of manually coded examples, or imprecise queries of unannotated data \citep{matthiessen}. The corpus we present, obtained by converting the Penn Treebank, addresses this issue. It also suggests a way to automatically code novel text, by converting the output of a parser for a different formalism. This would also allow the use of SFG features for NLP applications to be explored.
+
+The conversion process relies on a set of manually coded rules. The first step of the process is to collect SFG clauses and their constituents from parses in the Penn Treebank. Each clause constituent is then assigned up to three function labels, for the three simultaneous semantic and pragmatic structures Halliday describes \citep{functions}. Finally, the system features are calculated. The rules for these calculations are largely reversed versions of the syntactic expression rules in the Nigel grammar \citep{nigel}, which our annotation is based on. For instance, the grammar states that choosing imperative mood removes the clause's subject, so we check for the absence of a subject to determine whether the clause is imperative mood.
+
+
+\section{Related Work}
+
+Converting the Penn Treebank is the standard approach to creating a corpus annotated according to a specific linguistic theory. This has been the method used to create LTAG \citep{frank_ltag}, LFG \citep{frank_lfg} and CCG \citep{ccgbank} corpora, among others. We employ a similar methodology, converting the corpus using manually specified rules.
+
+Since the SFG annotation is semantically oriented, the work also bears some resemblance to Propbank \citep{propbank}. However, Propbank is concerned with manually adding information to the Penn Treebank, rather than automatically reinterpretting the same information through the lens of a different linguistic theory. The information added by PropBank would have made the conversion process simpler, and possibly more accurate, as the predicate-argument structures correspond quite closely to SFG clauses. However, if we relied on Propbank, we would not be able to convert the Brown and Switchboard sections of the Treebank. A variety of genres makes the corpus much more useful for SFG, since the theory devotes significant attention to pragmatic phenomena and stylistic variation.
+
+% This can be largely cut and paste.
+% Should introduce the constituency/functions/system selections work division
+\section{Annotation Description}
+% Describe the notion of a grammatical feature, with example from inflected morphology tags. Refer to simple system figure for two systems
+
+\subsection{System networks}
+
+% Start by describing systems as multi-valued features
+SFG annotation is organised into sets of features, each of which can have multiple values. Features can be assigned to any grammatical constituent, but most linguistic research that uses SFG focuses on clause features.
+% Now relate these features to grammatical systems
+Each feature corresponds to a specific, meaningful grammatical alternation, which the literature refers to as a \jargon{system}. We'll use features relating to \system{mood} in English as examples. A basic mood system would have options for the grammatical structures of statements, questions and commands --- or, following the traditional linguistic terminology, declarative, interrogative and imperative moods respectively. The possible values of a system are usually represented graphically, as shown in figure \ref{mood-simple}. 
+
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.5]{pt-24.pdf}
+  \caption{A simple system network with three options}\label{mood-simple}
+\end{figure}
+
+% Describe how these features are naturally heirarchical
+This grammatical distinction between declarative, interrogative and imperative does not apply to every clause in English. For instance, it does not make sense to assign any of the values above to a dependent clause, like the italicised part of the sentence \example{We went for a beer \emph{after the show was over}}. System descriptions therefore include decision logic to capture these dependencies between systems. If the clause's \system{status} is \feature{dependent}, its \system{mood} is implicitly null. Systems connected by decision logic like this are referred to as \jargon{system networks} in the literature.
+
+
+
+Decision logic allows the feature structures to be naturally heirarchical. For instance, \system{mood} is usually represented as two systems, as shown in figure \ref{mood-tiered}. This representation records that \feature{declarative} and \feature{interrogative} clauses have a subject and a tense, while any features relating to those areas of the grammar must be null valued in \feature{imperative} clauses.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.5]{pt-25.pdf}
+  \caption{A heirarchically structured mood system.}\label{mood-tiered}
+\end{figure}
+
+The linguists who create these feature descriptions aim to capture these generalisations and produce more compact descriptions. This may translate to more useful features for NLP. We believe an annotated corpus will help linguists create more parsimonious descriptions, as well as allowing computational linguists to see how well these features can be applied to NLP tasks.
+
+
+% The literature describes these systems with reference to configurations of functional categories. Three metafunctions.
+\subsection{Constituent functions}
+
+System selections represent the most obvious source of features for an NLP system, but there are other aspects of SFG that must be represented in the corpus, both for completeness and as important intermediary steps towards calculating the systemic features. \citet{halliday_options} argues that there are three simultaneous function structures in an English clause, as each clause is simultaneously a communication between a speaker and hearer, a representation of a state or event, and a part of some larger discourse. Essentially, Halliday does not draw a distinction between semantics and pragmatics, instead seeing them as different kinds of meaning or significance that are equally represented in the grammar. What many linguists refer to as semantics corresponds quite closely to Halliday's \jargon{experiential metafunction}, while his \jargon{interpersonal} and \jargon{textual metafunctions} are roughly pragmatics.
+
+% Describe the constituency built around these functional categories
+\subsubsection{Constituency}
+
+SFG employs a minimalist constituency model, and is primarily interested in delineating clauses and their immediate constituents. A clause corresponds to an \node{S} node in a phrase-structure grammar; it is a single verb phrase and its arguments. Nominal and adverbial constituents are defined the same in SFG as in phrase-structure grammars.
+
+%\section{Target annotation}
+
+% Which sect of SFG
+%Until now we have discussed SFG as though it were a single theory. This has been a convenient imprecision. While a full treatment of this issue is beyond the scope of this paper, suffice to say that there are two particularly well formulated systemic theories, one developed by \citet{Fawcett81} from modifications to Halliday's early proposals, known as the Cardiff grammar, and the Sydney grammar, which is based on Halliday's later work. Since the Sydney grammar is significantly more prominent, we have chosen it as the basis of the corpus's annotation. Specifically, we follow the system networks described in \citet{lexcart}, and the constituent and function definitions described in \citet{ifg}.
+
+
+
+
+\section{Creating the corpus}
+
+% Conversion pipeline. Describe as though we're really adding the functions, describe the constituency as a kind of intermediate step
+
+%As described above, there are three stages to the conversion process: building an SFG clause constituency representation, attaching function labels to the clause constituents, and calculating the system features. Of these processes, by far the most significant task is building the constituency representation. Figure \ref{pipeline} summarises the pipeline, with the arrows indicating where information is drawn from. Note that the function label calculation still needs information from the Treebank parse, but the constituency and function labels are sufficient for calculating the system features.
+
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[scale=0.5]{pipeline.pdf}
+%  \caption{Information flow in the conversion process}\label{pipeline}
+%\end{figure}
+
+
+%\begin{figure*}
+%\Tree [.S [.NP Asbestos ] [.VP was [.VP [.VP used \qroof{in the early 1950s}.PP ] and [.VP replaced \qroof{in 1956}.PP ] ] ] ]
+%\end{figure*}
+
+\begin{figure*}
+\begin{parsetree}
+    ( .S. 
+        (.NP.  `Asbestos')
+        ( .VP.
+			`was'
+			(.VP.
+				(.VP.
+					`used'
+					(.PP. ~ `in the early 1950s')
+				)
+				`and'
+				(.VP.
+					`replaced'
+					(.PP. ~ `in 1956')
+				)
+			)
+		)	
+    )
+\end{parsetree}
+\end{figure*}
+
+\subsection{Localising constituents}
+
+In this stage, we search the Treebank parse for SFG clauses, and collect their constituents. Clauses are identified by searching for predicates that head them, and constituents are collecting by traversing upwards from the predicate, collecting the nodes' siblings until we hit an S node. There are, however, a few common constructions which present problems for one or both of these procedures. These exceptions are handled by pre-processing the Treebank tree, changing its structure to be compatible with the predicate and constituent extraction algorithms. Figure \ref{conversion_pseudocode} describes this process more formally.
+
+Figure \ref{extraction_example} marks the predicates and constituents in a Treebank parse that has been pre-processed. The pre-processing of this tree from the original shown in figure \ref{original_example} is described in section \ref{preprocessing}.
+
+\begin{figure}
+\begin{verbatim}
+preprocess(parse)
+clauses = []
+for word in parse.words():
+	 if isPredicate(word):
+		constituents = getConstituents(word)
+		clauses.append(constituents)
+\end{verbatim}
+\end{figure}
+\subsubsection{Finding predicates}
+
+A predicate is the main verb in the clause, or the word that functions as Predicator in Halliday's terminology. In the Treebank annotation, the predicate will be the word attached to the lowest node in a VP chain, because auxiliaries attach higher up. Figure \ref{predicate-pseudocode} describes the function to decide whether a word is a predicate. Essentially, we want words that are the last word attached to a VP, that do not have a VP sibling.
+
+\begin{figure}
+\begin{verbatim}
+if verb.parent.label == 'VP':
+    for sibling in verb.parent.children:
+		if sibling.isWord() \& sibling > verb:
+			return False
+		elif sibling.label == 'VP':
+			return False
+\end{verbatim}
+\end{figure}
+\subsubsection{Getting constituents}
+
+Once we have a predicate, we can traverse the tree around it to collect the constituents in the clause it heads. We do this by collecting its siblings and moving up the tree, collecting the ``uncle'' nodes, until we hit the top of the clause. Figure \ref{getting_constituents} describes the process more formally. The final loop collects conjunctions that attach alongside the clause node. 
+
+\begin{figure}
+\begin{verbatim}
+node = predicate
+constituents = [predicate]
+while node.label not in clauseLabels:
+	for sibling in node.parent.children:
+		if sibling != node:
+			constituents.append(sibling)
+for sibling in node.parent.children:
+	if sibling != node \& sibling.label in conjLabels:
+		constituents.append(sibling)
+\end{verbatim}
+\end{figure}
+\subsubsection{Pre-processing the parse}
+
+The pre-processing steps are performed to ensure that the parse is structured in a way that facilitates the simple extraction algorithms above.
+
+% Ellipsis and gapping
+\subsubsection{Ellipsis and Gapping}
+
+Ellipsis and gapping involve two or more predicates sharing some constituents. When the sharing can be denoted using the tree structure, by placing the shared items above the point where the VPs fork, we refer to the construction as ellipsis. Figure \ref{ellipsis} shows a sentence with a subject and an auxiliary shared between two predicates. PERCENTAGE predicates share at least one constituent with another clause via ellipsis. We pre-process ellipsis constructions by inserting an S node above each VP after the first, and adding traces to the shared constituents to the new clauses.
+
+In gapping constructions, the shared constituent is the predicate itself, and what differs between the two clauses are the arguments. These constructions are annotated in the Treebank with special trace rules, that describe which arguments must be copied across to the gapped clause. We create traces to the shared constituents and add them to each gapped clause, so that the trace of the verb will be picked up as a predicate later on. Gapping is a relatively rare phenomenon -- only PERCENTAGE clauses have gapped predicates.
+
+% Verbal Group Complexing
+\subsubsection{Semi-auxiliaries}
+
+In figure \ref{vg_complex} the verb `continue' will match our rules for predicate extraction, described in section \ref{predicate_extraction}. SFG analyses this and other `semi-auxiliaries' \citep{quirk} as a serial verb construction, rather than a matrix clause and a complement clause. Since we want to treat the finite verb as though it were an auxiliary, we pre-process these cases by simply deleting the S node, attaching its children directly to the semi-auxiliary's VP.
+
+Defining the semi-auxiliary constructions is not so simple, however. Quirk et al note that some of these verbs are more like auxiliaries than others, and organises them into a rough gradient according to their formal properties. The problem is that there is not clear agreement in the SFG literature about where the line should be drawn. \citet{lexcart} describes all non-finite sentential complements as serial-verb constructions. \citet{martin} argues that verbs such as `want' impose selectional restrictions on the subject, and therefore should be treated as full verbs with a clause complement. Other compromises are possible as well.
+
+Using Matthiessen's definition, we collect PERCENTAGE fewer predicates than if we treated all semi-auxiliaries as main verbs. If the complement clause has a different subject from the parent clause, when the two are merged the new verb will seem to have extra arguments. PERCENTAGE of these mergings introduce an extra argument in this way. For example,
+
+Investors want the market to rise
+
+will be analysed as though `rise' has two arguments, `investors' and `market'. We can prevent this from occurring if we add an extra condition to merging clauses, stating that the subject of the embedded clause should be a trace coindexed with the subject of the parent clause. Using this refined rule, we collect PERCENTAGE fewer predicates than if we treated all semi-auxiliaries as main verbs. The words that function most commonly as semi-auxiliaries are VERBS. The words that most commonly produce a different analysis using Matthiessen's definition are VERBS.
+
+% Conjunctions
+
+% Resolving traces
+
+
+%\subsubsection{Resolving traces}
+
+%Because SFG is interested in recovering functional constituency, rather than building a syntactic structure that is easy to generate, we generally want to follow movement and gapping traces, to recover non-local clause constituents. Any trace target that is not already in the clause will thus replace the trace leaf. 
+
+%\subsection{Old constituency conversion}
+
+% Apologise for not doing it all
+%It is difficult to comprehensively list the differences between a standard phrase-structure tree and an SFG constituency representation of the same sentence, and seems impossible to do so concisely.
+% Explain what we do do
+%We shall therefore settle for explaining the major differences and how we craft conversion rules to resolve them. It is useful to keep two things in mind about the logic behind SFG constituency when considering these differences. First, SFG demands that every constituent be a direct child of the single constituent it functions under. Every constituent must function as a part of exactly one other constituent. Second, no attempt is made to structure the tree so that it can be easily generated --- or even generated at all. Functional considerations are the sole motivation.
+
+% Raising predicates
+%\subsubsection{Raising predicates}
+%The principles above explain one of the most prominent changes that must be made: the subject, the verb phrase, all non-clause complements and all non-clause adjuncts should be directly attached to the clause. This often leads to crossing brackets, which SFG does not regard as a problem. This change is quite trivial to achieve, as it simply involves moving children of VP nodes that are not children or other VP nodes. Figure \ref{raising} illustrates this operation.
+
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[scale=0.5]{pt-bonus.pdf}
+%  \caption{Raising of NP and PP nodes dominated by a
+%  VP}\label{raising}
+%\end{figure}
+
+% Why we don't raise clauses
+%\subsubsection{Why we don't raise clauses}
+%We stated above that non-clause complements and adjuncts must be moved. What of clausal complements and adjuncts? SFG does not consider these to be clause constituents, but instead equally ranked, dependent clauses that should be attached to the sentence node. This may seem to contradict the constituency principle sketched above. However, SFG does not regard these as complements or adjuncts; we only refer to them as such for ease of reference to a readership we assume is more familiar with traditional phrase-structure grammars than SFG.
+
+%The location of dependent clauses is the only constituency issue where we find we must break with the linguistic description. SFG represents the dependency relations between clauses as system features, rather than encoding them in the structure of the constituency tree. However, if we move the dependent clauses to become children of the sentence node, the dependency information is temporarily lost, and the only way to calculate the clause dependency features would be to consult the structure of the original parse. This is an extra link in the conversion pipeline (figure \ref{pipeline}) we are eager to avoid. Since it is still easy to define a \jargon{ranking clause} with this tree structure, we see little disadvantage in this slight unorthodoxy.
+
+% Verbal group complexing
+%\subsubsection{Complex verbal groups}
+
+% What's a verbal group complex
+%All non-clause SFG constituents should belong to exactly one clause. What most linguists refer to as \jargon{raising verbs} are therefore a problem. These are constructions like \example{``The shops stop selling beer at 12''}. These are usually treated as two clauses, one for each lexical verb. However, SFG regards `shops' and `beer' to be functioning in the same process, as logical subject and logical object respectively. Such constructions are consequently treated as single clauses.
+
+% How hypotactic verbal group complexes are identified
+%Raising constructions can be uniquely identified in the Penn Treebank. All raising constructions involve an \node{S} child of a \node{VP}. Figure \ref{vg-complexing} illustrates this structure. There are three other constructions that have this tree structure, adverbial clauses, direct speech, and indirect speech. Adverbial clauses are easily distinguished, as they occur with a dash-tag function label, such as -ADV, -LOC, etc. Indirect speech involves an SBAR child of the S node, so are also quite easy to distinguish. Finally, direct speech always involves the use of quotation marks. This is a more difficult rule to implement tightly, as a word or phrase in a raising construction may be scare quoted. Such problem cases are rare, however.
+
+%\begin{figure}
+%  \centering
+%  \includegraphics[scale=0.4]{pt-33.pdf}
+%  \caption{Treebank representation of a sentence that contains a complex verbal group}\label{vg-complexing}
+%\end{figure}
+
+% Gapping and ellipsis
+%\subsubsection{Gapping}
+
+%The principle that a constituent cannot have multiple `heads' --- that is, it must function under exactly one other constituent --- is problematic in many co-ordination constructions. For instance, in the sentence: \example{We went to the shop and bought some beer} the constituent `we' functions as subject of both clauses. If all of the constituents were shared, there would be no problem --- the construction would simply be regarded as a complex verbal group. But since `some beer' and `to the shop' are only arguments of one verb each, this will not do. SFG's solution is to regard these as separate clauses, with `we' tacitly copied as the subject of `bought'. That is, the speaker is saying `we went to the shop and we bought some beer', but the second `we' is silent, or as SFG terms it, \jargon{ellipsed}.
+
+%Figure \ref{ellipsis} gives an example of how instances of ellipsis are structured in the Penn Treebank. To produce the SFG representation, we need to create a new clause and move the ellipsed \node{VP} to it. We then need to create a copy of any siblings of the dominant \node{VP}, as these will be shared between both clauses. In this example (as is usually the case), the subject is the only such sibling. 
+
+%\begin{figure*}
+%  \centering
+%  \includegraphics[scale=0.5]{pt-ellipsis.pdf}
+%  \caption{Treebank representation of an ellipsed clause, with verb phrases named}\label{ellipsis}
+%\end{figure*}
+
+%In the example in figure \ref{ellipsis}, the Treebank handles the subject sharing implicitly, using the structure of the tree. This is not always possible without causing crossing brackets. The constructions the Treebank manual refers to as \jargon{gapping} and \jargon{right node raising} are handled identically in SFG, except for the terminology (SFG refers to them as ellipsis). To deal with these cases, we simply replace the traces with copies of the nodes they refer to.
+
+\subsection{Constituent functions}
+
+% Attaching constituent labels is quite easy
+As discussed above, we attach up to three function labels to each clause constituent, one for each \jargon{metafunction}. The rules to do this rely on the order of constituents and the function dash-tags in the Penn Treebank. Some experiential function rules also refer to interpersonal labels, and some textual function rules refer to experiential labels.
+
+\subsubsection{Interpersonal function labels}
+% What are the labels and how are they assigned
+The possible interpersonal function labels we assign are \function{Subject}, \function{Complement}, \function{Adjunct} and \function{Mood Adjunct}. Apart from \function{Mood Adjunct}, these correspond exactly to the equivalent terms in other grammars, and the distinction is made in the Penn Treebank using dash-tag function labels for subjects and adjuncts. All \node{NP} constituents that are not marked with an adjunct function tag in the Treebank are labelled \function{Complement}. Conjunctions are not assigned interpersonal functions.
+
+% Mood adjuncts
+\function{Mood Adjuncts} are sometimes described as meta and modal adjuncts in other linguistic theories. They qualify the pragmatic context of the clause, rather than its truth condition --- or in SFG terminology, they function interpersonally, rather than experientially. `Frankly' is an often cited example of a meta-adjunct, as in ``Frankly my dear, I don't give a damn''. Modal adjuncts are words like `probably' and `possibly'. We use a list of meta and modal adjuncts in the COMLEX syntactic lexicon \citep{comlex}, relabelling any \function{Adjunct} in this list as a \function{Mood Adjunct}. 
+
+\subsubsection{Experiential function labels}
+% What are our labels, how do they differ from Halliday's
+The experiential function labels we assign are \function{Participant}, \function{Process} and \function{Circumstance}. This is a simplification of the function labels described by \citet{ifg}, as \function{Participants} are usually subdivided into what other linguistic theories refer to as semantic roles. SFG has its own semantic role description, which relies on \system{process type} features. For instance, \function{Participants} in a verbal process like `say' have the role options Sayer, Target, Receiver and Verbiage. Somewhat puzzlingly, SFG does not draw a general distinction between logical subject --- the subject of an active clause or the `by' agent in the agnate passive --- and logical object. We find these categories necessary for discussion, and make repeated reference to them in this paper.
+
+% Why we can't do Halliday's
+Distinguishing process types requires a word sense disambiguated corpus and a word sense sensitive process type lexicon. While there is a significant intersection between the Penn Treebank and the Semcor word sense disambiguated corpus, there is currently no suitable process type lexicon. Consequently, \function{Participants} have not been subtyped, making the experiential functions trivial. The Process is simply the verb phrase, while the \function{Subject} and \function{Complements} are \function{Participants}. \function{Mood Adjuncts} and conjunctions are not assigned experiential functions.
+
+\subsubsection{Textual function labels}
+
+% Wtf is the textual metafunction
+The textual function labels are \function{Textual Theme}, \function{Interpersonal Theme} and \function{Topical Theme}. The textual metafunction describes how the clause is structured as information. In speech, this includes prosodic information, but in writing relates only to the order of constituents. \citet{halliday_options} argues that the early occurring elements in an English clause have a discourse function of telling the reader or hearer what the clause is `about'. Halliday claims this is the primary function of the passive voice and adjunct fronting: to get the clause off on the right informatic foot.
+
+% How the labels are assigned
+Because textual functions are simply about the order of elements, deciding how to assign them is trivial. The first constituent with an experiential function is labelled \function{Topical Theme}, any conjunctions that occur before it are labelled \function{Textual Theme}, and any \function{Mood Adjuncts} that occur before it are labelled \function{Interpersonal Theme}.
+
+% Explains the space the rules are drawn from and gives examples.
+\subsection{System Selections}
+
+% `traversing' the network
+As discussed above, the system features are organised into heirarchies, with every feature assuming a null value unless its system's entry condition is met. We therefore approach the system network much like a decision tree, using rules to control how the network is traversed.
+
+% Apologise for not explaining all the implemented rules.
+The rules used to traverse the network cannot be explained here in full, as there are 41 such decision functions currently implemented. We use the network presented in \citet{lexcart}, which actually describes 62 systems. However, 21 of these are \system{process type} systems, from which we cannot calculate features for the reasons discussed above. 
+
+\subsection{Mood systems}
+
+Mood is a prominent aspect of the grammar of most languages, so is well represented in traditional linguistic descriptions. Assuming the clause is independent, the major options are declarative, interrogative and imperative. Deciding between these is quite simple: in interrogative clauses, the \function{Subject} occurs after the first auxiliary. Imperative clauses have no \function{Subject}.
+
+There are a few more granular systems for interrogative clauses, recording whether the question is polar or wh-. If the clause is wh- interrogative, there are two further features recording whether the requested constituent functions as \function{Subject}, \function{Adjunct} or \function{Complement}. The values of these features are quite simple to calculate, by finding the wh- element among the constituents and retrieving its interpersonal function.
+
+If the clause is not imperative, there are systems recording the person (first, second or third) of the subject, and whether the first auxiliary is modal, present tense, past tense, or future tense. SFG describes three tenses in English, regarding `will' and `shall' auxiliaries as future tense markers, rather than modals. The calculation of these features is again trivial.
+
+If the clause is imperative, there is a further system recording whether the clause is the `jussive' imperative with `let's', an `oblative' imperative with `let me', or a second person imperative. If the imperative is second person, a further feature records whether the `you' is explicit or implied.
+
+There are also features recording the `polarity' of the clause: whether it is positive or negative, and, if negative, whether the negative marker is full-formed or cliticised as -n't.
+
+\subsection{Voice systems}
+
+Voice is described in slightly more detail in SFG than in some other linguistic theories, although the description is quite intuitive. The first distinction drawn is not between active and passive, but between transitive and intransitive clauses. Intransitive clauses cannot be passivised, as there is no \function{Complement} to shift to \function{Subject}. It therefore makes sense to carve these off first. If the clause is transitive, another system records whether it is active or passive. The rules to draw this distinction simply look at the verb phrase, checking whether the last auxiliary is a form of the verb `be' and the lexical verb has a past participle part-of-speech tag. Finally, a further system records whether passive clauses have an agent introduced by `by'.
+
+\subsection{Theme systems}
+
+Theme systems record what occurs at the start of the clause. Typically in English, the first major constituent will be the logical subject, and hence also the \function{Topical Theme}. A system records whether this is or is not the case. If the clause is finite and the logical subject is not the \function{Topical Theme}, the clause is said to have a `marked' theme. Verb phrase \function{Topical Themes} are considered unmarked if the clause is imperative. A further system records whether the \function{Topical Theme} is the logical object (as in passivisation), or whether it is a fronted \function{Adjunct}. Note that a passive clause may have a fronted \function{Adjunct}, so does not necessarily have a logical object as \function{Topical Theme}. There are two further systems recording whether the clause has a \function{Textual Theme} and/or an \function{Interpersonal Theme}.
+
+\subsection{Taxis systems}
+
+Taxis systems record dependency relationships between clauses. There are two types of information: whether the attachment is made through coordination or subordination, and the semantic type of the attachment. Broadly, semantic type is between `expansion' and `projection', projection being reported (or quoted) speech or thought. A further system records the subtype of expansion clauses, which is quite a subtle distinction. Unfortunately Halliday chose thoroughly unhelpful terminology for this distinction: his subtypes of expansion are elaboration, enhancement and extension. Enhancing clauses are essentially adverbial, and are almost always subordinate. Extending clauses, by contrast, are approximately the `and' relationship, and are almost always coordinate. Elaborating clauses qualify or further define the information in the clause they are attached to. Elaborating clauses can be either subordinate or coordinate. Subordinate elaborating clauses are non-defining relative clauses, while coordinate elaborating clauses are usually introduced by a conjunctive adjunct, like ``particularly''.
+
+\section{Accuracy}
+
+In order to evaluate the accuracy of the conversion process, we manually evaluated the constituency structure of a randomly selected sample of 200 clauses. We investigated the constituency conversion because the other properties are derived from them using generally trivial rules. We also regard the number of interdependent system features attached to each clause as problematic: there are 41 system features per clause, which are likely to be all correct if the constituency conversion is correct. Scoring a sample of 10 clauses with perfect system features as 410/410 seems very misleading.
+
+In the 200 clause sample, we found three clauses with faulty constituency structures. One of these was the result of a part-of-speech tag error in the Treebank. The other two errors were conjunctions that were incorrectly replicated in ellipsis clauses.
+
+% I'll probably want to rewrite this bit
+\section{Conclusion and future Work}
+
+The Penn Treebank was designed as a largely theory neutral corpus. In deciding on an annotation scheme, it emphasised the need to have its annotators work quickly and consistenty, rather than fidelity to any particular linguistic theory \citep{marcus94building}.
+
+The fact that it has been successfully converted to so many other annotation schemes suggests that its annotation is indeed consistent and fine grained. It is therefore unsurprising that it is possible to convert it to SFG as well. Despite historically different concerns, SFG still fundamentally agrees with other theories about which constructions are syntactically distinct --- it simply has its own strategies for representing that variation, namely delegating more work to feature structures and less work to the syntactic representation.
+
+Now that a sizeable SFG corpus has been created, it can be put to use for linguistic and NLP research. Linguistically, we suggest that it would be interesting to use the corpus to explore some of the assertions in the literature that have until now been untestable. For instance, Halliday suggests that the motivation for passivisation is largely structural --- what comes first in a clause is an important choice in English. This implies that the combination of passive voice and a fronted adjunct should be unlikely. There should be many such simple queries that can shed interesting light on abstract claims in the literature.
+
+Large annotated corpora are currently critical for parsing research, making this work a vital first step towards exploring whether SFG annotation can be automated. The fact that Treebank parses can be converted into SFG annotation suggests it can be, although most parses do not replicate the dash-tags attached to Treebank labels, which are necessary to distinguish SFG categories.
+
+Even without automating annotation, the corpus offers some potential for investigating how useful SFG features are for NLP tasks. The Penn Treebank includes texts from a variety of genres, including newspaper text, literature and spoken dialogue. The Switchboard section of the corpus also comes with various demographic properties about the speakers, and is over a million words. We therefore suggest that gold standard SFG features could be used in some simple document classification experiments, such as predicting the gender or education level of speakers in the Switchboard corpus.
+
+\section{Acknowledgements}
+
+Omitted for author anonymity.
+
+\bibliographystyle{aclnat}
+\bibliography{sfg_corpus}
+\end{document}

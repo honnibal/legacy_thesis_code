@@ -1,0 +1,295 @@
+\chapter{Introduction}
+
+Humans do not generate or interpret sentences as unstructured strings of words.
+Instead, words are combined together to compose meaning as some sort of tree or
+graph, until they form a sentence licensed by the language. The exact mechanisms
+that govern the composition and generation of sentences in a natural language
+continue to elude us, despite the unconscious ease with which children acquire
+them, and our interest in the problem since at least Aristotle.
+
+Without a theory of grammar, we
+are limited to modelling sentences as strings of words, which means our systems
+must deal with surface variation. Programs which
+attempt to solve this problem by assigning a grammatical structure to a sentence
+are called \emph{parsers}. Parsing researchers quickly discovered the
+massive ambiguity of natural language grammars, and found that deterministic
+approaches to parsing were infeasible. Natural grammars must work stochastically.
+
+Research on statistical parsing for English began in earnest with the release of
+a large sample of annotated text, the Penn Treebank \citep{marcus:93}.
+\citet{magerman:95}, \citet{collins:96} and \citet{charniak:97} were the first
+in a long line of research into building statistical parsing models from this
+resource, which used an annotation that was not designed for any specific linguistic
+theory.
+These statistical parsers were a major departure from
+the older parsing tradition that relied on carefully constructed hand-written
+grammars, perhaps with a minimal probabilistic component. Soon after
+\citeauthor{collins:96}'s models, a hybrid approach emerged. The newer strategy
+was to convert the Penn Treebank into a treebank for a specific formalism,
+allowing statistical parsing experiments informed by theories about the human
+language faculty.
+
+The first example of this was the conversion of the Penn Treebank into a
+Tree-Adjoining Grammar \citep[\textsc{tag},][]{joshi:85} by \citet{xia:99},
+\citet{xia:00} and later \citet{chen:06}. It was quickly followed by work on
+a Lexical Functional Grammar \citep[\lfg,][]{kaplan:82} conversion. The first
+to attempt this was \citet{genabith:99}, whose work was followed by \citet{sadler:00}
+and \citet{frank:00}, before \citet{cahill:08} performed further work on the
+issue.
+In the meantime, \citet{hock:thesis03} released a Combinatory Categorial Grammar
+\citep[\ccg,][]{steedman:00} conversion, and
+\citet{miyao:04} did the same for Head-driven Phrase Structure Grammar
+\citep[\hpsg,][]{pollard:94}.
+
+The hypothesis behind this strategy is that linguistics and statistics are both
+critical for successful wide-coverage parsing. The strategy has so far been very
+successful. It has allowed statistical parsers to offer far more detailed
+output, and also led to enormous increases in parse speeds. The \hpsg and \ccg
+treebanks have produced two particularly successful statistical parsers, the
+\enju system \citep{miyao:08} and the \candc system \citep{clark:cl07}. These
+parsers share the same fundamental architecture. They make use of the two
+principal advantages of modern linguistic theories over the context-free phrase
+structure grammar (\cfpsg) used in the original Penn Treebank. First, the
+interface between syntactic and semantic structure is fully
+specified in both \hpsg and \ccg, allowing a parser to return logical forms.
+This property of these formalisms is closely related to their
+second big advantage: they are naturally
+\emph{lexicalised} --- that is, each word is assigned responsibility for
+specifying the structure of the part of the sentence that it governs. Together,
+these properties have been exploited to produce parsers that are faster and 
+produce more detailed output, and independent evaluations have shown they also offer
+state-of-the-art accuracy \citep{kakkonen:08, rimell:09}. The success of these
+parsers supports the hypothesis that well grounded grammatical theory can make
+a substantial impact on parsing technology, suggesting that we can produce better
+parsers by refining our linguistic theories.
+
+In this thesis, we focus on a problem in Combinatory Categorial Grammar, and
+update \ccgbank and the \candc parser to
+make use of the solution we propose. The problem we focus on was first
+identified when \citet{hock:lrec02} began the conversion of the Penn Treebank
+into \ccgbank. They found that \ccg's
+lexicalisation caused a proliferation of modifier categories. The problem
+arises when a modifier (such as \emph{walking} in \emph{I tripped walking home})
+is itself modified (such as \emph{via Cleveland Street} in \emph{I tripped walking home
+via Cleveland Street}). The category of \emph{via} becomes sensitive to the fact
+that \emph{walking} is a modifier, producing a proliferation of
+modifier-modifier, modifier-modifier-modifier, etc.\@ categories.
+To prevent this, \citet{hock:lrec02} introduced an auxiliary set of category-specific
+type-changing rules into the grammar. This solved the sparse data problems, but
+introduced a divide between the core claims of the linguistic theory and the
+grammar that wide-coverage \ccg parsers actually implemented.
+
+We suggest that the observation of problems like modifier category
+proliferation should be treated as important evidence of a
+theory's limitations. We hypothesise that if we capitalise on these
+opportunities to improve the theory, we will develop better parsing technologies
+than if we instead treat the issue as an engineering problem. This suggests an
+appealing feedback loop. The use of linguistic theories
+for parsing provides a stress test for a grammatical theory that is difficult to
+replicate in the traditional methodology, which emphasises native speaker
+intuition. Creating a corpus and training a parser forces us to consider
+analyses for the interaction of constructions which otherwise might have only
+been considered separately. The parsing phase is particularly critical, because
+it forces us to model the \emph{process} of language understanding, instead of
+focusing primarily on modelling the linguistic objects.
+\citet{baldwin:05} discuss a similar feedback loop between data and intuition for
+grammar development.
+
+The modifier category proliferation problem is a good example of a hidden interaction
+between constructions we might otherwise assume are independent. In a categorial
+grammar, modifiers are assigned categories which refer to the function of their
+head, because there is no special grammatical rule for adjunction --- a modifier
+is interpreted as a function from a constituent, to an unchanged copy of that
+constituent. \citeauthor{hock:lrec02} noticed that this created a proliferation of
+modifier categories when modification interacted with form/function discrepancies,
+in constructions such as gerund nominals or
+reduced relative clauses.
+
+This introduced a substantial inefficiency in the grammar that
+\citet{hock:lrec02} feared would have a negative impact on parsing results.
+To prevent this, the grammar was extended with a small set of carefully selected
+type-changing rules to handle form/function discrepancies. These rules allow
+a modifier to refer to its head's form, preventing the proliferation of
+function-referencing modifier categories. This adjustment has not been
+integrated into the \ccg theory --- it is perhaps seen as an engineering
+solution specific to the Penn Treebank. We argue that
+if we accept such `engineering solutions' in our grammar, we short-circuit the virtuous
+cycle mentioned above. If we encounter a problem building the corpus, we should
+take it seriously in the theory --- and the solution we adopt in the corpus
+should be theoretically satisfactory.
+
+We claim that modifier category proliferation is a general problem in \ccg,
+caused by the inability of the grammar to handle form/function discrepancies
+adequately. We also claim that the type-changing rule solution is
+incompatible with the most important aspects of the \ccg theory, so we should
+seek a better approach. We suggest an extension to the formalism that
+addresses the problem without these drawbacks, implement it in \ccgbank, and
+find that the cleaner resource allocation between grammar and lexicon it
+promotes makes the parser over 40\% more efficient.
+
+\section{The Thesis Proposed}
+
+In Combinatory Categorial Grammar, every word is assigned a category that encodes
+the function of the constituent it heads. This direct representation of constituent
+function is behind many of the desirable properties of the formalism: it allows lexical
+categories to be paired with semantic analyses, enables attractive
+analyses of coordination constructions, and allows language-specific analysis to
+be shifted into the lexicon. However, it also makes it difficult for a \ccg
+grammar to exploit generalisations about constituent type --- the syntactic
+category of a phrase, as distinct from its grammatical function. Missing
+constituent type generalisations can cause over-generation, undesirable analyses,
+and prevent the grammar from fully generating certain recursive structures
+with a finite lexicon. These issues largely arise because the grammaticality
+of modifier-head relationships is controlled by constituent type, not
+constituent function.
+
+The most apparent consequence of these problems is a proliferation of modifier
+categories in the lexicon. \citeauthor{hock:lrec02} addressed this by adding
+type-changing rules to the grammar. The rules perform the form-function
+transformations required, but they do so at a substantial cost: they make the
+grammar less lexicalised. This means the grammar is no longer language
+universal, and grammatical rules must perform non-trivial semantic operations. The
+rules are therefore unacceptable on a theoretical level, because they compromise the
+main claims of the formalism. What we need is a mechanism that can do the same sort
+of work --- form to function transformation --- while still preserving full
+lexicalisation.
+
+Our solution is to modify the construction of \ccg category objects, adding a
+new attribute. This attribute contains a category that the original category must at
+some point be transformed into. We call this new attribute the \emph{hat}, and categories
+with the hat attribute filled we call \emph{hat categories}. Hat categories allow
+advantageous linguistic analyses, without changing the grammar's weak generative
+capacity. Although we have
+designed hat categories for use in \ccg, the extension might be applied to any
+categorial grammar.
+
+We investigate the modifier category proliferation problem and our proposed
+solution by adapting \ccgbank, creating a number of versions that each
+implements a different analysis. This allows us to compare the analyses
+directly. In addition to a version of \ccgbank that implements our hat category
+solution, we create a version of the corpus that simply removes the
+type-changing rules, replacing them with the purely combinatory analyses
+described in the \ccg literature. This version of the corpus allows us to
+confirm that modifier category proliferation does indeed present a practical
+challenge for \ccg parsing.
+
+Our main parsing result demonstrates that the type-changing rules in \ccgbank
+are also problematic for a \ccg parser. The rules greatly increase the ambiguity
+in the grammar, leading to larger charts and slower parse times. Because there
+is this cost to additional type-changing rules, the \candc parser does not
+implement all of the rules, which decreases the parser's coverage and may make
+the parser more domain dependent. To investigate this, and to evaluate our
+hat category solution on a more practical parsing task, we performed the first
+ evaluation of parser accuracy on text from Wikipedia.
+
+\section{Contributions}
+
+The main contribution of this thesis is an extension to \ccg, \emph{hat
+categories}, that enables simultaneous representation of form and function in
+lexical categories. This allows us to report the first successful wide-coverage,
+fully-lexicalised \ccg parsing results. We find that restoring full
+lexicalisation to \ccgbank increases the efficiency of \ccg parsing
+substantially. Additionally, full lexicalisation has
+important theoretical benefits. The last language specific constraints have
+recently been removed from the \ccg formalism \citep{baldridge:03}, suggesting
+that all language, domain and analysis specific variation could be confined to
+the lexicon. However, \ccg parsers have until now used grammars that are not
+fully lexicalised, causing a disconnect between \ccg theory and practice.
+
+Another contribution of this thesis is to show that without some kind of
+type-changing operation, statistical \ccg parsing is a much harder problem.
+Although the experiment had not been performed until now, it was suspected that a
+\ccg grammar without the \ccgbank type-changing rules would suffer from
+a prohibitively sparse category set. We confirm that this is the case,
+by compiling out the type-changing rules
+in \ccgbank so that only the standard \ccg combinators are used. This causes a
+substantial drop in parsing accuracy. This result shows that although
+lexicalisation is highly desirable, it is difficult to achieve with the current
+\ccg formalism without impacting parsing results, motivating the extension we present.
+
+This negative parsing result is supported by a detailed theoretical investigation of
+why fully lexicalised \ccg analyses are ineffective without our hat categories.
+We show that the proliferation of modifier categories is due to the difficulty
+of representing generalisations about constituent type in \ccg grammars.
+
+The results of our experiments bring into focus an interesting open question:
+what is the right level of lexicalisation in a corpus? The experiments we describe
+are, to our
+knowledge, the first that compare analyses that vary in this respect
+on a corpus, and evaluate their consequences. Having successfully lexicalised
+the \ccgbank unary rules, we searched for an upper limit: what else could we shift
+out of the grammar and into the lexicon? To examine this, we experimented with
+an analysis that used our hat categories to lexicalise type-raising. This
+contributes to the ongoing debate about whether type-raising rules should be
+considered part of the grammar or part of the lexicon, by providing the first
+concrete proposal for how type-raising can be lexically specified without
+increasing modifier category ambiguity.  We found that lexicalising
+type-raising in this way increased parsing efficiency, but at the cost of
+decreased accuracy.
+
+
+In summary, our parsing results suggest the lexicalisation strategy already
+being exploited to great effect by the \candc parser can be pushed even further.
+However, there is a potential drawback to doing this. What if increasing the
+level of lexicalisation also increases the parser's domain dependence? This is a
+risk because the lexicon must be acquired specifically from the training
+material, while grammar rules can be manually specified. To investigate this, we
+report the first accuracy evaluation of a parser on text from Wikipedia, a free online
+encyclopedia.
+We evaluate the hat category model on this out-of-domain data, and find
+that it achieves accuracy within 0.1\% of the standard \candc parser, with a
+28\% improvement in efficiency. This was similar to our finding on the in-domain
+evaluation, where we observed a 0.2\% decrease in accuracy and a 45\%
+improvement in efficiency. These results support our claim that there is a
+practical advantage in pursuing theoretically desirable formal properties. 
+
+This thesis argues that there is a long-standing problem with \ccg's ability to
+express generalisations about constituency types. We propose grammatical machinery that
+addresses this issue and implement our solution on a large corpus of \ccg
+derivations. We confirm that this does not adversely affect a state-of-the-art
+\ccg parser, and find that it actually causes a substantial increase in its
+efficiency. We show that this result is robust to data outside the training
+domain, and provide the first investigation of parser performance on one of the
+most interesting modern resources for natural language processing, Wikipedia.
+
+\section{Publications}
+
+Our proposal to add hat categories to \ccg, with the corresponding parsing
+results, has been published in the 2009 \emph{Proceedings of the Conference on
+Empirical Methods in Natural Language Processing}. Our evaluation of the \candc
+parser on Wikipedia was published in the 2009 \emph{Proceedings of the ACL/IJCAI
+Workshop on Collaborative Semantic Resources}.
+
+The research described in this thesis was supported by the results of earlier
+work not described here. The integration of \ccgbank and PropBank described in
+\citet{honnibal:pacling07prop}, and the adaptation of the Penn Treebank to
+produce a Systemic Functional Grammar corpus described in
+\citep{honnibal:dlp07sfl} helped us to develop the methodology for adapting
+\ccgbank described in Chapter \ref{chapter:hat_corpus}. 
+
+\section{Outline}
+
+The remainder of the thesis is organised as follows:
+
+\begin{itemize}
+ \item Chapter 2 provides background in the form of an overview of 
+Combinatory Categorial Grammar, and a
+review of the prominent computational linguistics literature that makes use of
+the theory.
+ \item In Chapter 3, we argue that it is difficult to represent generalisations
+about constituent type in \ccg, and that this causes a variety of problems for
+\ccg analyses.
+We discuss previous proposals which allow the formalism to address this,
+but find that none of them adequately addresses the core issue.
+ \item In Chapter 4, we propose an extension to the formalism that allows \ccg to
+represent constituent types consistently and efficiently. The extension modifies
+the category objects to allow them to specify a \emph{hat}, enabling categories
+to specify disparate form and function.
+ \item In Chapter 5, we describe the creation of new versions of \ccgbank to
+investigate the impact of removing the type-changing rules from the corpus.
+ \item In Chapter 6, we describe our parsing experiments with the \candc parser.
+The focus of the chapter is an investigation of the impact of hat categories on
+the parser's performance. The chapter also includes a series of experiments with
+the hyper-parameters that must be adapted to suit the new corpus, and an
+evaluation of the parser on a new domain, Wikipedia.
+\end{itemize}

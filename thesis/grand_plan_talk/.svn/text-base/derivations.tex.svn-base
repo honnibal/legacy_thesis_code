@@ -1,0 +1,494 @@
+\documentclass[11pt]{article}
+\usepackage{LI}
+
+\newcommand{\cf}[1]{\mbox{$\it{#1}$}}   % category font
+\begin{document}
+\begin{figure}
+\deriv{4}{
+\rm some & \rm of & \rm these & \rm issues \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/NP} &
+\cf{NP/N} &
+\cf{N} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{4}{
+\rm some & \rm of & \rm these & \rm issues \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/PP} &
+\cf{PP/NP} &
+\cf{NP/N} &
+\cf{N} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{PP}} \\
+\fapply{4} \\
+\mc{4}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Rome & \rm 's & \rm destruction & \rm of & \rm Carthage \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP/N)\bs NP} &
+\cf{N} &
+\cf{(NP\bs NP)/NP} &
+\cf{NP} \\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP/N}} && \mc{2}{\cf{NP\bs NP}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}} \\
+&&& \bapply{2} \\
+&&& \mc{2}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Rome & \rm 's & \rm destruction & \rm of & \rm Carthage \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP/(N/PP))\bs NP} &
+\cf{(N/PP)/PP} &
+\cf{PP/NP} &
+\cf{NP} \\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP/(N/PP)}} && \mc{2}{\cf{PP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{N/PP}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm Rome~'s & \rm destruction & \rm of~Carthage \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/(N/PP)} &
+\cf{(N/PP)/PP} &
+\cf{PP} \\
+& \fapply{2} \\
+& \mc{2}{\cf{N/PP}} \\
+\fapply{3} \\
+\mc{3}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{6}{
+\rm The & \rm destruction & \rm of & \rm Carthage & \rm in & \rm 146~B.C. \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N/PP} &
+\cf{PP/NP} &
+\cf{NP} &
+\cf{(N\bs N)/NP} &
+\cf{NP} \\
+&& \fapply{2} & \fapply{2} \\
+&& \mc{2}{\cf{NP}} & \mc{2}{\cf{N\bs N}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{N}} \\
+& \bapply{5} \\
+& \mc{5}{\cf{N}} \\
+\fapply{6} \\
+\mc{6}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm Carthage & \rm 's & \rm destruction \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP/(PP/N))\bs NP} &
+\cf{PP/N} \\
+\bapply{2} \\
+\mc{2}{\cf{NP/(PP/N)}} \\
+\fapply{3} \\
+\mc{3}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Google & \rm acquired & \rm YouTube & \rm for & \rm $1.65bn \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{((S[dcl]\bs NP)/PP)/NP} &
+\cf{NP} &
+\cf{PP/NP} &
+\cf{NP} \\
+& \fapply{2} & \fapply{2} \\
+& \mc{2}{\cf{(S[dcl]\bs NP)/PP}} & \mc{2}{\cf{PP_{$1.65bn}}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{S[dcl]\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[dcl]}}
+}\end{figure}
+
+\begin{figure}
+\deriv{9}{
+\rm YouTube & \rm , & \rm which & \rm was & \rm acquired & \rm by & \rm Google & \rm for & \rm \$1.65bn \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{,} &
+\cf{(NP\bs NP_y)/(S[dcl]_z\bs NP_y)_z} &
+\cf{(S[dcl]\bs NP)/(S[pss]\bs NP)} &
+\cf{((S[pss]\bs NP_\bs patient{z})/PP_\bs price{w})/PP_\bs agent{y}} &
+\cf{PP_y/NP_y} &
+\cf{NP} &
+\cf{PP_y/NP_y} &
+\cf{NP} \\
+\fapply{2} &&&& \fapply{2} & \fapply{2} \\
+\mc{2}{\cf{NP}} &&&& \mc{2}{\cf{PP_{Google}}} & \mc{2}{\cf{PP_{\bs $1.65bn}}} \\
+&&&& \fapply{3} \\
+&&&& \mc{3}{\cf{(S[pss]\bs NP_\bs patient{z})/PP_\bs price{w}}} \\
+&&&& \fapply{5} \\
+&&&& \mc{5}{\cf{S[pss]\bs NP_\bs patient{z}}} \\
+&& \fapply{7} \\
+&& \mc{7}{\cf{NP\bs NP_\bs patient{z}}} \\
+\bapply{9} \\
+\mc{9}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Google & \rm 's & \rm acquisition & \rm of & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP_y/N_y)\bs NP_z} &
+\cf{N} &
+\cf{(NP_y\bs NP_y)/NP_z} &
+\cf{NP} \\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP_y/N_y}} && \mc{2}{\cf{NP_y\bs NP_y}} \\
+\fapply{3} \\
+\mc{3}{\cf{NP_{acquisition}}} \\
+\bapply{5} \\
+\mc{5}{\cf{NP_{acquisition}}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Google & \rm 's & \rm acquisition & \rm of & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP_y/(N_y/PP_z))\bs NP_z} &
+\cf{(N/PP_\bs agent{y})/PP_\bs patient{z}} &
+\cf{PP_y/NP_y} &
+\cf{NP} \\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP_y/(N_y/PP_{Google})}} && \mc{2}{\cf{PP_{YouTube}}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{N/PP_\bs agent{y}}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Google & \rm 's & \rm decision & \rm to~acquire & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP_y/(N_y/PP_z))\bs NP_z} &
+\cf{(N/PP_y)/(S[to]_z\bs NP_y)_z} &
+\cf{(S[to]\bs NP_\bs agent{y})/NP_\bs patient{z}} &
+\cf{NP} \\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP_y/(N_y/PP_{Google})}} && \mc{2}{\cf{S[to]\bs NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{N/PP_\bs agent{y}}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm all & \rm staff & \rm on & \rm casual & \rm contracts \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/NP} &
+\cf{N} &
+\cf{(NP\bs NP)/NP} &
+\cf{N/N} &
+\cf{N} \\
+& \psgrule{1} && \fapply{2} \\
+& \mc{1}{\cf{NP}} && \mc{2}{\cf{N}} \\
+&&& \psgrule{2} \\
+&&& \mc{2}{\cf{NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{NP\bs NP}} \\
+& \bapply{4} \\
+& \mc{4}{\cf{NP}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm Google & \rm bought & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S\bs NP)/NP} &
+\cf{NP} \\
+& \fapply{2} \\
+& \mc{2}{\cf{S\bs NP}} \\
+\bapply{3} \\
+\mc{3}{\cf{S}}
+}\end{figure}
+
+\begin{figure}
+\deriv{4}{
+\rm Rome & \rm destroyed & \rm the & \rm city \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S\bs NP)/NP} &
+\cf{NP/N} &
+\cf{N} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{S\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{S}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm destruction & \rm of & \rm Carthage & \rm by & \rm Rome \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{(N/PP)/PP} &
+\cf{PP/NP} &
+\cf{NP} &
+\cf{PP/NP} &
+\cf{NP} \\
+& \fapply{2} & \fapply{2} \\
+& \mc{2}{\cf{PP}} & \mc{2}{\cf{PP}} \\
+\fapply{3} \\
+\mc{3}{\cf{N/PP}} \\
+\fapply{5} \\
+\mc{5}{\cf{N}}
+}\end{figure}
+
+\begin{figure}
+\deriv{4}{
+\rm Rome & \rm made & \rm a & \rm decision \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S\bs NP)/(NP/PP)} &
+\cf{NP/N} &
+\cf{N/PP} \\
+&& \fcomp{2} \\
+&& \mc{2}{\cf{NP/PP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{S\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{S}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm The & \rm company & \rm bought & \rm Power & \rm Set \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{(S\bs NP)/NP} &
+\cf{NP/NP} &
+\cf{NP} \\
+\fapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP}} && \mc{2}{\cf{NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{S\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm The & \rm company & \rm which & \rm they & \rm bought \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{(NP\bs NP)/(S/NP)} &
+\cf{NP} &
+\cf{(S/NP)\bs NP} \\
+\fapply{2} && \bapply{2} \\
+\mc{2}{\cf{NP}} && \mc{2}{\cf{S/NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm The & \rm company & \rm which & \rm they & \rm bought \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{(NP\bs NP)/(S/NP)} &
+\cf{NP} &
+\cf{(S\bs NP)/NP} \\
+\fapply{2} && \ftype{1} \\
+\mc{2}{\cf{NP}} && \mc{1}{\cf{S/(S\bs NP)}} \\
+&&& \fcomp{2} \\
+&&& \mc{2}{\cf{S/NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{6}{
+\rm YT, & \rm which & \rm Google & \rm paid~1.6bn & \rm for & \rm in~'06 \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/(S/NP)} &
+\cf{NP} &
+\cf{(S\bs NP)/PP} &
+\cf{PP/NP} &
+\cf{VP\bs VP} \\
+&& \ftype{1} & \fcomp{2} \\
+&& \mc{1}{\cf{S/(S\bs NP)}} & \mc{2}{\cf{(S\bs NP)/NP}} \\
+&&& \bxcomp{3} \\
+&&& \mc{3}{\cf{(S\bs NP)/NP}} \\
+&& \fcomp{4} \\
+&& \mc{4}{\cf{S/NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{NP\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{6}{
+\rm YT, & \rm which & \rm Google & \rm paid & \rm 1.6b & \rm for \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/(S/NP)} &
+\cf{NP} &
+\cf{((S\bs NP)/PP)/NP} &
+\cf{NP} &
+\cf{PP/NP} \\
+&& \ftype{1} & \fapply{2} \\
+&& \mc{1}{\cf{S/(S\bs NP)}} & \mc{2}{\cf{(S\bs NP)/PP}} \\
+&&& \fcomp{3} \\
+&&& \mc{3}{\cf{(S\bs NP)/NP}} \\
+&& \fcomp{4} \\
+&& \mc{4}{\cf{S/NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{NP\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{6}{
+\rm Google & \rm paid & \rm 1.6b & \rm for & \rm YouTube & \rm Oct.~2006 \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{((S\bs NP)/PP)/NP} &
+\cf{NP} &
+\cf{PP/NP} &
+\cf{NP} &
+\cf{(S\bs NP)\bs (S\bs NP)} \\
+& \fapply{2} & \fapply{2} \\
+& \mc{2}{\cf{(S\bs NP)/PP}} & \mc{2}{\cf{PP}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{S\bs NP}} \\
+& \bapply{5} \\
+& \mc{5}{\cf{S\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{S}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm October & \rm 26 & \rm 2006 \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{(((VP\bs VP)/(VP\bs VP)))/(((VP\bs VP)/(VP\bs VP)))} &
+\cf{(VP\bs VP)/(VP\bs VP)} &
+\cf{VP\bs VP} \\
+\fapply{27} \\
+\mc{27}{\cf{(VP\bs VP)/(VP\bs VP)}} \\
+\fapply{2007} \\
+\mc{2007}{\cf{VP\bs VP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm The & \rm Grand & \rm Rapids, & \rm MI & \rm man \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{((N/N)/(N/N))/((N/N)/(N/N))} &
+\cf{(N/N)/(N/N)} &
+\cf{N/N} &
+\cf{N} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{(N/N)/(N/N)}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{N/N}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{N}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm October & \rm 26 & \rm 2006 \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{MON/DAY} &
+\cf{DAY} &
+\cf{DATE^{VP\bs VP}\bs MON} \\
+\fapply{27} \\
+\mc{27}{\cf{MON}} \\
+\bapply{2007} \\
+\mc{2007}{\cf{DATE^{VP\bs VP}}} \\
+\unhat{2007} \\
+\mc{2007}{\cf{VP\bs VP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm The & \rm Grand & \rm Rapids & \rm MI & \rm man \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{CITY/CITY} &
+\cf{CITY^{N/N}/STATE} &
+\cf{STATE} &
+\cf{N} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{CITY^{N/N}}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{CITY^{N/N}}} \\
+& \unhat{3} \\
+& \mc{3}{\cf{N/N}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{N}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm The & \rm board & \rm grasped & \rm the & \rm problem \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N[group,econ]} &
+\cf{(S[cog]\bs NP)/NP} &
+\cf{NP/N} &
+\cf{N[cog]} \\
+\fapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP[group,econ]}} && \mc{2}{\cf{NP[cog]}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{S[cog]\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[cog]}}
+}\end{figure}\end{document}

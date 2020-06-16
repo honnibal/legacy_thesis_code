@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/matt/!svn/ver/206/code/rebanking/rebankers/verbInflection
+END
+_VerbInflection.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/matt/!svn/ver/188/code/rebanking/rebankers/verbInflection/_VerbInflection.py
+END
+makePOSCorpus.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/matt/!svn/ver/188/code/rebanking/rebankers/verbInflection/makePOSCorpus.py
+END
+_test_hat_inflect.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/matt/!svn/ver/188/code/rebanking/rebankers/verbInflection/_test_hat_inflect.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/matt/!svn/ver/206/code/rebanking/rebankers/verbInflection/__init__.py
+END
+comlex_VerbInflection.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/matt/!svn/ver/188/code/rebanking/rebankers/verbInflection/comlex_VerbInflection.py
+END
+makeTests.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/matt/!svn/ver/188/code/rebanking/rebankers/verbInflection/makeTests.py
+END
+_stagToPos.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/matt/!svn/ver/188/code/rebanking/rebankers/verbInflection/_stagToPos.py
+END
+rebank.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/matt/!svn/ver/177/code/rebanking/rebankers/verbInflection/rebank.py
+END
+_test_orig_ccgbank.py
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/matt/!svn/ver/141/code/rebanking/rebankers/verbInflection/_test_orig_ccgbank.py
+END

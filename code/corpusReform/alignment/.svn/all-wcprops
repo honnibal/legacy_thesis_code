@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/matt/!svn/ver/206/code/corpusReform/alignment
+END
+ccgPropBank.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/matt/!svn/ver/206/code/corpusReform/alignment/ccgPropBank.py
+END
+Propbank-deprecated.py
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/matt/!svn/ver/144/code/corpusReform/alignment/Propbank-deprecated.py
+END
+Propbank.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/matt/!svn/ver/144/code/corpusReform/alignment/Propbank.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/matt/!svn/ver/144/code/corpusReform/alignment/__init__.py
+END
+getMissingSentences.py
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/matt/!svn/ver/144/code/corpusReform/alignment/getMissingSentences.py
+END
+propbankPTB.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/matt/!svn/ver/144/code/corpusReform/alignment/propbankPTB.py
+END
+parseCCGBank.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/matt/!svn/ver/144/code/corpusReform/alignment/parseCCGBank.py
+END
+ooold-PropBank.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/matt/!svn/ver/144/code/corpusReform/alignment/ooold-PropBank.py
+END
+ooold-PropBankParsers.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/matt/!svn/ver/144/code/corpusReform/alignment/ooold-PropBankParsers.py
+END

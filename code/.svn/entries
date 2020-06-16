@@ -1,0 +1,67 @@
+10
+
+dir
+230
+http://svn.ask.it.usyd.edu.au/matt/code
+http://svn.ask.it.usyd.edu.au/matt
+
+
+
+2010-05-17T13:29:22.261295Z
+209
+matt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4a0d7c66-1571-0410-bcb8-eefeaa96fbf3
+
+LegacyTreebank
+dir
+
+rebanking
+dir
+
+pb
+dir
+
+summarise
+dir
+
+corpusReform
+dir
+
+removePSG
+dir
+
+scripts
+dir
+
+data
+dir
+
+pickles
+dir
+
+Treebank
+dir
+
+CCG
+dir
+
+general
+dir
+
+language_modelling
+dir
+

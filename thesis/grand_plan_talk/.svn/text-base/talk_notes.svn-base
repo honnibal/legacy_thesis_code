@@ -1,0 +1,93 @@
+--Intro--
+
+I'll start way back at the beginning. We have some sentence, which is a sequence of words. But these words have some structure which allows us to build a /semantic interpretation/ out of them. How do we describe that structure? And --- possibly more importantly, depending on your interests --- how do we build that semantic interpretation automatically?
+
+We want to be able to take some sentence and get a logical form representation. That'll put the information in natural language in a form we can query --- and it'll mean we can express the queries in natural language, too. We know all about how to unify logical forms against each other, to check them for conflicts and to fill in missing variables; so our task is to account for all the various ways language can encode the same information into a great many different strings, and get at the underlying semantics.
+
+If logical forms are a little hard to visualise for you, think of it like populating a database. You've got this database of acquisitions you want to populate from raw text, so you want to figure out who bought whom, when, for how much. And once we've got it in the database, we can use the information like any other kind of information --- because we have a semantic representation. So that's what we want to do: map from the surface form, the string, to the semantics.
+
+--LING--
+
+The big, bold idea in CCG is that we can get that semantic representation we want /directly/, and that the syntactic structure is just a trace of the algorithm that does that. We can contrast this with the more mainstream idea of Chomsky's, where surface structure is a permuted form of deep structure, which produces the semantic interpretation.
+
+So. How's this mapping work. Well it turns out that the key to it is to make the grammar /lexicalised/. We need to pair each word with a category that describes that word's role in the derivation, and pair that category with a semantic definition. This means that while we're compiling the syntactic analysis, we're also building a compositional semantic analysis.
+
+So, to give you the data base example, we take a verb --- like "buy", and link its syntactic arguments to the fields on the database we want to populate. Okay. So you see roughly what we want to do here? We want some way of specifying the syntactic arguments 'buy' can take, so that we've got the hooks for our semantic category. How do we specify that syntactic structure? 
+
+Now, I suspect that this is the point where many people listening to CCG talks have been lost before, because the syntax for the lexical categories is a bit difficult to follow, as soon as those categories get complicated. The idea here is that we need to represent a word's argument structure. We do this by specifying the category of the argument, and whether it's expected to the left or to the right.
+
+Essentially each lexical category stipulates part of a derivation tree. This category for a transitive verb specifies that we'll have an S up here, an NP to the right over here, and an NP to the left over here. Then we just have a simple rule allowing us to fill an argument and put the tree together.
+
+Classic categorial grammar only has one type of rule --- application, allowing the outer slash to be filled. Combinatory categorial grammar uses additional rules to give categories functional associativity, which just means we sometimes need to attach the NP over here before we attach the NP over here. I don't need to refer to the mechanism that does that much, so I'll skip it for now.
+
+Now, classic categorial grammar has been proven to be weakly equivalent to context free grammar, which just means that any language you can generate with your bog standard phrase-structure rule type thing, you can also generate with a categorial grammar --- and vice versa. They generate the same set of languages. But they don't each allow you to attach the same structural /descriptions/ to those languages --- they are not _strongly_ equivalent. And the most important difference is that you can't lexicalise your standard PSG analysis of a sentence like this. By lexicalise, I just mean have every phrase-structure rule rooted in a lexical item. Some of these rules are lexicalised, and some of them can be lexicalised by simple rewriting. But if we want this structure, we can't lexicalise them all.
+
+A CG can, and that's a big deal. Here's why. When we've got the key structures anchored in a lexical item, we can stipulate that the category should include all the dependencies it presides over in its domain. And if we do that, suddenly getting out that semantic structure gets really easy. If we know that the arguments of our logical form of the function `buy' are right here in the lexical category, we can just pair them up, and fill these ones in as we fill in these ones.
+
+Okay so what we need is: lexicalisation, and the right /domain of locality/. We need to anchor the lexical entries in a word, and we need the lexical entries to include all of the dependencies. But there's an additional constraint we might desire. Joshi, who introduced this concept of domain of locality, stipulates that the lexical entries include all and _only_ the dependencies of the lexical entry.
+
+Why is that desirable? Well, potentially, we can specify as much of the structure of a derivation as we want in a lexical category. We can ask for a determiner, adjective and noun instead of a noun phrase, or we can make a noun phrase specify that it's an object of a verb that has a subject. This is a bad idea, right? It makes these lexical categories hopelessly sparse.
+
+Joshi put forward another important specification. Lexical categories ought to _factor out recursion_. One of the tasks of a grammatical description is using a finite set of objects to generate infinite structure, by being combined recursively. If the recursive structure is inside the domain of locality --- if the categories are recursively sensitive --- then we need an infinite number of categories. Our generative mechanism fails. CCG does just this.
+
+The problem comes from the modifier categories. Joshi discussed domain of locality and factoring of reursion with relation to TAG grammars. TAG grammars have a special adjunction operation. Lexical categories have special adjunction nodes that adjunct trees can slot into. CGs don't do this; adjunction uses the application rule. All you do is make a category that takes an argument of type X, and gives you back a category of type X. The result category is headed by the argument, too. This is really rather neat: adjuncts modify their heads and leave them unchanged, allowing multiple adjuncts to attach. Just what you want.
+
+But what happens when the head category is complex? Well, the adjunct becomes sensitive to some of the internal structure of the constituent it modifies. The worst case is when an adjunct modifies another adjunct. We'll use noun-noun compounding as an example. To analyse the structure of the noun phrase:
+
+banking industry regulations
+
+We need to give /banking/ a category that includes all of the information specified in /industry/ --- `water' needs to know the structure of the whole noun phrase, which means it's sensitive to the depth of recursion. This is a problem, because the depth here is unbounded. We can just as easily talk about mortgage banking industry regulations, mortgage banking industry regulation legislation, mortgage banking industry regulation legislation debate, mortgage banking industry regulation legislation debate progress, mortgage banking industry regulation legislation debate progress acceleration, etc.
+
+So, we'll need infinite categories, which is a theoretical blow. From a more practical perspective, our categories are also unnecessarily sparse. And there's another problem here besides: this analysis is pretty implausible, if you think about it!
+
+We hear or read words one by one, and we don't wait until the end to start processing. So it's interesting to look at what analyses we can build with our grammar /incrementally/. If we need to have heard it all before we interpret any of it, we're probably going down the wrong track with our analysis. So, let's see. If we hear `banking industry', we've already understood that as a noun-noun compound. Then when we hear `regulations', what do we do? Well I claim what we /don't/ do is reparse `banking industry'. We've got that bit covered. We just make the whole phrase modify /regulations/. But we can't support that analysis with our current categories. In short, our analysis here suggests that we're getting garden pathed every time we hear the next word --- every time, we have to rebuild the whole structure, with new categories. This is plainly not what we do.
+
+So, this is one of my contributions. I've identified this problem with CG analyses that previously hasn't been noticed. The crux of the problem is this. We've only got the function of a constituent to work with. We're missing a very linguistically relevant property: its form, it's constituent type, its syntactic class. This property is what determines whether a modifier/head attachment is going to be grammatical. We don't care what a VP is doing, what its /function/ is when we decide whether we can modify it, we only care about the fact that it's a VP --- its constituent type. But VP isn't a unit of representation in a categorial grammar. We've only got functions to work with.
+
+This causes other problems, in addition to the over-extended domain of locality. We can get some over-generation, because two constituent types can have the same function, but different forms. And a modifier might only apply to one form, but not the other. So if we have an NP functioning as an adverb, we could quantify it:
+
+They play cards every Sunday
+
+Which leads us to over-generate
+
+*They play cards every at Pat's house
+
+Okay. So what do we need: constituent type. CCGbank's solution is to include a limited theory of constituent type, by including some unary rules in the grammar to perform some form-to-function coercions. This way, we can take a non-finite verb phrase here, modify it with an adverb, and use it as a noun phrase in a variety of different constructions, all without every introducing a non-standard category. The problem is that this allows us to handle any non-finite verb phrase as a noun phrase, leading to a lot of ambiguity, even after we've specified the lexical categories.
+
+It also breaks our semantic transparency. Let's say we tried the same trick with a prepositional phrase. Suddenly we've `grown' an NP argument where none existed before, so our semantic category doesn't have a slot for it. We can't build the semantic analysis. The most important properties of the formalism have been lost.
+
+So, what CCGbank does is use these unary rules judiciously, to get the grammar out of jail on the most problematic cases. For instance, bare noun phrases are a problem, because they need to be modified the same way as other nouns, but they need to function the same way as other noun phrases. So we use a very common unary rule to get us over the line. We've also got unary rules for VP-to-adjunct coercions, because verbs are open class, and they're frequently modified. So we don't want to go assigning them different categories. Then we've got a bit of a tail of rarer transformations, which a parser can't implement, for fear of exploding the ambiguity of the grammar. We've also got some type changes queued by punctuation, to give them some better precision, and some `non-constituent coordination' rules where the analysis has been stretched by unanticipated corner cases. Finally, there's a long tail of noise.
+
+--Hat Categories--
+
+So, here's what we want: a way to include constituent type without jeopardising our lexicalisation and semantic transparency. Here's my solution. This is the tree view of our lexical category from earlier. If we could just get a lexical category to specify a unary rule, all our problems would be solved. So that's just what we do. We redefine the category constructor slightly, to include a new property, which we refer to as a `hat' category. This is a reference to the notation, but also to the way it allows a category two different, decoupled behaviours. When the constituent type puts its function hat on, it gets to interact with the rest of the derivation. But its modifiers can deal with it by constituent type, not by function.
+
+This gives us a way out of all our problems. We can get exactly the incremental analysis we desire for compound noun phrases, by specifying that the nouns function as nominal modifiers. The `hat' is passed along by the unification mechanism, just the same way a feature would be. It also allows us a good analysis of clausal adjuncts and nominal clauses, and we can prevent the over-generation we were worried about before.
+
+Okay. So this is our second main contribution. Earlier we introduced a problem, which we showed could only be partially solved by the CCGbank solution. Now we've got a mechanism which we claim does a better job. Well, most of the motivation for CCGbank was allowing statistical parsing of CCG. So if we're claiming we're doing a better job than CCGbank's unary rules, we'll want to check out how it performs in a parsing context.
+
+--Parsing Experiments--
+
+We'll restrict the comparison to just lexicalising the CCGbank type-changing rules. There are lots of other ways you might want to alter the CCGbank analyses; that's a separate research question. This way we've got a pretty direct comparison of the two ways of managing the modifier category proliferation problem.
+
+I'll be brief about the implementation. Changing treebanks is a well studied problem, but it's frustratingly difficult to learn very general lessons. It's different every time. For this change, I just snipped out the unary node, and made the parent the hat category of the child. I did the same thing for binary type-changes, inserting a new node to make them into unary productions. The parser implementation was a lot of work, since the parser doesn't use a general unification algorithm, for efficiency reasons.
+
+Anyway. Fast forward a year. Once we have the corpus and parser, we can run our experiments. Now, there's an additional trick here. There's a problem whenever you want to change a corpus and rerun your experiment. Suddenly, things aren't comparable anymore. You've changed the test set, too. So what we do is train a mapping table from <category, arg slot> pairs in the new dependencies to <category, arg slot> pairs in the old dependencies.
+
+This is getting ahead of myself slightly. The C&C parser is evaluated according to the dependencies you extract from the derivation. These dependencies are conditioned on the category and the dependency slot, so they're very specific. The dependency between a ditransitive verb and its subject is different from the dependency between a TV and its subject, for instance --- so the evaluation is really quite harsh.
+
+Anyway. We map into these dependencies, so we're evaluating against exactly the same thing as the original C&C parser. Next, we need to do some tuning. What we've done is change the division of labour between the lexical categories and the grammar. Work that was being performed by the unary rules is now being allocated to the distinction between one unary rule and another. In the C&C parser, these two types of labour are done by separate modules, although they are tightly coupled. First, a /supertagger/ assigns the lexical categories. The supertagger uses a hidden markov model, and assigns each word a probability for every tag. Then, it supplies the most probable tags to the parser, which tries to find an analysis. If it can't, it goes back to the supertagger, and asks for more categories.
+
+Now, this introduces a few free parameters. First of all, we want to use the training data to restrict which categories the supertagger can assign to a word. For frequent words, we want to trust the data and not assign <word, category> pairs we haven't seen before. But what frequency? Well, C&C use 20. We've made the categories more sparse, so we want to increase this parameter. In other words, we want to trust the training data a little less. After some experimentation, we found 50's a better value for us.
+
+The other parameter we tuned is more interesting. This parameter controls how wide a beam of categories is supplied to the parser by the supertagger. C&C set this parameter quite wide, so that the supertagger supplies the parser with quite a few categories. We do something a bit different, and supply the parser with only one category per word. We find that for 50% of sentences, this produces an analysis. And what's more, the analysis for these sentences is more often correct if we supply this restricted beam.
+
+Here's what's going on. We're making the parser act as an acceptor of supertag sequences. When the supertag sequence is right, parsing is very easy. With gold standard supertags, the parser gets 98.8% accuracy. We get to use the parser this way because we've tightened up the parser's grammar, so that it's less able to build a derivation out of faulty supertag sequences. In other words, it's a better acceptor.
+
+--Results--
+
+Ok, so. Results. What we see is that we're just a little bit more accurate, but we're a lot faster. Why are we faster? The reason is that we've massively reduced the ambiguity in the grammar. We can see this in the chart sizes. 
+
+
+
+

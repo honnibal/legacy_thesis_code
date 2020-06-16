@@ -1,0 +1,1616 @@
+% This file was created with JabRef 2.3.1.
+% Encoding: UTF-8
+
+@INPROCEEDINGS{kamha04,
+  author = {Reema Al-Kamha and David W. Embley},
+  title = {Grouping search-engine returned citations for person-name queries},
+  booktitle = {Proceedings of the 6th Annual {ACM} International Workshop on {W}eb
+	Information and Data Management ({WIDM '04})},
+  year = {2004},
+  pages = {96--10},
+  address = {Washington {DC}, {USA}},
+  month = {July},
+  publisher = {{ACM}},
+  owner = {matth},
+  timestamp = {2008.10.01},
+  url = {http://www.google.com}
+}
+
+@ARTICLE{amigo2008,
+  author = {Enrique Amig\'{o} and Julio Gonzalo and Javier Artiles and Felisa
+	Verdejo},
+  title = {A comparison of extrinsic clustering evaluation metrics based on
+	formal constraints},
+  journal = {Information Retrieval},
+  year = {2008},
+  volume = {10.1007},
+  pages = {110--125},
+  file = {:/home/matth/trunk/papers/amigo2008.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.10.01}
+}
+
+@INBOOK{angheluta07,
+  chapter = {Cross-Document Entity Tracking},
+  pages = {670--673},
+  title = {Advances in Information Retrieval},
+  publisher = {Springer {B}erlin/{H}eidelberg},
+  year = {2007},
+  author = {Roxana Angheluta and Marie-Francine Moens},
+  file = {:/home/matth/trunk/papers/fulltext.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.10.08}
+}
+
+@INPROCEEDINGS{artiles07,
+  author = {Javier Artiles and Julio Gonzalo and Satoshi Sekine},
+  title = {The {SemEval} 2007 {WePS} Evaluation: Establishing a benchmark for
+	the Web People Search Task},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {64--69},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association of Computational Linguistics},
+  file = {:/home/matth/trunk/papers/weps2007.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{artiles05,
+  author = {Javier Artiles and Julio Gonzalo and F. Verdejo},
+  title = {A Testbed for People Searching Strategies in the {WWW}},
+  booktitle = {Proceedings of the 28th International {ACM} {SIGIR} Conference},
+  year = {2005},
+  pages = {569--570},
+  address = {Salvador, Brazil},
+  month = {July},
+  publisher = {{ACM}},
+  file = {:/home/matth/trunk/papers/p066-artiles.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{artiles08,
+  author = {Javier Artiles and Satoshi Sekine and Julio Gonzalo},
+  title = {Web people search: results of the first evaluation and the plan for
+	the second},
+  booktitle = {Proceedings of the 17th international conference on {W}orld {W}ide
+	{W}eb},
+  year = {2008},
+  pages = {1071--1072},
+  address = {Beijing, China},
+  month = {April},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/p1071-artiles.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.10.01}
+}
+
+@INPROCEEDINGS{bagga99,
+  author = {Amit Bagga and Breck Baldwin},
+  title = {Cross-document Event Coreference: Annotations, Experiments, and Observations},
+  booktitle = {Proceedings of the {ACL-99} Workshop on Coreference and its Applications},
+  year = {1999},
+  pages = {201--208},
+  address = {College Park, {USA}},
+  month = {June},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/10.1.1.35.4342.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.10.08}
+}
+
+@INPROCEEDINGS{bagga98,
+  author = {Amit Bagga and Breck Baldwin},
+  title = {Entity-based Cross-document Coreferencing Using the Vector Space
+	Model},
+  booktitle = {Proceedings of the 17th International Conference on Computational
+	Linguistics},
+  year = {1998},
+  pages = {79--85},
+  address = {Montreal, Canada},
+  month = {July},
+  publisher = {Association for Computational Linguistics},
+  abstract = {Cross-document coreference occurs when the same person, place, event,
+	or concept is discussed in more than one text source. Computer recognition
+	of this phenomenon is important because it helps break "the document
+	boundary" by allowing a user to examine information about a particular
+	entity from multiple text sources at the same time. In this paper
+	we describe a cross-document coreference resolution algorithm which
+	uses the Vector Space Model to resolve ambiguities between people
+	having the same name. In addition, we also describe a scoring algorithm
+	for evaluating the cross-document coreference chains produced by
+	our system and we compare our algorithm to the scoring algorithm
+	used in the MUC-6 (within document) coreference task.},
+  file = {:/home/matth/trunk/papers/p79-bagga.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{bagga98-2,
+  author = {Amit Bagga and Breck Baldwin},
+  title = {How Much Processing is Required for Cross-Document Coreference?},
+  booktitle = {Proceedings of the Linguistic Coreference Workshop at the First International
+	Conference on Language Resources and Evaluation ({LREC})},
+  year = {1998},
+  pages = {560--567},
+  address = {Granada, Spain},
+  month = {May},
+  publisher = {Association for Computational Linguistics},
+  abstract = {Cross-document coreference occurs when the same person, place, event,
+	or concept is discussed in more than one text source. Computer recognition
+	of this phenomenon is important because it helps break &quot;the
+	document boundary &quot; by allowing a user to examine information
+	about a particular entity from multiple text sources at the same
+	time. Cross-document coreference was identified as one of the potential
+	tasks for the Sixth Message Understanding Conference (MUC6) but was
+	not included as a formal task because it was considered too ambitious(Grishman,
+	94). In this paper we describe and compare our position with that
+	of the MUC-6 organizing committee regarding the amount of processing
+	needed to resolve crossdocument coreferences. We back our position
+	by providing details of our cross-document coreference system.},
+  citeseerurl = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.45.1034},
+  file = {:/home/matth/trunk/papers/10.1.1.45.1034.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{bagga98-3,
+  author = {Amit Bagga and Breck Baldwin},
+  title = {Algorithms for Scoring Coreference Chains},
+  booktitle = {Proceedings of the Linguistic Coreference Workshop at the First International
+	Conference on Language Resources and Evaluation ({LREC})},
+  year = {1998},
+  pages = {560--567},
+  address = {Granada, Spain},
+  month = {May},
+  publisher = {Association for Computational Linguistics},
+  citeseerurl = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.47.5848},
+  file = {:/home/matth/trunk/papers/10.1.1.47.5848.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{bagga98-4,
+  author = {Amit Bagga and Breck Baldwin},
+  title = {Description of the {U}niversity of {P}ennsylvania System Used for
+	{MUC-7}},
+  booktitle = {Proceedings of the 7th Message Understanding Conference ({MUC-7})},
+  year = {1998},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{bagga00,
+  author = {Amit Bagga and Alan Biermann},
+  title = {A Methodology for Cross-Document Coreference},
+  booktitle = {Proceedings of the 5th Joint Conference on Information Sciences},
+  year = {2000},
+  pages = {207--210},
+  address = {Atlantic City, {USA}},
+  month = {January},
+  file = {:/home/matth/trunk/papers/10.1.1.43.243.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{baldwin97,
+  author = {Breck Baldwin},
+  title = {{CogNIAC}: High-precision coreference with limited knowledge and
+	linguistic resources},
+  booktitle = {Proceedings of the {ACL} Workshop on Operational Factors in Robust,
+	Practical Anaphora Resolution for Unrestricted Texts},
+  year = {1997},
+  pages = {122–-129},
+  publisher = {Association of Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W97-1306.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{balog07,
+  author = {Krisztian Balog and Leif Azzopardi and Maarten de Rijke},
+  title = {{UVA}: Language Modeling Techniques for Web People Search},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {468--471},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association of Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W07-2104.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{bean06,
+  author = {David Bean and Ellen Riloff},
+  title = {Unsupervised Learning of Contextual Role Knowledge for Coreference
+	Resolution},
+  booktitle = {Proceedings of the Human Language Technology Conference of the North
+	American Chapter of the Association of Computational Linguistics
+	({HLT-NAACL})},
+  year = {2004},
+  pages = {297--304},
+  file = {:/home/matth/trunk/papers/N04-1038.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{bekkerman05,
+  author = {Ron Bekkerman and Andrew Mc{C}allum},
+  title = {Disambiguating Web Appearances of People in a Social Network},
+  booktitle = {Proceedings of the 14th International Conference on the {W}orld {W}ide
+	{W}eb},
+  year = {2005},
+  pages = {463--470},
+  address = {Chiba, Japan},
+  month = {February},
+  publisher = {{ACM}},
+  file = {:/home/matth/trunk/papers/p463.pdf:PDF}
+}
+
+@INPROCEEDINGS{bengtson08,
+  author = {Eric Bengtson and Dan Roth},
+  title = {Understanding the Value of Features for Coreference Resolution},
+  booktitle = {Proceedings of the Conference on Human Language Technology and Empirical
+	Methods in Natural Language Processing},
+  year = {2008},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{blume05,
+  author = {Matthias Blume},
+  title = {Automatic Entity Disambiguation: Benefits to {NER}, Relation Extraction,
+	Link Analysis, and Inference},
+  booktitle = {Proceedings of the International Conference on Intelligence Analysis},
+  year = {2005},
+  owner = {matth},
+  timestamp = {2008.10.01}
+}
+
+@INPROCEEDINGS{bollegala06,
+  author = {Danushka Bollegala and Yutaka Matsuo and Mitsuru Ishizuka},
+  title = {Extracting Key Phrases to Disambiguate Personal Name Queries in Web
+	Search},
+  booktitle = {Proceedings of the Workshop on How Can Computational Linguistics
+	Improve Information Retrieval},
+  year = {2006},
+  pages = {17--24},
+  address = {Sydney, Australia},
+  month = {July},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W06-0803.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{bunescu06,
+  author = {Razvan Bunescu and Marius Pasca},
+  title = {Using Encyclopedic Knowledge for Named Entity Disambiguation},
+  booktitle = {Proceedings of the 11th Conference of the European Chapter of the
+	Association for Computational Linguistics ({EACL})},
+  year = {2006},
+  pages = {9--16},
+  address = {Trento, Italy},
+  month = {April},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/E06-1002.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.29}
+}
+
+@INPROCEEDINGS{byron99,
+  author = {Donna K. Byron and Joel R. Tetreault},
+  title = {A Flexible Architecture for Reference Resolution},
+  booktitle = {Proceedings of the 9th Conference of the European Chapter of the
+	Association for Computational Linguistics ({EACL})},
+  year = {1999},
+  file = {:/home/matth/trunk/papers/10.1.1.56.3100.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{chen07,
+  author = {Ying Chen and James H. Martin},
+  title = {{CU-COMSEM}: Exploring Rich Features for Unsupervised Web Personal
+	Name Disambiguation},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {125--128},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association of Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W07-2024.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{choi07,
+  author = {Yejin Choi and Claire Cardie},
+  title = {Structured Local Training and Biased Potential Functions for Conditional
+	Random Fields with Application to Coreference Resolution},
+  booktitle = {Proceedings of the Human Language Technology Conference of the North
+	American Chapter of the Association of Computational Linguistics
+	({HLT-NAACL})},
+  year = {2007},
+  file = {:/home/matth/trunk/papers/naacl-2007-final.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{cohen02,
+  author = {William Cohen and Jacob Richman},
+  title = {Learning to match and cluster large high-dimensional data sets for
+	data integration},
+  booktitle = {Proceedings ofthe 8th {ACM} {SIGKDD} International Conference on
+	Knowledge Discovery and Data Mining},
+  year = {2002},
+  pages = {475--480},
+  address = {Edmonton, Canada},
+  month = {November},
+  publisher = {ACM},
+  file = {:/home/matth/trunk/papers/10.1.1.12.4018.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{cohen03,
+  author = {William W. Cohen and Pradeep Ravikumar and Stephen E. Fienberg},
+  title = {A Comparison of String Distance Metrics for Name-Matching Tasks},
+  booktitle = {Proceedings of the {IJCAI-03} Workshop on Information Integration
+	on the Web ({IIWeb-03})},
+  year = {2003},
+  pages = {73--78},
+  address = {Acapulco, Mexico},
+  month = {August},
+  publisher = {{ACM}},
+  abstract = {Using an open-source, Java toolkit of name-matching methods, we experimentally
+	compare string distance metrics on the task of matching entity names.
+	We investigate a number of different metrics proposed by different
+	communities, including edit-distance metrics, fast heuristic string
+	comparators, token-based distance metrics, and hybrid methods. Overall,
+	the best-performing method is a hybrid scheme combining a TFIDF weighting
+	scheme, which is widely used in information retrieval, with the Jaro-Winkler
+	string-distance scheme, which was developed in the probabilistic
+	record linkage community.},
+  file = {:/home/matth/trunk/papers/ijcai-ws-2003.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{culotta06,
+  author = {Aron Culotta and Andrew McCallum and Jonathan Betz},
+  title = {Integrating Probabilistic Extraction Models and Data Mining to Discover
+	Relations and Patterns in Text},
+  booktitle = {Proceedings of the Human Language Technology Conference of the North
+	American Chapter of the Association of Computational Linguistics
+	({HLT-NAACL})},
+  year = {2006},
+  pages = {296--303},
+  address = {New York, {USA}},
+  month = {June},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/culotta06integrating.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.29}
+}
+
+@INPROCEEDINGS{culotta07,
+  author = {Aron Culotta and Michael Wick and Andrew McCallum},
+  title = {First-Order Probabilistic Models for Coreference Resolution},
+  booktitle = {Proceedings of the Human Language Technology Conference of the North
+	American Chapter of the Association of Computational Linguistics
+	({HLT-NAACL})},
+  year = {2007},
+  pages = {81–-88},
+  address = {Rochester, {USA}},
+  month = {June},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/culotta07first.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{daume05,
+  author = {Hal Daum\'{e}-III and Daniel Marcu},
+  title = {A large-scale exploration of effective global features for a joint
+	entity detection and tracking model},
+  booktitle = {Proceedings of the Conference on Human Language Technology and Empirical
+	Methods in Natural Language Processing},
+  year = {2005},
+  file = {:/home/matth/trunk/papers/daume05coref.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{day08,
+  author = {David Day and Janet Hitzeman and Michael Wick and Keith Crouch and
+	Massimo Poesio},
+  title = {A Corpus for Cross-Document Co-reference},
+  booktitle = {Proceedings of the Sixth International Conference on Language Resources
+	and Evaluation ({LREC'08})},
+  year = {2008},
+  pages = {23--31},
+  address = {Marrakech, Morocco},
+  month = {May},
+  publisher = {Association for Computational Linguistics},
+  date = {28-30},
+  file = {:/home/matth/trunk/papers/762_paper.pdf:PDF},
+  keywords = {data:coref},
+  language = {english},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{denis08,
+  author = {Pascal Denis and Jason Baldridge},
+  title = {Specialized models and ranking for coreference resolution},
+  booktitle = {Proceedings of the Conference on Human Language Technology and Empirical
+	Methods in Natural Language Processing},
+  year = {2008},
+  file = {:/home/matth/trunk/papers/DenisBaldridgeEMNLP08.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{dozier04,
+  author = {Christopher Dozier and Thomas Zielund},
+  title = {Cross Document Co-Reference Resolution Applications for People in
+	the Legal Domain},
+  booktitle = {Proceedings of the {ACL} Workshop on Reference Resolution and its
+	Applications},
+  year = {2004},
+  pages = {9--16},
+  address = {Barcelona, Spain},
+  month = {July},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/N04-1002.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{eisenstein07,
+  author = {Jacob Eisenstein and Randall Davis},
+  title = {Conditional Modality Fusion for Coreference Resolution},
+  booktitle = {Proceedings of the 45th Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2007},
+  file = {:/home/matth/trunk/papers/Eisenstein2007Conditional.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{ellman07,
+  author = {Jeremy Ellman and Gary Emery},
+  title = {{UNN-WePS}: Web Person Search using co-Present Names and Lexical
+	Chains},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {402--405},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association of Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W07-2089.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{elmacioglu07,
+  author = {Ergin Elmacioglu and Yee Fan Tan and Su Yan and Min-Yen Kan and Dongwon
+	Lee},
+  title = {{PSNUS}: Web People Name Disambiguation by Simple Clustering with
+	Rich Features},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {268--271},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association of Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W07-2058.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{eisner08,
+  author = {Micha Elsner and Eugene Charniak},
+  title = {Coreference-inspired Coherence Modelling},
+  booktitle = {Proceedings of the 46th Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2008},
+  file = {:/home/matth/trunk/papers/P08-2011.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{finkel08,
+  author = {Jenny Rose Finkel and Christopher D. Manning},
+  title = {Enforcing Transitivity in Coreference Resolution},
+  booktitle = {Proceedings of the 46th Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2008},
+  file = {:/home/matth/trunk/papers/P08-2012.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{fleischman04,
+  author = {Michael Fleischman and Eduard Hovy},
+  title = {Multi-Document Person Name Resolution},
+  booktitle = {Proceedings of the {ACL} Workshop on Reference Resolution and its
+	Applications},
+  year = {2004},
+  pages = {163--170},
+  address = {Barcelona, Spain},
+  month = {July},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/ACL_04.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{freeman06,
+  author = {Andrew Freeman and Sherri Condon and Christopher Ackerman},
+  title = {Cross Linguistic Name Matching in {E}nglish and {A}rabic},
+  booktitle = {Proceedings of the Human Language Technology Conference of the North
+	American Chapter of the Association of Computational Linguistics
+	({HLT-NAACL})},
+  year = {2006},
+  pages = {139-–146},
+  address = {New York, {USA}},
+  month = {June},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/HLT-NAACL-2006-Freeman.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@ARTICLE{galvez07,
+  author = {Carmen Galvez and F\'{e}lix Moya-Aneg\'{o}n},
+  title = {Approximate Personal Name Matching through Finite-state Graphs},
+  journal = {Journal of the American Society for Information Science and Technology},
+  year = {2007},
+  volume = {58.13},
+  pages = {1960--1976},
+  abstract = {This article shows how finite-state methods can be employed in a new
+	and different task: the conflation of personal name variants in standard
+	forms. In bibliographic databases and citation index systems, variant
+	forms create problems of inaccuracy that affect information retrieval,
+	the quality of information from databases, and the citation statistics
+	used for the evaluation of scientists' work. A number of approximate
+	string matching techniques have been developed to validate variant
+	forms, based on similarity and equivalence relations. We classify
+	the personal name variants as nonvalid and valid forms. In establishing
+	an equivalence relation between valid variants and the standard form
+	of its equivalence class, we defend the application of finite-state
+	transducers. The process of variant identification requires the elaboration
+	of: (a) binary matrices and (b) finite-state graphs. This procedure
+	was tested on samples of author names from bibliographic records,
+	selected from the Library and Information Science Abstracts and Science
+	Citation Index Expanded databases. The evaluation involved calculating
+	the measures of precision and recall, based on completeness and accuracy.
+	The results demonstrate the usefulness of this approach, although
+	it should be complemented with methods based on similarity relations
+	for the recognition of spelling variants and misspellings.},
+  file = {:/home/matth/trunk/papers/Galvez-JASIST.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{gardent06,
+  author = {Claire Gardent and Yannick Parmentier},
+  title = {Coreference Handling in {XMG}},
+  booktitle = {Proceedings of the 44th Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2006},
+  file = {:/home/matth/trunk/papers/P06-2032.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@ARTICLE{gonzalez08,
+  author = {Edgar Gonz\'{a}lez and Jordi Turmo},
+  title = {Comparing Non-parametric Ensemble Methods for Document Clustering},
+  journal = {Lecture Notes in Computer Science},
+  year = {2008},
+  volume = {03},
+  pages = {245--256},
+  number = {02},
+  file = {:/home/matth/trunk/papers/gonzalez08.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.10.29}
+}
+
+@INPROCEEDINGS{gooi06,
+  author = {Chung Heong Gooi and James Allan},
+  title = {Cross-Document Coreference on a Large Scale Corpus},
+  booktitle = {Proceedings of the Human Language Technology Conference of the North
+	American Chapter of the Association of Computational Linguistics
+	({HLT-NAACL})},
+  year = {2006},
+  pages = {476--489},
+  address = {New York, {USA}},
+  month = {June},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/N04-1002.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{haghighi,
+  author = {Aria Haghighi and Dan Klein},
+  title = {Unsupervised Coreference Resolution in a Nonparametric {B}ayesian
+	Model},
+  booktitle = {Proceedings of the 45th Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2007},
+  file = {:/home/matth/trunk/papers/acl07-hdp-coref.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{han04,
+  author = {Hui Han and Lee Giles and Hongyuan Zha and Cheng Li and Kostas Tsioutsiouliklis},
+  title = {Name disambiguation in author citations using a {K}-way spectral
+	clustering method},
+  booktitle = {Proceedings of the International Conference on Digital Libraries},
+  year = {2005},
+  pages = {334--343},
+  address = {Denver, {USA}},
+  month = {June},
+  publisher = {ACM},
+  abstract = {Due to name abbreviations, identical names, name misspellings, and
+	pseudonyms in publications or bibliographies (citations), an author
+	may have multiple names and multiple authors may share the same name.
+	Such name ambiguity affects the performance of document retrieval,
+	web search, database integration, and may cause improper attribution
+	to authors. This paper investigates two supervised learning approaches
+	to disambiguate authors in the citations. One approach uses the naive
+	Bayes probability model, a generative model; the other uses Support
+	Vector Machines(SVMs) [The Nature of Statistical Learning Theory]
+	and the vector space representation of citations, a discriminative
+	model. Both approaches utilize three types of citation attributes:
+	co-author names, the title of the paper, and the title of the journal
+	or proceeding. We illustrate these two approaches on two types of
+	data, one collected from the web, mainly publication lists from homepages,
+	the other collected from the DBLP citation databases.},
+  file = {:/home/matth/trunk/papers/JCDL-2005-K-Way-Spectral-Clustering.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{heyl07,
+  author = {Andrea Heyl and G\"{u}nter Neumann},
+  title = {{DFKI2}: An Information Extraction Based Approach to People Disambiguation},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {137--140},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W07-2027.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{Iida03,
+  author = {Ryu Iida and Kentaro Inui and Hiroya Takamura and Yuji Matsumoto},
+  title = {Incorporating Contextual Cues in Trainable Models for Coreference
+	Resolution},
+  booktitle = {Proceedings of the {EACL} Workshop on The Computational Treatment
+	of Anaphora},
+  year = {2003},
+  file = {:/home/matth/trunk/papers/iida.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{iria07,
+  author = {Jos\'{e} Iria and Lei Xia and Ziqi Zhang},
+  title = {{WIT}: Web People Search Disambiguation using Random Walks},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {480--483},
+  month = {June},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/10.1.1.101.6867.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{ji08,
+  author = {Heng Ji and Ralph Grishman},
+  title = {Refining Event Extraction through Cross-Document Inference},
+  booktitle = {Proceedings of the 46th Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2008},
+  pages = {254--262},
+  address = {Columbus, {USA}},
+  month = {June},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/P08-1030.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{ji04,
+  author = {Heng Ji and Ralph Grishman},
+  title = {Applying Coreference to Improve Name Recognition},
+  booktitle = {Proceedings of the {ACL} Workshop on Reference Resolution and its
+	Applications},
+  year = {2004},
+  file = {:/home/matth/trunk/papers/W04-0705.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{kalashnikov07,
+  author = {Dmitri V. Kalashnikov and Sharad Mehrotra and Zhaoqi Chen and Rabia
+	Nuray-Turan and Naveen Ashish},
+  title = {Disambiguation Algorithm for People Search on the Web},
+  booktitle = {Proceedings of the 23rd International {IEEE} Conference on Data Engineering},
+  year = {2007},
+  pages = {1258--1260},
+  address = {Istanbul, Turkey},
+  month = {April},
+  publisher = {ACM},
+  file = {:/home/matth/trunk/papers/ICDE07_dvk.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.29}
+}
+
+@INPROCEEDINGS{kalmar07,
+  author = {Paul Kalmar and Matthias Blume},
+  title = {{FICO}: Web Person Disambiguation Via Weighted Similarity of Entity
+	Contexts},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {149--152},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association of Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W07-2030.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{kibble00,
+  author = {Roger Kibble and Deemter van Kees},
+  title = {Coreference Annotation: Whither?},
+  booktitle = {Proceedings of the 2nd International Conference on Language Resources
+	and Evaluation ({LREC})},
+  year = {2000},
+  pages = {1281–-1286},
+  address = {Athens, Greece},
+  month = {June},
+  publisher = {{ACM}},
+  file = {:/home/matth/trunk/papers/10.1.1.31.6519.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{kozareva07,
+  author = {Zornitsa Kozareva and Sonia Vazquez and Andres Montoyo},
+  title = {{UA-ZSA}: Web Page Clustering on the basis of Name Disambiguation},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {334--337},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W07-2073.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@ARTICLE{kuoa07,
+  author = {June-Jei Kuoa and Hsin-Hsi Chen},
+  title = {Cross-document event clustering using knowledge mining from co-reference
+	chains},
+  journal = {Information Processing \& Management},
+  year = {2007},
+  volume = {43},
+  pages = {327--343},
+  number = {2},
+  file = {:/home/matth/trunk/papers/kuo2000.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{lefever07,
+  author = {Els Lefever and Véronique Hoste and Timur Fayruzov},
+  title = {{AUG}: A combined classification and clustering approach for web
+	people disambiguation},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {105--108},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association of Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W07-2019.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@ARTICLE{li05,
+  author = {Xin Li and Paul Morie and Dan Roth},
+  title = {Semantic integration in text: from ambiguous names to identifiable
+	entities},
+  journal = {{AI} Magazine, American Association for Artificial Intelligence},
+  year = {2005},
+  volume = {26},
+  pages = {45-58},
+  number = {1},
+  month = {March},
+  file = {:/home/matth/trunk/papers/LiMoRo05.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{li04,
+  author = {Xin Li and Paul Morie and Dan Roth},
+  title = {Robust Reading: Identification and Tracing of Ambiguous Names},
+  booktitle = {Proceedings of the Human Language Technology Conference of the North
+	American Chapter of the Association of Computational Linguistics
+	({HLT-NAACL})},
+  year = {2004},
+  pages = {17--24},
+  address = {Boston, {USA}},
+  month = {May},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/N04-1003.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{luo07,
+  author = {Xiaoqiang Luo},
+  title = {Coreference or Not: A Twin Model for Coreference Resolution},
+  booktitle = {Proceedings of the Human Language Technology Conference of the North
+	American Chapter of the Association of Computational Linguistics
+	({HLT-NAACL})},
+  year = {2007},
+  file = {:/home/matth/trunk/papers/N07-1010.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{luo04,
+  author = {Xiaoqiang Luo and Abe Ittycheriah and Hongyan Jing and Nanda Kambhatla
+	and Salim Roukos},
+  title = {A Mention-Synchronous Coreference Resolution Algorithm Based On the
+	{B}ell Tree},
+  booktitle = {Proceedings of the 42nd Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2004},
+  file = {:/home/matth/trunk/papers/P04-1018.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{malin05,
+  author = {Bradley Malin},
+  title = {Unsupervised Name Disambiguation via Social Network Similarity},
+  booktitle = {Proceedings of the 2005 {SIAM} Workshop on Link Analysis, Counterterrorism,
+	and Security},
+  year = {2005},
+  pages = {93--102},
+  address = {Atlanta, {USA}},
+  month = {April},
+  publisher = {{SIAM}},
+  file = {:/home/matth/trunk/papers/malin1.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.10.01}
+}
+
+@INPROCEEDINGS{mann05,
+  author = {Gideon Mann and David Yarowsky},
+  title = {Multi-Field Information Extraction and Cross-Document Fusion},
+  booktitle = {Proceedings of the 43rd Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2005},
+  pages = {483--490},
+  address = {Ann Arbor, {USA}},
+  month = {July},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/p483-mann.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@PHDTHESIS{mann06,
+  author = {Gideon S. Mann},
+  title = {Multi-Document Statistical Fact Extraction and Fusion},
+  school = {John Hopkins University},
+  year = {2006},
+  owner = {matth},
+  timestamp = {2008.09.29}
+}
+
+@INPROCEEDINGS{mann03,
+  author = {Gideon S. Mann and David Yarowsky},
+  title = {Unsupervised personal name disambiguation},
+  booktitle = {Proceedings of the 7th Conference on Computational Natural Language
+	Learning ({CoNLL})},
+  year = {2003},
+  file = {:/home/matth/trunk/papers/W03-0405.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{Maurel2008,
+  author = {Denis Maurel},
+  title = {Prolexbase: a Multilingual Relational Lexical Database of Proper
+	Names},
+  booktitle = {Proceedings of the Sixth International Language Resources and Evaluation
+	({LREC})},
+  year = {2008},
+  address = {Marrakech, Morocco},
+  month = {May},
+  publisher = {{ELRA}},
+  date = {28-30},
+  file = {:/home/matth/trunk/papers/91_paper.pdf:PDF},
+  language = {english},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@ARTICLE{mccallum02,
+  author = {Andrew Mc{C}allum and Kamal Nigal and Lyle Ungar},
+  title = {Efficient clustering of high-dimensional data sets with application
+	to reference matching},
+  journal = {Knowledge Discovery and Data Mining},
+  year = {2002},
+  volume = {01-02},
+  pages = {01-02},
+  file = {:/home/matth/trunk/papers/canopy-kdd00.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{mccallum03,
+  author = {Andrew Mc{C}allum and Ben Wellner},
+  title = {Toward conditional models of identity uncertainty with application
+	to proper noun coreference},
+  booktitle = {Proceedings of the {IJCAI-03} Workshop on Information Integration
+	on the Web ({IIWeb-03})},
+  year = {2003},
+  file = {:/home/matth/trunk/papers/condid-ijcaiws2003.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{Mihaltz2008,
+  author = {M\'{a}rton Mih\'{a}ltz},
+  title = {Knowledge-based Coreference Resolution for Hungarian},
+  booktitle = {Proceedings of the Sixth International Language Resources and Evaluation
+	(LREC'08)},
+  year = {2008},
+  editor = {European Language Resources Association (ELRA)},
+  address = {Marrakech, Morocco},
+  month = {May},
+  date = {28-30},
+  file = {:/home/matth/trunk/papers/765_paper.pdf:PDF},
+  language = {english},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{morton00,
+  author = {Thomas S. Morton},
+  title = {Coreference for {NLP} Applications},
+  booktitle = {Proceedings of the 38th Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2000},
+  file = {:/home/matth/trunk/papers/10.1.1.16.9454.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{muc6,
+  author = {MUC-6},
+  title = {Coreference task definition},
+  booktitle = {Proceedings of the 6th Message Understanding Conference ({MUC-6})},
+  year = {1995},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{muc7,
+  author = {MUC-7},
+  title = {Coreference task definition},
+  booktitle = {Proceedings of the 7th Message Understanding Conference ({MUC-7})},
+  year = {1997},
+  file = {:/home/matth/trunk/papers/guidelines.COtaskdef.3.0.ps:PostScript},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{mueller03,
+  author = {Christoph Mueller and Stefan Rapp and Michael Strube},
+  title = {Applying cotraining to reference resolution},
+  booktitle = {Proceedings of the 41st Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2003},
+  file = {:/home/matth/trunk/papers/p352-muller.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{ng07,
+  author = {Vincent Ng},
+  title = {Semantic Class Induction and Coreference Resolution},
+  booktitle = {Proceedings of the 45th Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2007},
+  file = {:/home/matth/trunk/papers/P07-1068.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{ng05,
+  author = {Vincent Ng},
+  title = {Machine Learning for Coreference Resolution: From Local Classification
+	to Global Ranking},
+  booktitle = {Proceedings of the 43rd Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2005},
+  file = {:/home/matth/trunk/papers/acl05.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{ng04,
+  author = {Vincent Ng},
+  title = {Learning noun phrase anaphoricity to improve coreference resolution:
+	Issues in representation and optimization},
+  booktitle = {Proceedings of the 42nd Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2004},
+  file = {:/home/matth/trunk/papers/p151-ng.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{ng03,
+  author = {Vincent Ng and Claire Cardie},
+  title = {Improving Machine Learning Approaches to Coreference Resolution},
+  booktitle = {Proceedings of the 41st Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2003},
+  file = {:/home/matth/trunk/papers/acl02.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{niu04,
+  author = {Cheng Niu and Wei Li and Rohini K. Srihari},
+  title = {Weakly Supervised Learning for Cross-document Person Name Disambiguation
+	Supported by Information Extraction},
+  booktitle = {Proceedings of the 42nd Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2004},
+  pages = {597--604},
+  address = {Barcelona, Spain},
+  month = {July},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/p597-niu.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{Novak2008,
+  author = {V\`{a}clav No\`{a}k and Keith Hall},
+  title = {Inter-sentential Coreferences in Semantic Networks: An Evaluation
+	of Manual Annotation},
+  booktitle = {Proceedings of the Sixth International Language Resources and Evaluation
+	({LREC})},
+  year = {2008},
+  editor = {European Language Resources Association (ELRA)},
+  address = {Marrakech, Morocco},
+  month = {May},
+  date = {28-30},
+  file = {:/home/matth/trunk/papers/Novak_Hall_Intersentential_Coreferences.pdf:PDF},
+  language = {english},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{Constantin2008,
+  author = {Constantin Or\u{a}san and Dan Cristea and Ruslan Mitkov and Ant\'{o}nio
+	Branco},
+  title = {Anaphora Resolution Exercise: an Overview},
+  booktitle = {Proceedings of the Sixth International Language Resources and Evaluation
+	({LREC})},
+  year = {2008},
+  editor = {European Language Resources Association (ELRA)},
+  address = {Marrakech, Morocco},
+  month = {May},
+  date = {28-30},
+  file = {:/home/matth/trunk/papers/OrasanCristeaMitkovBranco2008.pdf:PDF},
+  language = {english},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{pasula03,
+  author = {Hannah Pasula and Baskara Marthi and Brian Milch and Stuart Russell
+	and Ilya Shpister},
+  title = {Identity uncertainty and citation matching},
+  booktitle = {Proceedings of the Conference on Advances in Neural Information Processing},
+  year = {2003},
+  file = {:/home/matth/trunk/papers/nipsnewer.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{pedersen06,
+  author = {Ted Pedersen and Anagha Kulkarni},
+  title = {Improving Name Discrimination: A Language Salad Approach},
+  booktitle = {Proceedings of the {EACL} 2006 Workshop on Cross-Language Knowledge
+	Induction},
+  year = {2006},
+  pages = {25--32},
+  address = {Trento, Italy},
+  month = {April},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/ws04_crosslanguage.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.29}
+}
+
+@INPROCEEDINGS{pederson05,
+  author = {Ted Pedersen and Amruta Purandare and Anagha Kulkarni},
+  title = {An Unsupervised Language Independent Method of Name Discrimination
+	Using Second Order Co-occurrence Features},
+  booktitle = {Proceedings of the International Conference on Computational Linguistics
+	and Intelligent Text Processing ({CICLing})},
+  year = {2005},
+  pages = {208--222},
+  address = {Mexico City, Mexico},
+  month = {February},
+  publisher = {Association for Computational Linguistics},
+  abstract = {It is relatively common for different people or organizations to share
+	the same name. Given the increasing amount of information available
+	online, this results in the ever growing possibility of finding misleading
+	or incorrect information due to confusion caused by an ambiguous
+	name. This paper presents an unsupervised approach that resolves
+	name ambiguity by clustering the instances of a given name into groups,
+	each of which is associated with a distinct underlying entity. The
+	features we employ to represent the context of an ambiguous name
+	are statistically significant bigrams that occur in the same context
+	as the ambiguous name. From these features we create a co–occurrence
+	matrix where the rows and columns represent the first and second
+	words in bigrams, and the cells contain their log–likelihood scores.
+	Then we represent each of the contexts in which an ambiguous name
+	appears with a second order context vector. This is created by taking
+	the average of the vectors from the co–occurrence matrix associated
+	with the words that make up each context. This creates a high dimensional
+	ldquoinstance by wordrdquo matrix that is reduced to its most significant
+	dimensions by Singular Value Decomposition (SVD). The different ldquomeaningsrdquo
+	of a name are discriminated by clustering these second order context
+	vectors with the method of Repeated Bisections. We evaluate this
+	approach by conflating pairs of names found in a large corpus of
+	text to create ambiguous pseudo-names. We find that our method is
+	significantly more accurate than the majority classifier, and that
+	the best results are obtained by having a small amount of local context
+	to represent the instance, along with a larger amount of context
+	for identifying features, or vice versa.},
+  file = {:/home/matth/trunk/papers/cicling2005.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{Poesio2008,
+  author = {Massimo Poesio and Ron Artstein},
+  title = {Anaphoric Annotation in the ARRAU Corpus},
+  booktitle = {Proceedings of the Sixth International Language Resources and Evaluation
+	({LREC})},
+  year = {2008},
+  editor = {European Language Resources Association (ELRA)},
+  address = {Marrakech, Morocco},
+  month = {may},
+  date = {28-30},
+  file = {:/home/matth/trunk/papers/arrau-corpus-lrec2008.pdf:PDF},
+  language = {english},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{popescu07,
+  author = {Octavian Popescu and Bernardo Magnini},
+  title = {{IRST-BP}: Web People Search Using Name Entities},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {191--194},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association of Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W07-2041.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{popescu98,
+  author = {Andrei Popescu-Belis and Isabelle Robba and Gerard Sabah},
+  title = {Reference Resolution beyond Coreference: a Conceptual Frame and its
+	Application},
+  booktitle = {Proceedings of the 36th Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {1998},
+  pages = {1046--1052},
+  address = {Montreal, Canada},
+  month = {August},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/0208038.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{rao07,
+  author = {Delip Rao and Nikesh Garera and David Yarowsky},
+  title = {{JHU1}: An Unsupervised Approach to Person Name Disambiguation using
+	Web Snippets},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {199--202},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association of Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W07-2042.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{ravin99,
+  author = {Yael Ravin},
+  title = {Is {H}illary {R}odham {C}linton the President? Disambiguating Names
+	across Documents},
+  booktitle = {Proceedings of the {ACL}’99 Workshop on Conference and its Applications},
+  year = {1999},
+  pages = {9--16},
+  address = {College Park, {USA}},
+  month = {June},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W99-0202.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.10.01}
+}
+
+@INPROCEEDINGS{saggion07,
+  author = {Horacio Saggion},
+  title = {{SHEF}: Semantic Tagging and Summarization Techniques Applied to
+	Cross-document Coreference},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {292--295},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W07-2063.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{Saggion03,
+  author = {Horacio Saggion and Hamish Cunningham and Jan Kuper and Thierry Declerck
+	and Peter Wittenburg},
+  title = {Event-Coreference across Multiple, Multi-lingual Sources in the {M}umis
+	Project},
+  booktitle = {Proceedings of the 10th Conference of the European Chapter of the
+	Association for Computational Linguistics ({EACL})},
+  year = {2003},
+  pages = {239--242},
+  address = {Budapest, Hungary},
+  month = {April},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/p239-saggion.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@ARTICLE{soon01,
+  author = {Wee Meng Soon and Hwee Tou Ng and Daniel Chung Yong Lim},
+  title = {A machine learning approach to coreference resolution of noun phrases},
+  journal = {Computational Linguistics},
+  year = {2001},
+  volume = {27},
+  pages = {521--544},
+  number = {4},
+  file = {:/home/matth/trunk/papers/s4.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{stoia2008,
+  author = {Laura Stoia and Darla Magdalena Shockley and Donna K. Byron and Eric
+	Fosler-Lussier},
+  title = {{SCARE}: a Situated Corpus with Annotated Referring Expressions},
+  booktitle = {Proceedings of the Sixth International Language Resources and Evaluation
+	({LREC})},
+  year = {2008},
+  editor = {European Language Resources Association (ELRA)},
+  address = {Marrakech, Morocco},
+  month = {may},
+  date = {28-30},
+  file = {:/home/matth/trunk/papers/164_paper.pdf:PDF},
+  language = {english},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{sugiyama07,
+  author = {Kazunari Sugiyama and Manabu Okumura},
+  title = {{TITPI}: Web People Search Task Using Semi-Supervised Clustering
+	Approach},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {318--321},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association of Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W07-2069.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{Uryupina2008,
+  author = {Olga Uryupina},
+  title = {Error Analysis for Learning-based Coreference Resolution},
+  booktitle = {Proceedings of the Sixth International Language Resources and Evaluation
+	({LREC})},
+  year = {2008},
+  editor = {European Language Resources Association (ELRA)},
+  address = {Marrakech, Morocco},
+  month = {May},
+  date = {28-30},
+  file = {:/home/matth/trunk/papers/487_paper.pdf:PDF},
+  language = {english},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{agudo07,
+  author = {del Valle-Agudo, David and de Pablo-S\'{a}nchez, C\'{e}sar and Vicente-D\'{i}ez,
+	Mar\'{i}a Teresa},
+  title = {{UC3M-13}: Disambiguation of Person Names Based on the Composition
+	of Simple Bags of Typed Terms},
+  booktitle = {Proceedings of the 4th International Workshop on Semantic Evaluations},
+  year = {2007},
+  pages = {362--365},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association of Computational Linguistics},
+  file = {:/home/matth/trunk/papers/W07-2079.pdf:PDF},
+  keywords = {weps07_system},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{versley08,
+  author = {Yannick Versley and Simone Paolo Ponzetto and Massimo Poesio and
+	Vladimir Eidelman and Alan Jern and Jason Smith and Xiaofeng Yang
+	and Alessandro Moschitti},
+  title = {{BART}: A Modular Toolkit for Coreference Resolution},
+  booktitle = {Proceedings of the 46th Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2008},
+  file = {:/home/matth/trunk/papers/P08-2012.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{vilain95,
+  author = {Marc Vilain and John Burger and John Aberdeen and Dennis Connolly
+	and Lynette Hirschman},
+  title = {A model-theoretic coreference scoring scheme},
+  booktitle = {Proceedings of the 6th Message Understanding Conference ({MUC-6})},
+  year = {1995},
+  pages = {45--52},
+  address = {Columbia, {USA}},
+  month = {November},
+  publisher = {{ACM}},
+  abstract = {This note describes a scoring scheme for the coreference task in MUC6.
+	It improves on the original approach by: (1) grounding the scoring
+	scheme in terms of a model; (2) producing more intuitive recall and
+	precision scores; and (3) not requiring explicit computation of the
+	transitive closure of coreference. The principal conceptual difference
+	is that we have moved from a syntactic scoring model based on following
+	coreference links to an approach defined by the model theory of those
+	links.},
+  file = {:/home/matth/trunk/papers/p45-vilain.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{vu05,
+  author = {Quang Minh Vu and Tomonari Masada and Atsuhiro Takasu and Jun Adachi},
+  title = {Using a knowledge base to disambiguate personal name in web search
+	results},
+  booktitle = {Proceedings of the 2007 {ACM} symposium on Applied computing},
+  year = {2005},
+  pages = {839--843},
+  address = {Seoul, Korea},
+  month = {March},
+  publisher = {{ACM}},
+  file = {:/home/matth/trunk/papers/p839-vu.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{wacholder97,
+  author = {N. Wacholder and Y. Ravin and M. Choi},
+  title = {Disambiguation of proper names in text},
+  booktitle = {Proceedings of the 5th International Conference on Applied Natural
+	Language Processing},
+  year = {1997},
+  pages = {202--208},
+  address = {Washington, {USA}},
+  month = {March},
+  publisher = {{ACM}},
+  owner = {matth},
+  timestamp = {2008.09.11}
+}
+
+@INPROCEEDINGS{wan05,
+  author = {Xiaojun Wan and Jianfeng Gao and Mu Li and Binggong Ding},
+  title = {Person resolution in person search results: {WebHawk}},
+  booktitle = {Proceedings of the 14th {ACM} International Conference on Information
+	and Knowledge Management},
+  year = {2005},
+  pages = {163--170},
+  address = {Bremen, Germany},
+  publisher = {{ACM}},
+  file = {:/home/matth/trunk/papers/p163-wan.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.10.01}
+}
+
+@INPROCEEDINGS{yang07,
+  author = {Xiaofeng Yang and Jian Su},
+  title = {Coreference Resolution Using Semantic Relatedness Information from
+	Automatically Discovered Patterns},
+  booktitle = {Proceedings of the 45th Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2007},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{yang08,
+  author = {Xiaofeng Yang and Jian Su and Jun Lang and Chew Lim Tan and Ting
+	Liu and Sheng Li},
+  title = {An Entity-Mention Model for Coreference Resolution with Inductive
+	Logic Programming},
+  booktitle = {Proceedings of the 46th Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2008},
+  pages = {843--851},
+  address = {Columbus, OH},
+  month = {July},
+  publisher = {Association for Computational Linguistics},
+  file = {:/home/matth/trunk/papers/acl08Yang.pdf:PDF},
+  owner = {matth},
+  timestamp = {2008.09.22}
+}
+
+@INPROCEEDINGS{yang03,
+  author = {Xiaofeng Yang and Guodong Zhou and Jian Su and Chew Lim Tan},
+  title = {Coreference Resolution Using Competition Learning Approach},
+  booktitle = {Proceedings of the 41st Annual Meeting of the Association for Computational
+	Linguistics ({ACL})},
+  year = {2003},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@INPROCEEDINGS{yates07,
+  author = {Alexander Yates and Oren Etzioni},
+  title = {Unsupervised Resolution of Objects and Relations on the Web},
+  booktitle = {Proceedings of the Human Language Technology Conference of the North
+	American Chapter of the Association of Computational Linguistics
+	({HLT-NAACL})},
+  year = {2007},
+  pages = {121--130},
+  address = {Rochester, {USA}},
+  month = {April},
+  publisher = {Association for Computational Linguistics},
+  owner = {matth},
+  timestamp = {2008.09.08}
+}
+
+@INPROCEEDINGS{zealnko04,
+  author = {Dmitry Zelenko and Chinatsu Aone and Jason Tibbetts},
+  title = {Coreference Resolution for Information Extraction},
+  booktitle = {ACL 2004: Workshop on Reference Resolution and its Applications},
+  year = {2004},
+  owner = {matth},
+  timestamp = {2008.09.04}
+}
+
+@inproceedings{textclean,
+author = "Stefan Evert",
+title = "A lightweight and efficient tool for cleaning {W}eb pages",
+booktitle = {Proceedings of the 6th International Conference on Language Resources and Evaluation ({LREC} 2008)},
+year = {2008}
+}
+
+@misc{nltk,
+author = {Steven Bird and Edward Loper and Ewan Kein},
+title = {Natural Language Toolkit},
+howpublished = "http://www.nltk.org",
+year = 2008
+}
+
+@InProceedings{curran:03,
+  author = 	 {James R. Curran and Stephen Clark},
+  title = 	 {Language Independent {N}{E}{R} using a Maximum Entropy Tagger},
+  booktitle = 	 {Proceedings of the Seventh Conference on Natural Language Learning (CoNLL-03)},
+  pages = 	 {164-167},
+  year = 	 {2003},
+  address = 	 {Edmonton, Canada},
+}
+
+
+@InProceedings{ratnaparkhi:97,
+  author = 	 {Adwait Ratnaparkhi},
+  title = 	 {A Linear Observed Time Statistical Parser Based on Maximum Entropy Models},
+   booktitle = 	 {Proceedings of the 2nd {E}{M}{N}{L}{P} Conference},
+  year = 	 {1997},
+ address = {Providence, Rhode Island},
+ pages = {},
+}
+
+@InProceedings{cucerzan07,
+  author    = {Cucerzan, Silviu},
+  title     = {Large-Scale Named Entity Disambiguation Based on {Wikipedia} Data},
+  booktitle = {Proceedings of the 2007 Joint Conference on Empirical Methods in Natural Language Processing and Computational Natural Language Learning (EMNLP-CoNLL)},
+  month     = {June},
+  year      = {2007},
+  address   = {Prague, Czech Republic},
+  publisher = {Association for Computational Linguistics},
+  pages     = {708--716},
+  url       = {http://www.aclweb.org/anthology/D/D07/D07-1074}
+}
+
+@inproceedings{mihalcea07,
+  author    = {Rada Mihalcea and
+               Andras Csomai},
+  title     = {Wikify!: linking documents to encyclopedic knowledge},
+  booktitle = {Proceedings of the Sixteenth {ACM} Conference on Information
+               and Knowledge Management, {CIKM} 2007}},
+  year      = {2007},
+  mont      = {November},
+  pages     = {233-242},
+}
+
+@comment{jabref-meta: selector_publisher:}
+
+@comment{jabref-meta: selector_author:}
+
+@comment{jabref-meta: selector_journal:}
+
+@comment{jabref-meta: selector_keywords:}
+
+@comment{jabref-meta: groupsversion:3;}
+
+@comment{jabref-meta: groupstree:
+0 AllEntriesGroup:;
+1 KeywordGroup:semeval07\;0\;booktitle\;semantic\;0\;0\;;
+1 KeywordGroup:WePS 2007 Systems\;0\;keywords\;weps07_system\;0\;0\;;
+}
+

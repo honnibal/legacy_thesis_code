@@ -1,0 +1,1068 @@
+ 
+\chapter{Hat Categories}
+\label{chapter:hat_cats} 
+
+This chapter describes hat \ccg: a Combinatory
+Categorial Grammar minimally extended to include \emph{hat categories}.
+Hat categories are a mechanism we have designed to allow \ccg
+categories to represent form and function simultaneously to
+address the problems described in Chapter~\ref{chapter:ling_mot}.
+
+A hat category is a category of the form \cf{X^Y\$} that lexicalises a
+unary production \psunary{\cf{X}}{\cf{Y}}. Hat categories are used so that the
+\cf{X} category, termed the \emph{base}, represents the constituent's form; and
+the \cf{Y} category, termed the \emph{hat}, represents the constituent's
+function.
+
+For example, the hat category \cf{(S[ng]\bs NP)^{N\bs N}/PP} has a base,
+\cf{S[ng]\bs NP}, and a hat, \cf{N\bs N}. Once the outer argument has been
+supplied, the unhat rule, \cH, transforms the base into the hat:
+
+\begin{center}
+\deriv{3}{
+\rm people & \rm giving & \rm to~charities \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N} &
+\cf{(S[ng]\bs NP)^{N\bs N}/PP} &
+\cf{PP} \\
+& \fapply{2} \\
+& \mc{2}{\cf{(S[ng]\bs NP)^{N\bs N}}} \\
+& \unhat{2} \\
+& \mc{2}{\cf{N\bs N}} \\
+\bapply{3} \\
+\mc{3}{\cf{N}}
+}
+\end{center}
+
+The hat category assigned to \emph{giving} should be read as a version of
+its canonical category, \cf{(S[ng]\bs NP)/PP}, that specifies its function
+as a \cf{N\bs N}. The resemblance to its canonical category is critical in
+ensuring that modifiers can receive their canonical category. In the derivation
+below, the modifier \emph{generously} is assigned a category that is not
+sensitive to the function of \emph{giving}:
+
+\begin{center}
+\deriv{4}{
+\rm people & \rm giving & \rm generously & \rm to~charities \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N} &
+\cf{(S[ng]\bs NP)^{N\bs N}/PP} &
+\cf{(S\bs NP)\bs (S\bs NP)} &
+\cf{PP} \\
+& \bxcomp{2} \\
+& \mc{2}{\cf{(S[ng]\bs NP)^{N\bs N}/PP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{(S[ng]\bs NP)^{N\bs N}}} \\
+& \unhat{3} \\
+& \mc{3}{\cf{N\bs N}} \\
+\bapply{4} \\
+\mc{4}{\cf{N}}
+}\end{center}
+
+This is the key property of hat categories: they allow the description of 
+form/function discrepancies to be isolated within a single category. The other
+categories in the derivation are unchanged.
+
+Hat categories necessitate two changes to the formalism: the addition
+of a \hatsc attribute to the category objects, and the addition of an 
+\textsc{unhat} rule, \cf{X^Y}$\Rightarrow{_\cH}$ \cf{Y},
+to perform the unary production. A set of stipulations constraining the permissible
+values of the \hatsc attribute and the structure of \emph{base} categories
+together guarantee that all hat categories are unhatted during valid derivations.
+The \cH~rule can only be used if the base has no outer arguments. In the
+following, the bare nominals \emph{people} and \emph{charities}
+can be unhatted, but \emph{giving} cannot:
+
+\begin{center}
+\deriv{5}{
+\rm people & \rm giving & \rm generously & \rm to & \rm charities \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N^{NP}} &
+\cf{(S[ng]\bs NP)^{N\bs N}/PP} &
+\cf{(S\bs NP)\bs (S\bs NP)} &
+\cf{PP/NP} &
+\cf{N^{NP}} \\
+\unhat{1} & \asterisk{1} &&& \unhat{1} \\
+\mc{1}{\cf{NP}} & \mc{1}{\cf{(N\bs N)/PP}} &&& \mc{1}{\cf{NP}}
+}\end{center}
+
+In order to ensure that the hat represents the category's function and that it is not
+optional, arguments within the base category cannot be used. This prevents the derivation
+of \cf{S[ng]} in the following:
+
+\begin{center}
+\deriv{5}{
+\rm people & \rm giving & \rm generously & \rm to & \rm charities \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N^{NP}} &
+\cf{(S[ng]\bs NP)^{N\bs N}/PP} &
+\cf{(S\bs NP)\bs (S\bs NP)} &
+\cf{PP/NP} &
+\cf{N^{NP}} \\
+\unhat{1} & \bxcomp{2} && \unhat{1} \\
+\mc{1}{\cf{NP}} & \mc{2}{\cf{(S[ng]\bs NP)^{N\bs N}/PP}} && \mc{1}{\cf{NP}} \\
+&&& \fapply{2} \\
+&&& \mc{2}{\cf{PP}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{(S[ng]\bs NP)^{N\bs N}}} \\
+\asterisk{5} \\
+\mc{5}{\cf{S[ng]}}
+}\end{center}
+
+A further stipulation ensures that the base category cannot be used as the
+argument of non-modifier categories. This prevents the derivation of
+\cf{S[dcl]} in the following:
+
+\begin{center}
+\deriv{6}{
+\rm people & \rm are & \rm giving & \rm generously & \rm to & \rm charities \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N^{NP}} &
+\cf{(S[dcl]\bs NP)/(S[ng]\bs NP)} &
+\cf{(S[ng]\bs NP)^{N\bs N}/PP} &
+\cf{(S\bs NP)\bs (S\bs NP)} &
+\cf{PP/NP} &
+\cf{N^{NP}} \\
+\unhat{1} && \bxcomp{2} && \unhat{1} \\
+\mc{1}{\cf{NP}} && \mc{2}{\cf{(S[ng]\bs NP)^{N\bs N}/PP}} && \mc{1}{\cf{NP}} \\
+&&&& \fapply{2} \\
+&&&& \mc{2}{\cf{PP}} \\
+&& \fapply{4} \\
+&& \mc{4}{\cf{(S[ng]\bs NP)^{N\bs N}}} \\
+& \asterisk{5} \\
+& \mc{5}{\cf{S[dcl]\bs NP}}
+}
+\end{center}
+
+Hat categories are defined such that the unhat rule must be applied to every hat in
+order to form a valid derivation.
+A hat category
+\cf{(S[ng]\bs NP)^{N\bs N}} \emph{must} be unhatted and function as \cf{N\bs N}.
+It cannot function as \cf{S[ng]\bs NP}, either as a functor or an argument.
+A valid derivation using the \cf{(S[ng]\bs
+NP)^{N\bs N}/PP} category is shown in Figure~\ref{fig:giving_rrc}.
+
+The chapter is structured as follows. We first describe in Section
+\ref{sec:hat_def} the modifications to the formalism we require to support
+hat categories. In Section
+\ref{sec:stipulations} we provide a way to guarantee that every hat category is
+unhatted during a derivation. This is achieved with a set of stipulations on the
+use of the \hatsc attribute and the structure of base categories.
+We then describe the logical forms of hat categories, in
+Section~\ref{sec:hat_semantics}.
+Section~\ref{sec:interaction} describes how hat categories interact with the
+combinators. Finally, Section~\ref{sec:hat_gp} argues that hat categories do
+not alter the weak generative power of \ccg, and sketches an informal proof to that
+effect. A full discussion of the
+analyses hat categories enable is deferred to
+Chapter~\ref{chapter:hat_corpus}, where we compare hat category analyses with
+\ccgbank analyses and the analyses of a \ccg grammar that does not contain any
+type-changing operations.
+
+\begin{figure}
+\small
+\centering
+\deriv{7}{
+\rm people & \rm giving & \rm generously & \rm to & \rm charities & \rm are &
+\rm happier \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N^{NP}} &
+\cf{(S[ng]\bs NP)^{N\bs N}/PP} &
+\cf{(S\bs NP)\bs (S\bs NP)} &
+\cf{PP/NP} &
+\cf{N^{NP}} &
+\cf{(S[dcl]\bs NP)/(S[adj]\bs NP)} &
+\cf{S[adj]\bs NP} \\
+& \bxcomp{2} && \unhat{1} & \fapply{2} \\
+& \mc{2}{\cf{(S[ng]\bs NP)^{N\bs N}/PP}} && \mc{1}{\cf{NP}} &
+\mc{2}{\cf{S[dcl]\bs NP}} \\
+&&& \fapply{2} \\
+&&& \mc{2}{\cf{PP}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{(S[ng]\bs NP)^{N\bs N}}} \\
+& \unhat{4} \\
+& \mc{4}{\cf{N\bs N}} \\
+\bapply{5} \\
+\mc{5}{\cf{N^{NP}}} \\
+\unhat{5} \\
+\mc{5}{\cf{NP}} \\
+\bapply{7} \\
+\mc{7}{\cf{S[dcl]}}
+}
+\caption[Derivation with hat category]{A valid derivation using the hat category
+\cf{(S[ng]\bs NP)^{N\bs N}/PP} to analyse a reduced relative clause.
+\label{fig:giving_rrc}}
+\end{figure}
+
+
+
+
+\section{Definition of Hat Combinatory Categorial Grammar}
+\label{sec:hat_def}
+
+\begin{figure}
+\centering
+\begin{avm}
+[{}  \ressc  & [{} \ressc  & [{} \ressc  & \cf{S}\\
+                                 \featsc & [{} \textsc{tense} & \emph{ng}]\\
+			         \headsc & giving\\
+                                 \hatsc  & $\nullhat$\\
+		             ]\\
+                    \slashsc& \bks$^!$ \\
+                    \argsc & [{} \ressc  & \cf{NP}\\
+                                 \headsc & $y$\\
+                                 \hatsc  & $\nullhat$\\
+		             ]\\
+                    \headsc & giving\\
+                    \hatsc & [{} \ressc & [{} \ressc  & \cf{N}\\
+                                          \headsc & $y$\\
+                                          \hatsc  & $w$\\
+                                      ]\\
+                                 \slashsc & \cf{\bs}\\
+                                 \argsc & [{} \ressc  & \cf{N}\\
+                                          \headsc & $y$\\
+                                          \hatsc  & $w$\\
+                                      ]\\
+                                 \headsc & giving \\
+                                 \hatsc  & $\nullhat$\\
+                         ]\\
+	    ]\\
+     \slashsc& \cf{/} \\
+     \argsc  & [{} \ressc  & \cf{NP} \\
+		   \headsc & $z$\\
+                   \hatsc  & $\nullhat$\\
+	       ]\\
+     \headsc & giving\\
+     \hatsc  & $\nullhat$\\
+]
+\end{avm}
+\caption[Attribute value matrix representation of a hat category.]{Attribute
+value matrix representation of \emph{giving} $\assign$
+\cf{(S[ng]\bs^! NP_y^\nullhat)^{N^w_y\bs N^w_y}/PP^\nullhat_z}.\\
+The category's attributes are partially determined by two stipulations that help ensure
+the unhat rule is always used by hat categories.
+The \hatsc attributes of non-modifier arguments take on the null hat value $\nullhat$,
+ as specified by the Null Hat Stipulation described in Section~\ref{sec:null_hats}.
+ The \slashsc of \cf{S[ng]\bs^! NP} , as specified by
+ the Inert Slash Stipulation described in Section~\ref{sec:null_mode}.}
+\label{fig:hat_avm}
+\end{figure}
+
+This section describes the formal mechanisms required to support hat categories
+within a multi-modal Combinatory Categorial Grammar such as the one described by 
+\citet{steedman:pedia}. Hat categories could be added to other categorial grammars,
+such as an \abcg, or something similar to the hat categories we describe might be
+implemented in a categorial type logic using unary modalities or conjunctive
+categories, in the sense of \citet{carpenter:98}. However, we confine
+our discussion to adding
+hat categories to an application, type-raising and composition Combinatory Categorial
+Grammar that makes use of multi-modal slash types.
+
+\subsection{Hat Category Definition}
+
+A multi-modal \ccg category is defined as a 
+5-tuple $\langle\ressc, \featsc, \slashsc, \argsc, \headsc\rangle$, where:
+\begin{itemize}
+ \item \ressc is a result category;
+ \item \featsc is a feature structure;
+ \item \slashsc is a modalised slash;
+ \item \argsc is an argument category;
+ \item \headsc is a lexical head.
+\end{itemize}
+
+Attribute values can be \emph{coindexed} to each other across a category. When
+an attribute takes on a value, all attributes coindexed with it share that value. 
+
+We extend this definition to include an additional attribute, \hatsc. 
+Figure~\ref{fig:hat_avm} shows an attribute value matrix representation of
+\emph{giving} $\assign$ \cf{(S[ng]\bs NP)^{N\bs N}/PP}. Attributes with empty values
+have been omitted for brevity.
+
+The \hatsc attribute of the base, \cf{S[ng]\bs NP}, stores the hat, \cf{N\bs N}.
+Attributes within the hat category can be coindexed with attributes outside it.
+When an attribute value is bound during a derivation, all coindexed attributes
+take on the new value. During the derivation in Figure
+\ref{fig:giving_rrc}, $y$ would be bound to \emph{people}, $z$ would be bound to
+\emph{to}, and $w$ would be bound to \cf{NP}, to produce \cf{(S[ng]_{giving}\bs
+NP_{people})^{N^{NP}_{people}\bs N^{NP}_{people}}/PP_{to}}.
+
+Categories might also be defined with a single identity index, controlling
+the identity of heads, hats, slashes and possibly features. We have chosen
+the definition that allows grammar writers greater flexibility, even though
+it makes the well-formedness stipulations described in Section~\ref{sec:stipulations} more
+complicated. The implementation described in Chapter~\ref{chapter:results} uses the
+\headsc index to determine hat coindexation, with a separate feature index.
+
+\subsection{Unhat rule definition}
+
+We add a single unary rule to the grammar to support hat categories, unhat:
+
+\begin{eqnarray}
+\cf{X^Y} & \Rightarrow_\cH\;\; \cf{Y}
+\end{eqnarray}
+
+The rule is an entirely syntactic operation. It has no impact on the category's
+logical form, as described in Section~\ref{sec:hat_semantics}
+
+
+\section{Stipulations to make hat categories non-disjunctive}
+\label{sec:stipulations}
+
+Hat categories have been designed to represent form/function discrepancies in \ccg.
+They do this by allowing a form category to be specified in the base, and a function
+category to be specified in the hat. This section describes how we ensure that the
+constituent cannot instead function according to its base category, rather than its
+hat. We do this by ensuring that every hat category must be unhatted in every derivation.
+
+The hat category \cf{(S[ng]\bs NP)^{N\bs N}/PP} describes a verb with a \cf{PP} complement
+heading a reduced relative clause. This construction represents a form/function discrepancy:
+a verb phrase that functions as a nominal modifier. Because we want the grammar to be
+fully lexicalised, we want the lexical category to describe exactly this construction,
+and no others. This means that a verb assigned this category must not function as an
+ordinary verb phrase. It must, at some point, be transformed into a nominal modifier.
+
+To ensure that hat categories preserve full lexicalisation, we must design the grammar
+so that the unhat rule always applies to every hat category. We state this principle as
+follows:
+
+\begin{hatpreservation}
+ Hats may only be eliminated using the unhat rule. All other combinators must
+preserve them.
+\end{hatpreservation}
+
+One way to make the grammar obey this principle would be to formulate a constraint
+over derivations. However, this would mean modifying the existing combinators to 
+add a post-constraint, checking whether the combinator preserved the hat category.
+Instead, we propose a solution that places the constraints in the lexicon, using
+stipulations that constrain what can be considered a well-formed category. In an
+inheritance based lexicon, such as proposed by \citet{mcconville:06}, this would mean
+stating the stipulations once at the top level of the category hierarchy. The decision
+to place the stipulations in the lexicon follows the general principles described by
+\citet{baldridge:03}, who argue that it is preferable to follow the approach to
+resource-sensitivity (control over when combinators can apply) taken in Categorial
+Type Logics, by placing rules and restrictions in the lexicon.
+
+\subsection{Null Hat Stipulation}
+\label{sec:null_hats}
+
+The Null Hat Stipulation prevents hats from being eliminated through
+argument application by ensuring that the arguments of predicate categories fail
+to unify with hatted categories. It is stated as follows:
+
+\begin{nullhatstip}
+\hatsc attributes may not be empty. Legal values are a category,
+coindexation between an argument and its result, or the null value $\nullhat$.
+\end{nullhatstip}
+
+A predicate category, such as \cf{(S[dcl]\bs NP)/(S[ng]\bs NP)},
+is prevented from applying the hatted category \cf{(S[ng]\bs NP)^{N\bs N}} because
+its argument's \hatsc is null valued. Null hat values successfully unify against each other,
+allowing application of unhatted arguments as usual.
+We will leave null hats implicit in our
+derivations in future, but the following derivation shows all occurring null hats,
+along with an application rule blocked by the null hat on the argument of 
+\cf{(S[dcl]\bs NP)/(S[ng]\bs NP)}:
+
+\begin{center}
+\deriv{4}{
+\rm Pat & \rm is & \rm collecting & \rm stamps \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP^\nullhat} &
+\cf{((S[dcl]^\nullhat\bs NP^\nullhat)/(S[ng]^\nullhat\bs NP^\nullhat)^\nullhat)^\nullhat} &
+\cf{((S[ng]^\nullhat\bs NP^\nullhat)^{(N^y\bs N^y)^\nullhat}/NP^\nullhat)^\nullhat} &
+\cf{NP^\nullhat} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{(S[ng]^\nullhat\bs NP^\nullhat)^{(N^y\bs N^y)^\nullhat}}} \\
+& \asterisk{3} \\
+& \mc{3}{\cf{(S[dcl]^\nullhat\bs NP^\nullhat)^\nullhat}} \\
+}
+\end{center}
+
+The null value prevents the \cf{(S[ng]\bs NP)^\nullhat} and \cf{(S[ng]\bs NP)^{N\bs N}}
+categories from being unified, as their \hatsc values are incompatible.
+
+The stipulation
+allows hatted categories to be applied as arguments only when the hat would be preserved
+through coindexation. For instance, the modifier category \cf{(S^y\bs NP^z)^w\bs (S^y\bs NP^z)^w}
+preserves hats, due to the coindexation of its argument and result \hatsc values. The
+following derivation makes hat coindexation explicit, so that all unspecified hats
+should be assumed to be null:
+
+\begin{center}
+\deriv{4}{
+\rm Pat & \rm tripped & \rm walking & \rm quickly \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{S[dcl]\bs NP} &
+\cf{(S[ng]\bs NP)^{(S^y\bs NP^z)^w\bs (S^y\bs NP^z)^w}} &
+\cf{(S^y\bs NP^z)^w\bs (S^y\bs NP^z)^w} \\
+&& \bapply{2} \\
+&& \mc{2}{\cf{(S[ng]\bs NP)^{(S^y\bs NP^z)^w\bs (S^y\bs NP^z)^w}}} \\
+&& \unhat{2} \\
+&& \mc{2}{\cf{(S^y\bs NP^z)^w\bs (S^y\bs NP^z)^w}} \\
+& \bapply{3} \\
+& \mc{3}{\cf{S[dcl]\bs NP}}\\
+\bapply{4}\\
+\mc{4}{\cf{S[dcl]}}
+}
+\end{center}
+
+In future, we will not always make hat indices explicit for modifier categories.
+The argument of the modifier category \cf{(S^y\bs NP^z)^w\bs (S^y\bs NP^z)^w} unifies
+with the hat category \cf{(S[ng]\bs NP)^{(S^y\bs NP^z)^w\bs (S^y\bs NP^z)^w}} during backward
+application. The result category's attributes take its values from the argument
+during unification, due to their coindexation.
+
+The desirable property of the hat category analysis is that the form/function
+discrepancy is entirely confined to the category assigned to \emph{walking}. All
+other words in the derivation receive their canonical categories, without reference
+to the special function of \emph{walking}. At the same time, the function of
+\emph{walking} is fully specified. The category it is assigned does not allow it
+to function as an ordinary \emph{-ing} inflected verb. The Null Hat Stipulation
+goes part of the way to guaranteeing that, by ensuring that its hat category
+is preserved when functors apply it as an argument.
+
+To avoid cluttering our derivations, we will assume from here that the arguments
+of predicate categories will receive null hats, and modifier categories will
+recursively coindex the \hatsc values of their results and arguments. Null hat values
+and hat indices will only be shown in our derivations when there is a particular need
+for the more explicit presentation.
+
+
+\subsection{Inert Slash Stipulation}
+\label{sec:null_mode}
+
+The Inert Slash Stipulation prevents complex categories that specify a \hatsc
+value from applying their arguments, as this would not preserve their hats.
+It does this by using the \emph{inert slash} described in Section \ref{sec:mmccg_background},
+first defined by \citet{baldridge:02} and used by \citet{hoyt:08}.
+The stipulation is stated as follows:
+
+\begin{nullmodestip}
+ If a complex category specifies a hat category, its \slashsc must be inert.
+Combinators cannot use inert slashes, marked \cf{/^!} and \cf{\bs^!},
+as their functors.
+\end{nullmodestip}
+
+Complex categories are allowed to specify hats so that categories such as 
+\cf{(S[ng]\bs NP)^{N\bs N}/PP} can be formed. The \cf{NP} argument within
+the base is specified to relate the category to its canonical version,
+\cf{(S[ng]\bs NP)/PP}. This allows its modifier categories to receive their canonical
+categories. However, we must prevent the \cf{NP} argument from being used,
+lest the \cf{(S[ng]\bs NP)^{N\bs N}/PP} category be used to derive \cf{S[ng]}:
+
+\begin{center}
+\deriv{5}{
+\rm people & \rm giving & \rm generously & \rm to & \rm charities \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N^{NP}} &
+\cf{(S[ng]\bs^! NP)^{N\bs N}/PP} &
+\cf{(S\bs_i NP)\bs (S\bs_i NP)} &
+\cf{PP/NP} &
+\cf{N^{NP}} \\
+\unhat{1} & \bxcomp{2} && \unhat{1} \\
+\mc{1}{\cf{NP}} & \mc{2}{\cf{(S[ng]\bs^! NP)^{N\bs N}/PP}} &&
+\mc{1}{\cf{NP}} \\
+&&& \fapply{2} \\
+&&& \mc{2}{\cf{PP}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{(S[ng]\bs^! NP)^{N\bs N}}} \\
+\asterisk{5} \\
+\mc{5}{\cf{S[ng]}}
+}\end{center}
+
+Backward application is blocked here because the slash on its functor, \cf{S[ng]\bs^! NP},
+is inert. Note that type-raising cannot be used to circumvent the inert slash, for the
+reason described in Section \ref{sec:mmccg_background}. The two slashes in a type-raised
+category \cf{T_i/(T\bs_i X)} or \cf{T_i\bs (T/_i X)} are coindexed, so they must either
+both be inert, or both be active. If they are both inert, then the type-raised category
+cannot serve as a functor; if they are both active, then the \cf{T\bs^+ X} category
+will fail to unify with the \cf{(T\bs^! X)^Y} hatted category, where \cf{\bs^+} denotes
+an active slash.
+
+Inert slashes can still be used as the argument by composition combinators.
+This is important for allowing modification:
+
+\begin{center}
+\deriv{5}{
+\rm people & \rm giving & \rm generously & \rm to & \rm charities \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N^{NP}} &
+\cf{(S[ng]\bs^! NP)^{N\bs N}/PP} &
+\cf{(S\bs^i NP)\bs (S\bs^i NP)} &
+\cf{PP/NP} &
+\cf{N^{NP}} \\
+& \bxcomp{2} && \unhat{1} \\
+& \mc{2}{\cf{(S[ng]\bs^! NP)^{N\bs N}/PP}} && \mc{1}{\cf{NP}} \\
+&&& \fapply{2} \\
+&&& \mc{2}{\cf{PP}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{(S[ng]\bs^! NP)^{N\bs N}}} \\
+& \unhat{4} \\
+& \mc{4}{\cf{{N\bs N}}} \\
+\bapply{5}\\
+\mc{5}{\cf{N^{NP}}}\\
+\unhat{5}\\
+\mc{5}{\cf{NP}}
+}\end{center}
+
+The inert slash is allowed to be the argument in the backwards crossed composition, which
+prevents the modifier \emph{generously} from requiring an argument-structure specific
+category such as \cf{((S\bs NP)/PP) \bs ((S\bs NP)/PP)}.
+
+Modification raises another subtlety. Modifiers of complex categories could potentially
+circumvent our stipulations, by coindexing their \textsc{hat} values but not coindexing
+their \slashsc values. A poorly formulated modifier category such as
+\cf{(S\bs^i NP)^y\bs (S\bs^j NP)^y} both of our current stipulations, but would allow
+\emph{giving} to shed its inert slash, and allow the derivation of \cf{S[ng]} that
+we are trying to prevent. We prevent such ill-formed modifier categories
+with the following auxiliary stipulation:
+
+\begin{slashindexstip}
+ If two complex categories' \hatsc values are coindexed, their \slashsc values
+must be coindexed also.
+\end{slashindexstip}
+
+This stipulation ensures that a modifier category that obeys the Null Hat
+Stipulation by coindexing its \hatsc values must also coindex its \slashsc
+values, ensuring that inert slashes cannot be lost during the derivation
+
+\section{Logical form of hat categories}
+\label{sec:hat_semantics}
+
+The logical forms of hat categories can be represented with the
+Hybrid Logic Dependency Semantics \citep[\hlds, ][]{kruijff:01} described in Section
+\ref{sec:hlds_background}. In some cases, hat categories might be paired
+with exactly the same logical form as the unhatted equivalent:
+
+\begin{tabular}{lcccc}
+ people & $\assign$ & \cf{N}      & $:$  & $@_p \semf{person} \wedge @_p\sematt{num}\semf{pl}$\\
+ people & $\assign$ & \cf{N^{NP}}  & $:$ & $@_p \semf{person} \wedge @_p\sematt{num}\semf{pl}$\\
+ giving & $\assign$ & \cf{S[ng]\bs NP_y}  & $:$ & $@_x \semf{give}
+                                            \wedge @_x \sematt{tense}\semf{ng}
+                                            \wedge @_x \sematt{act}y$ \\
+ giving & $\assign$ & \cf{(S[ng]\bs NP_y)^{NP}}  & $:$ & $@_x \semf{give}
+                                                   \wedge @_x \sematt{tense}\semf{ng}
+                                                   \wedge @_x \sematt{act}y$ \\
+\end{tabular}
+
+A grammar writer might choose to represent the fact that \emph{people} is a bare nominal or
+\emph{giving} is a gerund in their hat categories' semantics, but they need not do
+so if the distinction is not germane to their application. The variable assigned to
+$\sematt{act}$ will go unfilled during the derivation, leaving the relation underspecified
+in the semantics.
+
+In the case of reduced relatives, \hlds allows the dual relationship between the verb and the
+noun it modifies to be represented. A reduced relative verb modifies a noun that is also
+its subject. The logical form of \emph{giving} as a
+reduced subject relative is given below, with the logical form of a subject relativiser
+given for comparison:
+
+\begin{tabular}{lcccl}
+seeing & $\assign$ & \cf{(S[ng]\bs NP_y)^{N_y\bs N_y}/NP_z} & $:$ &  $@_x \semf{see}
+                                                               \wedge @_x \sematt{tense}\semf{ng}
+                                                               \wedge @_x \sematt{act}y$\\
+       &           &                                        &      &
+                                                               $\wedge @_y \sematt{genrel}x
+                                                               \wedge @_x \sematt{pat}z$\\
+who    & $\assign$ & \cf{(N_y\bs N_y)/(S[dcl]_x\bs NP_y)} & $:$ &    $@_y \sematt{genrel}x$\\
+\end{tabular}
+
+The relativiser \emph{who} coindexes its noun argument to the missing subject of its verb
+phrase argument. When it picks up the noun argument, that variable will be bound, allowing
+the relation the verb has bound to that argument to be recovered:
+
+\begin{center}
+\deriv{4}{
+\rm man & \rm who & \rm saw & \rm Gil \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N_m} &
+\cf{(N_y\bs N_y)/(S[dcl]_x\bs NP_y)} &
+\cf{(S[dcl]_x\bs NP_y)/NP_z} &
+\cf{NP_g} \\
+\cf{@_m \semf{man}} & 
+\cf{@_y \sematt{genrel}x} & 
+\cf{@_x \semf{see}
+  \wedge @_x\sematt{tense}\semf{past}
+  \wedge @_x\sematt{act}y
+  \wedge @_x\sematt{pat}z} &
+\cf{@_g \semf{Gil}}\\
+&& \fapply{2} \\
+&& \mc{2}{\cf{S[dcl]_x\bs NP_y}} \\
+&& \mc{2}{
+     \cf{@_x \semf{see}
+        \wedge @_x\sematt{tense}\semf{past}
+        \wedge @_x\sematt{act}y
+        \wedge @_x\sematt{pat}g
+        \wedge @_g\semf{Gil}
+     }
+   }\\
+& \fapply{3} \\
+& \mc{3}{\cf{N_y\bs N_y}} \\
+& \mc{3}{
+    \cf{@_x \semf{see}
+      \wedge @_x\sematt{tense}\semf{past}
+      \wedge @_x\sematt{act}y
+      \wedge @_x\sematt{pat}g
+      \wedge @_g\semf{Gil}
+      \wedge @_y\sematt{genrel}x
+    }
+  }\\
+\bapply{4} \\
+\mc{4}{\cf{N_m}}\\
+\mc{4}{
+    \cf{@_x \semf{see}
+      \wedge @_x\sematt{tense}\semf{past}
+      \wedge @_x\sematt{act}m
+      \wedge @_x\sematt{pat}g
+      \wedge @_g\semf{Gil}
+      \wedge @_m\sematt{genrel}x
+      \wedge @_m\semf{man}
+    }
+  }
+}
+\end{center}
+
+The relativiser does two things: it coindexes the subject of \emph{saw} to the modified noun,
+and records the modification relation, which we have termed $\sematt{genrel}$. The hat
+category does both of these things, in addition to the verbal semantics:
+
+\begin{center}
+\deriv{3}{
+\rm man & \rm seeing & \rm Gil \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N_m} &
+\cf{(S[ng]_x\bs NP_y)^{N_y\bs N_y}/NP_z} &
+\cf{NP_g} \\
+\cf{@_m \semf{man}} & 
+\cf{@_x \semf{see}
+    \wedge @_x \sematt{tense}\semf{ng}
+    \wedge @_x \sematt{act}y
+    \wedge @_y \sematt{genrel}x
+    \wedge @_x \sematt{pat}z
+   } &
+\cf{@_g \semf{Gil}}\\
+& \fapply{2} \\
+& \mc{2}{\cf{(S[ng]_x\bs NP_y)^{N_y\bs N_y}}} \\
+& \mc{2}{
+    \cf{@_x \semf{see}
+      \wedge @_x \sematt{tense}\semf{ng}
+      \wedge @_x \sematt{act}y
+      \wedge @_y \sematt{genrel}x
+      \wedge @_x \sematt{pat}g
+      \wedge @_g \semf{Gil}
+    }
+  }\\
+& \unhat{2} \\
+& \mc{2}{\cf{N_y\bs N_y}} \\
+& \mc{2}{
+    \cf{@_x \semf{see}
+      \wedge @_x \sematt{tense}\semf{ng}
+      \wedge @_x \sematt{act}y
+      \wedge @_y \sematt{genrel}x
+      \wedge @_x \sematt{pat}g
+      \wedge @_g \semf{Gil}
+    }
+  }\\
+\bapply{3} \\
+\mc{3}{\cf{N_m}}\\
+\mc{3}{
+  \cf{@_x \semf{see}
+      \wedge @_x \sematt{tense}\semf{ng}
+      \wedge @_x \sematt{act}m
+      \wedge @_m \sematt{genrel}x
+      \wedge @_x \sematt{pat}g
+      \wedge @_g \semf{Gil}
+      \wedge @_m\semf{man}
+    }
+  }
+}\end{center}
+
+The unhat rule is semantically inert: it returns exactly the same logical form as
+was passed to it, just as type-raising does in \hlds.
+
+The logical forms of the hat-driven reduced relative and the WH-relative
+analysis are except for the tense of the verb. This accurately reflects
+the fact that it is entirely a surface syntactic distinction.                                           
+                                                               
+                                                               
+
+
+
+\section{Interaction with the Grammar}
+\label{sec:interaction}
+
+In this section, we describe how the existing unification algorithm and combinatory rules
+behave with respect to the hat attribute we have added. This section does not
+describe any modifications to the existing definitions --- all changes required to support
+hat categories were described in Section~\ref{sec:hat_def}. However, some of the consequences
+of these modifications may not be immediately apparent, so are made explicit here.
+
+\subsection{Unification and the \hatsc attribute}
+
+The \hatsc attribute is handled the same as any other attribute during unification.
+If the two attributes have conflicting values, unification fails; and if one \hatsc
+is underspecified, it inherits the \hatsc of the other category if unification
+succeeds. In Chapter~\ref{chapter:hat_corpus}, we describe how we must
+make a variety of changes to the \candc parser's implementation of unification
+to support hat categories, but this is due to the efficiency compromises made in
+that specific implementation. In theory, we do not require anything different
+from the standard unification algorithm described by \citet{shieber:86}.
+
+\subsection{Application and Adjunction}
+\label{sec:app_interaction}
+
+This section describes how the application rules interact with hat categories.
+It also describes the interaction with modifier categories, where the result and
+argument are coindexed. This behaviour is all predicted by the unification
+semantics, so the adjunction interactions will also reoccur with composition.
+Since forward and backward application work analogously, but with the order of
+the categories reversed, we will confine our discussion to forward application.
+During forward application, the argument of the left-side category is unified
+with the right-side category. The result of the left-side category is returned,
+with any attributes whose values were coindexed to the argument filled in:
+
+% X^Y/Z Z --> X^Y
+\begin{eqnarray}
+\cf{S[ng]^{NP}/PP} & \cf{PP} & \Rightarrow\;\; S[ng]^{NP}
+\end{eqnarray}
+
+If the category on the right specifies a \hatsc value, unification will fail if the
+argument has a null \hatsc value, but will pass if its \hatsc is underspecified
+or the two \hatsc values match.
+
+As discussed in Section~\ref{sec:null_hats},
+we stipulate that the arguments and results of modifier categories have
+underspecified \hatsc values coindexed to each other,
+while complement arguments have a null hat. We have not used arguments which
+specify a category value for their hat attribute in our analyses, but such an
+argument would unify if and only if its hat attribute unified with the applicand:
+
+% X/Z Z^Y --> X
+\begin{eqnarray}
+\cf{NP_y/NP_y} &\cf{NP^{S\bs S}}  & \Rightarrow\;\;\cf{NP^{S\bs
+S}}\label{hat_adjunct} \\
+\cf{(S[dcl]\bs NP)/NP^{\nullhat}} &\cf{NP^{S\bs S}}  & \Rightarrow\;\;\emptyset
+\\
+\cf{(S[dcl]\bs NP)/NP^{S\bs S}} & \cf{NP^{S\bs S}} & \Rightarrow\;\;S[dcl]\bs NP
+\\
+\cf{(S[dcl]\bs NP)/NP^{S/S}} & \cf{NP^{S\bs S}} & \Rightarrow\;\;\emptyset
+\end{eqnarray}
+
+When the left-side category is a modifier, as in~\ref{hat_adjunct}, the hat
+category from the right-side category will be transmitted across to the result,
+since the argument and result in a modifier are coindexed, and adjunct
+categories specify empty hat values. This is much like the familiar example of a
+modifier applying to a category with a feature: 
+
+\begin{eqnarray}
+ \cf{(S\bs NP)_y/(S\bs NP)_y} & \cf{S[ng]\bs NP} & \Rightarrow\;\; \cf{S[ng]\bs
+NP}
+\end{eqnarray}
+
+The coindexation mechanism operates in the standard way to ensure that
+modifiers are functions that return their arguments unchanged. Because the
+coindexing is recursive, hat fields specified within the category's result are
+also transmitted during unification:
+
+\begin{eqnarray}
+ \cf{(S\bs NP)_y/(S\bs NP)_y} & \cf{S[dcl]^{NP}\bs NP} & \Rightarrow\;\;
+\cf{S[dcl]^{NP}\bs NP}
+\end{eqnarray}
+
+
+\subsection{Composition}
+\label{sec:hat_composition}
+The non-generalised forward and backward, harmonic and crossing composition rules
+are rules of the form:
+
+\begin{eqnarray}
+ \cf{X/Y}    & \cf{Y|_iZ} & \Rightarrow \cf{X|_iZ}\\
+ \cf{Y|_iZ} & \cf{X\bs Y} & \Rightarrow \cf{X|_iZ}
+\end{eqnarray}
+
+Where \cf{|} is either \cf{/} or \cf{\bs} (but must be the same slash for both instances of
+\cf{|_i} in a rule). For ease of discussion, we introduce the following terms for the
+different parts of these rules:
+
+\begin{itemize}
+ \item \textbf{Functor}: The \cf{X/Y} or \cf{X\bs Y} category;
+ \item \textbf{Argument}: The \cf{Y|_iZ} category;
+ \item \textbf{Functor slash}: The slash of the \cf{X/Y} or \cf{X\bs Y} category;
+ \item \textbf{Argument slash}: The slash of the \cf{Y|_iZ} category.
+ \item \textbf{Overlap}: The \cf{Y} category;
+ \item \textbf{Product}: The \cf{X|_iZ} category;
+ \item \textbf{Product result}: The \cf{X} category;
+ \item \textbf{Product argument}: The \cf{Z} category;
+\end{itemize}
+
+In forward composition, the functor is on the left and the functor slash is \cf{/};
+in backward composition, the functor is on the right and the functor slash is \cf{\bs}.
+Composition is harmonic if the functor slash shares the same directionality as the
+argument slash, and crossed if they do not.
+
+We assume that the product inherits its attribute values from the argument, not the
+functor. \citet{steedman:00} makes this clear for \slashsc, in
+the Principle of Directional Consistency, but we must define the product's
+\headsc, \hatsc and \featsc values as well. These values must be inherited
+from the argument to produce linguistically satisfactory analyses. For instance,
+ the head of the \cf{S[dcl]/NP} constituent in
+the incremental derivation of \emph{they gave gifts} would be \emph{they},
+rather than \emph{gave}. This can be seen by marking \headsc values
+in a derivation, as subscripts:
+
+\begin{center}
+\deriv{2}{
+\rm they & \rm gave \\
+\uline{1}&\uline{1} \\
+\cf{NP_{they}} &
+\cf{((S[dcl]_{gave}\bs NP_y)_{gave}/NP_z)_{gave}} \\
+\ftype{1} \\
+\mc{1}{\cf{(S_y/(S_y\bs NP_{they})_y)_{they}}} \\
+\fcomp{2} \\
+\mc{2}{\cf{(S_{gave}/NP_z)_{gave}}}
+}
+\end{center}
+
+The fact that the product inherits its attribute values from the argument, not the functor,
+is important for determining the result of composition when the argument specifies a hat:
+
+\begin{center}
+\deriv{3}{
+\rm gifts & \rm they & \rm gave \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N} &
+\cf{NP} &
+\cf{((S[dcl]\bs NP)/NP)^{N\bs N}} \\
+& \ftype{1} \\
+& \mc{1}{\cf{S/(S\bs NP)}} \\
+& \fcomp{2} \\
+& \mc{2}{\cf{(S[dcl]/NP)^{N\bs N}}} \\
+& \unhat{2} \\
+& \mc{2}{\cf{N\bs N}} \\
+\bapply{3} \\
+\mc{3}{\cf{N}}
+}
+\end{center}
+
+The hat is inherited from the argument, producing the \cf{(S[dcl]/NP)^{N\bs N}} category.
+This behaviour is exploited to analyse reduced object relatives in Chapter
+\ref{chapter:hat_corpus}.
+
+Composition always fails when the functor specifies a hat, because of the
+Inert Slash Stipulation. As stated in Section~\ref{sec:null_mode}, complex
+categories that specify a hat must receive an inert slash. This blocks
+composition if the functor specifies a hat, as below:
+
+\begin{center}
+\deriv{2}{
+\rm giving & \rm to \\
+\uline{1}&\uline{1} \\
+\cf{((S[ng]\bs^! NP^{\nullhat})/^! PP^{\nullhat})^{N\bs N}} &
+\cf{PP/NP^{\nullhat}} \\
+\asterisk{2} \\
+\mc{2}{\cf{(S[ng]\bs^! NP^{\nullhat})/NP^{\nullhat}}}
+}\end{center}
+
+The slash assigned to \cf{S[ng]\bs^! NP} is inert, which means it cannot act as
+the functor in application or composition.
+
+For composition to succeed, the functor's overlap and the argument's overlap
+must unify successfully. This unification will fail if the argument's overlap
+is a hat category and the functor is a predicate, as the Null Hat Stipulation
+(Section~\ref{sec:null_hats}) asserts that all arguments of predicate categories
+must be assigned null hats. For example, this forward harmonic composition is blocked:
+
+\begin{center}
+\deriv{2}{
+\rm giving & \rm to \\
+\uline{1}&\uline{1} \\
+\cf{(S[ng]\bs^! NP)/PP^{\nullhat}} &
+\cf{PP^{(S\bs NP)\bs (S\bs NP)}/NP}\\
+\asterisk{2} \\
+\mc{2}{\cf{(S[ng]\bs^! NP)/NP}}
+}\end{center}
+
+Composition is therefore blocked if the functor or the overlap specify a hat,
+but can succeed when the argument specifies a hat. If it does,
+the argument's hat is preserved in the product, ensuring that the unhat rule
+will eventually apply.
+
+\subsection{Coordination}
+
+There are several proposals for coordination in categorial grammars.
+The accepted current \ccg analysis, from \citet{baldridge:03}, uses  application and
+multi-modal slashes. However, the \citet{steedman:00}
+analysis using a ternary conjunction combinator is relevant to this thesis,
+as it is approximated in \ccgbank. The
+analysis implemented in \ccgbank uses two binary rules, because the addition
+of a ternary rule complicates the \cky chart-parsing algorithm \citep{hock:cl07}.
+
+The \citet{baldridge:03} \mmccg analysis allows coordination to be implemented
+using the application rule, by assigning the coordinator the category
+\cf{(X\bs\smode X)/\smode X}. The multi-modal slashes are required to avoid
+type-raised categories from composing with the coordinator category,
+causing over-generation as described in Section
+\ref{sec:mmccg_background}. This treatment of coordination uses the application
+rules, so the interaction with hat categories is as expected from Section
+\ref{sec:app_interaction}.
+
+The \citet{steedman:00} ternary analysis uses two categories and a coordinator:
+
+\begin{eqnarray}
+ \cf{X} & conj\;\;\cf{X} & \Rightarrow\;\;\cf{X}
+\end{eqnarray}
+
+The two \cf{X} categories are unified, allowing a hat category to be transferred
+from one side of a coordinated phrase to the other, as shown in~\ref{hat_coord}.
+Coordination will be blocked if the hat categories do not unify, as in
+\ref{hat_coord_conflict} and~\ref{hat_coord_block}:
+
+\begin{eqnarray}
+ \cf{NP}          & conj~\cf{NP^{S/S}}      & \Rightarrow \cf{NP^{S/S}}
+\label{hat_coord}\\ 
+ \cf{NP^{S\bs S}} & conj~\cf{NP^{S/S}}      & \Rightarrow \emptyset
+\label{hat_coord_conflict}\\     
+ \cf{NP^{S\bs S}} & conj~\cf{NP^{\nullhat}} & \Rightarrow \emptyset
+\label{hat_coord_block}
+\end{eqnarray}
+
+Because ternary rules are undesirable for parsing, and the \mmccg analysis had
+not yet been developed, \citet{hock:thesis03} implemented coordination using two
+binary rules:
+\begin{center}
+\deriv{3}{
+\rm Apples & \rm and & \rm oranges \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{conj} &
+\cf{NP} \\
+&\conj{2} \\
+&\mc{2}{\cf{NP[conj]}} \\
+\conj{3} \\
+\mc{3}{\cf{NP}}
+}
+\end{center}
+
+During the second rule application, the \cf{NP} categories are unified, ensuring
+that hat categories interact with this implementation as we would expect.
+
+
+
+
+\section{Consequences for Weak Generative Power}
+\label{sec:hat_gp}
+\begin{figure}
+ \centering
+\begin{parsetree}
+(.\cf{P}.
+  (.\cf{S}.)
+  (.\cf{H}.
+    (.\cf{B}.
+      (.\cf{L}.
+        (.\cf{LL}.)
+        (.\cf{LR}.)
+      )
+      (.\cf{R}.)
+    )
+  )
+)
+
+\end{parsetree}
+\caption[Parse tree with unary production.]{A parse tree with a unary
+production, used to illustrate our proof that unary rules do not increase the
+weak generative power of \ccg.\label{fig:unhat}}
+\end{figure}
+
+
+In the standard definition \citep{chomsky:aspects}, a grammar \emph{weakly}
+generates a set of sentences (also called a language), and \emph{strongly}
+generates a set of structural descriptions. In general, greater strong
+generative power (\textsc{sgp}) is desirable if it does not lead to an increase
+in weak generative power (\textsc{wgp}) \citep{joshi:00}. \textsc{sgp} allows
+for more nuanced linguistic descriptions, giving the opportunity for more
+efficient and less ambiguous analyses. On the other hand, an increase in
+\textsc{wgp} is problematic. If a linguistic theory claims --- as \ccg does ---
+that the formalism is a model of the human language faculty, rather than simply
+a notational device, then the \textsc{wgp} of the formalism constitutes a
+prediction about the set of languages that will naturally occur. No
+natural languages have been shown to be more than mildly context-sensitive
+\citep{shieber:85}, a theory with higher \textsc{wgp} must suggest some additional
+constraint that explains this apparent upper bound. There may be many such plausible
+explanations, so a theory with higher \textsc{wgp} cannot be ruled out; but,
+all else being equal, we ought to prefer a theory that explains the observed
+\textsc{wgp} of the world's languages more simply, by Occam's razor.
+
+Our hat \ccg is weakly equivalent to non-hat \ccg if and only if it can generate
+all and only the strings that the non-hat \ccg can generate. Since the hat \ccg
+is a superset, there is no question of it under-generating. We therefore consider
+whether it can generate any strings that the non-hat \ccg cannot.
+
+The only rules added by hat categories are unary type-changing productions.
+Furthermore, from a finitely sized lexicon, we will only add a finite number
+of type-changing rules, as every rule must be lexically specified.
+We will argue that for any \ccg derivation using such a finite set of
+type-changing rules, there is an equivalent \ccg derivation with the type-changing
+rules removed. \citet{carpenter:92} showed that if lexical rules are allowed to
+generate an infinite lexicon, the grammar will generate all and only the recursively
+enumerable languages. Since we have a bounded number of unary operations, this will
+not be a problem.
+
+Consider the example of a unary rule, shown in Figure~\ref{fig:unhat}.
+We can convert this derivation into a standard \ccg analysis by
+replacing the child node \cf{B} with its unary parent \cf{H}. This does not
+affect the production \psbinary{\cf{P}}{\cf{S}}{\cf{H}}, so the only potential
+problem is in the new \psbinary{\cf{H}}{\cf{L}}{\cf{R}} production. This
+production might not be licensed by a \ccg combinator.
+
+However, for any licensed production \psbinary{\cf{A}}{\cf{L}}{\cf{R}}, it is
+always possible to switch the parent node \cf{A} for a new parent \cf{B} by
+replacing one or both children, producing a valid production
+\psbinary{\cf{B}}{\cf{L'}}{\cf{R'}}. In Section~\ref{sec:relabel_rule}, we
+describe a simple set of rules to do this in a desirable way for our conversion
+process.
+
+For any \ccg category \cf{B}, it is trivial to construct a valid combinatory
+rule that produces \cf{B} as its result. We will use forward application:
+
+\begin{eqnarray}
+ \cf{B/R} & \cf{R} & \Rightarrow \;\; \cf{B}
+\end{eqnarray}
+
+We can therefore flatten any unary rule and produce a valid \ccg derivation as
+follows. First, replace the child \cf{B} with the parent \cf{H}. Next, replace
+the left child of \cf{B} with a functor category \cf{H/R}, where \cf{H} is the
+original righthand child of \cf{B}. Now propagate the change down the tree, by
+replacing the lefthand child of what used to be \cf{L} with a category
+\cf{(H/R)/LR}, where \cf{LR} was the original category of the righthand child of
+\cf{L}. Continue propagating the changes in this way until you arrive at lexical
+categories. The only unary rule that can be encountered is a type-raising
+production, which has the form \cf{T/(T\bs TL)}. If this occurs, simply replace
+the \cf{TL} part of the category of the parent and the child with the new
+category, and continue propagating the changes down the tree.
+
+This proves that a \ccg grammar extended with a finite set of unary rules cannot
+generate any strings the original grammar could not. Since any unhat production
+\cf{X^Y} $\rightarrow$ \cf{Y} can be rewritten as a unary type-changing rule
+\cf{X} $\rightarrow$ \cf{Y}, it follows that the weak generative power is unaltered.
+
+\section{Summary}
+
+In this chapter, we introduced \emph{hat categories}, which allow unary
+type-changing rules to be lexically represented. We have also described a set of
+stipulations on category well-formedness that ensure hat categories are
+non-disjunctive, offering total lexical control over the unary rule. The appeal
+of hat categories is the ability to isolate a form/function discrepancy in a
+single category, ensuring that modifiers can receive their canonical categories.
+We have sketched an informal proof that hat categories do not extend the weak
+generative power of the formalism.
+%, and show that they offer substantial
+%improvements in descriptive power.
+
+We achieve these desirable properties with only minimal changes to the \ccg
+machinery.
+Hat categories require no change to the combinatory rules or the unification
+algorithm, the addition of one new attribute to the category object, and only
+one general grammatical rule that is limited to interaction with the new hat
+attribute. In Chapter~\ref{chapter:hat_corpus}, we will see how hat categories
+allow favourable analyses of some constructions common in \ccgbank.

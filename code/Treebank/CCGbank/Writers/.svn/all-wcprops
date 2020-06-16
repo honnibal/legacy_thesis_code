@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/matt/!svn/ver/206/code/Treebank/CCGbank/Writers
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/matt/!svn/ver/92/code/Treebank/CCGbank/Writers/__init__.py
+END
+_AutoFileWriter.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/matt/!svn/ver/206/code/Treebank/CCGbank/Writers/_AutoFileWriter.py
+END
+_PargFileWriter.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/matt/!svn/ver/163/code/Treebank/CCGbank/Writers/_PargFileWriter.py
+END

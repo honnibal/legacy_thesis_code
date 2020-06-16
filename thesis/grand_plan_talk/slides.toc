@@ -1,0 +1,7 @@
+\beamer@endinputifotherversion {3.06pt}
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{CCG}{5}{0}{2}
+\beamer@sectionintoc {3}{Semantic Role Labelling with CCG}{9}{0}{3}
+\beamer@sectionintoc {4}{Named Entity Recognition in CCG (aka Nicky's PhD project)}{16}{0}{4}
+\beamer@sectionintoc {5}{Word Sense Disambiguation and CCG}{19}{0}{5}
+\beamer@sectionintoc {6}{Conclusion}{22}{0}{6}

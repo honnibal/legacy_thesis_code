@@ -1,0 +1,77 @@
+
+
+\chapter{Revising Complement and Adjunct Labels}
+
+\section{Results Needed}
+
+\subsection{Corpus Analysis}
+
+Corpus analysis results are intended to show two things: how much we wanted to change, and how accurately we were able to achieve that. The two are difficult to separate entirely, so a variety of results are required to provide different perspectives on them.
+
+\subsubsection{Pipeline Statistics}
+
+These are scattered through the process description, and show how many candidate constituents are excluded from the changes process during each stage of the pipeline. This provides an understanding of what kinds of constituents we want to change, and how large a subset they are of various other constituent samples.
+
+Examples:
+
+\begin{itemize}
+
+\item The first criterion is that the PropBank argument should be realised by a single CCG constituent. This excludes 1.6\% (6,271) of arguments from consideration.
+
+\item 3.9\% (15,686) of PropBank arguments have labels inconsistent with their CCG categories in this way.
+
+\end{itemize}
+
+\subsubsection{Validation Results}
+
+These describe how accurately we made changes by seeing whether the derivation was valid CCG after we were done with it. We also examine what CCG rules were used, to see whether we were changing the application/composition balance in the corpus.
+
+\subsubsection{Conversion Statistics}
+
+These describe how many nodes of what type were converted --- adjuncts to complements, adjuncts to particles, complements to adjuncts.
+
+\subsubsection{Required: Lexicon Statistics}
+
+Time required: $<1$ day
+
+These give a sense of how much harder the task has become, which helps answer why parsing results have changed. The results are also required to standardise what descriptions we provide for new corpus versions with the changes made in the hat chapters.
+
+\begin{itemize}
+\item Average category entropy
+\item Number of categories
+\item Entropy and coverage at frequency threshold n
+\end{itemize}
+
+\subsubsection{Required: Optionality Statistics}
+
+Time required: ?
+
+One of the weaknesses with this project is that a PropBank core argument does not necessarily match a syntactic complement. In the XTAG grammar, they use an adjunct/complement definition that centres around whether the argument is optional, which is necessary but not sufficient for a PropBank argument to be called a peripheral (i.e. non-core).
+
+We need some measure of how often the arguments we are changing are syntactically required. Optimally, the measure would give us a dial we could tweak to produce different versions of the corpus with increasingly strict definitions, giving us decreasing complement/adjunct entropy. This would allow us to report different parsing results.
+
+\section{Semantic Role Labelling}
+
+We don't want to do a lot here, but we have to at least comment on this, for comparison with the White paper's results. They only report oracle performance, which seems reasonable here.
+
+\section{Parsing Results}
+
+This shows the impact of our work on a parsing system. We only have the raw --- first cut --- results, which are sub-par. We need further experiments to possibly improve these results, or to show why they are adequate.
+
+\subsubsection{Raw Results}
+
+\begin{itemize}
+\item Parsing results; format defined largely by CL paper/other chapters for comparison purposes
+\item Supertagging results, from cl04 script
+\end{itemize}
+
+\subsubsection{Further Results}
+
+\begin{itemize}
+\item Supertagging results fixing an accuracy score instead of a $\beta$ value, reporting the $\beta$/category sizes required to achieve that accuracy.
+\item Are there any unary/type-raising/composition rules that need to be added to the parser?
+\item Parse failures: how many, why, can we fix them?
+\item Easy/relevant features from PP-attachment literature?
+\end{itemize}
+
+

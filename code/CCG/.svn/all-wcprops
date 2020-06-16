@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 27
+/matt/!svn/ver/205/code/CCG
+END
+Markedup.py
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/matt/!svn/ver/194/code/CCG/Markedup.py
+END
+Rules.py
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/matt/!svn/ver/171/code/CCG/Rules.py
+END
+heirarchy.py
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/matt/!svn/ver/59/code/CCG/heirarchy.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/matt/!svn/ver/168/code/CCG/__init__.py
+END
+CCGTokens.py
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/matt/!svn/ver/205/code/CCG/CCGTokens.py
+END
+DependencyGraph.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/matt/!svn/ver/59/code/CCG/DependencyGraph.py
+END
+Lexicon.py
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/matt/!svn/ver/168/code/CCG/Lexicon.py
+END
+LegacyCategory.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/matt/!svn/ver/204/code/CCG/LegacyCategory.py
+END
+PredArg.py
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/matt/!svn/ver/59/code/CCG/PredArg.py
+END
+division.py
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/matt/!svn/ver/59/code/CCG/division.py
+END

@@ -1,0 +1,10 @@
+\newcommand{\tac}{\textsc{tac}\xspace}
+\newcommand{\nist}{\textsc{nist}\xspace}
+\newcommand{\tackbp}{\textsc{tac-kbp}\xspace}
+\newcommand{\candc}{\textsc{c\&c}\xspace}
+\newcommand{\kbp}{\textsc{kbp}\xspace}
+\newcommand{\ned}{\textsc{ned}\xspace}
+\newcommand{\wsd}{\textsc{wsd}\xspace}
+\newcommand{\pos}{\textsc{pos}\xspace}
+\newcommand{\nltk}{\textsc{nltk}\xspace}
+\newcommand{\dbpedia}{\textsc{dbpedia}\xspace}

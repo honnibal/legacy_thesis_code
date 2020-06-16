@@ -1,0 +1,41 @@
+wh selection	None: 235
+vocative theme	None: 235
+non subject wh selection	None: 235
+nominalisation position	None: 235
+negative type	None: 235
+interrogative type	None: 235
+assessment theme	None: 235
+jussive type	None: 233	explicit jussive subject: 2
+imperative type	None: 233	non-optative: 2
+imperative mood person	None: 233	jussive: 2
+interactant type	None: 229	addressee: 3	speaker: 3
+receptive agency	None: 207	non-agentive: 21	agentive: 7
+theme role	None: 206	as participant: 4	as adjunct: 25
+theme matter	None: 206	as transitivity role: 29
+textual theme	None: 182	no textual theme: 8	textual theme: 45
+theme predication	non-predicated theme: 69	None: 166
+thematic equative	None: 166	no thematic equative: 68	double nominalisation: 1
+indicative type	None: 166	declarative: 69
+indicative subject presumption	None: 166	explicit indicative subject: 69
+theme selection	None: 164	unmarked: 42	marked: 29
+mood type	None: 164	imperative: 2	indicative: 69
+shift type	None: 134	embedded: 101
+embed type	None: 134	nominal qualifier: 79	other qualifier: 20	adverbial qualifier: 2
+expansion clause type	None: 112	elaborating clause: 27	enhancing clause: 81	extending clause: 15
+primary tense	None: 99	past: 45	future: 1	present: 90
+taxis	None: 89	parataxis: 87	hypotaxis: 59
+interdependency type	None: 89	expansion clause: 123	projection clause: 23
+finiteness	None: 74	non-finite: 65	finite: 96
+effective voice	None: 71	receptive: 28	operative: 136
+subject ellipsis	None: 70	ellipsed subject: 1	worded subject: 164
+indicative mood person	non-interactant: 159	None: 70	interactant: 6
+deicticity	None: 70	temporal: 136	modal: 29
+vocative	None: 3	no vocative: 232
+status	None: 3	bound: 161	free: 71
+secondary or beta clause	None: 3	true: 146	false: 86
+rank	shifted: 101	ranking: 131	None: 3
+polarity	None: 3	positive: 232
+conjunction	None: 3	non-conjuncted: 179	conjuncted: 53
+assessment	None: 3	non-assessed: 232
+agency	None: 3	middle: 68	effective: 164
+clause class	major: 232	minor: 3

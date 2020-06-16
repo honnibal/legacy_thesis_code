@@ -1,0 +1,167 @@
+some|NP of|(NP\NP)/NP these|NP/N issues|N
+fapply these issues NP
+fapply of issues NP\NP
+bapply some issues NP
+
+some|NP/PP of|PP/NP these|NP/N issues|N
+fapply these issues NP
+fapply of issues PP
+fapply some issues NP
+
+Rome|NP 's|(NP/N)\NP destruction|N of|(NP\NP)/NP Carthage|NP
+bapply Rome 's NP/N
+fapply of Carthage NP\NP
+fapply Rome Carthage NP
+bapply of Carthage NP
+
+Rome|NP 's|(NP/(N/PP))\NP destruction|(N/PP)/PP of|PP/NP Carthage|NP
+bapply Rome 's NP/(N/PP)
+fapply of Carthage PP
+fapply destruction Carthage N/PP
+fapply Rome Carthage NP
+
+Rome~'s|NP/(N/PP) destruction|(N/PP)/PP of~Carthage|PP
+fapply destruction of~Carthage N/PP
+fapply Rome~'s of~Carthage NP
+
+The|NP/N destruction|N/PP of|PP/NP Carthage|NP in|(N\N)/NP 146~B.C.|NP
+fapply of Carthage NP
+fapply in 146~B.C. N\N
+fapply destruction Carthage N
+bapply destruction 146~B.C. N
+fapply The 146~B.C. NP
+
+Carthage|NP 's|(NP/(PP/N))\NP destruction|PP/N
+bapply Carthage 's NP/(PP/N)
+fapply Carthage destruction NP
+
+Google|NP acquired|((S[dcl]\NP)/PP)/NP YouTube|NP for|PP/NP $1.65bn|NP
+fapply acquired YouTube (S[dcl]\NP)/PP
+fapply for $1.65bn PP_{$1.65bn}
+fapply acquired $1.65bn S[dcl]\NP
+bapply Google $1.65bn S[dcl]
+
+YouTube|NP ,|, which|(NP\NP_y)/(S[dcl]_z\NP_y)_z was|(S[dcl]\NP)/(S[pss]\NP) acquired|((S[pss]\NP_\patient{z})/PP_\price{w})/PP_\agent{y} by|PP_y/NP_y Google|NP for|PP_y/NP_y \$1.65bn|NP
+fapply YouTube , NP
+fapply by Google PP_{Google}
+fapply for \$1.65bn PP_{\$1.65bn}
+fapply acquired Google (S[pss]\NP_\patient{z})/PP_\price{w}
+fapply acquired \$1.65bn S[pss]\NP_\patient{z}
+fapply which \$1.65bn NP\NP_\patient{z}
+bapply YouTube \$1.65bn NP
+
+Google|NP 's|(NP_y/N_y)\NP_z acquisition|N of|(NP_y\NP_y)/NP_z YouTube|NP
+bapply Google 's NP_y/N_y
+fapply of YouTube NP_y\NP_y
+fapply Google acquisition NP_{acquisition}
+bapply Google YouTube NP_{acquisition}
+
+Google|NP 's|(NP_y/(N_y/PP_z))\NP_z acquisition|(N/PP_\agent{y})/PP_\patient{z} of|PP_y/NP_y YouTube|NP
+bapply Google 's NP_y/(N_y/PP_{Google})
+fapply of YouTube PP_{YouTube}
+fapply acquisition YouTube N/PP_\agent{y}
+fapply Google YouTube NP
+
+Google|NP 's|(NP_y/(N_y/PP_z))\NP_z decision|(N/PP_y)/(S[to]_z\NP_y)_z to~acquire|(S[to]\NP_\agent{y})/NP_\patient{z} YouTube|NP
+bapply Google 's NP_y/(N_y/PP_{Google})
+fapply to~acquire YouTube S[to]\NP
+fapply decision YouTube N/PP_\agent{y}
+fapply Google YouTube NP
+
+all|NP/NP staff|N on|(NP\NP)/NP casual|N/N contracts|N
+psgrule staff staff NP
+fapply casual contracts N
+psgrule casual contracts NP
+fapply on contracts NP\NP
+bapply staff contracts NP
+fapply all contracts NP
+
+Google|NP bought|(S\NP)/NP YouTube|NP
+fapply bought YouTube S\NP
+bapply Google YouTube S
+
+Rome|NP destroyed|(S\NP)/NP the|NP/N city|N
+fapply the city NP
+fapply destroyed city S\NP
+bapply Rome city S
+
+destruction|(N/PP)/PP of|PP/NP Carthage|NP by|PP/NP Rome|NP
+fapply of Carthage PP
+fapply by Rome PP
+fapply destruction Carthage N/PP
+fapply destruction Rome N
+
+Rome|NP made|(S\NP)/(NP/PP) a|NP/N decision|N/PP
+fcomp a decision NP/PP
+fapply made decision S\NP
+bapply Rome decision S
+
+The|NP/N company|N bought|(S\NP)/NP Power|NP/NP Set|NP
+fapply The company NP
+fapply Power Set NP
+fapply bought Set S\NP
+bapply The Set S
+
+The|NP/N company|N which|(NP\NP)/(S/NP) they|NP bought|(S/NP)\NP
+fapply The company NP
+bapply they bought S/NP
+fapply which bought NP\NP
+bapply The bought NP
+
+The|NP/N company|N which|(NP\NP)/(S/NP) they|NP bought|(S\NP)/NP
+fapply The company NP
+ftype they they S/(S\NP)
+fcomp they bought S/NP
+fapply which bought NP\NP
+bapply The bought NP
+
+YT,|NP which|(NP\NP)/(S/NP) Google|NP paid~1.6bn|(S\NP)/PP for|PP/NP in~'06|VP\VP
+ftype Google Google S/(S\NP)
+fcomp paid~1.6bn for (S\NP)/NP
+bxcomp paid~1.6bn in~'06 (S\NP)/NP
+fcomp Google in~'06 S/NP
+fapply which in~'06 NP\NP
+bapply YT, in~'06 NP
+
+YT,|NP which|(NP\NP)/(S/NP) Google|NP paid|((S\NP)/PP)/NP 1.6b|NP for|PP/NP
+ftype Google Google S/(S\NP)
+fapply paid 1.6b (S\NP)/PP
+fcomp paid for (S\NP)/NP
+fcomp Google for S/NP
+fapply which for NP\NP
+bapply YT, for NP
+
+Google|NP paid|((S\NP)/PP)/NP 1.6b|NP for|PP/NP YouTube|NP Oct.~2006|(S\NP)\(S\NP)
+fapply paid 1.6b (S\NP)/PP
+fapply for YouTube PP
+fapply paid YouTube S\NP
+bapply paid Oct.~2006 S\NP
+bapply Google Oct.~2006 S
+
+October|(((VP\VP)/(VP\VP)))/(((VP\VP)/(VP\VP))) 26|(VP\VP)/(VP\VP) 2006|VP\VP
+fapply October 26 (VP\VP)/(VP\VP)
+fapply October 2006 VP\VP
+
+The|NP/N Grand|((N/N)/(N/N))/((N/N)/(N/N)) Rapids,|(N/N)/(N/N) MI|N/N man|N
+fapply Rapids, MI (N/N)/(N/N)
+fapply Grand MI N/N
+fapply Grand man N
+fapply The man NP
+
+October|MON/DAY 26|DAY 2006|DATE^{VP\VP}\MON
+fapply October 26 MON
+bapply October 2006 DATE^{VP\VP}
+unhat October 2006 VP\VP
+
+The|NP/N Grand|CITY/CITY Rapids|CITY^{N/N}/STATE MI|STATE man|N
+fapply Rapids MI CITY^{N/N}
+fapply Grand MI CITY^{N/N}
+unhat Grand MI N/N
+fapply Grand man N
+fapply The man NP
+
+The|NP/N board|N[group,econ] grasped|(S[cog]\NP)/NP the|NP/N problem|N[cog]
+fapply The board NP[group,econ]
+fapply the problem NP[cog]
+fapply grasped problem S[cog]\NP
+bapply The problem S[cog]

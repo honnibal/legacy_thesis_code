@@ -1,0 +1,462 @@
+% \documentclass[a4paper,10pt]{article}
+% \usepackage[utf8x]{inputenc}
+% \usepackage{xspace}
+% \usepackage{natbib}
+% \newcommand{\ccgbank}{CCGbank\xspace}
+% \newcommand{\ccg}{\textsc{ccg}\xspace}
+% \newcommand{\cg}{\textsc{cg}\xspace}
+% 
+% 
+% %opening
+% \title{Chapter 2 Corrections}
+% \author{Matthew Honnibal}
+% 
+% \begin{document}
+% 
+% \maketitle
+% 
+% \begin{abstract}
+% 
+% \end{abstract}
+
+\chapter{Chapter 2: Background}
+
+\section{Jason Baldridge}
+
+\subsection{The first formulation of CCG was Ades and Steedman (1982) ``On the
+order of words"}
+
+\emph{Citation corrected.}
+
+\subsection{Fix N in trees to NP}
+
+\emph{Derivation corrected.}
+
+\subsection{Lambek didn't note slashes associative, made them so.}
+
+\emph{Reworded to reflect this.}
+
+\subsection{Composition provides associativity, not type-raising.}
+
+\emph{Reworded to reflect this.}
+
+\subsection{Careful about generation in PSG/CCG. Can get this bracketing in PSG}
+
+\emph{Reviewed Gazdar, Pullum and Shieber literature to understand this
+point in detail. Reworded to say it's ``uneconomical'' to generate this
+bracketing in PSG.}
+
+\subsection{Reference Baldridge's upcoming book for CG as a logic.}
+
+\emph{Added footnote:}
+\begin{quote}
+The interpretation of a categorial grammar as a logic
+dates to \citet{lambek:58}. We present here only a small and informal
+illustration.
+A more detailed explication of \cg as a logic can be found in
+\citet{steedman:pedia}. 
+\end{quote}
+
+
+\subsection{Steedman and Baldridge is ``to appear"}
+
+\emph{Citation corrected.}
+
+\subsection{Use Bx in the rules fig 2.4 where crossing composition is used.}
+
+\emph{Fixed, and same error corrected in Figure 2.5.}
+
+\subsection{Reference Nobo Komagata about restrictions on type-raising}
+
+\emph{Citations added.}
+
+\subsection{Change variable to type}
+
+\emph{Corrected.}
+
+\subsection{Clarification of whether Baldridge defined the modes, or CTL did}
+
+\emph{Reworded as:}
+\begin{quote}
+\citet{baldridge:thesis02} defined a hierarchy of seven modes, and a simplified
+hierarchy of four modes sufficient for most purposes. 
+\end{quote}
+
+
+\subsection{Steedman noted conjunction overgeneration, not Baldridge}
+
+\emph{Citation corrected.}
+
+\subsection{Error in rule in 2.27}
+
+\emph{Corrected.}
+
+\subsection{Mention more OpenCCG stuff, including CoSy stuff and OpenCCG not
+first based no CCGbank}
+
+\emph{Corrected, with considerable elaboration on OpenCCG work.}
+
+\subsection{Cite Birch, Osborne and Koehn for MT}
+
+\emph{Done:}
+
+\begin{quote}
+\citet{birch:07} observed a more modest improvement on translation between
+English and Dutch, and concluded that supertags improved the system's
+reordering. 
+\end{quote}
+
+
+\subsection{CCGbank was created semi-automatically, not automatically}
+
+\emph{Corrected.}
+
+\section{Mark Steedman}
+
+\subsection{Check all derivations and categories.}
+
+\emph{Done.}
+
+\subsection{Parasitic gaps actually are attested in \ccgbank.}
+
+\emph{Removed this claim.}
+
+\subsection{CFG's can handle WH-movement, cf. Gazdar.}
+
+\emph{Baldridge made a similar point; this comment was addressed in that
+correction.}
+
+\subsection{Meta-rules don't actually challenge universal grammar}
+
+\emph{Removed the problematic claim and replaced it with the following:}
+
+\begin{quote}
+These meta-rules would presumably be conventions adopted and learnt by speakers
+of a language,
+rather than fixed constraints in a universal (possibly innate) grammar.
+\citet{baldridge:03} provide a way for such generalisations to
+be represented in the formalism, which we will now describe.
+\end{quote}
+
+\subsection{It's better to use N instead of NP}
+
+\emph{Corrected this and similar derivation errors.}
+
+\subsection{Missing -]}
+
+\emph{Corrected.}
+
+\subsection{``as much as desired''}
+
+\emph{Reworded this:}
+
+\begin{quote}
+Supertagging allows category ambiguity to be reduced, by forwarding only the
+categories judged most likely to the parser. 
+\end{quote}
+
+
+\section{Stephen Clark}
+
+\subsection{Context-freeness not proven by Chomsky}
+
+\emph{Corrected by removing the reference to Chomsky and stating that a context
+free grammar was ``considered at the time'' to be insufficient, with an
+explanatory footnote:}
+
+\begin{quote}
+\citet{pullum:82} showed that the existing arguments for the non-context
+freeness of natural language were flawed. However, the arguments were
+taken seriously at the time, and \citet{wood:93} ascribes
+the partial loss of interest in \cg to this. Natural languages were finally
+shown to be non-context free by \citet{shieber:85}.
+\end{quote}
+
+\subsection{First formulated by Steedman (1988)}
+
+\emph{Corrected the citation to Ades and Steedman (1982)}
+
+\subsection{log-linear model parser is clumsy}
+
+\emph{Reworded.}
+
+\subsection{Mistake in derivation}
+
+\emph{Corrected.}
+
+\subsection{and and argument}
+
+\emph{Corrected.}
+
+\subsection{fairly minimal feature structures in \ccgbank}
+
+\emph{Reworded the context of this point, and it is no longer necessary to
+refer to the minimal feature structures in \ccgbank.}
+
+\subsection{Which derivation?}
+
+\emph{Reworded to `the \emph{Casey likes Pat} example'.}
+
+\subsection{unification of Y instead of X}
+
+\emph{Corrected.}
+
+\subsection{Pointer is a bit too implementation-oriented}
+
+\emph{Changed to coindexed. Other references to `implementation' of the grammar
+have also been reworked through the thesis, apart from Chapter 6 where we detail
+our implementation on the \candc parser.}
+
+\subsection{`may be strongly equivalent'}
+
+\emph{The strong equivalence of Greibach Normal Form \cfg and \abcg was due to
+\citet{joshi:00}. As part of my corrections I have removed most references to
+Strong Generative Power, as Steedman's corrections have convinced me that
+I cannot support my previous claim that hat categories extend the SGP of CCG.
+This reference to the SGP of CFG and CG has been removed also.}
+
+\subsection{Why CF-PSG?}
+
+\emph{The chapter discusses context-freeness results for CG, so it's clearer
+to name the formalism CF-PSG instead of CFG, to distinguish the formalism from
+its generative power.}
+
+\subsection{What is base generation?}
+
+\emph{Added an explanatory footnote:}
+
+\begin{quote}
+In the context of a transformational grammar, an analysis is \emph{base
+generated} if it is generated by the core phrase-structure rules, with no
+movement operations. We describe a \cg analysis as \emph{base generated} if it
+relies on category ambiguity, instead of assigning canonical categories and
+using associative and/or permutative combinators. 
+\end{quote}
+
+
+\subsection{Canonical their positions}
+
+\emph{Corrected}
+
+\subsection{Error in Figure 2.3}
+
+\emph{Corrected.}
+
+\subsection{allows the responsibility}
+
+\emph{Corrected.}
+
+\subsection{Unbounded extraction phenomena}
+
+\emph{Reworded as `unbounded extraction.'}
+
+\subsection{Type-raising clearly a tautology?}
+
+\emph{My statement was in error: type-raised categories are not in fact
+tautologous, but
+can be shown to be valid. I have added a proof using a truth
+table.}
+
+\subsection{``makes just as much sense'' is too colloquial}
+
+\emph{Reworded.}
+
+\subsection{`a lot of over-generation'}
+
+\emph{Reworded.}
+
+\subsection{Chart constraints}
+
+\emph{Reworded as `constraints on derivations'.}
+
+\subsection{Introduce the Phi notation of coordination}
+
+\emph{Done:}
+
+\begin{quote}
+Multi-modal \ccg can thus analyse coordination phenomena without introducing a
+special
+conjunction rule. We will largely be dealing with the \citet{steedman:00}
+grammar,however, so most of our derivations will use the
+\ccgbank analysis of coordination, which approximates a ternary conjunction
+rule: 
+\end{quote}
+
+
+\subsection{Define head-dependencies}
+
+\emph{Added subsection Instantiating Dependencies During Unification to the
+unification section to cover this.}
+
+\subsection{Extra definition of Eisner normal form constraints}
+
+\emph{The earlier mention of ENF was part of an introduction to the section.
+I've trimmed this mention of the normal-form constraints down a little so
+that it's less redundant.}
+
+\subsection{Are ENF useless in practice?}
+
+\emph{Clarified: the paragraph was intended to note that the proof doesn't
+apply. I added a note that empirically, the constraints are still very useful
+in parsing \ccgbank.}
+
+\subsection{Funny reference formatting}
+
+\emph{Fixed.}
+
+\subsection{Extend description of CCGbank conversion process}
+
+\emph{Extended, see pages 46 and 47.}
+
+\subsection{1.1 words}
+
+\emph{Corrected.}
+
+\subsection{More delicate brackets}
+
+\emph{Corrected.}
+
+\subsection{Say what TMP and CLR refer to.}
+
+\emph{Done.}
+
+\subsection{How do head finding heuristics help mitigate the bracketing issue?}
+
+\emph{Deleted this sentence.}
+
+\subsection{first.parser}
+
+\emph{Fixed.}
+
+\subsection{Why 0-crossing brackets?}
+
+\emph{Added footnote explaining that this was how \citet{magerman:94} compared against
+\citet{black:93}.}
+
+\subsection{Rewrite the statistical parsing literature review}
+
+\emph{This section has been completely rewritten, after thorough review of the
+literature. See pages 42 to 45.}
+
+\subsection{Description of \ccgbank conversion process is too short}
+
+\emph{Extended the description of this by approximately one page.}
+
+\subsection{lack of constituent type a consistent representation}
+
+\emph{Fixed.}
+
+\subsection{why `early' sentence from Section 00?}
+
+\emph{Removed `early'.}
+
+\subsection{Clarify the non-type change version of the derivation.}
+
+\emph{Done:}
+
+\begin{quote}
+ The example \citet{hock:thesis03} used to demonstrate the modifier category
+proliferation is a sentence from Section 00. Without type-changing rules,
+the \ccg derivation for this sentence might look like this:
+\end{quote}
+
+A footnote points the reader to further discussion of problems
+analysing reduced relative clauses in \ccg later in the thesis.
+
+\subsection{Missing period}
+
+\emph{Fixed.}
+
+\subsection{Note that type-changing rules are presented bottom-up}
+
+\emph{Done.}
+
+\subsection{Introduce PSG notation}
+
+\emph{Done.}
+
+\subsection{Exceptional in what sense?}
+
+\emph{Removed this sentence.}
+
+\subsection{S[adj category}
+
+\emph{Fixed.}
+
+\subsection{can cause arguments to add or delete arguments}
+
+\emph{Fixed.}
+
+\subsection{core argument}
+
+\emph{Fixed.}
+
+\subsection{Why angle bracket?}
+
+\emph{Explained in a footnote on page 47
+that it's to make it easier to refer to rules with punctuation in running text.}
+
+\subsection{Which dependency cannot be represented?}
+
+\emph{Reworded to refer to the specific dependency.}
+
+\subsection{Explain CCGbank dependencies earlier.}
+
+\emph{Done.}
+
+\subsection{Parent/child confusing}
+
+\emph{Labels were inverted. Corrected.}
+
+\subsection{Type raising rule in Table 2.3}
+
+\emph{Removed the type-raising rules from the table.}
+
+\subsection{simple maximum entropy tagger?}
+
+\emph{Removed `simple'.}
+
+\subsection{supertagger cannot make the sentence shorter}
+
+\emph{Reworded this.}
+
+\subsection{errors are passed along monotonically}
+
+\emph{Reworded to `propagate along the pipeline.}
+
+\subsection{the arg max}
+
+\emph{Reworded this.}
+
+\subsection{Clark and Curran don't do n-best tagging}
+
+\emph{Reworded this.}
+
+\subsection{perform the bare minimum work to make parsing tractable?}
+
+\emph{Reworded.}
+
+\subsection{The global model does make any limited horizon assumptions}
+
+\emph{Reworded.}
+
+\subsection{``another factor might be...''}
+
+\emph{Agree that this does not stand up to scrutiny, so removed this suggestion.}
+
+\subsection{Cause the chart to explode in size}
+
+\emph{Reworded to `forces the parser to consider an enormous number of potential
+analyses.'}
+
+\subsection{Well principled question answering}
+
+\emph{Removed the claim that it was `well principled'.}
+
+\subsection{White and Baldridge (2003)}
+
+\emph{Corrected.}
+
+\subsection{Corrections for some of these issues have been proposed.}
+
+\emph{Added citations.}

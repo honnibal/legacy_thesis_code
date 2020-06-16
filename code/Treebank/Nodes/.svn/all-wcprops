@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/matt/!svn/ver/196/code/Treebank/Nodes
+END
+_Corpus.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/matt/!svn/ver/165/code/Treebank/Nodes/_Corpus.py
+END
+_File.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/matt/!svn/ver/98/code/Treebank/Nodes/_File.py
+END
+_PropbankPrinter.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/matt/!svn/ver/110/code/Treebank/Nodes/_PropbankPrinter.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/matt/!svn/ver/110/code/Treebank/Nodes/__init__.py
+END
+_Printer.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/matt/!svn/ver/89/code/Treebank/Nodes/_Printer.py
+END
+_Sentence.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/matt/!svn/ver/85/code/Treebank/Nodes/_Sentence.py
+END
+_Node.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/matt/!svn/ver/165/code/Treebank/Nodes/_Node.py
+END
+_Leaf.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/matt/!svn/ver/196/code/Treebank/Nodes/_Leaf.py
+END

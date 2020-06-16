@@ -1,0 +1,8 @@
+\frametitle {Conclusion} \notetitle {Conclusion} \newcommand {\p }{\item } \begin {itemize} 
+ \p I am focussing on a representation problem, rather than the learning problem. But
+    do these tasks all fit in one hypothesis space? Will the task be tractable?
+ \p It's currently very difficult to deploy a system that makes use of all the NLU modules.
+ \p If my approach works, it will produce a very efficient all-singing-all-dancing NLU solution.
+ \p The project also raises a lot of questions about our current theories of compositional semantics.
+
+\beamerclosesubstitutedenvironement {points}

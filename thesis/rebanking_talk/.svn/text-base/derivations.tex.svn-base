@@ -1,0 +1,226 @@
+\documentclass[11pt]{article}
+\usepackage{LI}
+
+\newcommand{\cf}[1]{\mbox{$\it{#1}$}}   % category font
+\begin{document}
+\begin{figure}
+\deriv{4}{
+\rm some & \rm of & \rm these & \rm issues \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/NP} &
+\cf{NP/N} &
+\cf{N} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{4}{
+\rm some & \rm of & \rm these & \rm issues \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/PP} &
+\cf{PP/NP} &
+\cf{NP/N} &
+\cf{N} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{PP}} \\
+\fapply{4} \\
+\mc{4}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Rome & \rm 's & \rm destruction & \rm of & \rm Carthage \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP/N)\bs NP} &
+\cf{N} &
+\cf{(NP\bs NP)/NP} &
+\cf{NP} \\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP/N}} && \mc{2}{\cf{NP\bs NP}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}} \\
+&&& \bapply{2} \\
+&&& \mc{2}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Rome & \rm 's & \rm destruction & \rm of & \rm Carthage \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP/(N/PP))\bs NP} &
+\cf{(N/PP)/PP} &
+\cf{PP/NP} &
+\cf{NP} \\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP/(N/PP)}} && \mc{2}{\cf{PP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{N/PP}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{4}{
+\rm The & \rm destruction & \rm of & \rm Carthage \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N/PP} &
+\cf{PP/NP} &
+\cf{NP} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{N}} \\
+\fapply{4} \\
+\mc{4}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm Carthage & \rm 's & \rm destruction \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP/(PP/N))\bs NP} &
+\cf{PP/N} \\
+\bapply{2} \\
+\mc{2}{\cf{NP/(PP/N)}} \\
+\fapply{3} \\
+\mc{3}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Google & \rm acquired & \rm YouTube & \rm for & \rm $1.65bn \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{((S[dcl]\bs NP)/PP)/NP} &
+\cf{NP} &
+\cf{PP/NP} &
+\cf{NP} \\
+& \fapply{2} & \fapply{2} \\
+& \mc{2}{\cf{(S[dcl]\bs NP)/PP}} & \mc{2}{\cf{PP_{$1.65bn}}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{S[dcl]\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[dcl]}}
+}\end{figure}
+
+\begin{figure}
+\deriv{9}{
+\rm YouTube & \rm , & \rm which & \rm was & \rm acquired & \rm by & \rm Google & \rm for & \rm \$1.65bn \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{,} &
+\cf{(NP\bs NP_y)/(S[dcl]_z\bs NP_y)_z} &
+\cf{(S[dcl]\bs NP)/(S[pss]\bs NP)} &
+\cf{((S[pss]\bs NP_\bs patient{z})/PP_\bs price{w})/PP_\bs agent{y}} &
+\cf{PP_y/NP_y} &
+\cf{NP} &
+\cf{PP_y/NP_y} &
+\cf{NP} \\
+\fapply{2} &&&& \fapply{2} & \fapply{2} \\
+\mc{2}{\cf{NP}} &&&& \mc{2}{\cf{PP_{Google}}} & \mc{2}{\cf{PP_{\bs $1.65bn}}} \\
+&&&& \fapply{3} \\
+&&&& \mc{3}{\cf{(S[pss]\bs NP_\bs patient{z})/PP_\bs price{w}}} \\
+&&&& \fapply{5} \\
+&&&& \mc{5}{\cf{S[pss]\bs NP_\bs patient{z}}} \\
+&& \fapply{7} \\
+&& \mc{7}{\cf{NP\bs NP_\bs patient{z}}} \\
+\bapply{9} \\
+\mc{9}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Google & \rm 's & \rm acquisition & \rm of & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP_y/N_y)\bs NP_z} &
+\cf{N} &
+\cf{(NP_y\bs NP_y)/NP_z} &
+\cf{NP} \\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP_y/N_y}} && \mc{2}{\cf{NP_y\bs NP_y}} \\
+\fapply{3} \\
+\mc{3}{\cf{NP_{acquisition}}} \\
+\bapply{5} \\
+\mc{5}{\cf{NP_{acquisition}}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Google & \rm 's & \rm acquisition & \rm of & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP_y/(N_y/PP_z))\bs NP_z} &
+\cf{(N/PP_\bs agent{y})/PP_\bs patient{z}} &
+\cf{PP_y/NP_y} &
+\cf{NP} \\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP_y/(N_y/PP_{Google})}} && \mc{2}{\cf{PP_{YouTube}}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{N/PP_\bs agent{y}}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Google & \rm 's & \rm decision & \rm to~acquire & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP_y/(N_y/PP_z))\bs NP_z} &
+\cf{(N/PP_y)/(S[to]_z\bs NP_y)_z} &
+\cf{(S[to]\bs NP_\bs agent{y})/NP_\bs patient{z}} &
+\cf{NP} \\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP_y/(N_y/PP_{Google})}} && \mc{2}{\cf{S[to]\bs NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{N/PP_\bs agent{y}}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm all & \rm staff & \rm on & \rm casual & \rm contracts \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/NP} &
+\cf{N} &
+\cf{(NP\bs NP)/NP} &
+\cf{N/N} &
+\cf{N} \\
+& \psgrule{1} && \fapply{2} \\
+& \mc{1}{\cf{NP}} && \mc{2}{\cf{N}} \\
+&&& \psgrule{2} \\
+&&& \mc{2}{\cf{NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{NP\bs NP}} \\
+& \bapply{4} \\
+& \mc{4}{\cf{NP}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm Google & \rm bought & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S\bs NP)/NP} &
+\cf{NP} \\
+& \fapply{2} \\
+& \mc{2}{\cf{S\bs NP}} \\
+\bapply{3} \\
+\mc{3}{\cf{S}}
+}\end{figure}\end{document}

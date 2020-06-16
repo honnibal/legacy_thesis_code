@@ -1,0 +1,82 @@
+wsj_0002.1
+Parent Cat: S[adj]\NP[conj]
+Child 0: conj
+Child 1: NP
+Context: (S[adj]\NP[conj] (conj (CC and)) (NP (NP (N (N/N (JJ former)) (N (NN chairman)))) (NP\NP ((NP\NP)/NP (IN of)) (NP (N (N/N ((N/N)/(N/N) (NNP Consolidated)) (N/N ((N/N)/(N/N) (NNP Gold)) (N/N (NNP Fields)))) (N (NNP PLC)))))))
+Answers: {NP[conj]: True, NP: True}
+wsj_0002.1
+wsj_0004.3
+Parent Cat: NP[conj]
+Child 0: conj
+Child 1: S[em]
+Context: (NP[conj] (conj (CC and)) (S[em] (S[em]/S[dcl] (IN that)) (S[dcl] (NP (NP[nb]/N (DT the)) (N (N/N (JJ current)) (N (NN yield)))) (S[dcl]\NP (S[dcl]\NP (VBZ continues)) ((S\NP)\(S\NP) (((S\NP)\(S\NP))/NP (IN for)) (NP (NP[nb]/N (DT a)) (N (NN year))))))))
+Answers: {S[em]: True, S[em][conj]: True}
+wsj_0004.3
+wsj_0004.8
+Parent Cat: S/S
+Child 0: S[dcl]\S[dcl]
+Child 1: ,
+Context: (S/S (S[dcl]\S[dcl] ((S[dcl]\S[dcl])/NP (VBD said)) (NP (NP (N (N/N (NNP Brenda)) (N (N/N (NNP Malizia)) (N (NNP Negus))))) (NP[conj] (, (, ,)) (NP (NP (N (NN editor))) (NP\NP ((NP\NP)/NP (IN of)) (NP (N (N/N ((N/N)/(N/N) (NNP Money)) (N/N (NNP Fund))) (N (NNP Report))))))))) (, (, ,)))
+Answers: {S[dcl]\S[dcl]: True, S[dcl]\S[dcl][conj]: True}
+wsj_0004.8
+wsj_0010.14
+Parent Cat: S/S
+Child 0: NP
+Child 1: ,
+Context: (S/S (NP (NP[nb]/N (DT No)) (N (NNS dummies))) (, (, ,)))
+Answers: {NP[conj]: True, NP: True}
+wsj_0010.14
+wsj_0012.2
+Parent Cat: S[dcl]/NP
+Child 0: S/(S\NP)
+Child 1: (S[dcl]\NP)/NP
+Context: (S[dcl]/NP (S/(S\NP) (NP (NP[nb]/N (DT the)) (N (NN magazine)))) ((S[dcl]\NP)/NP ((S[dcl]\NP)/(S[pt]\NP) (VBZ has)) ((S[pt]\NP)/NP ((S[pt]\NP)/NP (((S[pt]\NP)/NP)/NP (VBN offered)) (NP (N (NNS advertisers)))) ((S\NP)\(S\NP) (((S\NP)\(S\NP))/NP (IN in)) (NP (N (N/N (CD three)) (N (NNS years))))))))
+Answers: {S/NP: True}
+wsj_0012.2
+wsj_0012.9
+Parent Cat: S[dcl]\NP
+Child 0: (S[dcl]\NP)/NP
+Child 1: (S\NP)\((S\NP)/NP)
+Context: (S[dcl]\NP ((S[dcl]\NP)/NP (VBD spent)) ((S\NP)\((S\NP)/NP) ((S\NP)\((S\NP)/NP) ((S\NP)\((S\NP)/NP) (NP (N (N/N[num] ($ $)) (N[num] (CD 325,000))))) ((S\NP)\(S\NP) (((S\NP)\(S\NP))/NP (IN in)) (NP (N (CD 1989))))) ((S\NP)\((S\NP)/NP)[conj] (conj (CC and)) ((S\NP)\((S\NP)/NP) ((S\NP)\((S\NP)/NP) (NP (N (N/N[num] ($ $)) (N[num] (CD 340,000))))) ((S\NP)\(S\NP) (((S\NP)\(S\NP))/NP (IN in)) (NP (N (CD 1990))))))))
+Answers: {S\NP: True}
+wsj_0012.9
+wsj_0012.11
+Parent Cat: S[dcl]/NP
+Child 0: S/(S\NP)
+Child 1: (S[dcl]\NP)/NP
+Context: (S[dcl]/NP (S/(S\NP) (NP (N (NNS advertisers)))) ((S[dcl]\NP)/NP ((S[dcl]\NP)/(S[ng]\NP) (VBP are)) ((S[ng]\NP)/NP ((S[ng]\NP)/NP (VBG paying)) ((S\NP)\(S\NP) (((S\NP)\(S\NP))/NP (IN per)) (NP (N (NN page)))))))
+Answers: {S/NP: True}
+wsj_0012.11
+wsj_0013.3
+Parent Cat: S[dcl]/NP
+Child 0: S/(S\NP)
+Child 1: (S[dcl]\NP)/NP
+Context: (S[dcl]/NP (S/(S\NP) (NP (N (N/N (NNP United)) (N (NNP Illuminating))))) ((S[dcl]\NP)/NP ((S[dcl]\NP)/NP (NNS places)) ((S\NP)\(S\NP) (((S\NP)\(S\NP))/NP (IN on)) (NP (NP[nb]/N (PRP$ its)) (N (NN bid))))))
+Answers: {S/NP: True}
+wsj_0013.3
+wsj_0014.1
+Parent Cat: S[adj]\NP[conj]
+Child 0: conj
+Child 1: NP
+Context: (S[adj]\NP[conj] (conj (CC and)) (NP (NP (N (N/N (JJ former)) (N (N (NN president)) (N[conj] (conj (CC and)) (N (N/N (NN chief)) (N (N/N (VBG operating)) (N (NN officer)))))))) (NP\NP ((NP\NP)/NP (IN of)) (NP (N (N/N ((N/N)/(N/N) (NNPS Toys)) (N/N ((N/N)/(N/N) (NNP R)) (N/N (NNP Us)))) (N (NNP Inc.)))))))
+Answers: {NP[conj]: True, NP: True}
+wsj_0014.1
+wsj_0015.20
+Parent Cat: (S[pt]\NP)/NP
+Child 0: ((S[pt]\NP)/PP)/NP
+Child 1: (S\NP)\((S\NP)/PP)
+Context: ((S[pt]\NP)/NP (((S[pt]\NP)/PP)/NP (VBN estimated)) ((S\NP)\((S\NP)/PP) (PP (PP/NP (IN at)) (NP (N (N/N[num] ($ $)) (N[num] (N/N (CD 140)) (N[num] (CD million))))))))
+Answers: {(S\NP)/NP: True}
+wsj_0015.20
+wsj_0018.3
+Parent Cat: S[dcl]/NP
+Child 0: S/(S\NP)
+Child 1: (S[dcl]\NP)/NP
+Context: (S[dcl]/NP (S/(S\NP) (NP (PRP it))) ((S[dcl]\NP)/NP ((S[dcl]\NP)/(S[ng]\NP) (VBZ is)) ((S[ng]\NP)/NP (((S[ng]\NP)/NP)/NP (VBG providing)) (NP (NP[nb]/N (DT the)) (N (N/N (JJ new)) (N (NN firm)))))))
+Answers: {S/NP: True}
+wsj_0018.3
+wsj_0018.6
+Parent Cat: (S[dcl]\NP)/NP
+Child 0: ((S[dcl]\NP)/PP)/NP
+Child 1: (S\NP)\((S\NP)/PP)
+Context: ((S[dcl]\NP)

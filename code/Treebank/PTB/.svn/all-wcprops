@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/matt/!svn/ver/206/code/Treebank/PTB
+END
+_PTBSentence.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/matt/!svn/ver/85/code/Treebank/PTB/_PTBSentence.py
+END
+_PTBNode.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/matt/!svn/ver/85/code/Treebank/PTB/_PTBNode.py
+END
+_PennTreebank.py
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/matt/!svn/ver/206/code/Treebank/PTB/_PennTreebank.py
+END
+_PTBLeaf.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/matt/!svn/ver/85/code/Treebank/PTB/_PTBLeaf.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/matt/!svn/ver/85/code/Treebank/PTB/__init__.py
+END
+_PTBFile.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/matt/!svn/ver/85/code/Treebank/PTB/_PTBFile.py
+END
+_TracedNode.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/matt/!svn/ver/85/code/Treebank/PTB/_TracedNode.py
+END

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/matt/!svn/ver/67/code/data/pickles
+END
+parsedCats.pickle
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/matt/!svn/ver/67/code/data/pickles/parsedCats.pickle
+END
+unaryRules.pickle
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/matt/!svn/ver/67/code/data/pickles/unaryRules.pickle
+END
+binaryRules.pickle
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/matt/!svn/ver/67/code/data/pickles/binaryRules.pickle
+END
+indexTable.pickle
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/matt/!svn/ver/67/code/data/pickles/indexTable.pickle
+END
+ccgbankAnnot.pickle
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/matt/!svn/ver/67/code/data/pickles/ccgbankAnnot.pickle
+END

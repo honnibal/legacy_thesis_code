@@ -1,0 +1,33 @@
+Factory|N/N inventories|N fell|(S[dcl]\NP)/NP 5|NP PC|NP\NP ,|, our|NP/N first|N/N major|N/N decline|N
+fapply 0 1 N
+bapply 3 PC NP
+fapply major decline N
+psgrule Factory inventories NP
+fapply fell PC S[dcl]\NP
+fapply first decline N
+bapply Factory fell S[dcl] 
+fapply our decline NP
+psgrule , decline S\S
+bapply Factory decline S[dcl]
+
+These|NP/N actions|N are|(S[dcl]\NP)/(S[adj]\NP) risky|S[adj]\NP and|conj not|PP/PP in|PP/NP our|NP/N best|N/N interests|N
+fapply These actions NP
+fapply best interests N
+fapply our interests NP
+fapply in interests PP
+fapply not interests PP
+psgrule and interests S[adj]\NP[conj]
+conj risky interests S[adj]\NP
+fapply are interests S[dcl]\NP
+bapply These interests S[dcl]
+
+Casey|NP and|conj Pat|NP sang|S[dcl]\NP and|conj danced|S[dcl]\NP
+conj and Pat NP[conj]
+conj and danced S[dcl]\NP[conj]
+conj Casey Pat NP
+conj sang danced S[dcl]\NP
+
+*Pat|NP handy|S[adj]\^!NP
+ftype 0 0 S/(S\NP)
+asterisk *Pat handy S[adj]
+

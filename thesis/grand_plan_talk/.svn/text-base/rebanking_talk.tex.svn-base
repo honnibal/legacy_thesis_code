@@ -1,0 +1,587 @@
+
+
+\usepackage{LI_fix}
+\usepackage{parsetree}
+\usepackage{avm}
+\usepackage{graphicx}
+\usepackage{lcovington}
+\usepackage{xcolor}
+\usepackage{multirow}
+%\usetikzlibrary{shapes,arrows}
+% \newcommand{\gis}{\textsc{gis}\xspace}
+% \newcommand{\iis}{\textsc{iis}\xspace}
+% \newcommand{\wsj}{\textsc{wsj}\xspace}
+ \newcommand{\ccg}{\textsc{ccg}\xspace}
+% \newcommand{\ltag}{\textsc{ltag}\xspace}
+% \newcommand{\hpsg}{\textsc{hpsg}\xspace}
+% \newcommand{\lbfgs}{\textsc{l-bfgs}\xspace}
+% \newcommand{\bfgs}{\textsc{bfgs}\xspace}
+% \newcommand{\cfg}{\textsc{cfg}\xspace}
+% \newcommand{\pcfg}{\textsc{pcfg}\xspace}
+% \newcommand{\nlp}{\textsc{nlp}\xspace}
+% \newcommand{\dop}{\textsc{dop}\xspace}
+% \newcommand{\lfg}{\textsc{lfg}\xspace}
+% \newcommand{\pp}{\textsc{pp}\xspace}
+% \newcommand{\cky}{\textsc{cky}\xspace}
+% \newcommand{\gb}{\textsc{gb}\xspace}
+% \newcommand{\mb}{\textsc{mb}\xspace}
+% %\newcommand{\ram}{\textsc{ram}\xspace}
+% \newcommand{\mpi}{\textsc{mpi}\xspace}
+% \newcommand{\cpu}{\textsc{cpu}\xspace}
+% \newcommand{\parseval}{\textsc{parseval}}
+% \newcommand{\trec}{\textsc{trec}\xspace}
+% \newcommand{\epsrc}{\textsc{epsrc}\xspace}
+% \newcommand{\dt}{\textsc{dt}\xspace}
+% \newcommand{\hmm}{\textsc{hmm}\xspace}
+% \newcommand{\ghz}{\textsc{ghz}\xspace}
+% \newcommand{\rasp}{\textsc{rasp}\xspace}
+% \newcommand{\ldc}{\textsc{ldc}\xspace}
+% \newcommand{\gr}{\textsc{gr}\xspace}
+% \newcommand{\qa}{\textsc{qa}\xspace}
+% \newcommand{\jj}{\textsc{jj}\xspace}
+% \newcommand{\vbn}{\textsc{vbn}\xspace}
+% \newcommand{\cd}{\textsc{cd}\xspace}
+% \newcommand{\rp}{\textsc{rp}\xspace}
+% \newcommand{\cc}{\textsc{cc}\xspace}
+% \newcommand{\susanne}{\textsc{susanne}\xspace}
+% \newcommand{\bandc}{\textsc{b{\small \&}c}\xspace}
+ \newcommand{\ccgbank}{CCGbank\xspace}
+% \newcommand{\candc}{\textsc{C}\&\textsc{C}\xspace}
+% \newcommand{\cg}{\textsc{cg}\xspace}
+% \newcommand{\penn}{\textsc{ptb}\xspace}
+ \newcommand{\semf}[1]{\ensuremath{\mathrm{#1}}}
+ \newcommand{\sematt}[1]{\ensuremath{\langle \text{\textsc{#1}}\rangle}}
+% %\newcommand{\bs}{\backslash}
+ \newcommand{\cf}[1]{\mbox{$\it{#1}$}}   % category font
+\newcommand{\wsd}{\textsc{wsd}\xspace}
+% \newcommand{\lexent}[2]{\mbox{#1}~\mbox{:=}~\cf{#2}}   % lexical entry
+% \newcommand{\dep}[1]{\langle\mbox{\small{#1}}\rangle}
+% \newcommand{\head}[1]{_{\mbox{\tiny{\it #1}}}}
+% \newcommand{\lhead}{\{\mbox{\small{\it l}\/}\}}
+% \newcommand{\feat}[1]{[\mbox{\footnotesize{\it #1}\/}]}
+% \newcommand{\tfeat}[1]{[\mbox{\tiny{\it #1}\/}]}
+% \newcommand{\reln}[1]{\mbox{\small{\it #1}\/}}
+% \newcommand{\hd}[1]{\{#1\}}
+% \newcommand{\dy}[1]{\langle#1\rangle}
+% \newcommand{\tab}{\hspace*{0.3cm}}
+
+\newcommand{\agent}[1]{{\color{blue} #1}}
+\newcommand{\patient}[1]{{\color{purple} #1}}
+\newcommand{\price}[1]{{\color{green} #1}}
+\newcommand{\predicate}[1]{\textbf{#1}}
+
+\newcommand{\clrone}[1]{{\color{red} #1}}
+\newcommand{\clrtwo}[1]{{\color{blue} #1}}
+\newcommand{\clrthree}[1]{{\color{violet} #1}}
+\newcommand{\clrfour}[1]{{\color{olive} #1}}
+\newcommand{\glow}[1]{\textbf{#1}}
+
+\title{Matt's grand plan for natural language understanding (with \ccg)}
+
+\author{Matthew Honnibal}
+
+\date{\today}
+
+\begin{document}
+
+\titleslide
+
+\section{Introduction}
+
+\begin{points}{NLU is currently divided into several tasks}
+\begin{block}{Example}
+ \emph{The company was persuaded to buy Power Set.}
+\end{block}
+
+\p \glow{Syntax:} {\small ((The company) (was (persuaded (to buy (Power Set)))))}
+\p \glow{Semantics:} persuade(x, company, buy(company, Power Set))
+\p \glow{Sense Disambiguation:} \emph{company} as in \emph{army unit}?
+\p \glow{Named Entity Recognition and Disambiguation:}\\ Power Set $\rightarrow$ {\small \url{http://en.wikipedia.org/PowerSet}}
+\p \glow{Coreference? Sentiment? Discourse? More?}
+\end{points}
+
+\begin{plain}{Pros and cons of dividing up the task}
+\begin{block}{Pros}
+ \begin{itemize}
+  \item \textbf{Reductionism:} It may be easier to make progress on the tasks in isolation.
+  \item \textbf{Modularity:} Don't like one parser? Just plug in another!
+ \end{itemize}
+\end{block}
+\begin{block}{Cons}
+\begin{itemize}
+ \item \textbf{Accuracy:} Information can only flow in one direction.
+ \item \textbf{Efficiency:} The same work is repeated many times.
+ \item \textbf{Plausibility:} Is a pipeline a realistic model of natural language
+                             understanding? Should we be trying to find one?
+\end{itemize}
+
+\end{block}
+
+\end{plain}
+
+\begin{points}{Intuition behind joint modelling}
+ \p $H(W_s)$: information to disambiguate the words in $s$
+ \p $H(R_s)$: information to assign semantic role labels to $s$
+ \p If word senses are good features for SRL, then $H(R_s|W_s) < H(R_s)$
+ \p But if $H(R_s|W_s) < H(R_s)$, then $H(W_s|R_s) < H(W_s)$
+ \p \textbf{If WSD helps SRL, then SRL must be able to help
+    WSD.}
+ \p \textbf{So: model $P(R_s, W_s)$ instead of $P(W_s)$ and $P(R_s|W_s)$}
+ \p The grand plan: jointly model all the sentence understanding tasks by bringing all
+    the information into a \ccg parse.
+\end{points}
+
+\section{CCG}
+
+\begin{plain}{Categorial Grammar: few rules, complex categories}
+\begin{table}
+\vspace*{-10mm}
+\centering
+\caption{Categorial Grammar has only 2 rule schemas, and 3 atomic types.}
+\begin{tabular}{cccc|c}
+ \multicolumn{4}{c|}{Rules} & Types \\
+\hline
+  \cf{X} & $\rightarrow$ & \cf{X/Y} & \cf{Y} & \cf{N}\\
+ \cf{X} & $\rightarrow$ & \cf{Y} & \cf{Y\bs X} & \cf{PP} \\
+&&&&\cf{S}
+\end{tabular}
+\vspace*{-10mm}
+\end{table}
+\begin{table}
+ \centering
+\caption{Production rules get `translated' into complex categories.}
+ \begin{tabular}{cccc|c}
+   \multicolumn{4}{c|}{\textsc{psg}} & \textsc{cg} \\
+\hline
+  \cf{NP} & $\rightarrow$ & \cf{DT} & \cf{N'} & \cf{NP/N}\\
+  \cf{PP} & $\rightarrow$ & \cf{IN} & \cf{NP} & \cf{PP/NP}\\
+  \cf{S} & $\rightarrow$ & \cf{NP} & \cf{VP} & \cf{S\bs NP}\\
+  \cf{VP} & $\rightarrow$ & \cf{V} & \cf{NP} & \cf{(S\bs NP)/NP}\\
+  \cf{VP} & $\rightarrow$ & \cf{VP} & \cf{ADVP} &\cf{(S\bs NP)\bs (S\bs NP)}\\
+ \end{tabular}
+\end{table}
+\end{plain}
+
+\begin{plain}{Example Categorial Grammar Derivation}
+ \begin{center}
+\deriv{5}{
+\rm The & \rm company & \rm bought & \rm Power & \rm Set \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{(S\bs NP)/NP} &
+\cf{NP/NP} &
+\cf{NP} \\
+\fapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP}} && \mc{2}{\cf{NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{S\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S}}
+}\end{center}
+\end{plain}
+
+\begin{plain}{The pay-off: semantic transparency}
+  \begin{center}
+\deriv{5}{
+\rm The & \rm company & \rm bought & \rm Power & \rm Set \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{\clrone{NP_w}/\clrone{N_w}} &
+\cf{\clrone{N}} &
+\cf{(S\bs \clrone{NP_x})/\clrtwo{NP_y}} &
+\cf{\clrtwo{NP_z}/\clrtwo{NP_z}} &
+\cf{\clrtwo{NP}} \\
+\textrm{spec(\clrone{w})}  &
+\textrm{\clrone{company}} &
+\textrm{buy(\clrone{x}, \clrtwo{y})}&
+\textrm{\clrtwo{Power\_z}}&
+\textrm{\clrtwo{Set}} \\
+\fapply{2} && \fapply{2} \\
+\mc{2}{\cf{\clrone{NP}}} && \mc{2}{\cf{\clrtwo{NP}}} \\
+\mc{2}{\textrm{\clrone{company}}} && \mc{2}{\textrm{\clrtwo{Power\_Set}}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{S\bs \clrone{NP_x}}} \\
+&& \mc{3}{\textrm{buy(\clrone{x}, \clrtwo{Power\_Set})}} \\
+\bapply{5} \\
+\mc{5}{\cf{S}}\\
+\mc{5}{\textrm{buy(\clrone{company}, \clrtwo{Power\_Set})}}
+}\end{center}
+\end{plain}
+
+\begin{plain}{\ccg adds more rules to reduce category ambiguity}
+ \begin{figure}
+\small
+\centering
+\deriv{5}{
+\rm The & \rm company & \rm which & \rm they & \rm bought \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{(NP\bs NP)/(S/NP)} &
+\cf{NP} &
+\cf{(S/NP)\bs NP} \\
+\fapply{2} && \bapply{2} \\
+\mc{2}{\cf{NP}} && \mc{2}{\cf{S/NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\small
+\centering
+\deriv{5}{
+\rm The & \rm company & \rm which & \rm they & \rm bought \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{(NP\bs NP)/(S/NP)} &
+\cf{NP} &
+\cf{(S\bs NP)/NP} \\
+\fapply{2} && \ftype{1} \\
+\mc{2}{\cf{NP}} && \mc{1}{\cf{S/(S\bs NP)}} \\
+&&& \fcomp{2} \\
+&&& \mc{2}{\cf{S/NP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+\end{plain}
+
+\section[CCG SRL]{Semantic Role Labelling with CCG}
+
+\begin{points}{PropBank and NomBank: Penn Treebank SRL layers}
+ \p A \textbf{predicate} heads a proposition (but might not assert it)
+ \p \textbf{Arguments} can be \textbf{core} or \textbf{peripheral}.
+\begin{block}{Example predicate-argument structures}
+ \begin{lexamples}
+  \item \gll Google bought YouTube October~2006 for~1.6bn
+             Arg-0  Predicate Arg-1 Arg-TMP Arg-3
+  \gln
+  \glend
+   \item \gll Google paid 1.6bn for~YouTube October~2006
+             Arg-0  Predicate Arg-1 Arg-3 Arg-TMP
+  \gln
+  \glend
+  \item \gll Google's 1.6bn acquisition of~YouTube October~2006
+             Arg-0    Arg-1 Predicate      Arg-3   Arg-TMP
+        \gln
+        \glend
+ \end{lexamples}
+\end{block}
+
+\p \textbf{PropBank:} Propositions headed by \textbf{verbs}  in the PTB.
+\p \textbf{NomBank:} Propositions headed by \textbf{nouns} in the PTB.
+\end{points}
+
+\begin{points}{Integrating PropBank annotation into CCG}
+ \p Target: CCG derivations that map unambiguously to PropBank analyses.
+ \p \textbf{Predicates} will be identified by the \textbf{semantic
+                                category} assigned to them.
+ \p \textbf{Core arguments} will be \textbf{syntactic complements}.
+    Argument labels will be assigned by the syntax-semantics mapping.
+ \p \textbf{Peripheral arguments} will be \textbf{syntactic adjuncts}. Their type will
+    be specified in their semantics.
+\end{points}
+
+\begin{plain}{Distinguishing core and peripheral arguments in CCG}
+\centering
+ \begin{center}
+\small
+\deriv{6}{
+\rm Google & \rm paid & \rm 1.6b & \rm for & \rm YouTube & \rm Oct.~2006 \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{((S\bs NP)/PP)/NP} &
+\cf{NP} &
+\cf{PP/NP} &
+\cf{NP} &
+\cf{(S\bs NP)\bs (S\bs NP)} \\
+& \fapply{2} & \fapply{2} \\
+& \mc{2}{\cf{(S\bs NP)/PP}} & \mc{2}{\cf{PP}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{S\bs NP}} \\
+& \bapply{5} \\
+& \mc{5}{\cf{S\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{S}}
+}\end{center}
+\end{plain}
+
+\begin{plain}{Compositional semantics for SRL with CCG}
+\small
+\begin{center}
+\scalebox{0.90}{
+\deriv{6}{
+\rm YT, & \rm which & \rm Google & \rm paid & \rm 1.6b & \rm for \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{\clrone{NP}} &
+\cf{(\clrone{NP_y}\bs \clrone{NP_y})/(S/\clrone{NP_y})} &
+\cf{\clrtwo{NP}} &
+\cf{((S\bs \clrtwo{NP_y})/\clrone{PP_z})/\clrthree{NP_w}} &
+\cf{\clrthree{NP}} &
+\cf{\clrone{PP_y}/\clrone{NP_y}} \\
+&
+ &
+&
+\textrm{pay(\clrtwo{y}, \clrthree{w}, u, \clrone{z})} &
+&
+ \\
+&& \ftype{1} & \fapply{2} \\
+&& \mc{1}{\cf{S_y/(S_y\bs \clrtwo{NP})}} & \mc{2}{\cf{(S\bs \clrtwo{NP_y})/\clrone{PP_z}}} \\
+&&& \mc{2}{\textrm{pay(\clrtwo{y}, \clrone{z}, \clrthree{1.6b})}}\\
+&&& \fcomp{3} \\
+&&& \mc{3}{\cf{(S\bs \clrtwo{NP_y})/\clrone{NP_z}}} \\
+&&& \mc{3}{\textrm{pay(\clrtwo{y}, \clrthree{1.6b}, u, \clrone{z})}}\\
+&& \fcomp{4} \\
+% && \mc{4}{\cf{S/\clrone{NP_z}}} \\
+% && \mc{4}{\textrm{pay(\clrtwo{Google}, \clrthree{1.6b}, u, \clrone{z})}}\\
+% & \fapply{5} \\
+& \mc{5}{\cf{\clrone{NP_y}\bs \clrone{NP_y}}} \\
+\bapply{6} \\
+\mc{6}{\cf{\clrone{NP}}}\\
+\mc{6}{\textrm{pay(\clrtwo{Google}, \clrthree{1.6b}, u, \clrtwo{YT})}}\\
+}
+}\end{center}
+\end{plain}
+
+
+
+\begin{plain}{Compositional semantics for nominal predicates in CCG}
+\begin{center}
+\deriv{3}{
+\rm acquisition & \rm of & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N_{acquisition}/\clrone{PP_b}} &
+\cf{\clrone{PP_c}/\clrone{NP_c}} &
+\cf{\clrone{NP_\semf{YouTube}}} \\
+\cf{\text{acquire(\emph{a, \clrone{b}})}} & & \\
+& \fapply{2} \\
+& \mc{2}{\cf{\clrone{PP_\semf{YouTube}}}} \\
+\fapply{3}\\
+\mc{3}{\cf{N_\semf{acquisition}}}\\
+\mc{3}{\cf{\text{acquire(\emph{a}, \clrone{YouTube})}}}\\
+}
+\end{center}
+\end{plain}
+
+\begin{plain}{Nominal predicates require some creative analyses}
+\begin{center}
+\deriv{3}{
+\rm YouTube & \rm 's & \rm acquisition \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{\clrone{NP_\semf{YouTube}}} &
+\cf{(\clrtwo{NP_a}/(\clrtwo{N_a}/\clrone{PP_b}))\bs \clrone{NP_b}} &
+\cf{\clrtwo{N_\semf{acquisition}}/\clrone{PP_d}}\\
+& & \cf{\text{acquire(\emph{c}, \emph{\clrone{d}})}}\\
+\bapply{2} \\
+\mc{2}{\cf{\clrtwo{NP_a}/(\clrtwo{N_a}/\clrone{PP_\semf{YouTube}})}} \\
+\fapply{3} \\
+\mc{3}{\cf{\clrtwo{NP_\semf{acquisition}}}}\\
+\mc{3}{\cf{\text{acquire(\emph{c}, \clrone{YouTube})}}}\\
+}
+\end{center}
+\end{plain}
+
+\begin{plain}{Nominal predicates with support verbs}
+\begin{center}
+ \deriv{4}{
+\rm Google & \rm made & \rm a & \rm decision \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{\clrone{NP_\semf{Google}}} &
+\cf{(S\bs \clrone{NP_a})/(\clrtwo{NP_b}/\clrone{PP_a})} &
+\cf{\clrtwo{NP_c}/\clrtwo{N_c}} &
+\cf{\clrtwo{N_\semf{decision}}/\clrone{PP_d}} \\
+& & & \cf{\text{decide(\emph{\clrtwo{d}}, \emph{e})}}\\
+&& \fcomp{2} \\
+&& \mc{2}{\cf{\clrtwo{NP_\semf{decision}}/\clrone{PP_d}}} \\
+&& \mc{2}{\cf{\text{decide(\clrone{\emph{d}}, \emph{e})}}}\\
+& \fapply{3} \\
+& \mc{3}{\cf{S\bs \clrone{NP_d}}} \\
+& \mc{3}{\cf{\text{decide(\clrone{\emph{d}}, \emph{e})}}}\\
+\bapply{4} \\
+\mc{4}{\cf{S}}\\
+\mc{4}{\cf{\text{decide(\clrone{Google}, \emph{e})}}}\\
+}
+\end{center}
+\end{plain}
+
+\section[CCG NER]{Named Entity Recognition in CCG (aka Nicky's PhD project)}
+
+\begin{points}{Joint Named Entity Recognition and PTB parsing}
+ \p Named entities recognition is usually modelled as a \textbf{sequence tagging} task, e.g. 
+   \begin{itemize} \item \textbf{Power$|$ORG Set$|$ORG}\end{itemize}
+ \p This makes it difficult to account for \textbf{nested named entities}, e.g.
+   \begin{itemize}
+     \item \textbf{New York Stock Exchange}
+     \item \textbf{Sydney, Australia}
+     \item \textbf{David and Melissa Smith}
+   \end{itemize}
+ \p Finkel and Manning (2009) joint \textsc{ner} and parsing:
+    \begin{itemize}
+     \item Up to 1.36\% F-measure parsing improvement;
+     \item Up to 9\% F-measure \textsc{ner} improvement.
+    \end{itemize}
+\end{points}
+
+\begin{plain}{Named entities screw up CCG parses if handled naively}
+\begin{center}
+\scalebox{0.8}{
+\deriv{3}{
+\rm October & \rm 26 & \rm 2006 \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{(((VP\bs VP)/(VP\bs VP)))/(((VP\bs VP)/(VP\bs VP)))} &
+\cf{(VP\bs VP)/(VP\bs VP)} &
+\cf{VP\bs VP} \\
+\fapply{2} \\
+\mc{2}{\cf{(VP\bs VP)/(VP\bs VP)}} \\
+\fapply{3} \\
+\mc{3}{\cf{VP\bs VP}}
+}}\end{center}
+
+\begin{center}
+\scalebox{0.8}{
+\deriv{5}{
+\rm The & \rm Grand & \rm Rapids, & \rm MI & \rm man \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{((N/N)/(N/N))/((N/N)/(N/N))} &
+\cf{(N/N)/(N/N)} &
+\cf{N/N} &
+\cf{N} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{(N/N)/(N/N)}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{N/N}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{N}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}}\end{center}
+
+\end{plain}
+
+\begin{plain}{Integrating NER into CCG with Hat Categories}
+\begin{center}
+\scalebox{0.8}{
+\deriv{3}{
+\rm October & \rm 26 & \rm 2006 \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{MON/DAY} &
+\cf{DAY} &
+\cf{DATE^{VP\bs VP}\bs MON} \\
+\fapply{2} \\
+\mc{2}{\cf{MON}} \\
+\bapply{3} \\
+\mc{3}{\cf{DATE^{VP\bs VP}}} \\
+\unhat{3} \\
+\mc{3}{\cf{VP\bs VP}}
+}}\end{center}
+ \begin{center}
+\scalebox{0.8}{
+\deriv{5}{
+\rm The & \rm Grand & \rm Rapids & \rm MI & \rm man \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{CITY/CITY} &
+\cf{CITY^{N/N}/STATE} &
+\cf{STATE} &
+\cf{N} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{CITY^{N/N}}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{CITY^{N/N}}} \\
+& \unhat{3} \\
+& \mc{3}{\cf{N/N}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{N}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}}
+\end{center}
+\end{plain}
+
+\section[WSD CCG]{Word Sense Disambiguation and CCG}
+
+\begin{points}{Tentative thoughts on Word Sense Disambiguation}
+\p Full word sense disambiguation involves many fine-grained labels
+\p Integrating these labels into \ccg category sets may cause sparse data problems
+\p What if I just use super senses and WordNet Domains?
+\p 
+\begin{itemize}
+ \item 41 supersenses e.g. noun.food, noun.group, verb.cognition.
+ \item 46 domains, e.g. economy, sport, fashion, sexuality
+\end{itemize}
+
+\end{points}
+
+\begin{plain}{Adding SuperSenses and domains as category features}
+ \begin{figure}
+\deriv{5}{
+\rm The & \rm board & \rm grasped & \rm the & \rm problem \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N[group,econ]} &
+\cf{(S[cog]\bs NP)/NP} &
+\cf{NP/N} &
+\cf{N[cog]} \\
+\fapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP[group,econ]}} && \mc{2}{\cf{NP[cog]}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{S[cog]\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[cog]}}
+}\end{figure}
+\end{plain}
+
+\begin{plain}{WordNet senses for `board' and `problem'}
+\scalebox{0.8}{
+ \begin{tabular}{r|c|p{8.5cm}}
+\hline
+Sense & Super sense & Definition \\
+\hline
+\hline
+1 &  noun.group & A committee having supervisory powers \emph{the board has seven members}\\
+2 & noun.substance & A stout length of sawn timber; made in a wide variety of sizes and used for many purposes \\
+4 & noun.food      & Food or meals in general \emph{room and board}\\
+9 & noun.artifact & A flat portable surface (usually rectangular) designed for board games. \emph{he got out the board and set up the pieces}\\
+\hline
+1     & noun.state  & A state of difficulty that needs to be resolved: \emph{she and her husband are having problems}\\
+2     &noun.communication & A question raised for consideration or solution: \emph{our homework consisted of ten problems to solve}\\
+3     & noun.cognition    & A source of difficulty \emph{one trouble after another delayed the job}\\
+\hline
+ \end{tabular}
+}
+\end{plain}
+
+\section{Conclusion}
+
+\begin{points}{Progress so far}
+ \p PropBank/CCGbank integration complete
+ \p Most difficult NomBank/CCGbank integration complete
+ \p Preliminary parsing experiments on modified corpora
+ \p Nicky has BBN and CCG aligned and is working on the integration
+ \p Mike White's group have done something with CCG and discourse parsing
+\end{points}
+
+\begin{points}{Current priorities}
+ \p Get oracle figures for CCGbank-to-SRL
+ \p Error analysis over oracle errors. Further improvements? Problems with CCG?
+ \p Parse with SRL-CCGbank to get joint model performance.
+ \p Tinker with WSD/CCG ideas at some point.
+\end{points}
+
+\begin{points}{Conclusion}
+ \p I am focussing on a representation problem, rather than the learning problem. But
+    do these tasks all fit in one hypothesis space? Will the task be tractable?
+ \p It's currently very difficult to deploy a system that makes use of all the NLU modules.
+ \p If my approach works, it will produce a very efficient all-singing-all-dancing NLU solution.
+ \p The project also raises a lot of questions about our current theories of compositional semantics.
+  
+\end{points}
+
+
+\end{document}
+

@@ -1,0 +1,2186 @@
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.1**CCGInternal**S[dcl]	0
+2**CCGInternal**S[dcl]	1
+3**CCGInternal**S[dcl]	1
+4**CCGInternal**NP	0
+5**CCGInternal**NP	0
+6**CCGInternal**NP	1
+7**CCGInternal**NP[nb]/N	0
+9**CCGLeaf**DT	DT	A	NP[nb]_166/N_166	1
+7**CCGInternal**N	0
+11**CCGLeaf**NN	NN	form	N	2
+6**CCGInternal**NP\NP	0
+12**CCGInternal**(NP\NP)/NP	0
+14**CCGLeaf**IN	IN	of	(NP_174\NP_174)/NP_175	3
+12**CCGInternal**NP	0
+15**CCGInternal**N	0
+17**CCGLeaf**NN	NN	asbestos	N	4
+5**CCGInternal**NP\NP	0
+18**CCGInternal**S[pss]\NP	1
+19**CCGInternal**(S\NP)/(S\NP)	0
+21**CCGLeaf**RB	RB	once	(S_235\NP_230)_235/(S_235\NP_230)_235	5
+19**CCGInternal**S[pss]\NP	0
+22**CCGInternal**(S[pss]\NP)/(S[to]\NP)	0
+24**CCGLeaf**VBN	VBN	used	(S[pss]\NP_187)/(S[to]_188\NP_187:B)_188	6
+22**CCGInternal**S[to]\NP	0
+25**CCGInternal**(S[to]\NP)/(S[b]\NP)	0
+27**CCGLeaf**TO	TO	to	(S[to]\NP_197)/(S[b]_198\NP_197:B)_198	7
+25**CCGInternal**S[b]\NP	0
+28**CCGInternal**(S[b]\NP)/NP	0
+30**CCGLeaf**VB	VB	make	(S[b]\NP_205)/NP_206	8
+28**CCGInternal**NP	0
+31**CCGInternal**N	1
+32**CCGInternal**N/N	0
+34**CCGLeaf**NNP	NNP	Kent	N_222/N_222	9
+32**CCGInternal**N	1
+35**CCGInternal**N/N	0
+37**CCGLeaf**NN	NN	cigarette	N_215/N_215	10
+35**CCGInternal**N	0
+39**CCGLeaf**NNS	NNS	filters	N	11
+4**CCGInternal**S[dcl]\NP	0
+40**CCGInternal**(S[dcl]\NP)/(S[pt]\NP)	0
+42**CCGLeaf**VBZ	VBZ	has	(S[dcl]\NP_23)/(S[pt]_24\NP_23:B)_24	12
+40**CCGInternal**S[pt]\NP	0
+43**CCGInternal**(S[pt]\NP)/NP	0
+45**CCGLeaf**VBN	VBN	caused	(S[pt]\NP_31)/NP_32	13
+43**CCGInternal**NP	0
+46**CCGInternal**NP	0
+47**CCGInternal**NP	1
+48**CCGInternal**NP[nb]/N	0
+50**CCGLeaf**DT	DT	a	NP[nb]_46/N_46	14
+48**CCGInternal**N	1
+51**CCGInternal**N/N	0
+53**CCGLeaf**JJ	JJ	high	N_41/N_41	15
+51**CCGInternal**N	0
+55**CCGLeaf**NN	NN	percentage	N	16
+47**CCGInternal**NP\NP	0
+56**CCGInternal**(NP\NP)/NP	0
+58**CCGLeaf**IN	IN	of	(NP_54\NP_54)/NP_55	17
+56**CCGInternal**NP	0
+59**CCGInternal**N	1
+60**CCGInternal**N/N	0
+62**CCGLeaf**NN	NN	cancer	N_64/N_64	18
+60**CCGInternal**N	0
+64**CCGLeaf**NNS	NNS	deaths	N	19
+46**CCGInternal**NP\NP	0
+65**CCGInternal**(NP\NP)/NP	0
+67**CCGLeaf**IN	IN	among	(NP_73\NP_73)/NP_74	20
+65**CCGInternal**NP	0
+68**CCGInternal**NP	1
+69**CCGInternal**NP[nb]/N	0
+71**CCGLeaf**DT	DT	a	NP[nb]_81/N_81	21
+69**CCGInternal**N	0
+73**CCGLeaf**NN	NN	group	N	22
+68**CCGInternal**NP\NP	0
+74**CCGInternal**(NP\NP)/NP	0
+76**CCGLeaf**IN	IN	of	(NP_89\NP_89)/NP_90	23
+74**CCGInternal**NP	0
+77**CCGInternal**NP	0
+78**CCGInternal**N	0
+80**CCGLeaf**NNS	NNS	workers	N	24
+77**CCGInternal**NP\NP	0
+81**CCGInternal**S[pss]\NP	0
+82**CCGInternal**S[pss]\NP	0
+83**CCGInternal**(S[pss]\NP)/PP	0
+85**CCGLeaf**VBN	VBN	exposed	(S[pss]\NP_100)/PP_101	25
+83**CCGInternal**PP	0
+86**CCGInternal**PP/NP	0
+88**CCGLeaf**TO	TO	to	PP/NP_106	26
+86**CCGInternal**NP	0
+90**CCGLeaf**PRP	PRP	it	NP	27
+82**CCGInternal**(S\NP)\(S\NP)	1
+91**CCGInternal**NP	0
+92**CCGInternal**N	1
+93**CCGInternal**N/N	1
+94**CCGInternal**(N/N)/(N/N)	1
+95**CCGInternal**S[adj]\NP	0
+97**CCGLeaf**RBR	RBR	more	S[adj]\NP_153	28
+95**CCGInternal**((N/N)/(N/N))\(S[adj]\NP)	0
+99**CCGLeaf**IN	IN	than	((N_147/N_139)_147/(N_147/N_139)_147)\(S[adj]_148\NP_142)_148	29
+94**CCGInternal**N/N	0
+101**CCGLeaf**CD	CD	30	N_131/N_131	30
+93**CCGInternal**N	0
+103**CCGLeaf**NNS	NNS	years	N	31
+91**CCGInternal**((S\NP)\(S\NP))\NP	0
+105**CCGLeaf**IN	IN	ago	((S_121\NP_116)_121\(S_121\NP_116)_121)\NP_122	32
+3**CCGInternal**S[dcl]\S[dcl]	1
+106**CCGInternal**,	0
+108**CCGLeaf**,	,	,	,	33
+106**CCGInternal**S[dcl]\S[dcl]	1
+109**CCGInternal**NP	0
+110**CCGInternal**N	0
+112**CCGLeaf**NNS	NNS	researchers	N	34
+109**CCGInternal**(S[dcl]\S[dcl])\NP	0
+114**CCGLeaf**VBD	VBD	reported	(S[dcl]\S[dcl]_8)\NP_9	35
+2**CCGInternal**.	0
+116**CCGLeaf**.	.	.	.	36
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.2**CCGInternal**S[dcl]	0
+118**CCGInternal**S[dcl]	1
+119**CCGInternal**S[dcl]	1
+120**CCGInternal**NP	0
+121**CCGInternal**NP	0
+122**CCGInternal**NP	1
+123**CCGInternal**NP[nb]/N	0
+125**CCGLeaf**DT	DT	The	NP[nb]_387/N_387	37
+123**CCGInternal**N	1
+126**CCGInternal**N/N	0
+128**CCGLeaf**NN	NN	asbestos	N_382/N_382	38
+126**CCGInternal**N	0
+130**CCGLeaf**NN	NN	fiber	N	39
+122**CCGInternal**NP\NP	1
+131**CCGInternal**,	0
+133**CCGLeaf**,	,	,	,	40
+131**CCGInternal**NP	0
+134**CCGInternal**N	0
+136**CCGLeaf**NN	NN	crocidolite	N	41
+121**CCGInternal**,	0
+138**CCGLeaf**,	,	,	,	42
+120**CCGInternal**S[dcl]\NP	0
+139**CCGInternal**S[dcl]\NP	0
+140**CCGInternal**S[dcl]\NP	0
+141**CCGInternal**S[dcl]\NP	0
+142**CCGInternal**(S[dcl]\NP)/(S[adj]\NP)	0
+144**CCGLeaf**VBZ	VBZ	is	(S[dcl]\NP_219)/(S[adj]_220\NP_219:B)_220	43
+142**CCGInternal**S[adj]\NP	1
+145**CCGInternal**(S[adj]\NP)/(S[adj]\NP)	0
+147**CCGLeaf**RB	RB	unusually	(S[adj]_237\NP_232)_237/(S[adj]_237\NP_232)_237	44
+145**CCGInternal**S[adj]\NP	0
+149**CCGLeaf**JJ	JJ	resilient	S[adj]\NP_225	45
+141**CCGInternal**(S\NP)\(S\NP)	0
+150**CCGInternal**((S\NP)\(S\NP))/S[dcl]	0
+152**CCGLeaf**IN	IN	once	((S_250\NP_245)_250\(S_250\NP_245)_250)/S[dcl]_251	46
+150**CCGInternal**S[dcl]	1
+153**CCGInternal**NP	0
+155**CCGLeaf**PRP	PRP	it	NP	47
+153**CCGInternal**S[dcl]\NP	0
+156**CCGInternal**(S[dcl]\NP)/NP	0
+158**CCGLeaf**VBZ	VBZ	enters	(S[dcl]\NP_258)/NP_259	48
+156**CCGInternal**NP	1
+159**CCGInternal**NP[nb]/N	0
+161**CCGLeaf**DT	DT	the	NP[nb]_266/N_266	49
+159**CCGInternal**N	0
+163**CCGLeaf**NNS	NNS	lungs	N	50
+140**CCGInternal**,	0
+165**CCGLeaf**,	,	,	,	51
+139**CCGInternal**(S\NP)\(S\NP)	0
+166**CCGInternal**((S\NP)\(S\NP))/(S[ng]\NP)	0
+167**CCGInternal**(((S\NP)\(S\NP))/(S[ng]\NP))/NP	0
+169**CCGLeaf**IN	IN	with	(((S_287\NP_279)_287\(S_287\NP_279)_287)/(S[ng]_288\NP_282:B)_288)/NP_282	52
+167**CCGInternal**NP	0
+170**CCGInternal**NP	0
+171**CCGInternal**N	1
+172**CCGInternal**N/N	0
+174**CCGLeaf**RB	RB	even	N_305/N_305	53
+172**CCGInternal**N	1
+175**CCGInternal**N/N	0
+177**CCGLeaf**JJ	JJ	brief	N_298/N_298	54
+175**CCGInternal**N	0
+179**CCGLeaf**NNS	NNS	exposures	N	55
+170**CCGInternal**NP\NP	0
+180**CCGInternal**(NP\NP)/NP	0
+182**CCGLeaf**TO	TO	to	(NP_314\NP_314)/NP_315	56
+180**CCGInternal**NP	0
+184**CCGLeaf**PRP	PRP	it	NP	57
+166**CCGInternal**S[ng]\NP	0
+185**CCGInternal**(S[ng]\NP)/NP	0
+187**CCGLeaf**VBG	VBG	causing	(S[ng]\NP_324)/NP_325	58
+185**CCGInternal**NP	0
+188**CCGInternal**NP	0
+189**CCGInternal**N	0
+191**CCGLeaf**NNS	NNS	symptoms	N	59
+188**CCGInternal**NP\NP	0
+192**CCGInternal**(NP\NP)/(S[dcl]\NP)	0
+194**CCGLeaf**WDT	WDT	that	(NP_338\NP_338)/(S[dcl]_339\NP_338:B)_339	60
+192**CCGInternal**S[dcl]\NP	0
+195**CCGInternal**S[dcl]\NP	0
+196**CCGInternal**S[dcl]\NP	0
+198**CCGLeaf**VBP	VBP	show	S[dcl]\NP_344	61
+196**CCGInternal**(S\NP)\(S\NP)	0
+200**CCGLeaf**RP	RP	up	(S_356\NP_351)_356\(S_356\NP_351)_356	62
+195**CCGInternal**(S\NP)\(S\NP)	1
+201**CCGInternal**NP	0
+202**CCGInternal**N	0
+204**CCGLeaf**NNS	NNS	decades	N	63
+201**CCGInternal**((S\NP)\(S\NP))\NP	0
+206**CCGLeaf**JJ	JJ	later	((S_369\NP_364)_369\(S_369\NP_364)_369)\NP_370	64
+119**CCGInternal**S[dcl]\S[dcl]	1
+207**CCGInternal**,	0
+209**CCGLeaf**,	,	,	,	65
+207**CCGInternal**S[dcl]\S[dcl]	1
+210**CCGInternal**NP	0
+211**CCGInternal**N	0
+213**CCGLeaf**NNS	NNS	researchers	N	66
+210**CCGInternal**(S[dcl]\S[dcl])\NP	0
+215**CCGLeaf**VBD	VBD	said	(S[dcl]\S[dcl]_204)\NP_205	67
+118**CCGInternal**.	0
+217**CCGLeaf**.	.	.	.	68
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.3**CCGInternal**S[dcl]	0
+219**CCGInternal**S[dcl]	1
+220**CCGInternal**NP	0
+221**CCGInternal**NP	0
+222**CCGInternal**NP	0
+223**CCGInternal**N	1
+224**CCGInternal**N/N	0
+226**CCGLeaf**NNP	NNP	Lorillard	N_249/N_249	69
+224**CCGInternal**N	0
+228**CCGLeaf**NNP	NNP	Inc.	N	70
+222**CCGInternal**NP\NP	1
+229**CCGInternal**,	0
+231**CCGLeaf**,	,	,	,	71
+229**CCGInternal**NP	0
+232**CCGInternal**NP	0
+233**CCGInternal**NP	1
+234**CCGInternal**NP[nb]/N	0
+236**CCGLeaf**DT	DT	the	NP[nb]_257/N_257	72
+234**CCGInternal**N	0
+238**CCGLeaf**NN	NN	unit	N	73
+233**CCGInternal**NP\NP	0
+239**CCGInternal**(NP\NP)/NP	0
+241**CCGLeaf**IN	IN	of	(NP_265\NP_265)/NP_266	74
+239**CCGInternal**NP	0
+242**CCGInternal**N	1
+243**CCGInternal**N/N	1
+244**CCGInternal**(N/N)/(N/N)	0
+246**CCGLeaf**JJ	JJ	New	(N_296/N_290)_296/(N_296/N_290)_296	75
+244**CCGInternal**N/N	0
+248**CCGLeaf**JJ	JJ	York-based	N_282/N_282	76
+243**CCGInternal**N	1
+249**CCGInternal**N/N	0
+251**CCGLeaf**NNP	NNP	Loews	N_275/N_275	77
+249**CCGInternal**N	0
+253**CCGLeaf**NNP	NNP	Corp.	N	78
+232**CCGInternal**NP\NP	0
+254**CCGInternal**(NP\NP)/(S[dcl]\NP)	0
+256**CCGLeaf**WDT	WDT	that	(NP_307\NP_307)/(S[dcl]_308\NP_307:B)_308	79
+254**CCGInternal**S[dcl]\NP	0
+257**CCGInternal**(S[dcl]\NP)/NP	0
+259**CCGLeaf**VBZ	VBZ	makes	(S[dcl]\NP_315)/NP_316	80
+257**CCGInternal**NP	0
+260**CCGInternal**N	1
+261**CCGInternal**N/N	0
+263**CCGLeaf**NNP	NNP	Kent	N_325/N_325	81
+261**CCGInternal**N	0
+265**CCGLeaf**NNS	NNS	cigarettes	N	82
+221**CCGInternal**,	0
+267**CCGLeaf**,	,	,	,	83
+220**CCGInternal**S[dcl]\NP	0
+268**CCGInternal**(S[dcl]\NP)/(S[ng]\NP)	0
+270**CCGLeaf**VBD	VBD	stopped	(S[dcl]\NP_176)/(S[ng]_177\NP_176:B)_177	84
+268**CCGInternal**S[ng]\NP	0
+271**CCGInternal**S[ng]\NP	0
+272**CCGInternal**S[ng]\NP	0
+273**CCGInternal**(S[ng]\NP)/NP	0
+275**CCGLeaf**VBG	VBG	using	(S[ng]\NP_184)/NP_185	85
+273**CCGInternal**NP	0
+276**CCGInternal**N	0
+278**CCGLeaf**NN	NN	crocidolite	N	86
+272**CCGInternal**(S\NP)\(S\NP)	0
+279**CCGInternal**((S\NP)\(S\NP))/NP	0
+281**CCGLeaf**IN	IN	in	((S_201\NP_196)_201\(S_201\NP_196)_201)/NP_202	87
+279**CCGInternal**NP	1
+282**CCGInternal**NP[nb]/N	0
+284**CCGLeaf**PRP$	PRP$	its	NP[nb]_223/N_223	88
+282**CCGInternal**N	1
+285**CCGInternal**N/N	0
+287**CCGLeaf**NN	NN	Micronite	N_218/N_218	89
+285**CCGInternal**N	1
+288**CCGInternal**N/N	0
+290**CCGLeaf**NN	NN	cigarette	N_211/N_211	90
+288**CCGInternal**N	0
+292**CCGLeaf**NNS	NNS	filters	N	91
+271**CCGInternal**(S\NP)\(S\NP)	0
+293**CCGInternal**((S\NP)\(S\NP))/NP	0
+295**CCGLeaf**IN	IN	in	((S_236\NP_231)_236\(S_236\NP_231)_236)/NP_237	92
+293**CCGInternal**NP	0
+296**CCGInternal**N	0
+298**CCGLeaf**CD	CD	1956	N	93
+219**CCGInternal**.	0
+300**CCGLeaf**.	.	.	.	94
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.4**CCGInternal**S[dcl]	0
+302**CCGInternal**S[dcl]	1
+303**CCGInternal**S/S	0
+304**CCGInternal**(S/S)/S[dcl]	0
+306**CCGLeaf**IN	IN	Although	(S_296/S_296)/S[dcl]_297	95
+304**CCGInternal**S[dcl]	1
+307**CCGInternal**NP	0
+308**CCGInternal**N	1
+309**CCGInternal**N/N	0
+311**CCGLeaf**JJ	JJ	preliminary	N_358/N_358	96
+309**CCGInternal**N	0
+313**CCGLeaf**NNS	NNS	findings	N	97
+307**CCGInternal**S[dcl]\NP	0
+314**CCGInternal**(S[dcl]\NP)/(S[pss]\NP)	0
+316**CCGLeaf**VBD	VBD	were	(S[dcl]\NP_306)/(S[pss]_307\NP_306:B)_307	98
+314**CCGInternal**S[pss]\NP	0
+317**CCGInternal**S[pss]\NP	0
+319**CCGLeaf**VBN	VBN	reported	S[pss]\NP_312	99
+317**CCGInternal**(S\NP)\(S\NP)	1
+320**CCGInternal**NP	1
+321**CCGInternal**NP[nb]/N	1
+322**CCGInternal**NP/NP	1
+323**CCGInternal**S[adj]\NP	0
+325**CCGLeaf**RBR	RBR	more	S[adj]\NP_349	100
+323**CCGInternal**(NP/NP)\(S[adj]\NP)	0
+327**CCGLeaf**IN	IN	than	(NP_343/NP_343)\(S[adj]_344\NP_340)_344	101
+322**CCGInternal**NP[nb]/N	0
+329**CCGLeaf**DT	DT	a	NP[nb]_333/N_333	102
+321**CCGInternal**N	0
+331**CCGLeaf**NN	NN	year	N	103
+320**CCGInternal**((S\NP)\(S\NP))\NP	0
+333**CCGLeaf**IN	IN	ago	((S_325\NP_320)_325\(S_325\NP_320)_325)\NP_326	104
+303**CCGInternal**S[dcl]	1
+334**CCGInternal**,	0
+336**CCGLeaf**,	,	,	,	105
+334**CCGInternal**S[dcl]	1
+337**CCGInternal**NP	1
+338**CCGInternal**NP[nb]/N	0
+340**CCGLeaf**DT	DT	the	NP[nb]_286/N_286	106
+338**CCGInternal**N	1
+341**CCGInternal**N/N	0
+343**CCGLeaf**JJS	JJS	latest	N_281/N_281	107
+341**CCGInternal**N	0
+345**CCGLeaf**NNS	NNS	results	N	108
+337**CCGInternal**S[dcl]\NP	0
+346**CCGInternal**S[dcl]\NP	0
+348**CCGLeaf**VBP	VBP	appear	S[dcl]\NP_146	109
+346**CCGInternal**(S\NP)\(S\NP)	0
+349**CCGInternal**((S\NP)\(S\NP))/NP	0
+351**CCGLeaf**IN	IN	in	((S_159\NP_154)_159\(S_159\NP_154)_159)/NP_160	110
+349**CCGInternal**NP	0
+352**CCGInternal**NP	0
+353**CCGInternal**NP	1
+354**CCGInternal**NP[nb]/N	1
+355**CCGInternal**NP	0
+356**CCGInternal**N	0
+358**CCGLeaf**NN	NN	today	N	111
+355**CCGInternal**(NP[nb]/N)\NP	0
+360**CCGLeaf**POS	POS	's	(NP[nb]_183/N_183)\NP_184	112
+354**CCGInternal**N	1
+361**CCGInternal**N/N	0
+363**CCGLeaf**NNP	NNP	New	N_176/N_176	113
+361**CCGInternal**N	1
+364**CCGInternal**N/N	0
+366**CCGLeaf**NNP	NNP	England	N_169/N_169	114
+364**CCGInternal**N	0
+368**CCGLeaf**NNP	NNP	Journal	N	115
+353**CCGInternal**NP\NP	0
+369**CCGInternal**(NP\NP)/NP	0
+371**CCGLeaf**IN	IN	of	(NP_195\NP_195)/NP_196	116
+369**CCGInternal**NP	0
+372**CCGInternal**N	0
+374**CCGLeaf**NNP	NNP	Medicine	N	117
+352**CCGInternal**NP\NP	1
+375**CCGInternal**,	0
+377**CCGLeaf**,	,	,	,	118
+375**CCGInternal**NP	0
+378**CCGInternal**NP	1
+379**CCGInternal**NP[nb]/N	0
+381**CCGLeaf**DT	DT	a	NP[nb]_206/N_206	119
+379**CCGInternal**N	0
+383**CCGLeaf**NN	NN	forum	N	120
+378**CCGInternal**NP\NP	0
+384**CCGInternal**S[adj]\NP	0
+385**CCGInternal**(S[adj]\NP)/(S[to]\NP)	0
+387**CCGLeaf**JJ	JJ	likely	(S[adj]\NP_215)/(S[to]_216\NP_213)_216	121
+385**CCGInternal**S[to]\NP	0
+388**CCGInternal**(S[to]\NP)/(S[b]\NP)	0
+390**CCGLeaf**TO	TO	to	(S[to]\NP_225)/(S[b]_226\NP_225:B)_226	122
+388**CCGInternal**S[b]\NP	0
+391**CCGInternal**S[b]\NP	0
+392**CCGInternal**(S[b]\NP)/NP	0
+394**CCGLeaf**VB	VB	bring	(S[b]\NP_233)/NP_234	123
+392**CCGInternal**NP	0
+395**CCGInternal**N	1
+396**CCGInternal**N/N	0
+398**CCGLeaf**JJ	JJ	new	N_243/N_243	124
+396**CCGInternal**N	0
+400**CCGLeaf**NN	NN	attention	N	125
+391**CCGInternal**(S\NP)\(S\NP)	0
+401**CCGInternal**((S\NP)\(S\NP))/NP	0
+403**CCGLeaf**TO	TO	to	((S_257\NP_252)_257\(S_257\NP_252)_257)/NP_258	126
+401**CCGInternal**NP	1
+404**CCGInternal**NP[nb]/N	0
+406**CCGLeaf**DT	DT	the	NP[nb]_265/N_265	127
+404**CCGInternal**N	0
+408**CCGLeaf**NN	NN	problem	N	128
+302**CCGInternal**.	0
+410**CCGLeaf**.	.	.	.	129
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.5**CCGInternal**S[dcl]	0
+412**CCGInternal**S[dcl]	1
+413**CCGInternal**NP	1
+414**CCGInternal**NP[nb]/N	0
+416**CCGLeaf**DT	DT	A	NP[nb]_231/N_231	130
+414**CCGInternal**N	1
+417**CCGInternal**N/N	0
+419**CCGLeaf**NNP	NNP	Lorillard	N_226/N_226	131
+417**CCGInternal**N	0
+421**CCGLeaf**NN	NN	spokewoman	N	132
+413**CCGInternal**S[dcl]\NP	0
+422**CCGInternal**(S[dcl]\NP)/S[dcl]	0
+423**CCGInternal**(S[dcl]\NP)/S[dcl]	0
+425**CCGLeaf**VBD	VBD	said	(S[dcl]\NP_190)/S[dcl]_191	133
+423**CCGInternal**,	0
+427**CCGLeaf**,	,	,	,	134
+422**CCGInternal**S[dcl]	1
+428**CCGInternal**NP	0
+430**CCGLeaf**DT	DT	This	NP	135
+428**CCGInternal**S[dcl]\NP	0
+431**CCGInternal**(S[dcl]\NP)/NP	0
+433**CCGLeaf**VBZ	VBZ	is	(S[dcl]\NP_200)/NP_201	136
+431**CCGInternal**NP	1
+434**CCGInternal**NP[nb]/N	0
+436**CCGLeaf**DT	DT	an	NP[nb]_215/N_215	137
+434**CCGInternal**N	1
+437**CCGInternal**N/N	0
+439**CCGLeaf**JJ	JJ	old	N_210/N_210	138
+437**CCGInternal**N	0
+441**CCGLeaf**NN	NN	story	N	139
+412**CCGInternal**.	0
+443**CCGLeaf**.	.	.	.	140
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.6**CCGInternal**S[dcl]	0
+445**CCGInternal**S[dcl]	1
+446**CCGInternal**NP	0
+448**CCGLeaf**PRP	PRP	We	NP	141
+446**CCGInternal**S[dcl]\NP	0
+449**CCGInternal**(S[dcl]\NP)/(S[ng]\NP)	0
+451**CCGLeaf**VBP	VBP	're	(S[dcl]\NP_50)/(S[ng]_51\NP_50:B)_51	142
+449**CCGInternal**S[ng]\NP	0
+452**CCGInternal**(S[ng]\NP)/PP	0
+454**CCGLeaf**VBG	VBG	talking	(S[ng]\NP_58)/PP_59	143
+452**CCGInternal**PP	0
+455**CCGInternal**PP/(S[adj]\NP)	0
+457**CCGLeaf**IN	IN	about	PP/(S[adj]_66\NP_64)_66	144
+455**CCGInternal**S[adj]\NP	0
+458**CCGInternal**S[adj]\NP	1
+459**CCGInternal**NP	0
+460**CCGInternal**N	0
+462**CCGLeaf**NNS	NNS	years	N	145
+459**CCGInternal**(S[adj]\NP)\NP	0
+464**CCGLeaf**IN	IN	ago	(S[adj]\NP_73)\NP_74	146
+458**CCGInternal**(S[adj]\NP)\(S[adj]\NP)	0
+465**CCGInternal**((S[adj]\NP)\(S[adj]\NP))/S[dcl]	0
+467**CCGLeaf**IN	IN	before	((S[adj]_90\NP_85)_90\(S[adj]_90\NP_85)_90)/S[dcl]_91	147
+465**CCGInternal**S[dcl]	1
+468**CCGInternal**NP	0
+470**CCGLeaf**DT	NN	anyone	NP	148
+468**CCGInternal**S[dcl]\NP	0
+471**CCGInternal**(S[dcl]\NP)/PP	0
+473**CCGLeaf**VBD	VBD	heard	(S[dcl]\NP_98)/PP_99	149
+471**CCGInternal**PP	0
+474**CCGInternal**PP/(S[ng]\NP)	0
+475**CCGInternal**(PP/(S[ng]\NP))/NP	0
+477**CCGLeaf**IN	IN	of	(PP/(S[ng]_108\NP_105:B)_108)/NP_105	150
+475**CCGInternal**NP	0
+478**CCGInternal**N	0
+480**CCGLeaf**NN	NN	asbestos	N	151
+474**CCGInternal**S[ng]\NP	0
+481**CCGInternal**(S[ng]\NP)/NP	0
+483**CCGLeaf**VBG	VBG	having	(S[ng]\NP_119)/NP_120	152
+481**CCGInternal**NP	1
+484**CCGInternal**NP[nb]/N	0
+486**CCGLeaf**DT	DT	any	NP[nb]_134/N_134	153
+484**CCGInternal**N	1
+487**CCGInternal**N/N	0
+489**CCGLeaf**JJ	JJ	questionable	N_129/N_129	154
+487**CCGInternal**N	0
+491**CCGLeaf**NNS	NNS	properties	N	155
+445**CCGInternal**.	0
+493**CCGLeaf**.	.	.	.	156
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.7**CCGInternal**S[dcl]	0
+495**CCGInternal**S[dcl]	1
+496**CCGInternal**NP[thr]	0
+498**CCGLeaf**EX	EX	There	NP[thr]	157
+496**CCGInternal**S[dcl]\NP[thr]	0
+499**CCGInternal**S[dcl]\NP[thr]	0
+500**CCGInternal**S[dcl]\NP[thr]	0
+501**CCGInternal**(S[dcl]\NP[thr])/NP	0
+503**CCGLeaf**VBZ	VBZ	is	(S[dcl]\NP[thr]_93)/NP_94	158
+501**CCGInternal**NP	1
+504**CCGInternal**NP[nb]/N	0
+506**CCGLeaf**DT	DT	no	NP[nb]_101/N_101	159
+504**CCGInternal**N	0
+508**CCGLeaf**NN	NN	asbestos	N	160
+500**CCGInternal**(S\NP)\(S\NP)	0
+509**CCGInternal**((S\NP)\(S\NP))/NP	0
+511**CCGLeaf**IN	IN	in	((S_114\NP_109)_114\(S_114\NP_109)_114)/NP_115	161
+509**CCGInternal**NP	1
+512**CCGInternal**NP[nb]/N	0
+514**CCGLeaf**PRP$	PRP$	our	NP[nb]_122/N_122	162
+512**CCGInternal**N	0
+516**CCGLeaf**NNS	NNS	products	N	163
+499**CCGInternal**(S\NP)\(S\NP)	0
+518**CCGLeaf**RB	RB	now	(S_134\NP_129)_134\(S_134\NP_129)_134	164
+495**CCGInternal**.	0
+520**CCGLeaf**.	.	.	.	165
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.8**CCGInternal**S[dcl]	0
+522**CCGInternal**S[dcl]	1
+523**CCGInternal**NP	1
+524**CCGInternal**NP/NP	0
+526**CCGLeaf**DT	DT	Neither	NP_155/NP_155	166
+524**CCGInternal**NP	0
+527**CCGInternal**NP	0
+528**CCGInternal**N	0
+530**CCGLeaf**NNP	NNP	Lorillard	N	167
+527**CCGInternal**NP\NP	1
+531**CCGInternal**conj	0
+533**CCGLeaf**CC	CC	nor	conj	168
+531**CCGInternal**NP	0
+534**CCGInternal**NP	1
+535**CCGInternal**NP[nb]/N	0
+537**CCGLeaf**DT	DT	the	NP[nb]_120/N_120	169
+535**CCGInternal**N	0
+539**CCGLeaf**NNS	NNS	researchers	N	170
+534**CCGInternal**NP\NP	0
+540**CCGInternal**(NP\NP)/(S[dcl]\NP)	0
+542**CCGLeaf**WP	WP	who	(NP_130\NP_130)/(S[dcl]_131\NP_130:B)_131	171
+540**CCGInternal**S[dcl]\NP	0
+543**CCGInternal**(S[dcl]\NP)/NP	0
+545**CCGLeaf**VBD	VBD	studied	(S[dcl]\NP_138)/NP_139	172
+543**CCGInternal**NP	1
+546**CCGInternal**NP[nb]/N	0
+548**CCGLeaf**DT	DT	the	NP[nb]_146/N_146	173
+546**CCGInternal**N	0
+550**CCGLeaf**NNS	NNS	workers	N	174
+523**CCGInternal**S[dcl]\NP	0
+551**CCGInternal**(S[dcl]\NP)/(S[adj]\NP)	0
+553**CCGLeaf**VBD	VBD	were	(S[dcl]\NP_54)/(S[adj]_55\NP_54:B)_55	175
+551**CCGInternal**S[adj]\NP	0
+554**CCGInternal**(S[adj]\NP)/PP	0
+556**CCGLeaf**JJ	JJ	aware	(S[adj]\NP_62)/PP_63	176
+554**CCGInternal**PP	0
+557**CCGInternal**PP/NP	0
+559**CCGLeaf**IN	IN	of	PP/NP_68	177
+557**CCGInternal**NP	0
+560**CCGInternal**NP	1
+561**CCGInternal**NP[nb]/N	0
+563**CCGLeaf**DT	DT	any	NP[nb]_75/N_75	178
+561**CCGInternal**N	0
+565**CCGLeaf**NN	NN	research	N	179
+560**CCGInternal**NP\NP	0
+566**CCGInternal**(NP\NP)/NP	0
+568**CCGLeaf**IN	IN	on	(NP_83\NP_83)/NP_84	180
+566**CCGInternal**NP	0
+569**CCGInternal**NP	0
+570**CCGInternal**N	0
+572**CCGLeaf**NNS	NNS	smokers	N	181
+569**CCGInternal**NP\NP	0
+573**CCGInternal**(NP\NP)/NP	0
+575**CCGLeaf**IN	IN	of	(NP_95\NP_95)/NP_96	182
+573**CCGInternal**NP	1
+576**CCGInternal**NP[nb]/N	0
+578**CCGLeaf**DT	DT	the	NP[nb]_110/N_110	183
+576**CCGInternal**N	1
+579**CCGInternal**N/N	0
+581**CCGLeaf**NNP	NNP	Kent	N_105/N_105	184
+579**CCGInternal**N	0
+583**CCGLeaf**NNS	NNS	cigarettes	N	185
+522**CCGInternal**.	0
+585**CCGLeaf**.	.	.	.	186
+wsj_0003.auto**CCGRoot**S[dcl]	1
+wsj_0003.9**CCGInternal**S[dcl]	1
+587**CCGInternal**S[dcl]	1
+588**CCGInternal**NP	0
+590**CCGLeaf**PRP	PRP	We	NP	187
+588**CCGInternal**S[dcl]\NP	0
+591**CCGInternal**(S[dcl]\NP)/NP	0
+593**CCGLeaf**VBP	VBP	have	(S[dcl]\NP_167)/NP_168	188
+591**CCGInternal**NP	0
+594**CCGInternal**NP	1
+595**CCGInternal**NP[nb]/N	0
+597**CCGLeaf**DT	DT	no	NP[nb]_182/N_182	189
+595**CCGInternal**N	1
+598**CCGInternal**N/N	0
+600**CCGLeaf**JJ	JJ	useful	N_177/N_177	190
+598**CCGInternal**N	0
+602**CCGLeaf**NN	NN	information	N	191
+594**CCGInternal**NP\NP	0
+603**CCGInternal**(NP\NP)/S[qem]	0
+605**CCGLeaf**IN	IN	on	(NP_190\NP_190)/S[qem]_191	192
+603**CCGInternal**S[qem]	0
+606**CCGInternal**S[qem]/S[dcl]	0
+608**CCGLeaf**IN	IN	whether	S[qem]/S[dcl]_196	193
+606**CCGInternal**S[dcl]	1
+609**CCGInternal**NP	0
+610**CCGInternal**N	0
+612**CCGLeaf**NNS	NNS	users	N	194
+609**CCGInternal**S[dcl]\NP	0
+613**CCGInternal**(S[dcl]\NP)/PP	0
+615**CCGLeaf**VBP	VBP	are	(S[dcl]\NP_203)/PP_204	195
+613**CCGInternal**PP	0
+616**CCGInternal**PP/NP	0
+618**CCGLeaf**IN	IN	at	PP/NP_209	196
+616**CCGInternal**NP	0
+619**CCGInternal**N	0
+621**CCGLeaf**NN	NN	risk	N	197
+587**CCGInternal**S[dcl]\S[dcl]	1
+622**CCGInternal**,	0
+624**CCGLeaf**,	,	,	,	198
+622**CCGInternal**S[dcl]\S[dcl]	0
+625**CCGInternal**S[dcl]\S[dcl]	0
+626**CCGInternal**(S[dcl]\S[dcl])/NP	0
+628**CCGLeaf**VBD	VBD	said	(S[dcl]\S[dcl]_102)/NP_103	199
+626**CCGInternal**NP	0
+629**CCGInternal**NP	0
+630**CCGInternal**N	1
+631**CCGInternal**N/N	0
+633**CCGLeaf**NNP	NNP	James	N_119/N_119	200
+631**CCGInternal**N	1
+634**CCGInternal**N/N	0
+636**CCGLeaf**NNP	NNP	A.	N_112/N_112	201
+634**CCGInternal**N	0
+638**CCGLeaf**NNP	NNP	Talcott	N	202
+629**CCGInternal**NP\NP	0
+639**CCGInternal**(NP\NP)/NP	0
+641**CCGLeaf**IN	IN	of	(NP_128\NP_128)/NP_129	203
+639**CCGInternal**NP	1
+642**CCGInternal**NP[nb]/N	1
+643**CCGInternal**NP	0
+644**CCGInternal**N	0
+646**CCGLeaf**NNP	NNP	Boston	N	204
+643**CCGInternal**(NP[nb]/N)\NP	0
+648**CCGLeaf**POS	POS	's	(NP[nb]_152/N_152)\NP_153	205
+642**CCGInternal**N	1
+649**CCGInternal**N/N	0
+651**CCGLeaf**NNP	NNP	Dana-Farber	N_145/N_145	206
+649**CCGInternal**N	1
+652**CCGInternal**N/N	0
+654**CCGLeaf**NNP	NNP	Cancer	N_138/N_138	207
+652**CCGInternal**N	0
+656**CCGLeaf**NNP	NNP	Institute	N	208
+625**CCGInternal**.	0
+658**CCGLeaf**.	.	.	.	209
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.10**CCGInternal**S[dcl]	0
+660**CCGInternal**S[dcl]	1
+661**CCGInternal**NP	0
+662**CCGInternal**N	1
+663**CCGInternal**N/N	0
+665**CCGLeaf**NNP	NNP	Dr.	N_214/N_214	210
+663**CCGInternal**N	0
+667**CCGLeaf**NNP	NNP	Talcott	N	211
+661**CCGInternal**S[dcl]\NP	0
+668**CCGInternal**(S[dcl]\NP)/NP	0
+670**CCGLeaf**VBD	VBD	led	(S[dcl]\NP_108)/NP_109	212
+668**CCGInternal**NP	0
+671**CCGInternal**NP	1
+672**CCGInternal**NP[nb]/N	0
+674**CCGLeaf**DT	DT	a	NP[nb]_116/N_116	213
+672**CCGInternal**N	0
+676**CCGLeaf**NN	NN	team	N	214
+671**CCGInternal**NP\NP	0
+677**CCGInternal**(NP\NP)/NP	0
+679**CCGLeaf**IN	IN	of	(NP_124\NP_124)/NP_125	215
+677**CCGInternal**NP	0
+680**CCGInternal**NP	0
+681**CCGInternal**N	0
+683**CCGLeaf**NNS	NNS	researchers	N	216
+680**CCGInternal**NP\NP	0
+684**CCGInternal**(NP\NP)/NP	0
+686**CCGLeaf**IN	IN	from	(NP_136\NP_136)/NP_137	217
+684**CCGInternal**NP	0
+687**CCGInternal**NP	1
+688**CCGInternal**NP[nb]/N	0
+690**CCGLeaf**DT	DT	the	NP[nb]_158/N_158	218
+688**CCGInternal**N	1
+691**CCGInternal**N/N	0
+693**CCGLeaf**NNP	NNP	National	N_153/N_153	219
+691**CCGInternal**N	1
+694**CCGInternal**N/N	0
+696**CCGLeaf**NNP	NNP	Cancer	N_146/N_146	220
+694**CCGInternal**N	0
+698**CCGLeaf**NNP	NNP	Institute	N	221
+687**CCGInternal**NP\NP	1
+699**CCGInternal**conj	0
+701**CCGLeaf**CC	CC	and	conj	222
+699**CCGInternal**NP	0
+702**CCGInternal**NP	1
+703**CCGInternal**NP[nb]/N	0
+705**CCGLeaf**DT	DT	the	NP[nb]_172/N_172	223
+703**CCGInternal**N	1
+706**CCGInternal**N/N	0
+708**CCGLeaf**JJ	JJ	medical	N_167/N_167	224
+706**CCGInternal**N	0
+710**CCGLeaf**NNS	NNS	schools	N	225
+702**CCGInternal**NP\NP	0
+711**CCGInternal**(NP\NP)/NP	0
+713**CCGLeaf**IN	IN	of	(NP_180\NP_180)/NP_181	226
+711**CCGInternal**NP	0
+714**CCGInternal**NP	0
+715**CCGInternal**N	1
+716**CCGInternal**N/N	0
+718**CCGLeaf**NNP	NNP	Harvard	N_190/N_190	227
+716**CCGInternal**N	0
+720**CCGLeaf**NNP	NNP	University	N	228
+714**CCGInternal**NP\NP	1
+721**CCGInternal**conj	0
+723**CCGLeaf**CC	CC	and	conj	229
+721**CCGInternal**NP	0
+724**CCGInternal**N	1
+725**CCGInternal**N/N	0
+727**CCGLeaf**NNP	NNP	Boston	N_200/N_200	230
+725**CCGInternal**N	0
+729**CCGLeaf**NNP	NNP	University	N	231
+660**CCGInternal**.	0
+731**CCGLeaf**.	.	.	.	232
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.11**CCGInternal**S[dcl]	0
+733**CCGInternal**S[dcl]	1
+734**CCGInternal**NP	1
+735**CCGInternal**NP[nb]/N	0
+737**CCGLeaf**DT	DT	The	NP[nb]_300/N_300	233
+735**CCGInternal**N	1
+738**CCGInternal**N/N	0
+740**CCGLeaf**NNP	NNP	Lorillard	N_295/N_295	234
+738**CCGInternal**N	0
+742**CCGLeaf**NN	NN	spokeswoman	N	235
+734**CCGInternal**S[dcl]\NP	0
+743**CCGInternal**(S[dcl]\NP)/S[dcl]	0
+745**CCGLeaf**VBD	VBD	said	(S[dcl]\NP_100)/S[dcl]_101	236
+743**CCGInternal**S[dcl]	1
+746**CCGInternal**NP	0
+747**CCGInternal**N	0
+749**CCGLeaf**NN	NN	asbestos	N	237
+746**CCGInternal**S[dcl]\NP	0
+750**CCGInternal**(S[dcl]\NP)/(S[pss]\NP)	0
+752**CCGLeaf**VBD	VBD	was	(S[dcl]\NP_110)/(S[pss]_111\NP_110:B)_111	238
+750**CCGInternal**S[pss]\NP	0
+753**CCGInternal**S[pss]\NP	0
+754**CCGInternal**S[pss]\NP	0
+755**CCGInternal**S[pss]\NP	0
+756**CCGInternal**(S[pss]\NP)/PP	0
+758**CCGLeaf**VBN	VBN	used	(S[pss]\NP_118)/PP_119	239
+756**CCGInternal**PP	0
+759**CCGInternal**PP/NP	0
+761**CCGLeaf**IN	IN	in	PP/NP_124	240
+759**CCGInternal**NP	0
+762**CCGInternal**N	1
+763**CCGInternal**N/N	1
+764**CCGInternal**(N/N)/(N/N)	0
+766**CCGLeaf**RB	RB	very	(N_147/N_141)_147/(N_147/N_141)_147	241
+764**CCGInternal**N/N	0
+768**CCGLeaf**JJ	JJ	modest	N_133/N_133	242
+763**CCGInternal**N	0
+770**CCGLeaf**NNS	NNS	amounts	N	243
+755**CCGInternal**(S\NP)\(S\NP)	0
+771**CCGInternal**((S\NP)\(S\NP))/(S[ng]\NP)	0
+773**CCGLeaf**IN	IN	in	((S_163\NP_156)_163\(S_163\NP_156)_163)/(S[ng]_164\NP_156:B)_164	244
+771**CCGInternal**S[ng]\NP	0
+774**CCGInternal**(S[ng]\NP)/NP	0
+776**CCGLeaf**VBG	VBG	making	(S[ng]\NP_171)/NP_172	245
+774**CCGInternal**NP	0
+777**CCGInternal**NP	0
+778**CCGInternal**N	0
+780**CCGLeaf**NN	NN	paper	N	246
+777**CCGInternal**NP\NP	0
+781**CCGInternal**(NP\NP)/NP	0
+783**CCGLeaf**IN	IN	for	(NP_183\NP_183)/NP_184	247
+781**CCGInternal**NP	1
+784**CCGInternal**NP[nb]/N	0
+786**CCGLeaf**DT	DT	the	NP[nb]_191/N_191	248
+784**CCGInternal**N	0
+788**CCGLeaf**NNS	NNS	filters	N	249
+754**CCGInternal**(S\NP)\(S\NP)	0
+789**CCGInternal**((S\NP)\(S\NP))/NP	0
+791**CCGLeaf**IN	IN	in	((S_204\NP_199)_204\(S_204\NP_199)_204)/NP_205	250
+789**CCGInternal**NP	1
+792**CCGInternal**NP[nb]/N	0
+794**CCGLeaf**DT	DT	the	NP[nb]_219/N_219	251
+792**CCGInternal**N	1
+795**CCGInternal**N/N	0
+797**CCGLeaf**JJ	JJ	early	N_214/N_214	252
+795**CCGInternal**N	0
+799**CCGLeaf**CD	CD	1950s	N	253
+753**CCGInternal**(S[pss]\NP)\(S[pss]\NP)	1
+800**CCGInternal**conj	0
+802**CCGLeaf**CC	CC	and	conj	254
+800**CCGInternal**S[pss]\NP	0
+803**CCGInternal**S[pss]\NP	0
+804**CCGInternal**S[pss]\NP	0
+806**CCGLeaf**VBN	VBN	replaced	S[pss]\NP_224	255
+804**CCGInternal**(S\NP)\(S\NP)	0
+807**CCGInternal**((S\NP)\(S\NP))/NP	0
+809**CCGLeaf**IN	IN	with	((S_237\NP_232)_237\(S_237\NP_232)_237)/NP_238	256
+807**CCGInternal**NP	0
+810**CCGInternal**NP	1
+811**CCGInternal**NP[nb]/N	0
+813**CCGLeaf**DT	DT	a	NP[nb]_252/N_252	257
+811**CCGInternal**N	1
+814**CCGInternal**N/N	0
+816**CCGLeaf**JJ	JJ	different	N_247/N_247	258
+814**CCGInternal**N	0
+818**CCGLeaf**NN	NN	type	N	259
+810**CCGInternal**NP\NP	0
+819**CCGInternal**(NP\NP)/NP	0
+821**CCGLeaf**IN	IN	of	(NP_260\NP_260)/NP_261	260
+819**CCGInternal**NP	0
+822**CCGInternal**N	0
+824**CCGLeaf**NN	NN	filter	N	261
+803**CCGInternal**(S\NP)\(S\NP)	0
+825**CCGInternal**((S\NP)\(S\NP))/NP	0
+827**CCGLeaf**IN	IN	in	((S_277\NP_272)_277\(S_277\NP_272)_277)/NP_278	262
+825**CCGInternal**NP	0
+828**CCGInternal**N	0
+830**CCGLeaf**CD	CD	1956	N	263
+733**CCGInternal**.	0
+832**CCGLeaf**.	.	.	.	264
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.12**CCGInternal**S[dcl]	0
+834**CCGInternal**S[dcl]	1
+835**CCGInternal**S[dcl]	1
+836**CCGInternal**S/S	1
+837**CCGInternal**(S/S)/(S/S)	0
+838**CCGInternal**((S/S)/(S/S))/NP	0
+840**CCGLeaf**IN	IN	From	((S_290/S_284)_290/(S_290/S_284)_290)/NP_291	265
+838**CCGInternal**NP	0
+841**CCGInternal**N	0
+843**CCGLeaf**CD	CD	1953	N	266
+837**CCGInternal**S/S	0
+844**CCGInternal**(S/S)/NP	0
+846**CCGLeaf**TO	TO	to	(S_272/S_272)/NP_273	267
+844**CCGInternal**NP	0
+847**CCGInternal**N	0
+849**CCGLeaf**CD	CD	1955	N	268
+836**CCGInternal**S[dcl]	1
+850**CCGInternal**,	0
+852**CCGLeaf**,	,	,	,	269
+850**CCGInternal**S[dcl]	1
+853**CCGInternal**NP	0
+854**CCGInternal**NP	0
+855**CCGInternal**N	1
+856**CCGInternal**N/N	1
+857**CCGInternal**(N/N)/(N/N)	0
+859**CCGLeaf**CD	CD	9.8	(N_245/N_239)_245/(N_245/N_239)_245	270
+857**CCGInternal**N/N	0
+861**CCGLeaf**CD	CD	billion	N_231/N_231	271
+856**CCGInternal**N	1
+862**CCGInternal**N/N	0
+864**CCGLeaf**NNP	NNP	Kent	N_224/N_224	272
+862**CCGInternal**N	0
+866**CCGLeaf**NNS	NNS	cigarettes	N	273
+854**CCGInternal**NP\NP	0
+867**CCGInternal**(NP\NP)/NP	0
+869**CCGLeaf**IN	IN	with	(NP_254\NP_254)/NP_255	274
+867**CCGInternal**NP	1
+870**CCGInternal**NP[nb]/N	0
+872**CCGLeaf**DT	DT	the	NP[nb]_262/N_262	275
+870**CCGInternal**N	0
+874**CCGLeaf**NNS	NNS	filters	N	276
+853**CCGInternal**S[dcl]\NP	0
+875**CCGInternal**(S[dcl]\NP)/(S[pss]\NP)	0
+877**CCGLeaf**VBD	VBD	were	(S[dcl]\NP_209)/(S[pss]_210\NP_209:B)_210	277
+875**CCGInternal**S[pss]\NP	0
+879**CCGLeaf**VBN	VBN	sold	S[pss]\NP_215	278
+835**CCGInternal**S[dcl]\S[dcl]	1
+880**CCGInternal**,	0
+882**CCGLeaf**,	,	,	,	279
+880**CCGInternal**S[dcl]\S[dcl]	1
+883**CCGInternal**NP	1
+884**CCGInternal**NP[nb]/N	0
+886**CCGLeaf**DT	DT	the	NP[nb]_198/N_198	280
+884**CCGInternal**N	0
+888**CCGLeaf**NN	NN	company	N	281
+883**CCGInternal**(S[dcl]\S[dcl])\NP	0
+890**CCGLeaf**VBD	VBD	said	(S[dcl]\S[dcl]_190)\NP_191	282
+834**CCGInternal**.	0
+892**CCGLeaf**.	.	.	.	283
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.13**CCGInternal**S[dcl]	0
+894**CCGInternal**S[dcl]	1
+895**CCGInternal**S/S	0
+896**CCGInternal**(S/S)/NP	0
+898**CCGLeaf**IN	IN	Among	(S_194/S_194)/NP_195	284
+896**CCGInternal**NP	0
+899**CCGInternal**NP	0
+900**CCGInternal**N	1
+901**CCGInternal**N/N	0
+903**CCGLeaf**CD	CD	33	N_204/N_204	285
+901**CCGInternal**N	0
+905**CCGLeaf**NNS	NNS	men	N	286
+899**CCGInternal**NP\NP	0
+906**CCGInternal**(NP\NP)/(S[dcl]\NP)	0
+908**CCGLeaf**WP	WP	who	(NP_215\NP_215)/(S[dcl]_216\NP_215:B)_216	287
+906**CCGInternal**S[dcl]\NP	0
+909**CCGInternal**(S[dcl]\NP)/PP	0
+910**CCGInternal**(S[dcl]\NP)/PP	0
+912**CCGLeaf**VBD	VBD	worked	(S[dcl]\NP_223)/PP_224	288
+910**CCGInternal**(S\NP)\(S\NP)	0
+914**CCGLeaf**RB	RB	closely	(S_236\NP_231)_236\(S_236\NP_231)_236	289
+909**CCGInternal**PP	0
+915**CCGInternal**PP/NP	0
+917**CCGLeaf**IN	IN	with	PP/NP_241	290
+915**CCGInternal**NP	1
+918**CCGInternal**NP[nb]/N	0
+920**CCGLeaf**DT	DT	the	NP[nb]_248/N_248	291
+918**CCGInternal**N	0
+922**CCGLeaf**NN	NN	substance	N	292
+895**CCGInternal**S[dcl]	1
+923**CCGInternal**,	0
+925**CCGLeaf**,	,	,	,	293
+923**CCGInternal**S[dcl]	1
+926**CCGInternal**NP	0
+927**CCGInternal**N	0
+929**CCGLeaf**CD	CD	28	N	294
+926**CCGInternal**S[dcl]\NP	0
+930**CCGInternal**(S[dcl]\NP)/(S[pt]\NP)	0
+932**CCGLeaf**VBP	VBP	have	(S[dcl]\NP_104)/(S[pt]_105\NP_104:B)_105	295
+930**CCGInternal**S[pt]\NP	0
+933**CCGInternal**S[pt]\NP	0
+935**CCGLeaf**VBN	VBN	died	S[pt]\NP_110	296
+933**CCGInternal**(S\NP)\(S\NP)	0
+936**CCGInternal**((S\NP)\(S\NP))/NP	0
+938**CCGLeaf**IN	:	--	((S_123\NP_118)_123\(S_123\NP_118)_123)/NP_124	297
+936**CCGInternal**NP	1
+939**CCGInternal**NP[nb]/N	1
+940**CCGInternal**NP/NP	1
+941**CCGInternal**(NP/NP)/(NP/NP)	1
+942**CCGInternal**S[adj]\NP	0
+944**CCGLeaf**JJ	JJ	more	S[adj]\NP_181	298
+942**CCGInternal**((NP/NP)/(NP/NP))\(S[adj]\NP)	0
+946**CCGLeaf**IN	IN	than	((NP_175/NP_167)_175/(NP_175/NP_167)_175)\(S[adj]_176\NP_170)_176	299
+941**CCGInternal**NP/NP	1
+947**CCGInternal**(NP/NP)/(NP/NP)	0
+949**CCGLeaf**CD	CD	three	(NP_159/NP_153)_159/(NP_159/NP_153)_159	300
+947**CCGInternal**NP/NP	0
+951**CCGLeaf**NNS	NNS	times	NP_145/NP_145	301
+940**CCGInternal**NP[nb]/N	0
+953**CCGLeaf**DT	DT	the	NP[nb]_138/N_138	302
+939**CCGInternal**N	1
+954**CCGInternal**N/N	0
+956**CCGLeaf**VBN	VBN	expected	N_133/N_133	303
+954**CCGInternal**N	0
+958**CCGLeaf**NN	NN	number	N	304
+894**CCGInternal**.	0
+960**CCGLeaf**.	.	.	.	305
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.14**CCGInternal**S[dcl]	0
+962**CCGInternal**S[dcl]	1
+963**CCGInternal**NP	0
+964**CCGInternal**NP	0
+965**CCGInternal**N	0
+967**CCGLeaf**CD	CD	Four	N	306
+964**CCGInternal**NP\NP	0
+968**CCGInternal**(NP\NP)/NP	0
+970**CCGLeaf**IN	IN	of	(NP_218\NP_218)/NP_219	307
+968**CCGInternal**NP	1
+971**CCGInternal**NP[nb]/N	0
+973**CCGLeaf**DT	DT	the	NP[nb]_240/N_240	308
+971**CCGInternal**N	1
+974**CCGInternal**N/N	0
+976**CCGLeaf**CD	CD	five	N_235/N_235	309
+974**CCGInternal**N	1
+977**CCGInternal**N/N	0
+979**CCGLeaf**VBG	VBG	surviving	N_228/N_228	310
+977**CCGInternal**N	0
+981**CCGLeaf**NNS	NNS	workers	N	311
+963**CCGInternal**S[dcl]\NP	0
+982**CCGInternal**S[dcl]\NP	0
+983**CCGInternal**S[dcl]\NP	0
+984**CCGInternal**(S[dcl]\NP)/NP	0
+986**CCGLeaf**VBP	VBP	have	(S[dcl]\NP_144)/NP_145	312
+984**CCGInternal**NP	0
+987**CCGInternal**N	1
+988**CCGInternal**N/N	0
+990**CCGLeaf**JJ	JJ	asbestos-related	N_154/N_154	313
+988**CCGInternal**N	0
+992**CCGLeaf**NNS	NNS	diseases	N	314
+983**CCGInternal**,	0
+994**CCGLeaf**,	,	,	,	315
+982**CCGInternal**(S\NP)\(S\NP)	0
+995**CCGInternal**((S\NP)\(S\NP))/NP	0
+997**CCGLeaf**VBG	VBG	including	((S_170\NP_165)_170\(S_170\NP_165)_170)/NP_171	316
+995**CCGInternal**NP	0
+998**CCGInternal**NP	0
+999**CCGInternal**N	0
+1001**CCGLeaf**CD	CD	three	N	317
+998**CCGInternal**NP\NP	0
+1002**CCGInternal**(NP\NP)/NP	0
+1004**CCGLeaf**IN	IN	with	(NP_182\NP_182)/NP_183	318
+1002**CCGInternal**NP	0
+1005**CCGInternal**N	1
+1006**CCGInternal**N/N	1
+1007**CCGInternal**(N/N)/(N/N)	0
+1009**CCGLeaf**RB	RB	recently	(N_206/N_200)_206/(N_206/N_200)_206	319
+1007**CCGInternal**N/N	0
+1011**CCGLeaf**VBN	VBN	diagnosed	N_192/N_192	320
+1006**CCGInternal**N	0
+1013**CCGLeaf**NN	NN	cancer	N	321
+962**CCGInternal**.	0
+1015**CCGLeaf**.	.	.	.	322
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.15**CCGInternal**S[dcl]	0
+1017**CCGInternal**S[dcl]	1
+1018**CCGInternal**S[dcl]	1
+1019**CCGInternal**NP	0
+1020**CCGInternal**NP	1
+1021**CCGInternal**NP[nb]/N	0
+1023**CCGLeaf**DT	DT	The	NP[nb]_160/N_160	323
+1021**CCGInternal**N	0
+1025**CCGLeaf**NN	NN	total	N	324
+1020**CCGInternal**NP\NP	0
+1026**CCGInternal**(NP\NP)/NP	0
+1028**CCGLeaf**IN	IN	of	(NP_168\NP_168)/NP_169	325
+1026**CCGInternal**NP	0
+1029**CCGInternal**NP	0
+1030**CCGInternal**N	1
+1031**CCGInternal**N/N	0
+1033**CCGLeaf**CD	CD	18	N_178/N_178	326
+1031**CCGInternal**N	0
+1035**CCGLeaf**NNS	NNS	deaths	N	327
+1029**CCGInternal**NP\NP	0
+1036**CCGInternal**(NP\NP)/NP	0
+1038**CCGLeaf**IN	IN	from	(NP_187\NP_187)/NP_188	328
+1036**CCGInternal**NP	0
+1039**CCGInternal**NP	0
+1040**CCGInternal**N	1
+1041**CCGInternal**N/N	0
+1043**CCGLeaf**JJ	JJ	malignant	N_197/N_197	329
+1041**CCGInternal**N	0
+1045**CCGLeaf**NN	NN	mesothelioma	N	330
+1039**CCGInternal**NP\NP	1
+1046**CCGInternal**,	0
+1048**CCGLeaf**,	,	,	,	331
+1046**CCGInternal**NP	0
+1049**CCGInternal**NP	0
+1050**CCGInternal**N	1
+1051**CCGInternal**N/N	0
+1053**CCGLeaf**NN	NN	lung	N_207/N_207	332
+1051**CCGInternal**N	0
+1055**CCGLeaf**NN	NN	cancer	N	333
+1049**CCGInternal**NP\NP	1
+1056**CCGInternal**conj	0
+1058**CCGLeaf**CC	CC	and	conj	334
+1056**CCGInternal**NP	0
+1059**CCGInternal**N	0
+1061**CCGLeaf**NN	NN	asbestosis	N	335
+1019**CCGInternal**S[dcl]\NP	0
+1062**CCGInternal**(S[dcl]\NP)/(S[adj]\NP)	0
+1064**CCGLeaf**VBD	VBD	was	(S[dcl]\NP_114)/(S[adj]_115\NP_114:B)_115	336
+1062**CCGInternal**S[adj]\NP	0
+1065**CCGInternal**S[adj]\NP	1
+1066**CCGInternal**(S[adj]\NP)/(S[adj]\NP)	0
+1068**CCGLeaf**RB	RB	far	(S[adj]_132\NP_127)_132/(S[adj]_132\NP_127)_132	337
+1066**CCGInternal**S[adj]\NP	0
+1070**CCGLeaf**JJR	JJR	higher	S[adj]\NP_120	338
+1065**CCGInternal**(S[adj]\NP)\(S[adj]\NP)	0
+1071**CCGInternal**((S[adj]\NP)\(S[adj]\NP))/(S[pss]\NP)	0
+1073**CCGLeaf**IN	IN	than	((S[adj]_147\NP_140)_147\(S[adj]_147\NP_140)_147)/(S[pss]_148\NP_143)_148	339
+1071**CCGInternal**S[pss]\NP	0
+1075**CCGLeaf**VBN	VBN	expected	S[pss]\NP_153	340
+1018**CCGInternal**S[dcl]\S[dcl]	1
+1076**CCGInternal**,	0
+1078**CCGLeaf**,	,	,	,	341
+1076**CCGInternal**S[dcl]\S[dcl]	1
+1079**CCGInternal**NP	1
+1080**CCGInternal**NP[nb]/N	0
+1082**CCGLeaf**DT	DT	the	NP[nb]_103/N_103	342
+1080**CCGInternal**N	0
+1084**CCGLeaf**NNS	NNS	researchers	N	343
+1079**CCGInternal**(S[dcl]\S[dcl])\NP	0
+1086**CCGLeaf**VBD	VBD	said	(S[dcl]\S[dcl]_95)\NP_96	344
+1017**CCGInternal**.	0
+1088**CCGLeaf**.	.	.	.	345
+wsj_0003.auto**CCGRoot**S[dcl]	1
+wsj_0003.16**CCGInternal**S[dcl]	1
+1090**CCGInternal**S[dcl]	1
+1091**CCGInternal**NP	1
+1092**CCGInternal**NP[nb]/N	0
+1094**CCGLeaf**DT	DT	The	NP[nb]_215/N_215	346
+1092**CCGInternal**N	1
+1095**CCGInternal**N/N	0
+1097**CCGLeaf**NN	NN	morbidity	N_210/N_210	347
+1095**CCGInternal**N	0
+1099**CCGLeaf**NN	NN	rate	N	348
+1091**CCGInternal**S[dcl]\NP	0
+1100**CCGInternal**S[dcl]\NP	0
+1101**CCGInternal**(S[dcl]\NP)/NP	0
+1103**CCGLeaf**VBZ	VBZ	is	(S[dcl]\NP_130)/NP_131	349
+1101**CCGInternal**NP	1
+1104**CCGInternal**NP[nb]/N	0
+1106**CCGLeaf**DT	DT	a	NP[nb]_145/N_145	350
+1104**CCGInternal**N	1
+1107**CCGInternal**N/N	0
+1109**CCGLeaf**JJ	JJ	striking	N_140/N_140	351
+1107**CCGInternal**N	0
+1111**CCGLeaf**NN	NN	finding	N	352
+1100**CCGInternal**(S\NP)\(S\NP)	0
+1112**CCGInternal**((S\NP)\(S\NP))/NP	0
+1114**CCGLeaf**IN	IN	among	((S_158\NP_153)_158\(S_158\NP_153)_158)/NP_159	353
+1112**CCGInternal**NP	0
+1115**CCGInternal**NP	0
+1116**CCGInternal**NP	0
+1118**CCGLeaf**DT	DT	those	NP	354
+1116**CCGInternal**NP\NP	0
+1119**CCGInternal**(NP\NP)/NP	0
+1121**CCGLeaf**IN	IN	of	(NP_169\NP_169)/NP_170	355
+1119**CCGInternal**NP	0
+1123**CCGLeaf**PRP	PRP	us	NP	356
+1115**CCGInternal**NP\NP	0
+1124**CCGInternal**(NP\NP)/(S[dcl]\NP)	0
+1126**CCGLeaf**WP	WP	who	(NP_182\NP_182)/(S[dcl]_183\NP_182:B)_183	357
+1124**CCGInternal**S[dcl]\NP	0
+1127**CCGInternal**(S[dcl]\NP)/NP	0
+1129**CCGLeaf**VBP	VBP	study	(S[dcl]\NP_190)/NP_191	358
+1127**CCGInternal**NP	0
+1130**CCGInternal**N	1
+1131**CCGInternal**N/N	0
+1133**CCGLeaf**JJ	JJ	asbestos-related	N_200/N_200	359
+1131**CCGInternal**N	0
+1135**CCGLeaf**NNS	NNS	diseases	N	360
+1090**CCGInternal**S[dcl]\S[dcl]	1
+1136**CCGInternal**,	0
+1138**CCGLeaf**,	,	,	,	361
+1136**CCGInternal**S[dcl]\S[dcl]	0
+1139**CCGInternal**S[dcl]\S[dcl]	0
+1140**CCGInternal**(S[dcl]\S[dcl])/NP	0
+1142**CCGLeaf**VBD	VBD	said	(S[dcl]\S[dcl]_108)/NP_109	362
+1140**CCGInternal**NP	0
+1143**CCGInternal**N	1
+1144**CCGInternal**N/N	0
+1146**CCGLeaf**NNP	NNP	Dr.	N_118/N_118	363
+1144**CCGInternal**N	0
+1148**CCGLeaf**NNP	NNP	Talcott	N	364
+1139**CCGInternal**.	0
+1150**CCGLeaf**.	.	.	.	365
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.17**CCGInternal**S[dcl]	0
+1152**CCGInternal**S[dcl]	1
+1153**CCGInternal**S[dcl]	1
+1154**CCGInternal**NP	0
+1155**CCGInternal**NP	0
+1156**CCGInternal**NP	1
+1157**CCGInternal**NP[nb]/N	0
+1159**CCGLeaf**DT	DT	The	NP[nb]_215/N_215	366
+1157**CCGInternal**N	0
+1161**CCGLeaf**NN	NN	percentage	N	367
+1156**CCGInternal**NP\NP	0
+1162**CCGInternal**(NP\NP)/NP	0
+1164**CCGLeaf**IN	IN	of	(NP_223\NP_223)/NP_224	368
+1162**CCGInternal**NP	0
+1165**CCGInternal**N	1
+1166**CCGInternal**N/N	0
+1168**CCGLeaf**NN	NN	lung	N_240/N_240	369
+1166**CCGInternal**N	1
+1169**CCGInternal**N/N	0
+1171**CCGLeaf**NN	NN	cancer	N_233/N_233	370
+1169**CCGInternal**N	0
+1173**CCGLeaf**NNS	NNS	deaths	N	371
+1155**CCGInternal**NP\NP	0
+1174**CCGInternal**(NP\NP)/NP	0
+1176**CCGLeaf**IN	IN	among	(NP_249\NP_249)/NP_250	372
+1174**CCGInternal**NP	0
+1177**CCGInternal**NP	1
+1178**CCGInternal**NP[nb]/N	0
+1180**CCGLeaf**DT	DT	the	NP[nb]_257/N_257	373
+1178**CCGInternal**N	0
+1182**CCGLeaf**NNS	NNS	workers	N	374
+1177**CCGInternal**NP\NP	0
+1183**CCGInternal**(NP\NP)/NP	0
+1185**CCGLeaf**IN	IN	at	(NP_265\NP_265)/NP_266	375
+1183**CCGInternal**NP	1
+1186**CCGInternal**NP[nb]/N	0
+1188**CCGLeaf**DT	DT	the	NP[nb]_319/N_319	376
+1186**CCGInternal**N	1
+1189**CCGInternal**N/N	1
+1190**CCGInternal**(N/N)/(N/N)	0
+1192**CCGLeaf**NNP	NNP	West	(N_314/N_308)_314/(N_314/N_308)_314	377
+1190**CCGInternal**N/N	1
+1193**CCGInternal**(N/N)/(N/N)	0
+1195**CCGLeaf**NNP	NNP	Groton	(N_300/N_294)_300/(N_300/N_294)_300	378
+1193**CCGInternal**N/N	1
+1196**CCGInternal**,	0
+1198**CCGLeaf**,	,	,	,	379
+1196**CCGInternal**N/N	0
+1199**CCGInternal**N/N	0
+1201**CCGLeaf**NNP	NNP	Mass.	N_282/N_282	380
+1199**CCGInternal**,	0
+1203**CCGLeaf**,	,	,	,	381
+1189**CCGInternal**N	1
+1204**CCGInternal**N/N	0
+1206**CCGLeaf**NN	NN	paper	N_275/N_275	382
+1204**CCGInternal**N	0
+1208**CCGLeaf**NN	NN	factory	N	383
+1154**CCGInternal**S[dcl]\NP	0
+1209**CCGInternal**(S[dcl]\NP)/(S[to]\NP)	0
+1211**CCGLeaf**VBZ	VBZ	appears	(S[dcl]\NP_118)/(S[to]_119\NP_118:B)_119	384
+1209**CCGInternal**S[to]\NP	0
+1212**CCGInternal**(S[to]\NP)/(S[b]\NP)	0
+1214**CCGLeaf**TO	TO	to	(S[to]\NP_128)/(S[b]_129\NP_128:B)_129	385
+1212**CCGInternal**S[b]\NP	0
+1215**CCGInternal**(S[b]\NP)/NP	0
+1217**CCGLeaf**VB	VB	be	(S[b]\NP_136)/NP_137	386
+1215**CCGInternal**NP	0
+1218**CCGInternal**NP	1
+1219**CCGInternal**NP[nb]/N	0
+1221**CCGLeaf**DT	DT	the	NP[nb]_144/N_144	387
+1219**CCGInternal**N	0
+1223**CCGLeaf**JJS	JJS	highest	N	388
+1218**CCGInternal**NP\NP	0
+1224**CCGInternal**(NP\NP)/NP	0
+1226**CCGLeaf**IN	IN	for	(NP_152\NP_152)/NP_153	389
+1224**CCGInternal**NP	0
+1227**CCGInternal**NP	1
+1228**CCGInternal**NP[nb]/N	0
+1230**CCGLeaf**DT	DT	any	NP[nb]_167/N_167	390
+1228**CCGInternal**N	1
+1231**CCGInternal**N/N	0
+1233**CCGLeaf**NN	NN	asbestos	N_162/N_162	391
+1231**CCGInternal**N	0
+1235**CCGLeaf**NNS	NNS	workers	N	392
+1227**CCGInternal**NP\NP	0
+1236**CCGInternal**S[pss]\NP	0
+1237**CCGInternal**S[pss]\NP	0
+1239**CCGLeaf**VBN	VBN	studied	S[pss]\NP_172	393
+1237**CCGInternal**(S\NP)\(S\NP)	0
+1240**CCGInternal**((S\NP)\(S\NP))/NP	0
+1242**CCGLeaf**IN	IN	in	((S_185\NP_180)_185\(S_185\NP_180)_185)/NP_186	394
+1240**CCGInternal**NP	0
+1243**CCGInternal**N	1
+1244**CCGInternal**N/N	0
+1246**CCGLeaf**JJ	JJ	Western	N_202/N_202	395
+1244**CCGInternal**N	1
+1247**CCGInternal**N/N	0
+1249**CCGLeaf**VBN	VBN	industrialized	N_195/N_195	396
+1247**CCGInternal**N	0
+1251**CCGLeaf**NNS	NNS	countries	N	397
+1153**CCGInternal**S[dcl]\S[dcl]	1
+1252**CCGInternal**,	0
+1254**CCGLeaf**,	,	,	,	398
+1252**CCGInternal**S[dcl]\S[dcl]	1
+1255**CCGInternal**NP	0
+1257**CCGLeaf**PRP	PRP	he	NP	399
+1255**CCGInternal**(S[dcl]\S[dcl])\NP	0
+1259**CCGLeaf**VBD	VBD	said	(S[dcl]\S[dcl]_104)\NP_105	400
+1152**CCGInternal**.	0
+1261**CCGLeaf**.	.	.	.	401
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.18**CCGInternal**S[dcl]	0
+1263**CCGInternal**S[dcl]	1
+1264**CCGInternal**NP	0
+1265**CCGInternal**NP	0
+1266**CCGInternal**NP	0
+1267**CCGInternal**NP	1
+1268**CCGInternal**NP[nb]/N	0
+1270**CCGLeaf**DT	DT	The	NP[nb]_266/N_266	402
+1268**CCGInternal**N	0
+1272**CCGLeaf**NN	NN	plant	N	403
+1267**CCGInternal**,	0
+1274**CCGLeaf**,	,	,	,	404
+1266**CCGInternal**NP\NP	0
+1275**CCGInternal**(NP\NP)/(S[dcl]\NP)	0
+1277**CCGLeaf**WDT	WDT	which	(NP_278\NP_278)/(S[dcl]_279\NP_278:B)_279	405
+1275**CCGInternal**S[dcl]\NP	0
+1278**CCGInternal**(S[dcl]\NP)/(S[pss]\NP)	0
+1280**CCGLeaf**VBZ	VBZ	is	(S[dcl]\NP_288)/(S[pss]_289\NP_288:B)_289	406
+1278**CCGInternal**S[pss]\NP	0
+1281**CCGInternal**S[pss]\NP	0
+1283**CCGLeaf**VBN	VBN	owned	S[pss]\NP_294	407
+1281**CCGInternal**(S\NP)\(S\NP)	0
+1284**CCGInternal**((S\NP)\(S\NP))/NP	0
+1286**CCGLeaf**IN	IN	by	((S_307\NP_302)_307\(S_307\NP_302)_307)/NP_308	408
+1284**CCGInternal**NP	0
+1287**CCGInternal**N	1
+1288**CCGInternal**N/N	0
+1290**CCGLeaf**NNP	NNP	Hollingsworth	N_331/N_331	409
+1288**CCGInternal**N	1
+1291**CCGInternal**N/N	0
+1293**CCGLeaf**CC	CC	&	N_324/N_324	410
+1291**CCGInternal**N	1
+1294**CCGInternal**N/N	0
+1296**CCGLeaf**NNP	NNP	Vose	N_317/N_317	411
+1294**CCGInternal**N	0
+1298**CCGLeaf**NNP	NNP	Co.	N	412
+1265**CCGInternal**,	0
+1300**CCGLeaf**,	,	,	,	413
+1264**CCGInternal**S[dcl]\NP	0
+1301**CCGInternal**(S[dcl]\NP)/PP	0
+1303**CCGLeaf**VBD	VBD	was	(S[dcl]\NP_201)/PP_202	414
+1301**CCGInternal**PP	0
+1304**CCGInternal**PP/NP	0
+1306**CCGLeaf**IN	IN	under	PP/NP_207	415
+1304**CCGInternal**NP	0
+1307**CCGInternal**NP	0
+1308**CCGInternal**NP	0
+1309**CCGInternal**N	0
+1311**CCGLeaf**NN	NN	contract	N	416
+1308**CCGInternal**NP\NP	0
+1312**CCGInternal**(NP\NP)/NP	0
+1314**CCGLeaf**IN	IN	with	(NP_218\NP_218)/NP_219	417
+1312**CCGInternal**NP	0
+1315**CCGInternal**N	0
+1317**CCGLeaf**NN	NN	Lorillard	N	418
+1307**CCGInternal**NP\NP	0
+1318**CCGInternal**S[to]\NP	0
+1319**CCGInternal**(S[to]\NP)/(S[b]\NP)	0
+1321**CCGLeaf**TO	TO	to	(S[to]\NP_231)/(S[b]_232\NP_231:B)_232	419
+1319**CCGInternal**S[b]\NP	0
+1322**CCGInternal**(S[b]\NP)/NP	0
+1324**CCGLeaf**VB	VB	make	(S[b]\NP_239)/NP_240	420
+1322**CCGInternal**NP	1
+1325**CCGInternal**NP[nb]/N	0
+1327**CCGLeaf**DT	DT	the	NP[nb]_254/N_254	421
+1325**CCGInternal**N	1
+1328**CCGInternal**N/N	0
+1330**CCGLeaf**NN	NN	cigarette	N_249/N_249	422
+1328**CCGInternal**N	0
+1332**CCGLeaf**NNS	NNS	filters	N	423
+1263**CCGInternal**.	0
+1334**CCGLeaf**.	.	.	.	424
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.19**CCGInternal**S[dcl]	0
+1336**CCGInternal**S[dcl]	1
+1337**CCGInternal**S[dcl]	1
+1338**CCGInternal**NP	1
+1339**CCGInternal**NP[nb]/N	0
+1341**CCGLeaf**DT	DT	The	NP[nb]_396/N_396	425
+1339**CCGInternal**N	0
+1343**CCGLeaf**NN	NN	finding	N	426
+1338**CCGInternal**S[dcl]\NP	1
+1344**CCGInternal**(S\NP)/(S\NP)	0
+1346**CCGLeaf**RB	RB	probably	(S_389\NP_384)_389/(S_389\NP_384)_389	427
+1344**CCGInternal**S[dcl]\NP	0
+1347**CCGInternal**(S[dcl]\NP)/(S[b]\NP)	0
+1349**CCGLeaf**MD	MD	will	(S[dcl]\NP_148)/(S[b]_149\NP_148:B)_149	428
+1347**CCGInternal**S[b]\NP	0
+1350**CCGInternal**(S[b]\NP)/NP	0
+1352**CCGLeaf**VB	VB	support	(S[b]\NP_156)/NP_157	429
+1350**CCGInternal**NP	0
+1353**CCGInternal**NP	0
+1355**CCGLeaf**DT	DT	those	NP	430
+1353**CCGInternal**NP\NP	0
+1356**CCGInternal**(NP\NP)/(S[dcl]\NP)	0
+1358**CCGLeaf**WP	WP	who	(NP_169\NP_169)/(S[dcl]_170\NP_169:B)_170	431
+1356**CCGInternal**S[dcl]\NP	0
+1359**CCGInternal**(S[dcl]\NP)/S[em]	0
+1361**CCGLeaf**VBP	VBP	argue	(S[dcl]\NP_177)/S[em]_178	432
+1359**CCGInternal**S[em]	0
+1362**CCGInternal**S[em]/S[dcl]	0
+1364**CCGLeaf**IN	IN	that	S[em]/S[dcl]_183	433
+1362**CCGInternal**S[dcl]	1
+1365**CCGInternal**NP	1
+1366**CCGInternal**NP[nb]/N	0
+1368**CCGLeaf**DT	DT	the	NP[nb]_377/N_377	434
+1366**CCGInternal**N	0
+1370**CCGLeaf**NNP	NNP	U.S.	N	435
+1365**CCGInternal**S[dcl]\NP	0
+1371**CCGInternal**(S[dcl]\NP)/(S[b]\NP)	0
+1373**CCGLeaf**MD	MD	should	(S[dcl]\NP_192)/(S[b]_193\NP_192:B)_193	436
+1371**CCGInternal**S[b]\NP	0
+1374**CCGInternal**S[b]\NP	0
+1375**CCGInternal**(S[b]\NP)/NP	0
+1377**CCGLeaf**VB	VB	regulate	(S[b]\NP_200)/NP_201	437
+1375**CCGInternal**NP	0
+1378**CCGInternal**NP	0
+1379**CCGInternal**NP	1
+1380**CCGInternal**NP[nb]/N	0
+1382**CCGLeaf**DT	DT	the	NP[nb]_208/N_208	438
+1380**CCGInternal**N	0
+1384**CCGLeaf**NN	NN	class	N	439
+1379**CCGInternal**NP\NP	0
+1385**CCGInternal**(NP\NP)/NP	0
+1387**CCGLeaf**IN	IN	of	(NP_216\NP_216)/NP_217	440
+1385**CCGInternal**NP	0
+1388**CCGInternal**N	0
+1390**CCGLeaf**NN	NN	asbestos	N	441
+1378**CCGInternal**NP\NP	0
+1391**CCGInternal**(NP\NP)/NP	0
+1393**CCGLeaf**VBG	VBG	including	(NP_228\NP_228)/NP_229	442
+1391**CCGInternal**NP	0
+1394**CCGInternal**N	0
+1396**CCGLeaf**NN	NN	crocidolite	N	443
+1374**CCGInternal**(S\NP)\(S\NP)	0
+1397**CCGInternal**(S\NP)\(S\NP)	1
+1398**CCGInternal**((S\NP)\(S\NP))/((S\NP)\(S\NP))	0
+1400**CCGLeaf**RBR	RBR	more	((S_267\NP_259)_267\(S_260\NP_259)_260)_267/((S_267\NP_259)_267\(S_260\NP_259)_260)_267	444
+1398**CCGInternal**(S\NP)\(S\NP)	0
+1402**CCGLeaf**RB	RB	stringently	(S_244\NP_239)_244\(S_244\NP_239)_244	445
+1397**CCGInternal**((S\NP)\(S\NP))\((S\NP)\(S\NP))	0
+1403**CCGInternal**(((S\NP)\(S\NP))\((S\NP)\(S\NP)))/NP	0
+1405**CCGLeaf**IN	IN	than	(((S_290\NP_280)_290\(S_282\NP_283)_281)_290\((S_290\NP_280)_290\(S_282\NP_283)_281)_290)/NP_291	446
+1403**CCGInternal**NP	0
+1406**CCGInternal**NP	0
+1407**CCGInternal**NP	0
+1408**CCGInternal**NP	0
+1409**CCGInternal**NP	1
+1410**CCGInternal**NP[nb]/N	0
+1412**CCGLeaf**DT	DT	the	NP[nb]_305/N_305	447
+1410**CCGInternal**N	1
+1413**CCGInternal**N/N	0
+1415**CCGLeaf**JJ	JJ	common	N_300/N_300	448
+1413**CCGInternal**N	0
+1417**CCGLeaf**NN	NN	kind	N	449
+1409**CCGInternal**NP\NP	0
+1418**CCGInternal**(NP\NP)/NP	0
+1420**CCGLeaf**IN	IN	of	(NP_313\NP_313)/NP_314	450
+1418**CCGInternal**NP	0
+1421**CCGInternal**N	0
+1423**CCGLeaf**NN	NN	asbestos	N	451
+1408**CCGInternal**NP\NP	1
+1424**CCGInternal**,	0
+1426**CCGLeaf**,	,	,	,	452
+1424**CCGInternal**NP	0
+1427**CCGInternal**N	0
+1429**CCGLeaf**NN	NN	chrysotile	N	453
+1407**CCGInternal**,	0
+1431**CCGLeaf**,	,	,	,	454
+1406**CCGInternal**NP\NP	0
+1432**CCGInternal**S[pss]\NP	0
+1433**CCGInternal**S[pss]\NP	0
+1435**CCGLeaf**VBN	VBN	found	S[pss]\NP_329	455
+1433**CCGInternal**(S\NP)\(S\NP)	0
+1436**CCGInternal**((S\NP)\(S\NP))/NP	0
+1438**CCGLeaf**IN	IN	in	((S_342\NP_337)_342\(S_342\NP_337)_342)/NP_343	456
+1436**CCGInternal**NP	0
+1439**CCGInternal**NP	0
+1440**CCGInternal**N	1
+1441**CCGInternal**N/N	0
+1443**CCGLeaf**JJS	JJS	most	N_352/N_352	457
+1441**CCGInternal**N	0
+1445**CCGLeaf**NNS	NNS	schools	N	458
+1439**CCGInternal**NP\NP	1
+1446**CCGInternal**conj	0
+1448**CCGLeaf**CC	CC	and	conj	459
+1446**CCGInternal**NP	0
+1449**CCGInternal**N	1
+1450**CCGInternal**N/N	0
+1452**CCGLeaf**JJ	JJ	other	N_362/N_362	460
+1450**CCGInternal**N	0
+1454**CCGLeaf**NNS	NNS	buildings	N	461
+1337**CCGInternal**S[dcl]\S[dcl]	1
+1455**CCGInternal**,	0
+1457**CCGLeaf**,	,	,	,	462
+1455**CCGInternal**S[dcl]\S[dcl]	1
+1458**CCGInternal**NP	0
+1459**CCGInternal**N	1
+1460**CCGInternal**N/N	0
+1462**CCGLeaf**NNP	NNP	Dr.	N_136/N_136	463
+1460**CCGInternal**N	0
+1464**CCGLeaf**NNP	NNP	Talcott	N	464
+1458**CCGInternal**(S[dcl]\S[dcl])\NP	0
+1466**CCGLeaf**VBD	VBD	said	(S[dcl]\S[dcl]_126)\NP_127	465
+1336**CCGInternal**.	0
+1468**CCGLeaf**.	.	.	.	466
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.20**CCGInternal**S[dcl]	0
+1470**CCGInternal**S[dcl]	1
+1471**CCGInternal**NP	1
+1472**CCGInternal**NP[nb]/N	0
+1474**CCGLeaf**DT	DT	The	NP[nb]_556/N_556	467
+1472**CCGInternal**N	0
+1476**CCGLeaf**NNP	NNP	U.S.	N	468
+1471**CCGInternal**S[dcl]\NP	0
+1477**CCGInternal**S[dcl]\NP	0
+1478**CCGInternal**S[dcl]\NP	0
+1479**CCGInternal**(S[dcl]\NP)/NP	0
+1481**CCGLeaf**VBZ	VBZ	is	(S[dcl]\NP_241)/NP_242	469
+1479**CCGInternal**NP	0
+1482**CCGInternal**NP	0
+1483**CCGInternal**N	0
+1485**CCGLeaf**CD	CD	one	N	470
+1482**CCGInternal**NP\NP	0
+1486**CCGInternal**(NP\NP)/NP	0
+1488**CCGLeaf**IN	IN	of	(NP_253\NP_253)/NP_254	471
+1486**CCGInternal**NP	0
+1489**CCGInternal**NP	1
+1490**CCGInternal**NP[nb]/N	0
+1492**CCGLeaf**DT	DT	the	NP[nb]_275/N_275	472
+1490**CCGInternal**N	1
+1493**CCGInternal**N/N	0
+1495**CCGLeaf**JJ	JJ	few	N_270/N_270	473
+1493**CCGInternal**N	1
+1496**CCGInternal**N/N	0
+1498**CCGLeaf**VBN	VBN	industrialized	N_263/N_263	474
+1496**CCGInternal**N	0
+1500**CCGLeaf**NNS	NNS	nations	N	475
+1489**CCGInternal**NP\NP	0
+1501**CCGInternal**(NP\NP)/(S[dcl]\NP)	0
+1503**CCGLeaf**WDT	WDT	that	(NP_285\NP_285)/(S[dcl]_286\NP_285:B)_286	476
+1501**CCGInternal**S[dcl]\NP	0
+1504**CCGInternal**(S[dcl]\NP)/(S[b]\NP)	0
+1505**CCGInternal**(S[dcl]\NP)/(S[b]\NP)	0
+1507**CCGLeaf**VBZ	VBZ	does	(S[dcl]\NP_295)/(S[b]_296\NP_295:B)_296	477
+1505**CCGInternal**(S\NP)\(S\NP)	0
+1509**CCGLeaf**RB	RB	n't	(S_308\NP_303)_308\(S_308\NP_303)_308	478
+1504**CCGInternal**S[b]\NP	0
+1510**CCGInternal**(S[b]\NP)/NP	0
+1512**CCGLeaf**VB	VB	have	(S[b]\NP_315)/NP_316	479
+1510**CCGInternal**NP	0
+1513**CCGInternal**NP	0
+1514**CCGInternal**NP	1
+1515**CCGInternal**NP[nb]/N	0
+1517**CCGLeaf**DT	DT	a	NP[nb]_330/N_330	480
+1515**CCGInternal**N	1
+1518**CCGInternal**N/N	0
+1520**CCGLeaf**JJR	JJR	higher	N_325/N_325	481
+1518**CCGInternal**N	0
+1522**CCGLeaf**NN	NN	standard	N	482
+1514**CCGInternal**NP\NP	0
+1523**CCGInternal**(NP\NP)/NP	0
+1525**CCGLeaf**IN	IN	of	(NP_338\NP_338)/NP_339	483
+1523**CCGInternal**NP	0
+1526**CCGInternal**N	0
+1528**CCGLeaf**NN	NN	regulation	N	484
+1513**CCGInternal**NP\NP	0
+1529**CCGInternal**(NP\NP)/NP	0
+1531**CCGLeaf**IN	IN	for	(NP_350\NP_350)/NP_351	485
+1529**CCGInternal**NP	0
+1532**CCGInternal**NP	0
+1533**CCGInternal**NP	1
+1534**CCGInternal**NP[nb]/N	0
+1536**CCGLeaf**DT	DT	the	NP[nb]_374/N_374	486
+1534**CCGInternal**N	1
+1537**CCGInternal**N/N	0
+1539**CCGLeaf**JJ	JJ	smooth	N_369/N_369	487
+1537**CCGInternal**N	1
+1540**CCGInternal**,	0
+1542**CCGLeaf**,	,	,	,	488
+1540**CCGInternal**N	1
+1543**CCGInternal**N/N	0
+1545**CCGLeaf**JJ	JJ	needle-like	N_360/N_360	489
+1543**CCGInternal**N	0
+1547**CCGLeaf**NNS	NNS	fibers	N	490
+1533**CCGInternal**NP\NP	1
+1548**CCGInternal**(NP\NP)/(NP\NP)	0
+1550**CCGLeaf**JJ	JJ	such	(NP_400\NP_394)_400/(NP_400\NP_394)_400	491
+1548**CCGInternal**NP\NP	0
+1551**CCGInternal**(NP\NP)/NP	0
+1553**CCGLeaf**IN	IN	as	(NP_382\NP_382)/NP_383	492
+1551**CCGInternal**NP	0
+1554**CCGInternal**N	0
+1556**CCGLeaf**NN	NN	crocidolite	N	493
+1532**CCGInternal**NP\NP	0
+1557**CCGInternal**(NP\NP)/(S[dcl]\NP)	0
+1559**CCGLeaf**WDT	WDT	that	(NP_410\NP_410)/(S[dcl]_411\NP_410:B)_411	494
+1557**CCGInternal**S[dcl]\NP	0
+1560**CCGInternal**(S[dcl]\NP)/(S[pss]\NP)	0
+1562**CCGLeaf**VBP	VBP	are	(S[dcl]\NP_420)/(S[pss]_421\NP_420:B)_421	495
+1560**CCGInternal**S[pss]\NP	0
+1563**CCGInternal**(S[pss]\NP)/PP	0
+1565**CCGLeaf**VBN	VBN	classified	(S[pss]\NP_428)/PP_429	496
+1563**CCGInternal**PP	0
+1566**CCGInternal**PP/NP	0
+1568**CCGLeaf**IN	IN	as	PP/NP_434	497
+1566**CCGInternal**NP	0
+1569**CCGInternal**N	0
+1571**CCGLeaf**NNS	NNS	amphobiles	N	498
+1478**CCGInternal**,	0
+1573**CCGLeaf**,	,	,	,	499
+1477**CCGInternal**(S\NP)\(S\NP)	0
+1574**CCGInternal**((S\NP)\(S\NP))/PP	0
+1576**CCGLeaf**VBG	VBG	according	((S_452\NP_447)_452\(S_452\NP_447)_452)/PP_453	500
+1574**CCGInternal**PP	0
+1577**CCGInternal**PP/NP	0
+1579**CCGLeaf**TO	TO	to	PP/NP_458	501
+1577**CCGInternal**NP	0
+1580**CCGInternal**NP	0
+1581**CCGInternal**N	1
+1582**CCGInternal**N/N	0
+1584**CCGLeaf**NNP	NNP	Brooke	N_474/N_474	502
+1582**CCGInternal**N	1
+1585**CCGInternal**N/N	0
+1587**CCGLeaf**NNP	NNP	T.	N_467/N_467	503
+1585**CCGInternal**N	0
+1589**CCGLeaf**NNP	NNP	Mossman	N	504
+1580**CCGInternal**NP\NP	1
+1590**CCGInternal**,	0
+1592**CCGLeaf**,	,	,	,	505
+1590**CCGInternal**NP	0
+1593**CCGInternal**NP	0
+1594**CCGInternal**NP	1
+1595**CCGInternal**NP[nb]/N	0
+1597**CCGLeaf**DT	DT	a	NP[nb]_482/N_482	506
+1595**CCGInternal**N	0
+1599**CCGLeaf**NN	NN	professor	N	507
+1594**CCGInternal**NP\NP	0
+1600**CCGInternal**(NP\NP)/NP	0
+1602**CCGLeaf**IN	IN	of	(NP_490\NP_490)/NP_491	508
+1600**CCGInternal**NP	0
+1603**CCGInternal**N	0
+1605**CCGLeaf**NN	NN	pathlogy	N	509
+1593**CCGInternal**NP\NP	0
+1606**CCGInternal**(NP\NP)/NP	0
+1608**CCGLeaf**IN	IN	at	(NP_502\NP_502)/NP_503	510
+1606**CCGInternal**NP	0
+1609**CCGInternal**NP	1
+1610**CCGInternal**NP[nb]/N	0
+1612**CCGLeaf**DT	DT	the	NP[nb]_535/N_535	511
+1610**CCGInternal**N	1
+1613**CCGInternal**N/N	0
+1614**CCGInternal**N/N	0
+1616**CCGLeaf**NNP	NNP	University	N_512/N_512	512
+1614**CCGInternal**(N/N)\(N/N)	0
+1617**CCGInternal**((N/N)\(N/N))/NP	0
+1619**CCGLeaf**IN	IN	of	((N_526/N_520)_526\(N_526/N_520)_526)/NP_527	513
+1617**CCGInternal**NP	0
+1620**CCGInternal**N	0
+1622**CCGLeaf**NNP	NNP	Vermont	N	514
+1613**CCGInternal**N	0
+1624**CCGLeaf**NNP	NNP	College	N	515
+1609**CCGInternal**NP\NP	0
+1625**CCGInternal**(NP\NP)/NP	0
+1627**CCGLeaf**IN	IN	of	(NP_543\NP_543)/NP_544	516
+1625**CCGInternal**NP	0
+1628**CCGInternal**N	0
+1630**CCGLeaf**NNP	NNP	Medicine	N	517
+1470**CCGInternal**.	0
+1632**CCGLeaf**.	.	.	.	518
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.21**CCGInternal**S[dcl]	0
+1634**CCGInternal**S[dcl]	1
+1635**CCGInternal**S[dcl]	1
+1636**CCGInternal**NP	0
+1637**CCGInternal**N	1
+1638**CCGInternal**N/N	0
+1640**CCGLeaf**RBR	RBR	More	N_412/N_412	519
+1638**CCGInternal**N	1
+1641**CCGInternal**N/N	0
+1643**CCGLeaf**JJ	JJ	common	N_405/N_405	520
+1641**CCGInternal**N	1
+1644**CCGInternal**N/N	0
+1646**CCGLeaf**NN	NN	chrysotile	N_398/N_398	521
+1644**CCGInternal**N	0
+1648**CCGLeaf**NNS	NNS	fibers	N	522
+1636**CCGInternal**S[dcl]\NP	0
+1649**CCGInternal**S[dcl]\NP	0
+1650**CCGInternal**(S[dcl]\NP)/(S[adj]\NP)	0
+1652**CCGLeaf**VBP	VBP	are	(S[dcl]\NP_310)/(S[adj]_311\NP_310:B)_311	523
+1650**CCGInternal**S[adj]\NP	0
+1654**CCGLeaf**JJ	JJ	curly	S[adj]\NP_316	524
+1649**CCGInternal**(S[dcl]\NP)\(S[dcl]\NP)	1
+1655**CCGInternal**conj	0
+1657**CCGLeaf**CC	CC	and	conj	525
+1655**CCGInternal**S[dcl]\NP	0
+1658**CCGInternal**(S[dcl]\NP)/(S[pss]\NP)	0
+1660**CCGLeaf**VBP	VBP	are	(S[dcl]\NP_325)/(S[pss]_326\NP_325:B)_326	526
+1658**CCGInternal**S[pss]\NP	1
+1661**CCGInternal**(S\NP)/(S\NP)	1
+1662**CCGInternal**((S\NP)/(S\NP))/((S\NP)/(S\NP))	0
+1664**CCGLeaf**RBR	RBR	more	((S_387\NP_379)_387/(S_380\NP_379)_380)_387/((S_387\NP_379)_387/(S_380\NP_379)_380)_387	527
+1662**CCGInternal**(S\NP)/(S\NP)	0
+1666**CCGLeaf**RB	RB	easily	(S_364\NP_359)_364/(S_364\NP_359)_364	528
+1661**CCGInternal**S[pss]\NP	0
+1667**CCGInternal**S[pss]\NP	0
+1669**CCGLeaf**VBN	VBN	rejected	S[pss]\NP_331	529
+1667**CCGInternal**(S\NP)\(S\NP)	0
+1670**CCGInternal**((S\NP)\(S\NP))/NP	0
+1672**CCGLeaf**IN	IN	by	((S_344\NP_339)_344\(S_344\NP_339)_344)/NP_345	530
+1670**CCGInternal**NP	1
+1673**CCGInternal**NP[nb]/N	0
+1675**CCGLeaf**DT	DT	the	NP[nb]_352/N_352	531
+1673**CCGInternal**N	0
+1677**CCGLeaf**NN	NN	body	N	532
+1635**CCGInternal**S[dcl]\S[dcl]	1
+1678**CCGInternal**,	0
+1680**CCGLeaf**,	,	,	,	533
+1678**CCGInternal**S[dcl]\S[dcl]	1
+1681**CCGInternal**NP	0
+1682**CCGInternal**N	1
+1683**CCGInternal**N/N	0
+1685**CCGLeaf**NNP	NNP	Dr.	N_298/N_298	534
+1683**CCGInternal**N	0
+1687**CCGLeaf**NNP	NNP	Mossman	N	535
+1681**CCGInternal**(S[dcl]\S[dcl])\NP	0
+1689**CCGLeaf**VBD	VBD	explained	(S[dcl]\S[dcl]_288)\NP_289	536
+1634**CCGInternal**.	0
+1691**CCGLeaf**.	.	.	.	537
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.22**CCGInternal**S[dcl]	0
+1693**CCGInternal**S[dcl]	1
+1694**CCGInternal**S/S	0
+1695**CCGInternal**(S/S)/NP	0
+1697**CCGLeaf**IN	IN	In	(S_218/S_218)/NP_219	538
+1695**CCGInternal**NP	0
+1698**CCGInternal**N	0
+1700**CCGLeaf**NNP	NNP	July	N	539
+1694**CCGInternal**S[dcl]	1
+1701**CCGInternal**,	0
+1703**CCGLeaf**,	,	,	,	540
+1701**CCGInternal**S[dcl]	1
+1704**CCGInternal**NP	1
+1705**CCGInternal**NP[nb]/N	0
+1707**CCGLeaf**DT	DT	the	NP[nb]_208/N_208	541
+1705**CCGInternal**N	1
+1708**CCGInternal**N/N	0
+1710**CCGLeaf**NNP	NNP	Environmental	N_203/N_203	542
+1708**CCGInternal**N	1
+1711**CCGInternal**N/N	0
+1713**CCGLeaf**NNP	NNP	Protection	N_196/N_196	543
+1711**CCGInternal**N	0
+1715**CCGLeaf**NNP	NNP	Agency	N	544
+1704**CCGInternal**S[dcl]\NP	0
+1716**CCGInternal**(S[dcl]\NP)/PP	0
+1717**CCGInternal**((S[dcl]\NP)/PP)/NP	0
+1719**CCGLeaf**VBD	VBD	imposed	((S[dcl]\NP_130)/PP_131)/NP_132	545
+1717**CCGInternal**NP	1
+1720**CCGInternal**NP[nb]/N	0
+1722**CCGLeaf**DT	DT	a	NP[nb]_146/N_146	546
+1720**CCGInternal**N	1
+1723**CCGInternal**N/N	0
+1725**CCGLeaf**JJ	JJ	gradual	N_141/N_141	547
+1723**CCGInternal**N	0
+1727**CCGLeaf**NN	NN	ban	N	548
+1716**CCGInternal**PP	0
+1728**CCGInternal**PP/NP	0
+1730**CCGLeaf**IN	IN	on	PP/NP_151	549
+1728**CCGInternal**NP	0
+1731**CCGInternal**NP	0
+1732**CCGInternal**N	1
+1733**CCGInternal**N/N	1
+1734**CCGInternal**(N/N)/(N/N)	0
+1736**CCGLeaf**RB	RB	virtually	(N_174/N_168)_174/(N_174/N_168)_174	550
+1734**CCGInternal**N/N	0
+1738**CCGLeaf**DT	DT	all	N_160/N_160	551
+1733**CCGInternal**N	0
+1740**CCGLeaf**NNS	NNS	uses	N	552
+1731**CCGInternal**NP\NP	0
+1741**CCGInternal**(NP\NP)/NP	0
+1743**CCGLeaf**IN	IN	of	(NP_183\NP_183)/NP_184	553
+1741**CCGInternal**NP	0
+1744**CCGInternal**N	0
+1746**CCGLeaf**NN	NN	asbestos	N	554
+1693**CCGInternal**.	0
+1748**CCGLeaf**.	.	.	.	555
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.23**CCGInternal**S[dcl]	0
+1750**CCGInternal**S[dcl]	1
+1751**CCGInternal**S/S	0
+1752**CCGInternal**(S/S)/NP	0
+1754**CCGLeaf**IN	IN	By	(S_172/S_172)/NP_173	556
+1752**CCGInternal**NP	0
+1755**CCGInternal**N	0
+1757**CCGLeaf**CD	CD	1997	N	557
+1751**CCGInternal**S[dcl]	1
+1758**CCGInternal**,	0
+1760**CCGLeaf**,	,	,	,	558
+1758**CCGInternal**S[dcl]	1
+1761**CCGInternal**NP	0
+1762**CCGInternal**NP	0
+1763**CCGInternal**N	1
+1764**CCGInternal**N/N	1
+1765**CCGInternal**(N/N)/(N/N)	0
+1767**CCGLeaf**RB	RB	almost	(N_142/N_136)_142/(N_142/N_136)_142	559
+1765**CCGInternal**N/N	0
+1769**CCGLeaf**DT	DT	all	N_128/N_128	560
+1764**CCGInternal**N	1
+1770**CCGInternal**N/N	0
+1772**CCGLeaf**VBG	VBG	remaining	N_121/N_121	561
+1770**CCGInternal**N	0
+1774**CCGLeaf**NNS	NNS	uses	N	562
+1762**CCGInternal**NP\NP	0
+1775**CCGInternal**(NP\NP)/NP	0
+1777**CCGLeaf**IN	IN	of	(NP_151\NP_151)/NP_152	563
+1775**CCGInternal**NP	0
+1778**CCGInternal**N	1
+1779**CCGInternal**N/N	0
+1781**CCGLeaf**JJ	JJ	cancer-causing	N_161/N_161	564
+1779**CCGInternal**N	0
+1783**CCGLeaf**NN	NN	asbestos	N	565
+1761**CCGInternal**S[dcl]\NP	0
+1784**CCGInternal**(S[dcl]\NP)/(S[b]\NP)	0
+1786**CCGLeaf**MD	MD	will	(S[dcl]\NP_96)/(S[b]_97\NP_96:B)_97	566
+1784**CCGInternal**S[b]\NP	0
+1787**CCGInternal**(S[b]\NP)/(S[pss]\NP)	0
+1789**CCGLeaf**VB	VB	be	(S[b]\NP_106)/(S[pss]_107\NP_106:B)_107	567
+1787**CCGInternal**S[pss]\NP	0
+1791**CCGLeaf**VBN	VBN	outlawed	S[pss]\NP_112	568
+1750**CCGInternal**.	0
+1793**CCGLeaf**.	.	.	.	569
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.24**CCGInternal**S[dcl]	0
+1795**CCGInternal**S[dcl]	1
+1796**CCGInternal**NP	0
+1797**CCGInternal**NP	0
+1798**CCGInternal**N	1
+1799**CCGInternal**N/N	1
+1800**CCGInternal**(N/N)/(N/N)	0
+1802**CCGLeaf**IN	IN	About	(N_155/N_149)_155/(N_155/N_149)_155	570
+1800**CCGInternal**N/N	0
+1804**CCGLeaf**CD	CD	160	N_141/N_141	571
+1799**CCGInternal**N	0
+1806**CCGLeaf**NNS	NNS	workers	N	572
+1797**CCGInternal**NP\NP	0
+1807**CCGInternal**(NP\NP)/NP	0
+1809**CCGLeaf**IN	IN	at	(NP_164\NP_164)/NP_165	573
+1807**CCGInternal**NP	0
+1810**CCGInternal**NP	1
+1811**CCGInternal**NP[nb]/N	0
+1813**CCGLeaf**DT	DT	a	NP[nb]_172/N_172	574
+1811**CCGInternal**N	0
+1815**CCGLeaf**NN	NN	factory	N	575
+1810**CCGInternal**NP\NP	0
+1816**CCGInternal**(NP\NP)/(S[dcl]\NP)	0
+1818**CCGLeaf**WDT	WDT	that	(NP_182\NP_182)/(S[dcl]_183\NP_182:B)_183	576
+1816**CCGInternal**S[dcl]\NP	0
+1819**CCGInternal**(S[dcl]\NP)/NP	0
+1821**CCGLeaf**VBD	VBD	made	(S[dcl]\NP_190)/NP_191	577
+1819**CCGInternal**NP	0
+1822**CCGInternal**NP	0
+1823**CCGInternal**N	0
+1825**CCGLeaf**NN	NN	paper	N	578
+1822**CCGInternal**NP\NP	0
+1826**CCGInternal**(NP\NP)/NP	0
+1828**CCGLeaf**IN	IN	for	(NP_202\NP_202)/NP_203	579
+1826**CCGInternal**NP	1
+1829**CCGInternal**NP[nb]/N	0
+1831**CCGLeaf**DT	DT	the	NP[nb]_217/N_217	580
+1829**CCGInternal**N	1
+1832**CCGInternal**N/N	0
+1834**CCGLeaf**NNP	NNP	Kent	N_212/N_212	581
+1832**CCGInternal**N	0
+1836**CCGLeaf**NNS	NNS	filters	N	582
+1796**CCGInternal**S[dcl]\NP	0
+1837**CCGInternal**(S[dcl]\NP)/(S[pss]\NP)	0
+1839**CCGLeaf**VBD	VBD	were	(S[dcl]\NP_88)/(S[pss]_89\NP_88:B)_89	583
+1837**CCGInternal**S[pss]\NP	0
+1840**CCGInternal**S[pss]\NP	0
+1841**CCGInternal**S[pss]\NP	0
+1843**CCGLeaf**VBN	VBN	exposed	S[pss]\NP_94	584
+1841**CCGInternal**(S\NP)\(S\NP)	0
+1844**CCGInternal**((S\NP)\(S\NP))/NP	0
+1846**CCGLeaf**TO	TO	to	((S_107\NP_102)_107\(S_107\NP_102)_107)/NP_108	585
+1844**CCGInternal**NP	0
+1847**CCGInternal**N	0
+1849**CCGLeaf**NN	NN	asbestos	N	586
+1840**CCGInternal**(S\NP)\(S\NP)	0
+1850**CCGInternal**((S\NP)\(S\NP))/NP	0
+1852**CCGLeaf**IN	IN	in	((S_124\NP_119)_124\(S_124\NP_119)_124)/NP_125	587
+1850**CCGInternal**NP	1
+1853**CCGInternal**NP[nb]/N	0
+1855**CCGLeaf**DT	DT	the	NP[nb]_132/N_132	588
+1853**CCGInternal**N	0
+1857**CCGLeaf**CD	CD	1950s	N	589
+1795**CCGInternal**.	0
+1859**CCGLeaf**.	.	.	.	590
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.25**CCGInternal**S[dcl]	0
+1861**CCGInternal**S[dcl]	1
+1862**CCGInternal**NP	0
+1863**CCGInternal**NP	0
+1864**CCGInternal**N	0
+1866**CCGLeaf**NNS	NNS	Areas	N	591
+1863**CCGInternal**NP\NP	0
+1867**CCGInternal**(NP\NP)/NP	0
+1869**CCGLeaf**IN	IN	of	(NP_198\NP_198)/NP_199	592
+1867**CCGInternal**NP	1
+1870**CCGInternal**NP[nb]/N	0
+1872**CCGLeaf**DT	DT	the	NP[nb]_206/N_206	593
+1870**CCGInternal**N	0
+1874**CCGLeaf**NN	NN	factory	N	594
+1862**CCGInternal**S[dcl]\NP	0
+1875**CCGInternal**S[dcl]\NP	0
+1876**CCGInternal**(S[dcl]\NP)/(S[adj]\NP)	0
+1878**CCGLeaf**VBD	VBD	were	(S[dcl]\NP_133)/(S[adj]_134\NP_133:B)_134	595
+1876**CCGInternal**S[adj]\NP	1
+1879**CCGInternal**(S[adj]\NP)/(S[adj]\NP)	0
+1881**CCGLeaf**RB	RB	particularly	(S[adj]_151\NP_146)_151/(S[adj]_151\NP_146)_151	596
+1879**CCGInternal**S[adj]\NP	0
+1883**CCGLeaf**JJ	JJ	dusty	S[adj]\NP_139	597
+1875**CCGInternal**(S\NP)\(S\NP)	0
+1884**CCGInternal**((S\NP)\(S\NP))/S[dcl]	0
+1886**CCGLeaf**WRB	WRB	where	((S_164\NP_159)_164\(S_164\NP_159)_164)/S[dcl]_165	598
+1884**CCGInternal**S[dcl]	1
+1887**CCGInternal**NP	1
+1888**CCGInternal**NP[nb]/N	0
+1890**CCGLeaf**DT	DT	the	NP[nb]_187/N_187	599
+1888**CCGInternal**N	0
+1892**CCGLeaf**NN	NN	crocidolite	N	600
+1887**CCGInternal**S[dcl]\NP	0
+1893**CCGInternal**(S[dcl]\NP)/(S[pss]\NP)	0
+1895**CCGLeaf**VBD	VBD	was	(S[dcl]\NP_174)/(S[pss]_175\NP_174:B)_175	601
+1893**CCGInternal**S[pss]\NP	0
+1897**CCGLeaf**VBN	VBN	used	S[pss]\NP_180	602
+1861**CCGInternal**.	0
+1899**CCGLeaf**.	.	.	.	603
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.26**CCGInternal**S[dcl]	0
+1901**CCGInternal**S[dcl]	1
+1902**CCGInternal**NP	0
+1903**CCGInternal**N	0
+1905**CCGLeaf**NNS	NNS	Workers	N	604
+1902**CCGInternal**S[dcl]\NP	0
+1906**CCGInternal**S[dcl]\NP	0
+1907**CCGInternal**S[dcl]\NP	0
+1908**CCGInternal**(S[dcl]\NP)/NP	0
+1910**CCGLeaf**VBD	VBD	dumped	(S[dcl]\NP_83)/NP_84	605
+1908**CCGInternal**NP	0
+1911**CCGInternal**NP	0
+1912**CCGInternal**N	1
+1913**CCGInternal**N/N	0
+1915**CCGLeaf**JJ	JJ	large	N_100/N_100	606
+1913**CCGInternal**N	1
+1916**CCGInternal**N/N	0
+1918**CCGLeaf**NN	NN	burlap	N_93/N_93	607
+1916**CCGInternal**N	0
+1920**CCGLeaf**NNS	NNS	sacks	N	608
+1911**CCGInternal**NP\NP	0
+1921**CCGInternal**(NP\NP)/NP	0
+1923**CCGLeaf**IN	IN	of	(NP_109\NP_109)/NP_110	609
+1921**CCGInternal**NP	1
+1924**CCGInternal**NP[nb]/N	0
+1926**CCGLeaf**DT	DT	the	NP[nb]_124/N_124	610
+1924**CCGInternal**N	1
+1927**CCGInternal**N/N	0
+1929**CCGLeaf**VBN	VBN	imported	N_119/N_119	611
+1927**CCGInternal**N	0
+1931**CCGLeaf**NN	NN	material	N	612
+1907**CCGInternal**(S\NP)\(S\NP)	0
+1932**CCGInternal**((S\NP)\(S\NP))/NP	0
+1934**CCGLeaf**IN	IN	into	((S_137\NP_132)_137\(S_137\NP_132)_137)/NP_138	613
+1932**CCGInternal**NP	1
+1935**CCGInternal**NP[nb]/N	0
+1937**CCGLeaf**DT	DT	a	NP[nb]_152/N_152	614
+1935**CCGInternal**N	1
+1938**CCGInternal**N/N	0
+1940**CCGLeaf**JJ	JJ	huge	N_147/N_147	615
+1938**CCGInternal**N	0
+1942**CCGLeaf**NN	NN	bin	N	616
+1906**CCGInternal**(S[dcl]\NP)\(S[dcl]\NP)	1
+1943**CCGInternal**,	0
+1945**CCGLeaf**,	,	,	,	617
+1943**CCGInternal**S[dcl]\NP	0
+1946**CCGInternal**S[dcl]\NP	0
+1947**CCGInternal**(S[dcl]\NP)/NP	0
+1948**CCGInternal**(S[dcl]\NP)/NP	0
+1950**CCGLeaf**VBD	VBD	poured	(S[dcl]\NP_159)/NP_160	618
+1948**CCGInternal**(S\NP)\(S\NP)	0
+1952**CCGLeaf**RP	RP	in	(S_172\NP_167)_172\(S_172\NP_167)_172	619
+1947**CCGInternal**NP	0
+1953**CCGInternal**N	1
+1954**CCGInternal**N/N	0
+1956**CCGLeaf**NN	NN	cotton	N_190/N_190	620
+1954**CCGInternal**N	1
+1957**CCGInternal**conj	0
+1959**CCGLeaf**CC	CC	and	conj	621
+1957**CCGInternal**N	1
+1960**CCGInternal**N/N	0
+1962**CCGLeaf**NN	NN	acetate	N_181/N_181	622
+1960**CCGInternal**N	0
+1964**CCGLeaf**NNS	NNS	fibers	N	623
+1946**CCGInternal**(S[dcl]\NP)\(S[dcl]\NP)	1
+1965**CCGInternal**conj	0
+1967**CCGLeaf**CC	CC	and	conj	624
+1965**CCGInternal**S[dcl]\NP	1
+1968**CCGInternal**(S\NP)/(S\NP)	0
+1970**CCGLeaf**RB	RB	mechanically	(S_282\NP_277)_282/(S_282\NP_277)_282	625
+1968**CCGInternal**S[dcl]\NP	0
+1971**CCGInternal**S[dcl]\NP	0
+1972**CCGInternal**(S[dcl]\NP)/NP	0
+1974**CCGLeaf**VBD	VBD	mixed	(S[dcl]\NP_198)/NP_199	626
+1972**CCGInternal**NP	1
+1975**CCGInternal**NP[nb]/N	0
+1977**CCGLeaf**DT	DT	the	NP[nb]_213/N_213	627
+1975**CCGInternal**N	1
+1978**CCGInternal**N/N	0
+1980**CCGLeaf**JJ	JJ	dry	N_208/N_208	628
+1978**CCGInternal**N	0
+1982**CCGLeaf**NNS	NNS	fibers	N	629
+1971**CCGInternal**(S\NP)\(S\NP)	0
+1983**CCGInternal**((S\NP)\(S\NP))/NP	0
+1985**CCGLeaf**IN	IN	in	((S_226\NP_221)_226\(S_226\NP_221)_226)/NP_227	630
+1983**CCGInternal**NP	0
+1986**CCGInternal**NP	1
+1987**CCGInternal**NP[nb]/N	0
+1989**CCGLeaf**DT	DT	a	NP[nb]_234/N_234	631
+1987**CCGInternal**N	0
+1991**CCGLeaf**NN	NN	process	N	632
+1986**CCGInternal**NP\NP	0
+1992**CCGInternal**S[pss]\NP	0
+1993**CCGInternal**(S[pss]\NP)/(S[to]\NP)	0
+1995**CCGLeaf**VBN	VBN	used	(S[pss]\NP_243)/(S[to]_244\NP_243:B)_244	633
+1993**CCGInternal**S[to]\NP	0
+1996**CCGInternal**(S[to]\NP)/(S[b]\NP)	0
+1998**CCGLeaf**TO	TO	to	(S[to]\NP_253)/(S[b]_254\NP_253:B)_254	634
+1996**CCGInternal**S[b]\NP	0
+1999**CCGInternal**(S[b]\NP)/NP	0
+2001**CCGLeaf**VB	VB	make	(S[b]\NP_261)/NP_262	635
+1999**CCGInternal**NP	0
+2002**CCGInternal**N	0
+2004**CCGLeaf**NNS	NNS	filters	N	636
+1901**CCGInternal**.	0
+2006**CCGLeaf**.	.	.	.	637
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.27**CCGInternal**S[dcl]	0
+2008**CCGInternal**S[dcl]	1
+2009**CCGInternal**NP	0
+2010**CCGInternal**N	0
+2012**CCGLeaf**NNS	NNS	Workers	N	638
+2009**CCGInternal**S[dcl]\NP	0
+2013**CCGInternal**(S[dcl]\NP)/NP	0
+2015**CCGLeaf**VBD	VBD	described	(S[dcl]\NP_190)/NP_191	639
+2013**CCGInternal**NP	0
+2016**CCGInternal**NP	0
+2017**CCGInternal**NP	0
+2018**CCGInternal**N	0
+2020**CCGLeaf**NNS	NNS	clouds	N	640
+2017**CCGInternal**NP\NP	0
+2021**CCGInternal**(NP\NP)/NP	0
+2023**CCGLeaf**IN	IN	of	(NP_202\NP_202)/NP_203	641
+2021**CCGInternal**NP	0
+2024**CCGInternal**N	1
+2025**CCGInternal**N/N	0
+2027**CCGLeaf**JJ	JJ	blue	N_212/N_212	642
+2025**CCGInternal**N	0
+2029**CCGLeaf**NN	NN	dust	N	643
+2016**CCGInternal**NP\NP	0
+2030**CCGInternal**(NP\NP)/(S[dcl]\NP)	0
+2032**CCGLeaf**WDT	WDT	that	(NP_223\NP_223)/(S[dcl]_224\NP_223:B)_224	644
+2030**CCGInternal**S[dcl]\NP	0
+2033**CCGInternal**S[dcl]\NP	0
+2034**CCGInternal**S[dcl]\NP	0
+2035**CCGInternal**S[dcl]\NP	0
+2037**CCGLeaf**VBD	VBD	hung	S[dcl]\NP_229	645
+2035**CCGInternal**(S\NP)\(S\NP)	0
+2038**CCGInternal**((S\NP)\(S\NP))/NP	0
+2040**CCGLeaf**IN	IN	over	((S_242\NP_237)_242\(S_242\NP_237)_242)/NP_243	646
+2038**CCGInternal**NP	0
+2041**CCGInternal**NP	0
+2042**CCGInternal**N	0
+2044**CCGLeaf**NNS	NNS	parts	N	647
+2041**CCGInternal**NP\NP	0
+2045**CCGInternal**(NP\NP)/NP	0
+2047**CCGLeaf**IN	IN	of	(NP_254\NP_254)/NP_255	648
+2045**CCGInternal**NP	1
+2048**CCGInternal**NP[nb]/N	0
+2050**CCGLeaf**DT	DT	the	NP[nb]_262/N_262	649
+2048**CCGInternal**N	0
+2052**CCGLeaf**NN	NN	factory	N	650
+2034**CCGInternal**,	0
+2054**CCGLeaf**,	,	,	,	651
+2033**CCGInternal**(S\NP)\(S\NP)	1
+2055**CCGInternal**((S\NP)\(S\NP))/((S\NP)\(S\NP))	0
+2057**CCGLeaf**RB	RB	even	((S_326\NP_318)_326\(S_319\NP_318)_319)_326/((S_326\NP_318)_326\(S_319\NP_318)_319)_326	652
+2055**CCGInternal**(S\NP)\(S\NP)	0
+2058**CCGInternal**((S\NP)\(S\NP))/S[dcl]	0
+2060**CCGLeaf**IN	IN	though	((S_277\NP_272)_277\(S_277\NP_272)_277)/S[dcl]_278	653
+2058**CCGInternal**S[dcl]	1
+2061**CCGInternal**NP	0
+2062**CCGInternal**N	1
+2063**CCGInternal**N/N	0
+2065**CCGLeaf**NN	NN	exhaust	N_302/N_302	654
+2063**CCGInternal**N	0
+2067**CCGLeaf**NNS	NNS	fans	N	655
+2061**CCGInternal**S[dcl]\NP	0
+2068**CCGInternal**(S[dcl]\NP)/NP	0
+2070**CCGLeaf**VBD	VBD	ventilated	(S[dcl]\NP_285)/NP_286	656
+2068**CCGInternal**NP	1
+2071**CCGInternal**NP[nb]/N	0
+2073**CCGLeaf**DT	DT	the	NP[nb]_293/N_293	657
+2071**CCGInternal**N	0
+2075**CCGLeaf**NN	NN	area	N	658
+2008**CCGInternal**.	0
+2077**CCGLeaf**.	.	.	.	659
+wsj_0003.auto**CCGRoot**S[dcl]	1
+wsj_0003.28**CCGInternal**S[dcl]	1
+2079**CCGInternal**S[dcl]	1
+2080**CCGInternal**NP[thr]	0
+2082**CCGLeaf**EX	EX	There	NP[thr]	660
+2080**CCGInternal**S[dcl]\NP[thr]	0
+2083**CCGInternal**(S[dcl]\NP[thr])/NP	0
+2085**CCGLeaf**VBZ	VBZ	's	(S[dcl]\NP[thr]_212)/NP_213	661
+2083**CCGInternal**NP	0
+2086**CCGInternal**NP	1
+2087**CCGInternal**NP[nb]/N	0
+2089**CCGLeaf**DT	DT	no	NP[nb]_220/N_220	662
+2087**CCGInternal**N	0
+2091**CCGLeaf**NN	NN	question	N	663
+2086**CCGInternal**NP\NP	0
+2092**CCGInternal**(NP\NP)/S[dcl]	0
+2094**CCGLeaf**IN	IN	that	(NP_228\NP_228)/S[dcl]_229	664
+2092**CCGInternal**S[dcl]	1
+2095**CCGInternal**NP	0
+2096**CCGInternal**NP	0
+2098**CCGLeaf**DT	DT	some	NP	665
+2096**CCGInternal**NP\NP	0
+2099**CCGInternal**(NP\NP)/NP	0
+2101**CCGLeaf**IN	IN	of	(NP_257\NP_257)/NP_258	666
+2099**CCGInternal**NP	1
+2102**CCGInternal**NP[nb]/N	0
+2104**CCGLeaf**DT	DT	those	NP[nb]_269/N_269	667
+2102**CCGInternal**N	1
+2105**CCGInternal**N	0
+2107**CCGLeaf**NNS	NNS	workers	N	668
+2105**CCGInternal**N\N	1
+2108**CCGInternal**conj	0
+2110**CCGLeaf**CC	CC	and	conj	669
+2108**CCGInternal**N	0
+2112**CCGLeaf**NNS	NNS	managers	N	670
+2095**CCGInternal**S[dcl]\NP	0
+2113**CCGInternal**(S[dcl]\NP)/NP	0
+2115**CCGLeaf**VBD	VBD	contracted	(S[dcl]\NP_236)/NP_237	671
+2113**CCGInternal**NP	0
+2116**CCGInternal**N	1
+2117**CCGInternal**N/N	0
+2119**CCGLeaf**JJ	JJ	asbestos-related	N_246/N_246	672
+2117**CCGInternal**N	0
+2121**CCGLeaf**NNS	NNS	diseases	N	673
+2079**CCGInternal**S[dcl]\S[dcl]	1
+2122**CCGInternal**,	0
+2124**CCGLeaf**,	,	,	,	674
+2122**CCGInternal**S[dcl]\S[dcl]	0
+2125**CCGInternal**S[dcl]\S[dcl]	0
+2126**CCGInternal**(S[dcl]\S[dcl])/NP	0
+2128**CCGLeaf**VBD	VBD	said	(S[dcl]\S[dcl]_133)/NP_134	675
+2126**CCGInternal**NP	0
+2129**CCGInternal**NP	0
+2130**CCGInternal**N	1
+2131**CCGInternal**N/N	0
+2133**CCGLeaf**NNP	NNP	Darrell	N_143/N_143	676
+2131**CCGInternal**N	0
+2135**CCGLeaf**NNP	NNP	Phillips	N	677
+2129**CCGInternal**NP\NP	1
+2136**CCGInternal**,	0
+2138**CCGLeaf**,	,	,	,	678
+2136**CCGInternal**NP	0
+2139**CCGInternal**NP	0
+2140**CCGInternal**NP	0
+2141**CCGInternal**N	1
+2142**CCGInternal**N/N	0
+2144**CCGLeaf**NN	NN	vice	N_153/N_153	679
+2142**CCGInternal**N	0
+2146**CCGLeaf**NN	NN	president	N	680
+2140**CCGInternal**NP\NP	0
+2147**CCGInternal**(NP\NP)/NP	0
+2149**CCGLeaf**IN	IN	of	(NP_162\NP_162)/NP_163	681
+2147**CCGInternal**NP	0
+2150**CCGInternal**N	1
+2151**CCGInternal**N/N	0
+2153**CCGLeaf**JJ	JJ	human	N_172/N_172	682
+2151**CCGInternal**N	0
+2155**CCGLeaf**NNS	NNS	resources	N	683
+2139**CCGInternal**NP\NP	0
+2156**CCGInternal**(NP\NP)/NP	0
+2158**CCGLeaf**IN	IN	for	(NP_181\NP_181)/NP_182	684
+2156**CCGInternal**NP	0
+2159**CCGInternal**N	1
+2160**CCGInternal**N/N	0
+2162**CCGLeaf**NNP	NNP	Hollingsworth	N_198/N_198	685
+2160**CCGInternal**N	1
+2163**CCGInternal**N/N	0
+2165**CCGLeaf**CC	CC	&	N_191/N_191	686
+2163**CCGInternal**N	0
+2167**CCGLeaf**NNP	NNP	Vose	N	687
+2125**CCGInternal**.	0
+2169**CCGLeaf**.	.	.	.	688
+wsj_0003.auto**CCGRoot**S[dcl]	0
+wsj_0003.29**CCGInternal**S[dcl]	0
+2171**CCGInternal**S[dcl]	1
+2172**CCGInternal**S/S	0
+2174**CCGLeaf**CC	CC	But	S_197/S_197	689
+2172**CCGInternal**S[dcl]	1
+2175**CCGInternal**NP	0
+2177**CCGLeaf**PRP	PRP	you	NP	690
+2175**CCGInternal**S[dcl]\NP	0
+2178**CCGInternal**(S[dcl]\NP)/(S[to]\NP)	0
+2180**CCGLeaf**VBP	VBP	have	(S[dcl]\NP_122)/(S[to]_123\NP_122:B)_123	691
+2178**CCGInternal**S[to]\NP	0
+2181**CCGInternal**(S[to]\NP)/(S[b]\NP)	0
+2183**CCGLeaf**TO	TO	to	(S[to]\NP_132)/(S[b]_133\NP_132:B)_133	692
+2181**CCGInternal**S[b]\NP	0
+2184**CCGInternal**(S[b]\NP)/S[em]	0
+2186**CCGLeaf**VB	VB	recognize	(S[

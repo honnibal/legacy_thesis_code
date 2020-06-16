@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/matt/!svn/ver/87/code/LegacyTreebank/Nodes
+END
+_RootNode.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/matt/!svn/ver/87/code/LegacyTreebank/Nodes/_RootNode.py
+END
+_LeafNode.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/matt/!svn/ver/87/code/LegacyTreebank/Nodes/_LeafNode.py
+END
+_FileAndCorpus.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/matt/!svn/ver/87/code/LegacyTreebank/Nodes/_FileAndCorpus.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/matt/!svn/ver/87/code/LegacyTreebank/Nodes/__init__.py
+END
+_Node.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/matt/!svn/ver/87/code/LegacyTreebank/Nodes/_Node.py
+END

@@ -1,0 +1,1033 @@
+\chapter{Linguistic Motivation for Constituent Types in \ccg}
+\label{chapter:ling_mot}
+%\section{Introduction}
+
+Having provided an overview of Combinatory Categorial Grammar \citep[\ccg, ][]{steedman:00}
+in Chapter~\ref{chapter:background}, we can begin the core argument of this thesis. Our
+argument begins with the claim that there is a problem with some of the analyses
+that result from a \ccg grammar that is limited to application, composition
+and type-raising rules. We claim that this is why \citet{hock:cl07} included
+type-changing rules in \ccgbank, but we argue that this is not a good
+solution to the problem, which we characterise as follows.
+
+In \ccg, every word is assigned a category that encodes the syntactic function of the
+constituent it heads, as opposed to its syntactic form. This direct representation of
+constituent function is behind many of the desirable properties of the formalism:
+it allows lexical categories to be paired with semantic analyses, enables attractive
+analyses of coordination constructions, and allows language-specific variation
+to be confined to the lexicon.
+
+However, it also makes it difficult to include a consistent treatment of
+the other widely recognised dimension of regularity in syntax: constituent type.
+In this chapter, we argue that the lack of constituent types
+causes over-generation, undesirable analyses, and prevents the grammar from
+fully generating certain recursive structures with a finitely sized lexicon.
+These issues largely arise because the grammaticality of modifier-head
+relationships is controlled by constituent type, not constituent function.
+
+After defining our terminology and explaining these problems, we examine several
+proposals from the literature that seem to offer solutions. We then suggest that
+the problems relate to two properties defined for lexicalised tree-adjoining
+grammar,  \emph{extended domain of locality} and \emph{factoring of recursion}.
+We argue that the simultaneous representation of constituent type and
+constituent function would neatly solve all of the problems we have identified.
+
+The chapter is structured as follows.
+First, we informally define constituent type and constituent function.
+Next, we identify three problems the lack of constituent type causes:
+\begin{enumerate}
+  \item Specifying modifier-head relationships by function instead of
+constituent type causes over-generation;
+  \item The lack of constituent type forces \ccg into undesirable analyses for
+form-function discrepancies;
+  \item The lack of constituent type makes \ccg modifier categories depth
+sensitive, so that a bounded lexicon cannot generate a constituent with
+unbounded depth of recursion.
+\end{enumerate}
+We then investigate whether the issues we have raised can be solved by previous
+proposals.
+Finally, we offer a different perspective on the problem, using concepts
+imported from lexicalised tree-adjoining grammar.
+
+\section{Constituent Type and Constituent Function}
+
+Grammarians have typically recognised two dimensions along
+which words and the constituents they head can be grouped. One of these dimensions
+describes words and constituents structurally. Along this dimension lie
+part-of-speech labels like preposition, noun and verb; and constituent type
+labels like prepositional phrase, noun phrase and small clause. The second
+dimension describes how constituents interact with the rest of the sentence:
+their syntactic function. Along this dimension lie function labels like subject,
+complement and adjunct; and descriptions of argument structure such as transitive,
+intransitive and ditransitive.
+
+There are linguistically relevant generalisations along both dimensions.
+For instance, English verbs agree in number with their subject, not with
+the first occurring noun phrase (e.g. \emph{This week we are...}, not \emph{* This week
+we is ...}). This is a generalisation about constituent function. On the other hand,
+subject, complement and adjunct noun phrases can all be modified in the same way by
+adjectives, preposition and relative clauses. This is a generalisation about constituent
+type.
+
+This chapter argues that generalisations about the dimension of variation we are here
+terming \emph{constituent type} are difficult to represent in \ccg.
+The term constituent type is potentially problematic. A \emph{type} is, broadly,
+simply a label assigned to a constituent. Thus the \ccg `constituent type' of 
+a \cg constituent is simply its category. However, \ccg categories reflect
+generalisations along the dimension we are terming \emph{constituent function}.
+Consider the case of prepositional phrases:
+
+\begin{lexamples}
+ \item \gll \underline{In~case~of~fire}, use~the~stairs.
+            \cf{S/S} \cf{~}
+       \gln
+       \glend
+ \item \gll The~man \underline{in~the~red~coat} used~the~stairs.
+       \cf{~} \cf{N\bs N} \cf{~}
+       \gln
+       \glend
+ \item \gll The~sky~was~filled \underline{with~smoke}.
+       \cf{~} \cf{(S\bs NP)\bs (S\bs NP)}
+       \gln
+       \glend
+\end{lexamples}
+
+Each of these prepositional phrases receives a different category, so the
+syntactic structure they share in common is not directly represented. As
+we describe in Section~\ref{sec:proposals}, one way to capture the generalisation
+is to have every category bear a feature, \textsc{type}, that reflects its
+syntactic form. We offer three arguments for the necessity of constituent type
+representation in the sections that follow.
+
+
+
+
+% % Currently, the only space in which to represent constituent type in \ccg is in
+% the feature structure. Features based on constituent type would be able to
+% address the over-generation problem discussed in Section
+% \label{sec:over-generation}, but would not be helpful in addressing the lexicon
+% inefficiency discussed in Section~\ref{sec:infinite_categories}, or the lack of
+% descriptive power discussed in Section~\ref{sec:descriptive_power}.
+% % 
+% % Without some kind of inheritance mechanism, lexicons that contain complex
+% objects are likely to be very inefficient. Most lexicalised grammars thus use
+% type-hierarchies and feature structures to organise lexical categories according
+% to the generalisations that hold between them. \hpsg has devoted particular
+% attention to this \citep{flickinger:thesis87}, and the same mechanisms have been
+% proposed for \ccg \citep{beavers:04}. \citet{mcconville:06} uses a more minimal
+% set of mechanisms to achieve a similar goal. These efforts subsume initial work
+% that focussed on populating \ccg lexicons using lexical rules, such as the
+% proposal by \citet{carpenter:92}, followed by the work of
+% \citet{villavicencio:01}, who also provides a language acquisition based
+% motivation for a structured lexicon. \citet{baldridge:thesis02} provides a
+% useful overview of previous work on organising \cg lexicons.
+% % 
+% % The categorisations involved in these efforts naturally invoke constituent
+% types, since it is a syntactically relevant property. However, a structured
+% lexicon can only help provide a more efficient mapping of words to categories.
+% In the following section, we describe how the lack of a representation of
+% constituent type in the derivation itself causes \ccg problems.
+
+
+
+\section{Lack of Constituent Type Causes Under- and Over-generation}
+\label{sec:over-generation}
+The grammaticality of many attachment decisions --- notably
+modification --- is best explained with reference to constituent type, not function. 
+This means that generating modification structures with reference to the head's
+function can produce ungrammatical attachments, leading to over-generation. This
+problem arises when multiple constituent types can perform the same function,
+but only one can be modified by a particular constituent type. An equivalent
+under-generation problem occurs because the modifiers of a constituent type
+need to take on multiple categories, depending on the constituent's function.
+
+For instance, in English there are many constituent types that can function adverbially,
+such as temporal nouns, prepositional phrases, adverbs and participial clauses that
+have very different internal structures. Unfortunately,
+\ccg modifiers refer to categories that reflect the constituent's function, not its form.
+All modifiers of adverbially functioning constituents thus require the same
+category, \cf{(VP\bs VP)\bs (VP\bs VP)}. This licenses ungrammatical attachments:
+
+\begin{lexamples}
+\item \gll Robin slept very well
+\cf{NP} \cf{S[dcl]\bs NP} \cf{(VP\bs VP)/(VP\bs VP)} \cf{VP\bs VP}
+\gln
+\glend
+\item \gll Robin slept all~Tuesday
+\cf{NP} \cf{S[dcl]\bs NP} \cf{VP\bs VP}
+\gln
+\glend
+\item \gll *~Robin slept very all~Tuesday
+\cf{NP} \cf{S[dcl]\bs NP} \cf{(VP\bs VP)/(VP\bs VP)} \cf{VP\bs VP}
+\gln
+\glend
+\end{lexamples}
+
+This kind of over-generation can be controlled by assigning every category
+a \textsc{type} feature, that records its constituent type. For instance,
+\emph{well} might be assigned the category \cf{(VP\bs VP)[mnr]} to reflect
+its status as a manner adverbial, and \emph{very} could subcategorise for
+the feature, with the category \cf{(VP\bs VP)[mnr]/(VP\bs VP)[mnr]}.
+
+It is difficult to use features to account for under-generation, however. This
+has typically been addressed in the lexicon, using inheritance classes or lexical
+rules. The problem is that a syntactic type like adjective can perform many functions,
+forcing its modifiers to adopt different categories as well:
+
+\begin{lexamples}
+ \item \gll The bike   is very fast
+      \cf{NP/N} \cf{N} \cf{(S[dcl]\bs NP)/PE} \cf{PE/PE} \cf{PE}
+ \gln
+ \glend
+      \gll The very fast bike
+     \cf{NP/N} \cf{(N/N)/(N/N)} \cf{N/N} \cf{N}
+ \gln
+\glend
+\end{lexamples}
+
+We have followed \citet{carpenter:92} in adopting \cf{PE} for predicative elements,
+but the problem is no different with the \citet{hock:cl07} category of \cf{S[adj]\bs NP}.
+In either case, some mechanism needs to account for the multiple functions of an adjective
+like \emph{fast}, and then generate the appropriate adjectival modifiers. Several proposals
+to do this in the lexicon exist. For \ccg, both \citet{beavers:04} and \citet{mcconville:06}
+suggest how a \ccg lexicon could be structured to support this kind of inheritance.
+The issue has been a well-studied problem in \hpsg since at least
+\citet{flickinger:thesis87}.
+
+We are not suggesting that it is impossible to write a \ccg grammar that does not suffer
+from such over- and under-generation problems. Our argument is that the solution to
+these problems necessarily involves generalisations about constituent type; and we further
+argue that the formalism makes such generalisations difficult to encode in a wide-coverage
+grammar. The need for an easier way to represent constituent type generalisations motivates
+the inclusion of some sort of type-changing operation. In Section~\ref{sec:ling_psg_rules}, we
+argue that there are problems with the existing type-changing proposal, as presented by
+\citet{hock:cl07}, and instead present our own in Chapter~\ref{chapter:hat_cats}.
+But first, we describe two further problems that motivate type-changing rules in
+\ccg.
+
+
+
+\section{Recursive Modification Requires Infinite Categories}
+\label{sec:infinite_categories}
+In English, some constituent types can function as modifiers of their own type.
+The result is unbounded recursion depth. This can be problematic for \ccg,
+because it means depth sensitive categories are required. The result of this is
+an inability to generate the full set of grammatical constituents with a finite
+set of categories.
+
+Compound nouns are the clearest example of this in English. Adverbial clauses
+are another example. We assume that a phrase like \emph{management system} would
+be analysed as noun-noun modification, with \emph{system} as head:
+
+\begin{center}
+\begin{parsetree}
+(.\cf{N}.
+  (.\cf{N/N}. `management')
+  (.\cf{N}.   `system')
+)
+\end{parsetree}
+\end{center}
+
+\noindent The opposite ordering is also grammatical:
+
+\begin{center}
+\begin{parsetree}
+(.\cf{N}.
+  (.\cf{N/N}. `system')
+  (.\cf{N}.   `management')
+)
+\end{parsetree}
+\end{center}
+
+Both words head constituents of the same type, which we will call \nom, to
+distinguish it from the category, \cf{N}. One of the possible functions of \nom
+constituents is leftward modification of another \nom. In the example above, the
+category of the modifier constituent changed to reflect its function as a
+modifier. If the whole constituent functions as a modifier of another \nom, both
+of their categories must change:
+
+\begin{center}
+\ptbegtree
+\ptbeg \ptnode{\cf{N}}
+  \ptbeg \ptnode{\cf{N/N}}
+    \ptbeg \ptnode{\cf{(N/N)/(N/N)}} \ptleaf{water} \ptend
+    \ptbeg \ptnode{\cf{N/N}}  \ptleaf{meter} \ptend
+  \ptend
+  \ptbeg \ptnode{\cf{N}} \ptleaf{cover}\ptend
+\ptend
+\ptendtree
+\end{center}
+
+At each depth of modification, a new category is required. A longer
+left-branching example, like \emph{water meter cover adjustment screw} would
+require the category:
+
+\begin{equation}
+\cf{(((N/N)/(N/N))/((N/N)/(N/N)))/(((N/N)/(N/N))/((N/N)/(N/N))))}
+\end{equation}
+
+With an even slightly longer phrase, like \emph{hot water meter cover adjustment
+screw}, the categories required become unprintable.
+
+%\subsubsection{The recursion is infinite, so we will need infinite categories}
+
+If we call one constituent that modifies another a \emph{modifier}, a
+constituent that modifies the first one will be a \emph{modifier modifier},
+which might be modified in turn by a \emph{modifier modifier modifier} --- and
+so on, unbounded. Such a phrase of length $n$ will require $n$ different
+categories. Since the phrase is grammatical at any length, a finite category set
+is inadequate.
+
+The crux of the problem is that the grammaticality of a \emph{(modifier, head)}
+attachment is determined by the structural types of the two constituents, but this is not
+how categorial grammars model modification. With no theory of constituent type,
+a modifier instead refers to its head's function, which might be forced to refer
+to \emph{its} head's function --- and so on.
+
+%\subsubsection{Composition doesn't help}
+
+At first glance, it might seem that the long categories are unnecessary, because
+we can bracket the modifiers together using the composition rule:
+
+\begin{center}
+\deriv{3}{
+\rm water & \rm meter & \rm cover \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N/N} &
+\cf{N/N} &
+\cf{N} \\
+\fcomp{2} \\
+\mc{2}{\cf{N/N}} \\
+& \fapply{2} \\
+& \mc{2}{\cf{N}}
+}
+\end{center}
+
+However, this derivation does not produce the analysis we want, because of the
+semantic annotation of the \cf{N/N} category:
+
+\begin{lexample}
+ \cf{(N_y/N_y)_x}
+\end{lexample}
+
+The \cf{x} variable is filled by the word that heads the modifier. When
+\emph{water} composes with \emph{cover}, its argument unifies with
+\emph{cover}'s result, which is unified with \emph{cover}'s argument. When this
+argument unifies with \emph{meter}, we get the following dependencies:
+
+\begin{eqnarray}
+(water, \;\; \cf{N/N},\;\; 1, \;\; cover)\nonumber \\
+(meter, \;\; \cf{N/N},\;\; 1, \;\; cover)\nonumber
+\end{eqnarray}
+
+The left-branching derivation using composition is therefore equivalent to the
+right-branching derivation using application:
+
+\begin{center}
+\deriv{3}{
+\rm water & \rm meter & \rm cover \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N/N} &
+\cf{N/N} &
+\cf{N} \\
+& \fapply{2} \\
+& \mc{2}{\cf{N}} \\
+\fapply{3} \\
+\mc{3}{\cf{N}}
+}
+\end{center}
+
+While this approach is not fruitful for two modifiers, at one level deeper it can
+constrain the number of categories. Ordinarily, modifiers receive symmetrically
+indexed categories. Thus, the category for \emph{water} in \emph{water meter cover}
+would be \cf{((N_y/N_y)_z/(N_y/N_y)_z)_w}, where $w$ is bound to \emph{water} and
+$y$ and $z$ will be bound during the derivation. If we instead coindexed the category
+so that the $w$ variable were exposed to composition, using the category
+\cf{(N_y/N_y)_w/(N_y/N_y)_z}, 
+we could get the correct 
+analysis for \emph{hot water} without a modifier-modifier-modifier category:
+
+\begin{center}
+\deriv{2}{
+\rm hot & \rm water \\
+\uline{1}&\uline{1} \\
+\cf{(N_y/N_y)_h/(N_y/N_y)_z} &
+\cf{(N_y/N_y)_w/(N_y/N_y)_z} \\
+\fcomp{2} \\
+\mc{2}{\cf{(N_y/N_y)_h/(N_y/N_y)_z}}
+}
+\end{center}
+
+This strategy gets the correct dependency between \emph{hot} and \emph{water},
+but records the head of the constituent as \emph{hot}. This is problematic
+if there is a modifier of \emph{water} to the left of \emph{hot}. For instance,
+if the constituent were \emph{treated hot water meter cover}, \emph{treated}
+must modify \emph{water}, as must \emph{hot}. With the categories assigned above,
+only one is able to. Nevertheless, the OpenCCG surface realisation system employs
+a variant of this mechanism \citep[][\S 4.1]{white:08punct}.
+
+Adverbial examples of the recursive modification problem are less concise, because
+the construction encounters semantic and pragmatic constraints. Verb phrases can
+function as direct modifiers of other verb phrases, in the same way as noun-noun
+compounding. For instance, \emph{Feeling} here modifies \emph{caught} directly,
+and would receive a category such as \cf{(S/S)/(S[adj]\bs NP)}:
+
+\begin{lexamples}
+\item Feeling chilly, Robin caught a Taxi.
+\end{lexamples}
+
+\emph{Feeling} is non-finite, but its constituent type is still a verb phrase,
+so it is susceptible to modification by its own clausal adjuncts, which can
+themselves be modified by other clausal adjuncts:
+
+\begin{lexamples}
+ \item ((Feeling chilly) ((wearing a t-shirt) ((walking home) (carrying shopping
+(...))))).
+\end{lexamples}
+
+In the intended reading, where \emph{carrying} modifies \emph{walking}, which
+modifies \emph{wearing}, which modifies \emph{Feeling}, we will need to assign
+the following category to \emph{carrying}:
+\begin{equation}
+ \cf{((((S/S)\bs (S/S))\bs ((S/S)\bs (S/S)))\bs (((S/S)\bs (S/S))\bs ((S/S)\bs
+(S/S))))/NP}
+\end{equation}
+
+
+The pragmatic problem with this example is that the attachment ambiguity makes
+the sentence very difficult to process, and the dependency distances become very
+long because the verb phrases all have argument structures. There is also no
+obvious way to construct an unbounded example, as we did with \emph{modifier
+modifier}, because verb phrase modification typically involves temporal or
+logical relations, and time and causation do not readily form loops. The closest
+we can construct involves a sort of feedback loop. If we believed that
+depression might act to make someone more depressed, we might express their mood
+as \emph{((Feeling blue) ((feeling blue) ((feeling blue) (...))))}.
+
+At any rate, even if a construction is impossible for pragmatic or semantic
+reasons, if it is \emph{syntactically} licensed, it should be within the
+coverage of the grammar. There will always be pragmatic constraints on
+modification depth, if nothing else because speakers do not perform unbounded
+utterances. The question is whether the mechanisms in our grammar seem to
+model the way language is structured. These examples make clear that recursive
+modification constructions pose a problem for \ccg, because full coverage of the
+phenomenon requires an infinite lexicon.
+
+\section{The Lack of Constituent Type Makes Description Difficult}
+\label{sec:descriptive_power}
+In Section~\ref{sec:ab_sucks}, we considered an \abcg analysis of extraction
+that relied on category ambiguity instead of grammatical machinery:
+
+\begin{center}
+\deriv{4}{
+\rm Pat, & \rm who & \rm Erin & \rm hates \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/(S[dcl]/NP)} &
+\cf{NP} &
+\cf{(S[dcl]/NP)\bs NP} \\
+&& \bapply{2} \\
+&& \mc{2}{\cf{S[dcl]/NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{NP}}
+}
+\end{center}
+
+In general, this is not a strategy we wish to adopt. Instead, we wish to assign
+categories that place the arguments in canonical positions, and use the grammar
+to account for predictable transformations.
+
+Form-function discrepancies are another class of predictable transformations.
+Form-function discrepancies can be handled by introducing additional category
+ambiguity, but this treatment is not particularly satisfactory. We will pursue
+two examples, both involving verbs: nominalisation, and reduced relative
+clauses. There are many other constructions which force \ccg into an undesirable
+analysis, such as predicative complements, adverbial nouns, and topicalisation.
+What these constructions share in common is a mismatch between the underlying
+type of the constituent and the category it must receive to function in the
+derivation.
+
+In general, there are two strategies for handling this mismatch: we can change
+the category of the head of constituent, which will also force the categories of
+its modifiers to change. Alternatively, we can change the category of its head,
+usually by altering its argument structure.
+
+\subsection{Nominal Clauses}
+\label{ling_mot:nominal}
+Any English verb can head a nominal clause, in gerund and infinitive forms:
+
+\begin{lexamples}
+\item Seeing things is believing things.\\
+\item To see things is to believe them.
+\end{lexamples}
+
+A detailed analysis such as that provided by the \xtag grammar \citep{xtag}
+identifies several varieties of gerund in English, but the important property
+for our purposes is that they have the internal structure of sentences, but a
+distribution roughly equal to other noun phrases \citep{rosenbaum:67}. A nominal
+clauses can fill any \cf{NP} typed argument slot:
+
+\begin{lexamples}
+\item I gave \emph{doing things his way} a chance.\\
+\item I gave a chance to \emph{doing things his way}.\\
+\item \emph{Doing things his way} gave me a chance.
+\end{lexamples}
+
+This rules out one possible analysis, which would involve changing the argument structure
+of the clause's head verb so that it subcategorises for gerund nominals specifically,
+using a type such as \cf{S[nom]}.
+This would introduce an extra category for every combination of \cf{NP} typed
+arguments in the category:
+
+\begin{eqnarray}
+to   &\assign& \cf{PP/S[nom]}\nonumber\\
+gave &\assign& \cf{((S[dcl]\bs S[nom])/NP)/NP}\nonumber\\
+gave &\assign& \cf{((S[dcl]\bs NP)/S[nom])/NP} \nonumber\\
+gave &\assign& \cf{((S[dcl]\bs NP)/NP)/S[nom]} \nonumber\\
+gave &\assign& \cf{((S[dcl]\bs S[nom])/S[nom])/NP}\nonumber\\
+etc  &    & \nonumber
+\end{eqnarray}
+
+Unfortunately, the only alternative is to type the inner-most result of the
+nominalised clause as an \cf{NP[ger]}. The feature, for \emph{gerund}, is necessary
+to prevent over-generation as discussed in Section~\ref{sec:over-generation}.
+This introduces extra verbal categories, which
+in turn introduces extra categories for any constituent that can function
+adverbially:
+
+\begin{center}
+\deriv{5}{
+\rm Seeing & \rm things & \rm clearly & \rm is & \rm important \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP[ger]/NP} &
+\cf{NP[n]} &
+\cf{NP[ger]\bs NP[ger]} &
+\cf{(S[dcl]\bs NP)/(S[adj]\bs NP)} &
+\cf{S[adj]\bs NP} \\
+\fapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP}} && \mc{2}{\cf{S[dcl]\bs NP}} \\
+\bapply{3} \\
+\mc{3}{\cf{NP[ger]}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[dcl]}}
+}
+\end{center}
+
+The \emph{n} feature assigned to the \cf{NP} \emph{things} records that \emph{things}
+is not a gerund nominal, to block \emph{clearly} from attaching to it. As we argue in
+Section~\ref{sec:over-generation}, it is difficult to formulate a concise and consistent
+representation of constituent types as features, although not impossible.
+
+Neither of the two analyses we have considered restrict the effect of the construction to
+the gerund verb. Either the verb remains \cf{S}-typed and the argument structures
+of its head must be altered, or the verb receives an \cf{NP}-type, and its modifiers must
+change.
+
+\subsection{Reduced Relative Clauses}
+\label{sec:ling_rrc}
+\begin{figure}
+\centering
+\deriv{6}{
+\rm Ashley & \rm likes & \rm Pat & \rm who & \rm Casey & \rm hates \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{NP} &
+\cf{(NP\bs NP)/(S[dcl]/NP)} &
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} \\
+&&&& \ftype{1} \\
+&&&& \mc{1}{\cf{S/(S\bs NP)}} \\
+&&&& \fcomp{2} \\
+&&&& \mc{2}{\cf{S[dcl]/NP}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{NP\bs NP}} \\
+&& \bapply{4} \\
+&& \mc{4}{\cf{NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{S[dcl]\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{S[dcl]}}
+}
+\caption[Partial associativity provided by type-raising and
+composition.]{Interaction of type-raising and composition to produce partial
+associativity. This allows the WH-movement to be analysed with the canonical
+category assignments.\label{fig:ling_wh_movement}}
+\end{figure}
+
+\ccg offers an excellent analysis of extraction mediated by relative pronouns,
+as shown in Figure~\ref{fig:ling_wh_movement}. The type-raising and composition
+rules allow the extraction phenomenon to be represented entirely in the category
+assigned to \emph{who}. Unfortunately, reduced relative clauses pose more of a
+problem. The two closely related constructions are:
+
+\begin{lexamples}
+\item \textbf{WH-mediated}: \emph{asbestos that was once used for cigarette
+filters}\\
+\item \textbf{Reduced}: \emph{asbestos once used for cigarette filters}
+\end{lexamples}
+
+Without the WH item to coerce the clause into an \cf{NP} modifier, we must
+either change the category of the noun, or the category of the verb. An analysis
+that relies on changing some other constituent can be dismissed out of hand, as
+the modifiers and non-extracted arguments of the verb are irrelevant to the 
+construction. We consider each of the viable alternatives in turn.
+
+\subsubsection{Changing the verb category}
+
+Perhaps the most obvious solution is to change the verb category, so that its
+category becomes \cf{(NP\bs NP)/PP}:
+
+\begin{center}
+\deriv{6}{
+\rm asbestos & \rm once & \rm used & \rm for & \rm cigarette & \rm filters \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/(NP\bs NP)} &
+\cf{(NP\bs NP)/PP} &
+\cf{PP} &
+\cf{NP/NP} &
+\cf{NP} \\
+&&&& \fapply{2} \\
+&&&& \mc{2}{\cf{NP}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{PP}} \\
+&& \fapply{4} \\
+&& \mc{4}{\cf{NP\bs NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{NP\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{NP}}
+}
+\end{center}
+
+This analysis is undesirable for the same reasons as the \cf{NP}-rooted
+nominalisation analysis described above. It forces an additional, undesirable
+category onto its modifiers, and it breaks the assumption that the inner-most
+result of a category characterises it in any meaningful way.
+
+\subsubsection{Changing the noun category}
+
+The alternative analysis that involves changing the noun's category was pointed
+out to us by Baldridge and Steedman (p.c. 2007):
+
+\begin{center}
+\deriv{6}{
+\rm asbestos & \rm once & \rm used & \rm for & \rm cigarette & \rm filters \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/(S[pss]\bs NP)} &
+\cf{(S\bs NP)/(S\bs NP)} &
+\cf{(S[pss]\bs NP)/PP} &
+\cf{PP} &
+\cf{NP/NP} &
+\cf{NP} \\
+&&&& \fapply{2} \\
+&&&& \mc{2}{\cf{NP}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{PP}} \\
+&& \fapply{4} \\
+&& \mc{4}{\cf{S[pss]\bs NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{S[dcl]\bs NP}} \\
+\fapply{6} \\
+\mc{6}{\cf{NP}}
+}
+\end{center}
+
+This analysis allows the verb to keep its canonical category, and the noun's
+inner-most result is preserved. Unfortunately, it is a rather unnatural
+analysis. The omission of the relativiser does not change the clause from an
+adjunct into an argument. The clause still has all the hallmarks of a modifier.
+A noun can be modified by multiple relative clauses:
+
+\begin{lexamples}
+\item The lawsuit was based on (asbestos (linked to cancer) (used in cigarette
+filters))
+\end{lexamples}
+
+The relationship between the noun and the relative clause is identical whether
+the relative is bare or WH-mediated, suggesting that they are either both
+adjuncts, or both arguments. So while this analysis is convenient, and certainly
+better than the alternative, it is also unsatisfying.
+
+In summary, both gerund nominals and reduced relative clauses can be assigned \ccg
+analyses that correctly represent their semantics. However, the analyses required
+are exceptional cases that do not directly resemble related phenomena.
+Wide-coverage grammars are sufficiently difficult to write that we do not only require
+a formalism technically capable of representing the relevant phenomena. The formalism
+ought to be capable of representing \emph{natural} analyses, that meet our intuitions
+about how phenomena are related. The analyses \ccg requires for 
+form/function discrepancies are not currently satisfying in this sense.
+
+
+\section{Existing Proposals}
+\label{sec:proposals}
+A great range of grammatical machinery has been proposed to extend a pure \abcg.
+We briefly review three proposals that might mitigate the problems we have discussed.
+The first is \citepos{lambek:58} division combinator, also known as the Geach
+rule. We explain that this rule cannot be used to address the problems we have
+identified. The second are the zero-morphemes of \citet{aone:90}. The third proposal
+is \citepos{hock:lrec02} addition of type-changing rules to the grammar.
+
+\subsection{Lambek's Division Combinator}
+\label{division}
+
+In the Lambek calculus \citep{lambek:58}, \emph{category division} is a unary
+rule equivalent of \ccg's binary function composition. Lambek's rule is different from the
+\textbf{D} combinator \citep{curry:58} proposed for use in \ccg by
+\citet{hoyt:08}, a proposal which does not affect the issues we are concerned
+with. Lambek's rule is:
+
+\begin{equation}
+\cf{X/Y} \;\;\Rightarrow\;\; \cf{X\$/Y\$}
+\end{equation}
+
+Where \$ is a variable denoting an arbitrary mono-directional argument
+structure. The Lambek calculus uses four core rules (application, associativity,
+composition, and raising), and Lambek only noted division in an aside,
+commenting that it was provable under the system \citep{wood:93}. At first
+glance, the rule seems to provide an attractive solution to the need for infinite
+categories described in Section~\ref{sec:infinite_categories}:
+
+\begin{center}
+\deriv{3}{
+\rm water & \rm meter & \rm cover \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N/N} &
+\cf{N/N} &
+\cf{N} \\
+\division{1} \\
+\mc{1}{\cf{(N/N)/(N/N)}} \\
+\fapply{2} \\
+\mc{2}{\cf{N/N}} \\
+\fapply{3} \\
+\mc{3}{\cf{N}}
+}
+\end{center}
+
+The problem, however, is that this does not produce the correct dependencies. This
+can be seen by annotating the rule with head indices:
+
+\begin{equation}
+\cf{X/Y} \;\;\Rightarrow\;\; \cf{(X_x\$)_x/(Y_y\$)_y}
+\end{equation}
+
+To form the correct dependency between \emph{water} and \emph{meter}, the category
+assigned to \emph{water} must be indexed \cf{(N_y/N_y)_z/(N_y/N_y)_z}. The division
+rule produces a category indexed \cf{(N_y/N_y)_y/(N_y/N_y)_y}. This means that
+\emph{water} will form a dependency with \emph{cover}, not \emph{meter} --- just
+as if \ccg's standard binary composition were used.
+
+\subsection{Morpheme Categories}
+
+One way to summarise the problems we have identified is that a single \ccg
+category has conflicting demands: internal constituents want one category (based
+on constituent type), while external constituents want another. \citet{aone:90}
+put forward a proposal that partially addresses this, by assigning categories to
+morphemes, and even to empty strings which they refer to as \emph{zero}
+morphemes. Their proposal reduces category ambiguity by breaking up the
+information categories specify into several pieces. \citet{bozsahin:02} 
+shows that morphemic categories are essential for analysing a morphologically rich
+language such as Turkish with \ccg, and \citet{cha:02} illustrates the same
+point for Korean.
+
+Morpheme categories could also be used to perform type-to-function coercions. A
+morpheme based analysis of nominal clauses would assign a category to the
+morphological suffix, allowing the open class lexical items to receive their
+canonical categories:
+
+\begin{center}
+\deriv{3}{
+\rm See & \rm -ing & \rm things \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{(S[b]\bs NP)/\xmode NP} &
+\cf{NP\bs\xmode (S[b]\bs NP)} &
+\cf{NP} \\
+\bxcomp{2} \\
+\mc{2}{\cf{NP/NP}} \\
+\fcomp{3} \\
+\mc{3}{\cf{NP}}
+}
+\end{center}
+
+The analysis requires crossed composition from a category rooted in \cf{NP}, so
+we describe an analysis using modalised slashes, as described in Section
+\ref{sec:mmccg_background}. This analysis closely corresponds to the seemingly
+attractive analysis for infinitive nominalisations, which hangs the type-change
+onto \emph{to}:
+
+\begin{center}
+\deriv{3}{
+\rm to & \rm see & \rm things \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/(S[b]\bs NP)} &
+\cf{(S[b]\bs NP)/NP} &
+\cf{NP} \\
+& \fapply{2} \\
+& \mc{2}{\cf{S\bs NP}} \\
+\fapply{3} \\
+\mc{3}{\cf{NP}}
+}
+\end{center}
+
+Unfortunately, things become difficult when adverbs are introduced:
+
+\begin{lexamples}
+\item \gll See -ing things clearly
+\cf{(S\bs NP)/NP} \cf{NP\bs (S\bs NP)} \cf{NP} \cf{(S\bs NP)\bs (S\bs NP)}
+\gln
+\glend
+\end{lexamples}
+
+If the adverb \emph{clearly} is assigned its canonical category, it can no
+longer apply to \emph{see}, and cannot compose with the \cf{NP}-rooted
+\emph{-ing} morpheme. Similar problems occur when an adverb must right-modify an
+infinitive (which is of questionable grammaticality in our dialect):
+
+\begin{lexamples}
+\item \gll ?~boldly to go
+\cf{(S\bs NP)/(S\bs NP)} \cf{NP/(S\bs NP)} \cf{S\bs NP}
+\gln
+\glend
+\end{lexamples}
+
+Similar difficulties apply to zero morphemes. The zero category interferes with
+modification, unless it is moved arbitrary distances away from the head --- a
+highly unattractive solution. This makes \citepos{aone:90} argument that zero
+morphemes can be compiled into the grammar as equivalent unary type-changing rules
+problematic. A unary rule is not equivalent to a zero morpheme
+lexical category, because unary rules do not have these interactions with the
+linear order of the string.
+
+In general, morpheme based categories are a promising concept --- so long as the
+morpheme is explicitly realised, and so long as it does not interfere with
+modification. When compiled into the grammar as unary type-changing operations,
+as \citeauthor{aone:90} suggest, zero morphemes become unary type-changing rules.
+We investigate such rules in the following section.
+
+\subsection{Type-Changing Rules}
+\label{sec:ling_psg_rules}
+
+
+
+
+\begin{figure}
+\begin{center}
+\hspace*{-30mm}\scalebox{0.9}{
+\ptbegtree
+\pthorgap{7pt}
+\ptnodefont{\small\rm}{11pt}{2pt}
+\ptleaffont{\small\it}{11pt}{2pt}
+\ptbeg \ptnode{\cf{S}}
+  \ptbeg \ptnode{\cf{S}}
+    \ptbeg \ptnode{\cf{NP}} \ptleaf{It} \ptend
+    \ptbeg \ptnode{\cf{S[dcl]\bs NP}}
+      \ptbeg \ptnode{\cf{(S[dc]\bs NP)/NP}} \ptleaf{is}  \ptend
+      \ptbeg \ptnode{\cf{NP}}
+        \ptbeg \ptnode{\cf{NP}}
+          \ptbeg \ptnode{\cf{NP}} \ptleaf{the fourth time} \ptend
+          \ptbeg \ptnode{\cf{NP\bs NP}}
+            \ptbeg \ptnode{\cf{(NP\bs NP)/N}} \ptleaf{this} \ptend
+            \ptbeg \ptnode{\cf{N}} \ptleaf{week} \ptend
+          \ptend
+        \ptend
+        \ptbeg \ptnode{\cf{NP\bs NP}}
+          \ptbeg \ptnode{\cf{S[dcl]}} \ptleaf{it has happened} \ptend
+        \ptend
+      \ptend
+    \ptend
+  \ptend
+  \ptbeg \ptnode{\cf{S\bs S}}
+    \ptbeg \ptnode{\cf{,}} \ptleaf{,}\ptend
+    \ptbeg \ptnode{\cf{NP}}
+      \ptbeg \ptnode{\cf{NP/NP}} \ptleaf{almost}\ptend
+      \ptbeg \ptnode{\cf{NP}}
+        \ptbeg \ptnode{\cf{NP}}
+          \ptbeg \ptnode{\cf{NP/N}} \ptleaf{a}\ptend
+          \ptbeg \ptnode{\cf{N}}\ptleaf{way}\ptend
+        \ptend
+        \ptbeg \ptnode{\cf{NP\bs NP}}
+          \ptbeg \ptnode{\cf{(NP\bs NP)/NP}} \ptleaf{of}\ptend
+          \ptbeg \ptnode{\cf{NP}}
+            \ptbeg \ptnode{\cf{N}} \ptleaf{life}\ptend
+          \ptend
+        \ptend
+      \ptend
+    \ptend
+  \ptend
+\ptend
+\ptendtree
+}
+\end{center}
+\caption{\ccgbank derivation showing type-changing rules.}\label{full_sentence_ccgbank}
+\end{figure}
+
+\begin{figure}
+\centering
+\deriv{4}{
+\rm John & \rm Paul & \rm Mary & \rm loves \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{NP} &
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} \\
+& \psgrule{1} & \ftype{1} \\
+& \mc{1}{\cf{S/(S/NP)}} & \mc{1}{\cf{S/(S\bs NP)}} \\
+&& \fcomp{2} \\
+&& \mc{2}{\cf{S[dcl]/NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{S[dcl]}} \\
+& \psgrule{3} \\
+& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{NP}}
+}
+\caption{Over-generation by \ccgbank rules.\label{fig:twisted_love}}
+\end{figure}
+
+\citet{hock:lrec02} includes a brief discussion of the modifier category
+proliferation problem, and context-free type-changing rules to
+address the situation. Appendix~\ref{appendix:type-changing} provides a list of
+all unary and binary type-changing rules that occur more than 10 times in Sections 02-21
+of \ccgbank. There are 204 type-changing rules in the training partition of
+\ccgbank. 53 of the frequent rules produce modifier categories, 48 of which
+transform verbal categories. The rules also handle a variety of other
+constructions, such as form/function discrepancies like gerund nominals. By far
+the most frequent rule (115,333 occurrences) is \psunary{\cf{N}}{\cf{NP}}, which
+transforms bare nominals into noun phrases.
+
+Figure~\ref{full_sentence_ccgbank} shows two such rules. The
+\psunary{\cf{S[dcl]}}{\cf{NP\bs NP}} rule allows the reduced relative clause,
+\emph{it has happened}, to function as a modifier while all words are assigned
+their canonical categories. The other type-changing rule in the derivation,
+\psbinary{\cf{,}}{\cf{NP}}{\cf{S\bs S}}, enables the extraposition of
+\emph{almost a way of life}. This rule illustrates how type-changing rules prevent the
+modifier category proliferation problem. The modifier \emph{almost} receives the
+form-based category \cf{NP/NP}. The function of its head is factored away from
+the modifier's category.
+
+The rule is binary so that the punctuation can make the rule more precise.
+Precision is important for type-changing rules, because they come at the cost of
+over-generation. The type-changing rules introduced by \citet{hock:cl07} are
+context-free, which makes it difficult to prevent this problem.
+In the context of a statistical system, some over-generation is permissible, as
+the statistical model should be able to filter out analyses unrepresented in the training
+data. Over-generation is still undesirable, however, as the model will never be perfectly
+accurate. This means that the type-changing rules must be
+chosen judiciously, lest the solution become more costly than the initial
+problem. 
+
+Figure~\ref{fig:twisted_love} shows an example of over-generation caused by the
+unary rule \psunary{\cf{NP}}{\cf{S/(S/NP)}}
+\footnote{Note that this \ccgbank version of the topicalisation rule differs slightly
+from \citepos{steedman:00} rule, which is \cf{S[t]/(S/NP)}. That is, it includes
+a feature to mark topicalisation and constrain over-generation. This seems problematic,
+as it blocks coordination such as \emph{I love Robin, but Pat I hate}, which we
+suggest is grammatical.}, which is used to handle object
+extraposition, as in the following:
+
+\begin{center}
+\deriv{7}{
+\rm Robin & \rm I & \rm love~, & \rm but & \rm Pat & \rm I & \rm hate \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{(X\bs X)/X} &
+\cf{NP} &
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} \\
+\psgrule{1} & \ftype{1} &&& \psg{1} & \ftype{1} \\
+\mc{1}{\cf{S/(S/NP)}} & \mc{1}{\cf{S/(S\bs NP)}} &&& \mc{1}{\cf{S/(S/NP)}} & \mc{1}{\cf{S/(S\bs NP)}} \\
+& \fcomp{2} &&& \fcomp{2} \\
+& \mc{2}{\cf{S[dcl]/NP}} &&& \mc{2}{\cf{S[dcl]/NP}} \\
+\fapply{3} && \fapply{3} \\
+\mc{3}{\cf{S[dcl]}} && \mc{3}{\cf{S[dcl]}} \\
+&&& \fapply{4} \\
+&&& \mc{4}{\cf{S[dcl]\bs S[dcl]}} \\
+\bapply{7} \\
+\mc{7}{\cf{S[dcl]}}
+}
+\end{center}
+
+Adding this rule to the grammar without any restrictions allows local
+scrambling, undoing all of the careful work to restrict the combinatory rules in
+\citet{steedman:00}, and making \citepos{baldridge:03} replacement of them a
+moot point. Many of the type-changing rules that are rare in \ccgbank offer similarly
+unattractive trade-offs between descriptive power and over-generation. The
+\psunary{\cf{S[dcl]}}{\cf{NP\bs NP}} rule is another example of this.
+
+The ambiguity problem prevents type-changing rules from being a practical way to
+consistently represent constituent type in the corpus. For instance,
+prepositional phrases receive modifier categories directly, because unary rules
+transforming prepositional phrases into nominal or verbal modifiers would be
+very problematic. One problem with the addition of a rule such as
+\psunary{\cf{PP}}{\cf{NP\bs NP}} to the grammar is that prepositional phrase
+attachment would no longer be lexically specified. A word would receive the
+category \cf{PP/NP}, and after applying its argument, it could then function as
+an argument, nominal modifier, or verbal modifier. This loss of lexicalisation
+is undesirable.
+
+Perhaps the biggest problem with a type-changing rule like \psunary{\cf{PP}}{\cf{NP\bs
+NP}} is the burden it places on type-changing rules to carry out non-trivial
+semantic operations. All of the combinatory rules
+perform very simple semantic operations, according to the following principle
+stated by \citet[][p. 37]{steedman:00}:
+
+\begin{combinatorytransparency}
+ All syntactic combinatory rules are type-transparent versions of one of a small
+ number of simple semantic operations over functions.
+\end{combinatorytransparency}
+
+Type-changing rules perform arbitrary category transformations, so can introduce
+arbitrary semantic operations. The only way to avoid this is to pair a \cf{PP} category
+with a logical form that takes into account its transformation to \cf{NP\bs NP}.
+But since the syntactic category does not guarantee the transformation, this
+introduces semantic ambiguities that are difficult to resolve, and may lead to valid
+syntactic derivations that yield unpredictable semantic analyses.
+
+For practical systems based on \ccgbank, type-changing operations have not presented
+a significant obstacle to semantic transparency. Both \citet{bos:coling04} and \citet{white:03}
+have produced logical forms from \ccgbank derivations, by pairing each type-changing
+rule with a semantic operation. It is unsurprising that there should exist some engineering
+solution for a small set of exceptional cases. This does not, however, suggest that
+exceptional cases are a desirable addition to a linguistic theory.
+
+Finally, type-changing rules also destroy the explanatory power of \ccg as a
+model of the human language processor. One of the appeals of a lexicalised
+grammar in this respect is that it makes a strong claim about exactly which part
+of the human language faculty is innate (the grammar), and which part is
+acquired (the lexicon). If the grammar is innate, it must be language universal,
+confining all language specific variation to the lexicon. The type-changing
+rules contradict this hypothesis, just when it seemed that the last language
+specific exceptions to the grammar had been removed by \citepos{baldridge:03}
+addition of resource sensitivity to the lexicon. We argue that although the
+problem that type-changing rules address is real, we should seek a solution
+that does not involve abandoning the central hypotheses of the \ccg theory.
+
+\section{Summary}
+
+A good way to introduce someone familiar with grammar to \ccg in a few minutes
+is to tell them that in \ccg, a transitive verb is just a sentence missing two
+arguments. Similarly, there is no such thing as a preposition or an adverb ---
+there are just functions from, say, a noun phrase argument to a noun phrase
+modifier. In this chapter, we have argued that this interesting design actually
+poses some problems for the theory, because there really \emph{is} such a thing
+as a prepositional phrase or an adverb in the language, and a grammatical theory
+that cannot account for them loses economy.
+
+Constituent type is not a semantically relevant property, so it is not strictly
+necessary for a formalism that seeks to map surface forms directly to semantic
+structures. However, constituent type is crucially relevant
+\emph{syntactically}. This makes it essential for parsimonious linguistic
+description. It is possible for \ccg grammars to account for constituent type,
+but we have argued that the formalism does little to encourage generalisations
+along this dimension. This has motivated the inclusion of type-changing rules
+to the formalism to simplify linguistic description. We argue that unlexicalised
+type-changing operations run contrary to the design principles of the theory,
+and introduce over-generation that discourages the grammar writer from including
+a consistent representation of constituent type.
+In the following chapter, we suggest a way to unambiguously lexicalise type-changing
+operations, using hat categories.

@@ -1,0 +1,182 @@
+\documentclass[a4paper,10pt]{article}
+
+
+%opening
+\title{Implementing a Morphemic CCG for Verb Inflection}
+\author{Matthew Honnibal}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This is a draft proposal outlining a simple morphemic analysis of inflectional suffixes for verbs. The idea is to handle inflectional morphology in the surface syntax, by giving bound morphemes their own category. This would be a limited implementation of the ideas set out by \citet{bozsahin:02}, \emph{The Combinatory Morphemic Lexicon}. The main advantage of this is computational, as we would gain a more consistent lexicon without adopting an inheritance mechanism. It also supports a better analysis of passives, as I will describe.
+\end{abstract}
+
+\section{Verb Inflection in \ccgbank}
+
+In \ccgbank, there are four features that are largely governed by the inflection of the verb:
+
+\begin{lexamples}
+\item \gll writes/wrote
+      \gln \cf{(S[dcl]\bs NP)/NP}
+      \glend
+\item \gll written
+      \gln \cf{(S[pss]\bs NP)/NP}
+      \glend
+\item \gll written
+      \gln \cf{(S[pt]\bs NP)/NP}
+      \glend
+\item \gll write
+      \gln \cf{(S[b]\bs NP)/NP}
+      \glend
+\end{lexamples}
+
+The features are necessary for satisfactory analyses, but also creates a level of redundancy if the different inflected forms are treated as individual lexical entries. The different inflected forms of a verb will all share the same set of potential argument structures, so some way of grouping the entries together is desirable.
+
+\section{Morphemic Categories}
+
+We suggest a simple, restricted implementation of the morphemic categories that have been discussed in the \ccg literature (e.g. \citet{bozsahin:02}). The inflected form is broken into two morphemes, and each is assigned a category. The category for the bound morpheme is simply a function that provides the necessary feature coercion:
+
+\begin{lexamples}
+ \item \gll I       was write -ing a letter
+       \gln \cf{NP} \cf{(S[dcl]\bs NP)/(S[ng]\bs NP)} \cf{(S[b]\bs NP)/NP} \cf{S[ng]\bs S[b]} \cf{NP/N} \cf{N}
+\item \gll I write -ed a letter
+      \gln \cf{NP} \cf{(S[dcl]\bs NP)/(S[ng]\bs NP)} \cf{(S[b]\bs NP)/NP} \cf{S[dcl]\bs S[b]} \cf{NP/N} \cf{N}
+\item \gll When I write a letter
+      \gln \cf{NP} \cf{(S[dcl]\bs NP)/(S[ng]\bs NP)} \cf{(S[b]\bs NP)/NP} \cf{NP/N} \cf{N}
+\end{lexamples}
+
+The inflectional suffixes receive their own category representing their surface syntactic contribution: the altered feature on the verb. This abstracts surface variation away from the open class lexical item.
+
+The morphemic category also captures the generalisation that the thematic roles are identical for the different inflected forms of the verb. Having separate lexical entries for \emph{write} and \emph{writing} suggests the possibility that the two have different semantic categories --- for instance, that \emph{writing} might have its patient as the leftward argument.
+
+\subsection{Morphemic Analysis of Passivisation}
+
+Of course, this patient-subject category is exactly the one produced for passivisation. Morphemic categories allow a good analysis of this:
+
+\begin{center}
+\deriv{8}{
+\rm a & \rm letter & \rm was & \rm write & \rm -en & \rm by & \rm a & \rm friend \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{VP[dcl]/VP[pss]} &
+\cf{VP[b]/NP} &
+\cf{(VP[pss]/PP[by])\bs (VP[b]/NP)} &
+\cf{PP[by]/NP} &
+\cf{NP/N} &
+\cf{N} \\
+\fapply{2} && \bapply{2} \\
+\mc{2}{\cf{NP}} && \mc{2}{\cf{VP[pss]/PP[by]}} \\
+\fapply{8} \\
+\mc{8}{\cf{NP}} \\
+&&&&& \fapply{3} \\
+&&&&& \mc{3}{\cf{PP[by]}} \\
+&&& \fapply{5} \\
+&&& \mc{5}{\cf{VP[pss]}} \\
+&& \fapply{6} \\
+&& \mc{6}{\cf{VP[dcl]}} \\
+\fapply{8} \\
+\mc{8}{\cf{S[dcl]}}
+}\end{center}
+
+Here the suffix performs a more complex task than simple feature replacement. It maps the arguments from their canonical positions to the permuted passive configuration, including the fact that the agent is case marked by \emph{by}. We can handle agentless passives by introducing ambiguity on the suffix's category:
+
+\begin{center}
+\deriv{5}{
+\rm a & \rm letter & \rm was & \rm write & \rm -en \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{VP[dcl]/VP[pss]} &
+\cf{VP[b]/NP} &
+\cf{VP[pss]\bs (VP[b]/NP)} \\
+\fapply{2} && \bapply{2} \\
+\mc{2}{\cf{NP}} && \mc{2}{\cf{VP[pss]}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{VP[dcl]}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[dcl]}}
+}\end{center}
+
+This correctly predicts that all and only transitive verbs may passivise, that under passivisation the subject realises the patient role, and that there is a semantic argument that has not been surface realised. The analysis does not depend on the auxiliary, \emph{was}, which may be omited to form passive participles (\emph{the letter written Tuesday}).
+
+I propose that auxiliaries be analysed as single morphemes, since they are themselves functions that permute the feature structures of lexical verbs. I suggest that copulas be analysed as single morphemes too.
+
+\section{Computational Considerations}
+
+My proposal is to change the tokenisation of the sentence slightly, so that inflectional morphemes receive their own token and lexical category. One simple way to achieve this retokenisation is to use the part-of-speech tags and a simple morphological analyser to deterministically retokenise the sentence as follows:
+
+\begin{itemize}
+\item writing|VBG $\longrightarrow$ write|VB -ing|VIG
+\item wrote|VBD $\longrightarrow$ write|VB -ed|VID
+\item writes|VBZ $\longrightarrow$ write|VB -es|VIZ
+\item write|VBP $\longrightarrow$ write|VB -|VIP
+\item written|VBN $\longrightarrow$ write|VB -en|VIN
+\item write|VB $\longrightarrow$ write|VB
+\end{itemize}
+
+The sentence would then be supertagged and parsed as normal. The positive impact of this change for parsing is that the inflection is abstracted away from the lemma, allowing all inflections to share a single dictionary of supertags for their argument structures. 
+
+Currently, each inflected type is analysed as a unique lexical entry, with its own tag dictionary. If the type has occurred fewer than 10 times in the training data, its part-of-speech dictionary is used instead. When this occurs, we lose the ability to learn argument structures from the training data at all. For instance, if \emph{sleeping} occurred only 5 times in the training data, the parser would allow it to be assigned any category in the VBG part-of-speech dictionary, such as \cf{(S[ng]\bs NP)/NP}.
+
+We could implement some logic that told the supertagger that \emph{sleeping} should not be assigned a transitive verb category based on the lexical entries for \emph{slept}, \emph{sleeps} and \emph{sleep}, but this is an extra complication that has not been done, largely because it is non-trivial. Morphemic categories are a simple, general mechanism to meet this need, as well as providing lemmatised features for verbs.
+
+\section{Interaction with Form-Function Discrepancies}
+
+Some of you will know that my doctoral research argued that we need a way to manage form-function distinctions in \ccg, and may be wondering how morpheme categories interact with my proposal, hat categories.
+
+Gerund nominals are a simple motivating example. A gerund has the form of a verb, and can be modified as a verb, but has the distribution of a noun-phrase with respect to its heads:
+
+\begin{lexamples}
+\item I gave \emph{doing things his way} a chance.\\
+\item I gave a chance to \emph{doing things his way}.\\
+\item \emph{Doing things his way} gave me a chance.
+\end{lexamples}
+
+At first glance, it might seem that morphemic categories offer a solution here:
+
+\begin{center}
+\deriv{2}{
+\rm do & \rm -ing \\
+\uline{1}&\uline{1} \\
+\cf{VP[b]/NP} &
+\cf{(NP/NP)\bs (VP[b]/NP)} \\
+\bapply{2} \\
+\mc{2}{\cf{NP/NP}}
+}\end{center}
+
+However, I argue that the modifier, \emph{his way}, ought to attach to \emph{doing} with an adverbial category, \cf{(S\bs NP)\bs (S\bs NP)}.\footnote{More details of this argument can be found in my thesis, at \url{http://www.it.usyd.edu.au/~mhonn/thesis.pdf}, or in my \textsc{emnlp} paper from this year.}. The placement of the morpheme category prevents this, but if we arbitrarily shift it to the left, we may face similar problems, as adjunction could proceed from either direction.
+
+The solution I have proposed elsewhere is to add an attribute, called a hat, that encodes the eventual function of the category. Morphemic categories interact well with this proposal, because it allows the morpheme to bear responsibility for specifying the hat category:
+
+\begin{center}
+\deriv{5}{
+\rm do & \rm -ing & \rm it & \rm his & \rm way \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{V[b]/NP} &
+\cf{VP[ng]^{NP}\bs VP[b]} &
+\cf{NP} &
+\cf{NP/N} &
+\cf{N^{VP\bs VP}} \\
+\bxcomp{2} \\
+\mc{2}{\cf{VP[ng]^{NP}/NP}} \\
+\fapply{3} & \fapply{2} \\
+\mc{3}{\cf{VP[ng]^{NP}}} & \mc{2}{\cf{NP^{VP\bs VP}}} \\
+\bapply{5} \\
+\mc{5}{\cf{VP[ng]^{NP}}} \\
+\unhat{5} \\
+\mc{5}{\cf{NP}}
+}\end{center}
+
+This provides the missing generalisation that all -ing form verbs can undergo the form-function transformation, which was the main disadvantage of the hat categories compared to the unary rules in \ccgbank. The other hat category in the derivation transforms \emph{way} into an adverbial. This transformation is specific to a certain class of nouns specifying adverbial information such as manner or time, and does not depend on inflectional morphemes.
+
+\section{Summary}
+
+Some syntactic theories suggest that morphological processes should occur `offline' in the lexicon, while others suggest that they should be part of the surface syntax. There have been a few \ccg analyses of the latter variety. I propose to implement an analysis along these lines on \ccgbank. The analysis would be restricted to handling verb inflections, as we do not currently model number features for nouns. Preliminary estimates suggest that this change will reduce the number of categories in the lexicon by 10\%.
+
+
+
+
+\end{document}

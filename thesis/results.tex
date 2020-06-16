@@ -1,0 +1,1920 @@
+\chapter{Parsing Experiments}
+\label{chapter:results}
+
+This chapter explores the consequences of increasing the level of lexicalisation
+in \ccgbank on the performance of a \ccg parser. Chapter
+\ref{chapter:hat_corpus} described the creation of three corpora implementing
+different lexicalisation strategies, created by adapting \ccgbank. The first
+corpus we evaluate lexicalises the \ccgbank type-changing rules using the hat
+categories introduced in Chapter \ref{chapter:hat_cats}. We label this corpus
+and parsers trained on it \hatsys. The second corpus lexicalises the rules
+without hat categories, by compiling out the unary rules. We label this corpus
+and the parsers trained on it \nounary, although it does use unary type-raising
+rules. The third corpus lexicalises type-raising rules as well as
+type-changing rules using hat categories. We label this corpus \trsys.
+
+As well as performing experiments on the standard development and test set, we
+address a possible problem with making the grammar more lexicalised. Increasing
+lexicalisation might increase the domain dependence of the parser, because the
+supertagger's model assumes that all valid pairings of words and categories have
+been seen in the training data for moderately frequent words. To investigate
+this, we perform the first evaluation of the \candc parser on Wikipedia. This
+also serves as a more practical assessment of our progress on \ccg parsing. It
+allows us to evaluate the parser on data that has immediate practical value, and
+check how well our previous conclusions generalise to new data.
+
+Before we describe our experiments, we briefly discuss some similar studies,
+which have also involved training the \candc parser on altered versions of
+\ccgbank. We then briefly review the experiments discussed in
+\citet{clark:cl07}, to establish the parameters that we may need to alter to
+accommodate our new analyses. Next, we describe how we can slightly improve their
+results by searching for good values of important run-time parameters. We also
+describe how we can compare results from an altered version of \ccgbank against
+the original, by mapping dependency labels so that the output of the new model
+matches the \ccgbank analyses.
+
+Having dealt with these methodological preliminaries, we turn our attention to
+the lexicalised corpora. First, we perform a series of development experiments,
+to select the best configuration for each corpus. We then evaluate the selected
+models on the \wsj test set. Finally, we describe the Wikipedia test set, before
+performing the out-of-domain evaluation.
+
+
+\section{Previous Experiments with \ccgbank Adaptations}
+\label{sec:previous_problems}
+
+There have been a few previous experiments that have trained the \candc parser
+on altered versions of \ccgbank. \citet{honnibal:pacling07prop},
+\citet{vadas:08} and \citet{tse:08} all corrected various problems with the
+\ccgbank (predicate argument structure, noun phrase structure and punctuation,
+respectively), and retrained and evaluated the parser. However, all of these
+studies have shared subtle flaws that have made their results more difficult to
+interpret.
+
+\citet{honnibal:pacling07prop}, \citet{vadas:08} and \citet{tse:08} all present
+results using one of the default \candc parsing models.
+The model used for all of these experiments, described as \derivsbad in
+\ref{training_betas}, achieves a labelled dependency $F$-score of 85.12\%
+using gold standard part of speech tags. This is 1.62\% less accurate than a
+model which differs only on one training parameter, and 2.2\% than the best
+result \citet{clark:cl07} report, which uses a different probability model.
+The use of this less accurate
+parsing model makes results difficult to interpret. Changes in the corpus change
+the difficulty of the inference problem, and we cannot easily predict how that
+difference in difficulty interacts with a larger difference in model quality.
+
+For instance, \citet{honnibal:pacling07prop} found that the Propbank-compatible
+predicate-argument structures they produced made the parsing task more
+difficult, causing a drop in accuracy. \citet{vadas:08} reported a similar
+problem: the parsing task became more difficult when non-trivial noun phrase
+brackets were introduced, and parsing performance dropped using the weaker
+model. However, it is possible that the more difficult corpus would not have
+been a problem for the more accurate model. \citet{vadas:08} also introduced new
+features to mitigate the drop in performance. These features may have had more
+impact with the better model, or they may have represented information the
+model's additional features already took into account.
+
+Another problem with previous \ccgbank adaptations is that little attention was
+paid to the system's configuration parameters. In general, only the default
+values were used, even though these defaults may not be optimal for the new
+corpora. Some of the parameters, notably the $\beta$ levels described in Section
+\ref{beta_k}, can have a substantial impact on performance.
+%This is less of a concern than the use of the wrong model, but may also have
+affected the conclusion by artificially lowering the results on the altered
+corpora.
+
+Finally, \citet{honnibal:pacling07prop} and \citet{vadas:08} also encountered a
+methodological problem that was difficult to avoid. By changing \ccgbank, they
+also changed the test set, making their results difficult to compare against the
+original dependencies. In both of these cases, it was fairly clear that the test
+set had become harder, but it was unclear whether the corpus had somehow become
+noisier or less consistent, or even less noisy and more consistent. Two
+variables had changed. In Section \ref{sec:dependency_mapping}, we describe how
+we avoid this problem by mapping the new corpus's dependencies into \ccgbank's,
+so that we can evaluate against the original \ccgbank.
+\citeauthor{honnibal:pacling07prop} could have done something similar, by
+producing a pivot mapping where all \cf{PP} complement labels were mapped to
+adjunct labels, allowing a common comparison point against the same
+dependencies.
+
+These previous results illustrate a number of issues. First, we have to be
+conscious of the fact that the \candc parser, like most \nlp systems of similar
+complexity, involves many configuration options and models, and we have to make
+sure we are choosing just the right configuration to enable informative
+comparison. Second, we should reoptimise the relevant parameters ourselves,
+rather than relying on the default values that may not be optimal for our
+corpus. Finally, we should do our best to factor out the alternative explanation
+for our results, and try to evaluate on the original \ccgbank where possible.
+
+\section{Evaluation Framework}
+\label{sec:evaluation_framework}
+\begin{table}
+\centering
+ \begin{tabular}{c|llcc|l}
+\hline
+ &  \multicolumn{4}{c|}{Labelled}                        & Unlabelled \\
+1&  Head      & Arg   & Functor                     &Slot& (Head, Arg)\\
+\hline
+\hline
+2&  gave      & Pat   & \cf{((S[dcl]\bs NP_1)/PP_2)/NP_3} & 1  & (give, Pat)\\
+3&  gave      & stamp & \cf{((S[dcl]\bs NP_1)/PP_2)/NP_3} & 3  & (give, stamp)\\
+4&  gave      & to    & \cf{((S[dcl]\bs NP_1)/PP_2)/NP_3} & 2  & (give, to)\\
+5&  yesterday & give  & \cf{(S\bs NP)\bs (S\bs NP)_1} & 1  & (yesterday, give)\\
+6&  a         & stamp & \cf{NP/N_1}                   & 1  & (a, stamp)\\
+7&  rare      & stamp & \cf{N/N_1}                    & 1  & (rare, stamp)\\
+\hline
+ \end{tabular}
+\caption[Sample \ccgbank dependencies.]{Sample \ccgbank dependencies for the
+sentence in Figure \ref{fig:dependencies}\label{tab:dependencies}}
+\end{table}
+
+\begin{figure}
+\centering
+ \deriv{8}{
+\rm Pat & \rm gave & \rm a & \rm rare & \rm stamp & \rm to & \rm Robin & \rm
+yesterday \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}
+\\
+\cf{NP} &
+\cf{((S[dcl]\bs NP)/PP)/NP} &
+\cf{NP/N} &
+\cf{N/N} &
+\cf{N} &
+\cf{PP/NP} &
+\cf{NP} &
+\cf{(S\bs NP)\bs (S\bs NP)} \\
+&&& \fapply{2} & \fapply{2} \\
+&&& \mc{2}{\cf{N}} & \mc{2}{\cf{PP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{NP}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{(S[dcl]\bs NP)/PP}} \\
+& \fapply{6} \\
+& \mc{6}{\cf{S[dcl]\bs NP}} \\
+& \bapply{7} \\
+& \mc{7}{\cf{S[dcl]\bs NP}} \\
+\bapply{8} \\
+\mc{8}{\cf{S[dcl]}}
+}
+\caption{Derivation producing the dependencies shown in Table
+\ref{tab:dependencies}\label{fig:dependencies}}
+\end{figure}
+
+
+We follow the \ccgbank evaluation framework of \citet{clark:cl07} to assess the
+speed and accuracy of our parsing models. We use their evaluation scripts and
+architecture, so our baseline speed and accuracy figures exactly match the
+figures reported in \citet{clark:cl07}.
+
+The main accuracy evaluation is labelled dependency $F$-score. A \ccgbank
+labelled dependency is a tuple consisting of the head word, the argument word,
+the category assigned to the head word (which must, necessarily, be a functor
+category specifying some number of arguments\footnote{Some of the type-changing rules in
+\ccgbank add arguments to a category. When this occurs, the dependency is
+unrepresented. This problem is discussed in Section \ref{sec:ling_psg_rules}.}),
+and the index of the argument slot that the dependency fills. All elements of
+the tuple must be correct for the dependency to be counted as correct.
+Unlabelled dependency scores are also calculated, consisting of just the head
+word and its argument. The labelled and unlabelled dependencies that arise from
+the derivation in Figure \ref{fig:dependencies} are shown in Table
+\ref{tab:dependencies}.
+
+The labelled dependency $F$-score is a rather punitive measure, because they are
+conditioned on lexical categories. For instance, consider the dependencies that
+arise in the sentence \emph{Pat gave a rare stamp to Robin yesterday},
+especially the dependencies between \emph{give} and its three arguments. The
+subject dependency between \emph{give} and \emph{Pat} is conditioned over the
+whole category, so if the dependency between \emph{give} and \emph{to} is
+mislabelled as an adjunct dependency, this dependency will be judged incorrect
+--- even though the parser has returned the correct relationship between the two
+words. The same is true for the object dependency. Unlabelled dependencies can
+also be difficult to predict, because they still represent complement/adjunct
+distinctions. If \emph{yesterday} were incorrectly judged a complement, rather
+than an adjunct, the unlabelled dependency would become \emph{give, yesterday}.
+\ccg unlabelled dependencies therefore make distinctions not captured in \penn
+skeletal brackets.
+
+On the other hand, many dependencies are fairly trivial. Dependencies 6 and 7 in
+Table \ref{tab:dependencies} would be accurately assigned by even a very simple
+model. There are a great many dependencies that are this easy to predict in
+\ccgbank. This combination of very hard and very easy decisions can make the
+magnitude of dependency accuracies look misleading. Almost all experimental
+systems will score over 75\% labelled $F$-score, but no system yet developed
+will score 90\%. The evaluation therefore has quite a small dynamic range. A
+system that is far superior might only score 2\% better on labelled dependency
+$F$-score.
+
+Despite this short-coming, dependency $F$-score is the most direct evaluation on
+\ccgbank. Measures like the grammatical relations evaluation developed by
+\citet{briscoe:poster06} are good for comparing the parser to other systems, and
+abstract away the undesirable specificity of the \ccg dependencies. The problem
+is that converting the output of the parser is very difficult.
+\citet{clark:acl07parseval} report an upper bound of 84.8\%, calculated by
+converting the gold standard \ccgbank dependencies --- although, interestingly,
+the \candc parser still outperformed the \rasp parser on this evaluation. Our
+concern is that such a low upper bound will further compress the range of
+results achieved by the systems we are comparing, adding an additional
+complication. We therefore use labelled dependency scores as our evaluation
+measure.
+
+Table \ref{tab:ccgbank_dev_results} shows the format we will report our results
+in. We choose slightly different auxiliary metrics from \citeauthor{clark:cl07}.
+First, we have omitted separate precision and recall for brevity. The separate
+measures are generally uninformative, because the parser has little opportunity
+to trade off between precision and recall, as the number of dependencies
+produced by any wrong analysis will be roughly the same as the number of
+dependencies in the correct analysis. We use the space freed up by omitting
+precision and recall figures to report some additional detail about the parser's
+performance on automatic \pos tags. Additionally, the $L$-sent column shows the
+percentage of sentences that were parsed with perfect accuracy, achieving
+labelled $F$-score of 100\%. The cat column shows the percentage of words that
+were assigned the correct category.
+
+We generally report coverage in a separate table analysing the $\beta$ levels
+that were used for a given corpus. Table \ref{tab:ccgbank_betas} is an example
+of this. Coverage refers to the percentage of sentences for which the parser
+returned an analysis. If no analysis is returned, the sentence is discarded, and
+does not contribute to the accuracy scores. This means that low coverage can
+make changes in accuracy more difficult to interpret, because the parser might
+have risen in accuracy by simply discarding the hardest sentences. We omit
+coverage when comparing models that all decide between the same set of spanning
+analyses. When parsers only differ in the statistical model that selects the
+most likely analysis, they all achieve the same coverage, so the figure is
+uninformative.
+
+Finally, we report parse speed in words per second. This measure does include
+attempts to parse sentences that could not be analysed. Low coverage therefore
+tends to be associated with lower speed. Generally, high speed and high accuracy
+are also correlated, because the parser is faster and more accurate when it can
+construct a parse on the first $\beta$ level. Failure at a $\beta$ level
+generally occurs when the parser's chart has been seeded with an inaccurate set
+of supertags, preventing the parser from constructing a parse. The parser must
+then rebuild the chart with a larger set. The new chart will necessarily be
+larger than the original chart, making the parser even less efficient.
+
+\section{Review of the \candc Parsing Models}
+
+\citet{clark:cl07} experiment with four statistical parsing models. By
+\emph{parsing model}, we refer to the component that selects an analysis from
+the candidate analyses generated by the grammar. We contrast this with the
+larger \emph{parsing system} (or simply \emph{parser}); which in the case of the
+\candc parser, includes a supertagger.  The other notable \ccg statistical
+parsing model in the literature is the generative parsing model described by
+\citet{hock:acl03}. The \citeauthor{hock:acl03} model performs worse than the
+\citeauthor{clark:cl07} models, but it is not immediately clear which of the
+several differences between the systems the difference in performance should be
+attributed to.
+
+The four \citeauthor{clark:cl07} models differ along two dimensions. The first
+is the number of negative examples introduced for training, as determined by the
+$\beta$ parameters and the use of grammatical constraints.
+Secondly, \citeauthor{clark:cl07} also experimented with two derivation-based
+chart constraints during parsing: \citet{eisner:96} normal-form parsing, and a
+dictionary of valid productions gathered from the training data.
+The second dimension is whether the parser models derivations, or
+dependencies. We will briefly describe these dimensions, before laying out three
+of the four models described in \citet{clark:cl07}. The configuration we omit is
+the dependencies model without normal form or seen-rules derivational
+constraints, labelled \emph{Dependency} in \citet{clark:cl07} Table 6. We omit
+this configuration because it performs worse than the other models on every
+dimension. We follow \citepos{clark:cl07} nomenclature in referring to the
+dependency model that makes use of derivation constraints as the \emph{Hybrid}
+model.
+
+\subsection{Training $\beta$ Parameter}
+\label{sec:training_examples}
+\begin{table}
+\centering
+\small
+\setlength{\tabcolsep}{1.5mm}
+\renewcommand{\arraystretch}{0.85}
+ \begin{tabular}{l|ccccc|ccccc}
+\hline
+                  & \multicolumn{5}{c|}{Gold \textsc{pos}}               &
+\multicolumn{5}{c}{Auto \textsc{pos}}\\
+Model             & $LF$  & $UF$  & $L$-sent & cat   & w/s & $LF$  & $UF$  &
+$L$-sent & cat   & w/s\\
+\hline
+\hline
+\derivsbad & 85.12 & 91.92 & 32.14 & 93.05 & 389.788 & 83.38 & 90.75 & 29.76 &
+91.95 & 384 \\
+\derivsrev & 86.74 & 92.72 & 35.15 & 94.04 & 375.017 & 84.78 & 91.45 & 31.77 &
+92.84 & 392 \\
+\derivsthree & 86.83 & 92.76 & 35.57 & 94.09 & 384.932 & 84.89 & 91.51 & 32.19 &
+92.89 & 396 \\
+\derivsexp & 86.85 & 92.78 & 35.57 & 94.10 & 389.054 & 84.90 & 91.52 & 32.24 &
+92.89 & 396 \\
+\hline
+ \end{tabular}
+\caption[$\beta$ parameter during training.]{Effect of $\beta$ parameter to
+control number of negative examples during training using the normal-form
+derivations model.\label{training_betas}}
+\end{table}
+
+
+The \candc parser uses a discriminative log-linear model over whole analyses. In
+order to produce negative examples for this model, the parser is run with a set
+of categories to which the supertagger has assigned high confidence. The parser
+builds a forest of analyses for each sentence from these categories, allowing
+feature functions to be computed over positive and negative examples. The
+correct category is always added to the set of supertags, so the parser can
+usually construct an analysis that matches the gold standard. If it cannot,
+because of a problem with its grammar's coverage, the sentence is discarded as a
+training failure.
+
+The number of negative examples produced for each sentence can be controlled by
+giving the parser larger or smaller sets of categories for each word. The sets
+are created by taking all categories whose probability is judged to be within
+some factor, $\beta$, of the highest confidence category. The optimal setting of
+this $\beta$ parameter is an empirical issue. \citet{clark:cl07} report the
+results of two configurations: $\beta=0.1$ and $\beta=0.0045$. Presumably, other
+configurations were attempted and discarded, after evaluating on Section 00. A
+minority of long sentences will produce enormous charts at $\beta=0.0045$. If
+the chart size exceeds a given number of categories, the parser tries again with
+a higher $\beta$ setting. A succession of increasing $\beta$ levels (0.0045,
+0.0055, 0.01, 0.05, 0.1) is used for the $\beta=0.0045$ model.
+
+Table \ref{training_betas} shows the performance for the two configurations of
+the normal-form derivations model (henceforth \textsc{derivs}) that
+\citet{clark:cl07} report, $\beta=0.1$ and $\beta=0.0045$, as well as two
+additional experimental settings, $\beta=0.003$ and $\beta=0.002$, on Section
+00. The $\beta=0.1$ and $\beta=0.0045$ results exactly match those reported in
+\citet{clark:cl07}. Version 1.02 of the \candc system contains scripts to
+replicate these experiments out of the box. The results refer to
+derivations-based models with Eisner normal-form and production dictionary
+constraints on the grammar during both training and parsing.
+
+We performed the additional $\beta<0.0045$ experiments to investigate whether
+performance would degrade when too many negative examples were used. The
+substantial difference in performance between the 0.1 and 0.0045 settings
+suggests we ought to investigate whether the optimum value is even lower than
+0.0045. 0.002 is the lowest value we have been able to train the parser with,
+for reasons specific to the implementation and our available hardware.
+We used the same training hardware as \citet{clark:cl07}, an 18 node Beowulf
+cluster, with 25\textsc{gb} of \textsc{ram} available in total.
+
+Interestingly, performance improves slightly as $\beta$ gets lower, although the
+differences become very small, and probably insignificant. A $K$ parameter is
+also used during training. As it does during parsing, this controls the token
+frequency at which the word-specific tag dictionary is used. We experimented
+with changing this parameter during training, but found it had no effect,
+presumably because the parameter is most useful for unseen words --- making it
+insignificant for training coverage.
+% 
+% \subsection{Normal-form and Production Dictionary Constraints}
+% 
+% In addition to manipulating the $\beta$ parameter, \citet{clark:cl07} also use
+% two types of grammatical constraint to control the number of noisy derivations
+% during training. The first of these are the \citet{eisner:96} normal-form
+% constraints, which control spurious ambiguity by preventing categories that are
+% the result of forward composition from being the leftward functor in the next
+% production, and, analogously, categories that are the result of backward
+% composition from being the rightward functor in the next production.
+% \citeauthor{eisner:96} provides a proof that these constraints are sufficient to
+% produce exactly one derivation per dependency analysis, but this proof does not
+% apply for the \ccgbank grammar, because of its type-raising and type-changing
+% rules. These two constraints still substantially reduce spurious ambiguity, but
+% we cannot assume that there is only one derivation per dependency analysis ---
+% there may be a great many more.
+% 
+% The second constraint is the use of a rule dictionary, containing the
+% production rules seen during training. Rules that were not seen at least once
+% during training are prohibited, preventing the parser from exploring unlikely
+% uses of the combinatory rules.
+% 
+% These constraints are used during training for both, the training $\beta$
+% values below $0.1$ could not be used, because the grammar is more productive for
+% a given set of categories, causing us to hit our memory limit more quickly. The
+% constraints therefore allow the use of more informative negative examples, in
+% place of negative examples created by noisy grammar rules that will not be
+% enabled during parsing. Disabling the constraints causes the performance of the
+% \derivsbad model (the only one that can be trained this way) to get even worse.
+
+\subsection{Derivation vs Dependency Models}
+\label{sec:deriv_deps}
+\citeauthor{clark:cl07} describe two probability models. One defines the probability
+of a single Eisner normal-form \citep{eisner:96} derivation, while the other defines
+the probability of a dependency analysis. The models are estimated differently, require
+different decoders, and use different feature functions (although they do share some
+features in common).
+
+The dependency model is more accurate than the derivation model, so long as the
+normal-form constraints are used during training and testing. \citet{clark:cl07}
+refer to this normal-form/dependency model as the \hybrid model. One possible
+explanation for the importance of the normal form constraints is that they allow the
+model to use a lower $\beta$ level during training, introducing more negative examples
+of incorrect dependency analyses.
+
+The \hybrid model and the \derivs model differ along several dimensions, so it
+is difficult to be certain why the hybrid model is more accurate. One likely explanation
+is that the hybrid model's objective function resembles the evaluation more closely, as
+the parser is evaluated over labelled dependencies.
+
+The derivations model is slightly faster than the hybrid model, however. This is related
+to the different decoders used by the two models to select the most likely parse. Both
+models use the Viterbi algorithm to find the most likely nodes in the chart. The hybrid
+model must first use the inside-outside algorithm to calculate the probability of
+the  dependencies on each node, decreasing its efficiency.
+%This seems
+%to be related to the different decoders used by the two models to select the most
+%likely parse. This may be an implementation issue, however, as there is no obvious
+%algorithmic explanation for the difference in performance.
+
+\subsection{Summary of Training Configurations}
+\label{sec:system_summary}
+Having reviewed the space of training parameters, we can see that a few
+combinations are of particular interest when parameterising our systems. First,
+we obviously want to try the configuration which performed the best among the
+models trained by \citet{clark:cl07}. We label this model \hybrid.
+% We have also
+% shown that a simple tweak to this configuration --- the use of the Viterbi
+% decoder instead of the \citet{clark:cl07} dependency decoder --- improves its
+% speed, and slightly improves its accuracy. We label this configuration \hybridv.
+We also want to experiment with the best performing normal-form model, which we
+label \derivsrev, as this was the fastest model reported by \citet{clark:cl07},
+and achieved accuracy within 1\% of the \hybrid model. It will also be worth
+reporting results for the normal-form model that uses a higher training $\beta$,
+the \derivsbad model, which is the only model used in previous \ccgbank
+adaptation experiments.
+% Finally, we
+% will also experiment with the other configuration we introduce, \derivsexp,
+% which uses a slightly lower training $\beta$ than the \derivsrev model.
+
+The results for these configurations are shown in Table
+\ref{tab:ccgbank_dev_results}. The most accurate model is the \hybrid dependencies
+model. However, the \derivs model is slightly faster.
+% although the
+% difference between it and \hybrid is small. \hybridv is faster, however, since
+% it uses the Viterbi decoder, instead of the \citet{clark:cl07} dependencies
+% decoder. The other \derivs models also use the Viterbi decoder, which is why
+% they are also faster than the \hybrid model too. However, these models do not
+% use the dependency-based features of the \hybrid model, which is why they are
+% less accurate. The \derivs models differ with respect to the number of negative
+% examples introduced during training, as described in Section
+% \ref{sec:training_examples}.
+ 
+\begin{table}
+\centering
+\small
+\setlength{\tabcolsep}{1.5mm}
+\renewcommand{\arraystretch}{0.85}
+ \begin{tabular}{l|cccccc|cccccc}
+\hline
+                  & \multicolumn{6}{c|}{Gold \textsc{pos}}               &
+\multicolumn{6}{c}{Auto \textsc{pos}}\\
+Model             & $LF$  & $UF$  & $L$-sent & cat   & cover & w/s & $LF$  &
+$UF$  & $L$-sent & cat   & cover & w/s\\
+\hline
+\hline
+\hybrid    & 87.27 & 93.01 & 35.94 & 94.16 & 99.06 & 365 & 85.30 & 91.77 & 32.93
+ & 93.00 & 99.06 & 359 \\
+%\hybridv   & 87.35 & 93.07 & 36.78 & 94.17 & 99.06 & 391 & 85.31 & 91.77 & 33.30
+% & 92.97 & 99.06 & 395 \\
+\hline
+\derivsbad & 85.12 & 91.92 & 32.14 & 93.05 & 99.06 & 386 & 83.38 & 90.75 & 29.76
+ & 91.95 & 99.06 & 398 \\
+\derivsrev & 86.74 & 92.72 & 35.15 & 94.04 & 99.06 & 383 & 84.78 & 91.45 & 31.77
+ & 92.84 & 99.06 & 401 \\
+%\derivsexp & 86.85 & 92.78 & 35.57 & 94.10 & 99.06 & 387 & 84.90 & 91.52 & 32.24
+% & 92.89 & 99.06 & 398 \\
+\hline
+\end{tabular}
+\caption[\ccgbank development results and table key.]{\small Development results
+on \ccgbank for the systems summarised in Section \ref{sec:system_summary} using
+gold and automatic part-of-speech tagging. $UF$=Unlabelled $F$-score,
+$LF$=Labelled $F$-score, $L$-sent=Sentences with 100\% $LF$, cat=Category
+accuracy, cover=Percentage of sentences parsed (unparsed sentences are excluded
+from evaluation), w/s=Speed in words per second.\label{tab:ccgbank_dev_results}}
+\end{table}
+
+\section{$\beta$ and $K$ Parameters During Parsing}
+\label{beta_k}
+
+Having established a set of training configurations, we now consider run-time
+parameters that affect the parser's speed, accuracy and coverage. The $\beta$
+and $K$ settings control the supertagger-parser integration. During parsing,
+several $\beta$ levels are used, with successive levels invoked if parsing
+fails. As we described in Section \ref{sec:background_candc}, \citet{clark:cl07}
+found that it was best to begin with a narrow beam of supertags, and then widen
+it if a spanning analysis could not be constructed.
+
+The corpora we have created have more lexical categories and fewer grammatical
+rules, suggesting that the $\beta$ and $K$ parameters may need to be adjusted.
+Information that was previously specified in the grammar using type-changing rules is now
+specified in the lexicon, reallocating some of the work from the parsing model
+to the supertagger. This change in the relative workloads of the models may mean
+that a different configuration of the $\beta$ and $K$ parameters is optimal.
+\citet{clark:cl07} only provide results for two configurations of these
+parameters, noting that the final values for the successful `big to small'
+$\beta$ levels were optimised on Section 00. We will briefly explore how to
+solve this parameterisation problem in a principled way, so that we can select
+good values for our lexicalised corpora.
+
+\subsection{Corrected Greedy Search: A Search Strategy for $\beta$ Levels}
+
+The $\beta$ and $K$ parameters are tricky to optimise exhaustively, because the
+parser can use an arbitrary number of levels. One obvious solution to try is a
+greedy approach. Each $\beta$ and $K$ combination would be used to parse the
+original set of sentences. The accuracy of a $\beta$ and $K$ combination would be
+measured according to the labelled dependency $F$-score accuracy of the
+spanning analyses that it produced. We could then simply select the $\beta$ and $K$
+combination that had the highest initial accuracy, remove the sentences that it
+covered from consideration, and repeat the process to find the next level.
+
+Unfortunately, the optimal sequence of $\beta$ levels does not necessarily begin
+with the $\beta$ and $K$ combination that achieves the highest accuracy, because
+it might do so by only succeeding on a particularly easy subset of sentences.
+For instance, we might find that a configuration of $\beta=1.0$ and $K=1$
+allows, say, 100 sentences to be parsed at 89\% accuracy, while a $\beta=0.075$
+$K=20$ configuration finds a spanning analysis for 1500 parses, at an average
+accuracy of 88\%. The problem is that the 100 sentences parsed at 89\% by the
+$\beta=1.0$ level might have been parsed at an average accuracy of 92\% at the
+$\beta=0.075$ level, as they were simply short, easy to parse sentences. In this
+situation, there would be no advantage to selecting the $\beta=1.0$ level. We
+would simply have been misled by its apparently favourable initial accuracy.
+
+There is a simple way to control for this. Once we have selected an optimisation
+level, we will have a set of sentences that it will cover. We must then check
+whether that set of sentences can be parsed more accurately at any other
+configuration. We term this the Corrected Greedy Search strategy.
+
+For instance, instead of committing to the sub-optimal $\beta=1.0$, $K=1$
+configuration as our first level, we would evaluate the accuracy of the other
+configurations over that subset of 100 sentences. When we find that the
+$\beta=0.075$ and $K=20$ configuration parses the subset more accurately, we
+discard the $\beta=1.0$ $K=1$ configuration, and consider the second most
+accurate configuration --- say, $\beta=0.8$ $K=5$ --- and perform the same check
+over the set of sentences that were parsed at that configuration. Eventually, we
+are guaranteed to settle on the configuration that parses a set of sentences
+more accurately than any other configuration. We can then adopt that setting as
+our first level, remove the sentences it covers from consideration, and repeat
+the process over the reduced set of sentences to find the next level.
+
+This search strategy provides a simple and comprehensive solution to optimise
+these parameters. This is important, because any change to the parser or
+supertagger model potentially requires different $\beta$ and $K$ values. For
+instance, if new features were discovered that caused the supertagger to be much
+more accurate, we might want to select much tighter $\beta$ levels, to reflect
+our altered balance of trust between the two models --- and likewise for
+improvements in the parsing model. Changes to the corpus will also require these
+parameters to be re-optimised. The \candc strategy is currently the only known
+way to integrate a supertagger and parser effectively, and it can be adopted by
+any lexicalised formalism, making this an issue of general interest, rather than
+one specific to \ccg or the particular \candc implementation.
+
+
+\subsection{\ccgbank Development Results with Optimised Betas}
+\label{sec:ccgbank_beta_opt}
+\begin{table}
+\centering
+\small
+\renewcommand{\arraystretch}{0.85}
+\setlength{\tabcolsep}{1.5mm}
+ \begin{tabular}{l|ccccc|ccccc}
+\hline
+                  & \multicolumn{5}{c|}{Gold \textsc{pos}}               &
+\multicolumn{5}{c}{Auto \textsc{pos}}\\
+Model             & $LF$  & $UF$  & $L$-sent & cat   & w/s & $LF$  & $UF$  &
+$L$-sent & cat   & w/s\\
+\hline
+\hline
+\hybrid            & 87.27 & 93.01 & 35.94 & 94.16 & 370 & 85.30 & 91.77 & 32.93
+& 93.00  & 379 \\
+\hybrid\optbeta    & 87.46 & 93.14 & 36.02 & 94.13 & 266  & 85.65 & 92.04 &
+33.05 & 93.02 & 261 \\
+\hline
+%\hybridv           & 87.35 & 93.07 & 36.78 & 94.17 & 391 & 85.31 & 91.77 & 33.30
+%& 92.97 & 395 \\
+%\hybridv\optbeta   & 87.44 & 93.17 & 36.65 & 94.09 & 286 & 85.49 & 91.94 & 33.32
+%& 92.92  & 280 \\
+%\hline
+%\derivsexp         & 86.85 & 92.78 & 35.57 & 94.10 & 387 & 84.90 & 91.52 & 32.24
+%& 92.89 & 398 \\
+%\derivsexp\optbeta & 86.87 & 92.81 & 35.33 & 93.98 & 287 & 85.12 & 91.69 & 32.05
+%& 92.90 & 282 \\
+%\hline
+\derivsrev         & 86.74 & 92.72 & 35.15 & 94.04 & 383 & 84.78 & 91.45 & 31.77
+& 92.84 & 401 \\
+\derivsrev\optbeta & 86.75 & 92.72 & 34.81 & 93.92 & 287 & 84.89 & 91.57 & 31.42
+& 92.80 & 282 \\
+\hline
+\derivsbad         & 85.12 & 91.92 & 32.14 & 93.05 & 396 & 83.38 & 90.75 & 29.76
+& 91.95 & 398 \\
+\derivsbad\optbeta & 86.75 & 92.72 & 34.81 & 93.92 & 287 & 84.89 & 91.57 & 31.42
+& 92.80 & 281 \\
+\hline
+
+\end{tabular}
+\caption[Comparison of optimised $\beta$s with default $\beta$s.]{Comparison of
+optimised $\beta$s against default $\beta$s. Rows with Opt use the optimised
+$\beta$ levels. $\beta$s were optimised using the \hybrid model.}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{l|rrrr|rrrr}
+\hline
+      & \multicolumn{4}{c|}{Optimised}& \multicolumn{4}{c}{Default} \\
+Level & $\beta$ & $K$ & Gold & Auto   & $\beta$ & $K$  & Gold & Auto \\
+\hline
+\hline
+1     & 0.02    & 22      & 1857 & 1846   & 0.075    & 20  & 1812 & 1786 \\
+2     & 0.05    & 50      & 13   & 10     & 0.03     & 20  & 35   & 45   \\
+3     & 0.001   & 5       & 22   & 30     & 0.01     & 20  & 17    & 24   \\
+4     & 0.001   & 10,000  & 7    & 11     & 0.005    & 20  & 8    & 18    \\
+5     &         &         &      &        & 0.001    & 150 & 23   & 22   \\
+\hline
+Cover &         &         &99.27 & 99.17  &          &     &99.06 & 99.06\\
+\hline
+\end{tabular}
+ \caption[Optimised $\beta$ levels for \ccgbank parser.]{Optimised $\beta$
+levels for the \hybrid model of the \ccgbank parser. The gold and auto columns
+show the number of sentences successfully parsed at each
+level.\label{tab:ccgbank_betas}}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{l|rrrrr}
+\hline\hline
+Parameter & \multicolumn{5}{c}{Levels}\\
+\hline
+$\beta$ & 1.0 & 0.8 & 0.6 & 0.4 &0.3 \\
+        &0.2  & 0.1 &0.09 &0.08 &0.075 \\
+        &0.07 &0.065&0.06 &0.05 &0.04 \\
+        &0.03 &0.025&0.02 &0.015&0.01\\
+        &0.007&0.005&0.001&0.0005&\\
+        &0.0001     &     &      \\
+\hline
+$K$     &1    &5    &10   &15   &18\\
+        &20   &22   &25   &30   &40\\
+        &50   &80   &100  &150  &  \\
+        &300  &1000 &10000&     &  \\
+\hline
+ \end{tabular}
+\caption[$\beta$ and $K$ value search space.]{Search space of possible $\beta$
+and $K$ values. The values were hand-selected to provide a wide range of
+possible values, with fine granularity around the values \citet{clark:cl07}
+selected.\label{tab:beta_k_search}}
+\end{table}
+
+
+We used the Corrected Greedy Search strategy on Section 00, using automatic \pos
+tags.
+We used automatic \pos tags because we found that when gold standard \pos tags
+were used, the system tended to select $\beta$ levels that optimised the gold
+\pos tag accuracy at the expense of the automatic \pos tag accuracy. It did this
+by selecting very high $K$ parameter values, which meant that the supertagger
+used the tag dictionary less often, relying on the \pos dictionary. The tag
+dictionary is not keyed by the word's part of speech, so in the case of a
+part-of-speech tagging error, the correct tag may be in the tag dictionary, but
+not in the \pos dictionary. When we searched over automatic \pos tags, we found
+that the parser's accuracy on automatic \pos tag was much better, with little
+impact on the gold \pos evaluation.
+
+We ran the search over 25 possible $\beta$ values and 17 possible $K$ values,
+shown in Table \ref{tab:beta_k_search}. This meant that the 1915 sentences in
+the development set were parsed 400 times each, for a total of 767,200. The
+parsing took roughly 20 hours of \cpu time, with the subsequent search running
+in negligible time. The parsing took much longer than it would take to parse
+that many sentences using the standard strategy, because parsing succeeds at the
+first $\beta$ level (which by default is $\beta=0.075$, $K=20$) for most
+sentences. At this $\beta$ level on \ccgbank, the supertagger supplies an
+average of only 1.27 categories per word to the parser, leading to low ambiguity
+and high efficiency.
+
+The $\beta$ levels selected, along with the number of sentences parsed at each
+level using gold and automatic tags, are shown in Table \ref{tab:ccgbank_betas}.
+The search strategy selected a lower initial $\beta$ level, allocating more work
+to the parsing model than the default level of 0.075. More sentences are parsed
+at this level, because the parser's chart is seeded with more categories per
+word. However, this leads to much larger chart sizes, so the parser is slower
+overall.
+
+Every model improved in accuracy with the new $\beta$ values, with both
+automatic and gold \pos tags. The improvement was larger on automatic \pos tags,
+presumably because automatic \pos tags were used for the objective function. The
+optimised $\beta$ levels were lower on average, preserving more ambiguity in the
+pipeline. It is surprising that this improved the accuracy of all of the models
+--- even the \derivsbad model, which we would have expected to perform better
+when the parsing model had to do less work.
+
+The accuracy improvements came at the expense of efficiency. The \hybrid model
+was 39\% slower with the new $\beta$ values. Whether this trade-off is
+worthwhile will depend on the use case, but for most applications the more
+efficient configuration will probably be desirable. Parsing is likely to be the
+speed bottleneck in an \nlp pipeline, and many \nlp pipelines have limited
+processing resources, but almost unlimited text. In this situation, a 40\% drop
+in parsing efficiency will translate to a 40\% drop in the text that the
+application the application can make use of. For many applications, this extra
+data will improve results more than the extra 0.35\% in accuracy on automatic
+\pos tags. This consideration may be why \citet{clark:cl07} selected a higher
+initial $\beta$ level. For future work, it would be interesting to incorporate
+speed considerations into the objective function of our search strategy, so that
+we could arrive at a good compromise between speed and accuracy.
+
+
+\section{Adapting the \candc Parser for Hat Categories}
+\label{sec:implementation}
+
+So far, we have discussed the relevant parameters that we might need to change
+to use the \candc parser with our new corpora. All of these parameters are
+exposed as configuration options for the parser, either during training or
+run-time. However, we also had to make several changes to the implementation.
+The most significant change was to the unification engine, to pass the hat
+categories around and deal with the addition of extra head variables. We also
+had to modify the category objects, add the unhat rule, and disable the
+type-changing rules. These changes were all applied to the standard 1.02
+release of the parser.
+
+\subsection{Changes to Category Objects}
+
+
+
+There are two category classes in the \candc parser. The \codeterm{Cat} class
+decouples the \ccg category from its context in the sentence, so that two
+instances of the same category in the sequence of supertags will always be the
+same. The \codeterm{Cat} class is used for both atomic and complex categories.
+The \codeterm{Supercat} class is used for nodes in the chart. It stores lexical
+heads, the last rule used to produce the category, and inside and outside
+probabilities. \codeterm{Supercat} objects are passed a reference to a
+\codeterm{Cat} object, so they do not need to know anything about hat categories
+beyond the existence of the unhat rule.
+
+A \texttt{hat} attribute was added to the \codeterm{Cat} class, as would be
+expected from our outline in Chapter \ref{chapter:hat_cats}. As far as a complex
+\codeterm{Cat} itself is concerned, the hats on its inner \codeterm{Category}
+nodes are independent of one another. This means that the category-wide
+restrictions we stipulate in Chapter \ref{chapter:hat_cats} are not enforced
+directly. For instance, a \codeterm{Cat} object does not immediately know
+whether it is an argument or an inner result of a category that already has a
+hat specified, leading to unlicensed categories like \cf{PP/S[ng]^{NP}} or
+\cf{(S[ng]^{NP\bs NP}\bs NP)^{S\bs S}}.
+
+We regard these categories as syntactically well-formed but semantically
+undesirable generalisations of the hat attribute. We have ensured that they do
+not occur in the analyses in our corpora, and in our implementation we have made
+some effort to prevent them from occurring as intermediate categories in the
+chart. In general, however, we have prioritised performance rather than symbolic
+correctness in our implementation, so we have steered clear of costly checks to
+guarantee that poorly formed categories never occur. The parser can only return
+lexical categories that were seen in the training data, so we can guarantee the
+output is well-formed by ensuring that our analyses conform to our stipulations.
+
+\subsection{Changes to Unification}
+
+The \candc parser does not support a full unification algorithm, such as that
+described by \citet{shieber:86} and assumed in our discussion in Chapter
+\ref{chapter:hat_cats}. Unification can be computationally expensive, and
+\ccgbank uses only a very limited number of features.
+
+The unification algorithm in version 1.02 of the parser performs two tasks.
+First, it recursively checks whether two categories can unify, by comparing
+atomic categories, and the results, arguments and slashes of complex categories.
+Two atomic categories match if they are of the same type (\cf{S}, \cf{N},
+\cf{NP} etc) and if their features can be unified. Only features on \cf{S} typed
+atomic features are considered. \cf{S} categories have exactly one feature,
+which can be the variable \cf{X}, which inherits from any other feature upon
+unification. Other conflicting feature pairs cause unification to fail.
+
+We add a small extension to this phase of the unification algorithm to also
+compare hat attributes, with unification failing if both categories have a hat
+and the two cannot be unified. If unification succeeds, the hat must be shared
+between the two categories, and any other categories unified with them. This is
+the mechanism by which hats are preserved during adjunction:
+
+\begin{eqnarray}
+\eqnpsrule{\cf{S/S}}{\cf{S[ng]^{NP}}}{\cf{S[ng]^{NP}}}
+\end{eqnarray}
+
+The other aspect of the unification algorithm deals with head-passing. When a
+combinatory rule is used to combine two categories, parts of the two categories
+are unified. For instance, forward application involves unifying the result of
+the functor with the argument category. During successful unification, the head
+variables of the two categories are mapped to the corresponding variable on the
+other category. For instance, consider this instance of forward
+application:
+
+\begin{eqnarray}
+ \eqnpsrule{\cf{((S[X]_y\bs NP_z)_y/(S[X]_y\bs NP_z)_y))_x}}{\cf{(S[dcl]_x\bs
+NP_y)_x}}{S[dcl]\bs NP}
+\end{eqnarray}
+
+
+When the \cf{S[X]\bs NP} and \cf{S[dcl]\bs NP} categories are unified, the head
+variables (shown subscripted) are mapped onto each other as follows, where the
+variables of the left side are shown in the rows, and the variables of the right
+side are shown in the columns:
+
+\begin{center}
+\large
+%\setlength{\tabcolsep}{3.5mm}
+\begin{tabular}{l|ll}
+  & $X$ & $Y$ \\
+\hline
+$X$ &   &   \\
+$Y$ & $\checkmark$ &   \\
+$Z$ &   & $\checkmark$ \\ 
+\end{tabular}
+\end{center}
+
+The table tells us that the $Y$ variable in the left category and the $X$
+variable on the right will represent the same lexical item. This mapping process
+was updated to include variables from the \codeterm{hat}, so that dependencies
+could be mediated through hat categories.
+
+
+\subsection{Changes to Combinatory Rules}
+\label{sec:combinator_implementation}
+As we described in Chapter \ref{chapter:hat_cats}, hat categories do not require
+any redefinition of the combinatory rules in the theory. However, the \candc
+parser's implementation performs less of the work during unification than we
+would expect in the theory. Instead, the new categories are constructed by the
+combinatory rules, and each combinator implements the construction process
+itself. We therefore had to change the forward and backward application rules,
+and the forward, backward, and backward crossed combinators separately.
+Generalised composition also required specific changes to ensure that
+the hat attribute was passed along by the combinatory
+rule where necessary.
+
+We simulated the stipulations described in Chapter \ref{chapter:hat_cats} by
+adding constraints to the combinatory rules. The Inert Slash Stipulation was
+simulated by preventing hatted categories from being the functor of application
+or composition rules. We implemented the stipulation this way because the \candc
+parser does not currently support multi-modal \ccg. This implementation matched the
+behaviour of the stipulation exactly, however.
+
+The Null Hat Constraint was simulated by blocking non-modifier categories from applying
+hatted arguments. A category was considered a modifier if its result exactly matched its
+argument. This implementation assumes that all and only modifier categories had coindexed
+hat values.
+
+The final change to support hat categories was the addition of the
+\codeterm{unhat} rule. This rule was straightforward to implement, as it is
+conceptually so simple:
+
+\begin{eqnarray}
+\cf{\cf{X^Y}} \;\;\Rightarrow_\cH\;\; \cf{Y}
+\end{eqnarray}
+
+
+To implement the rule, we simply check whether a category has a hat, and if it
+does, we return the hat as the result of the combinator, to be added to the same
+cell of the chart. We also had to unpack recursive hat categories, so that for a
+category like \cf{N^{NP^{S/S}}}, the two categories \cf{NP^{S/S}} and \cf{S/S}
+are added to the same cell of the chart.
+
+
+
+\subsection{Removal of Type-Changing Rules}
+
+Once we had added support for hat categories, we disabled the non-combinatory
+type-changing rules in the parser. The type-changing rules were hard
+coded, but removing them did not cause any complications. The type-raising rules
+are specified in text files, so these did not require code changes.
+
+\subsection{Test Driven Development}
+
+The \candc parser is a complex piece of software, consisting of approximately
+40,000 lines of highly optimised \cpp code. Runtime always involves a great many
+recursive calls. This makes debugging the system by inspecting run-time errors
+fairly impractical. It is also difficult to navigate the chart structures, which
+are populated by billions of derivations for corpus sentences. We therefore
+adopted a test-driven development methodology. To do this, we used the system's
+Python \textsc{api} to construct a series of unit tests combining categories
+constructed in various ways. These tests also helped us to define the systems
+behaviour for a variety of interesting edge cases, and serve as helpful
+documentation for how hat categories are intended to behave.
+% TODO? We have included a number of these test cases and some discussion of
+%them in Appendix \ref{appendix:test_cases}.
+
+\section{Dependency Label Mapping}
+\label{sec:dependency_mapping}
+As we describe in Section \ref{sec:previous_problems}, it is difficult to
+compare a parser trained on an altered version of \ccgbank against the original.
+When the corpus is changed for training, the testing portion is also altered. We
+address this by creating mappings that translate the new corpus's labelled
+dependencies into the original \ccgbank dependencies. This allows us to map the
+parser's output to match the original \ccgbank, allowing us to evaluate against
+the same set of dependencies.
+
+A labelled dependency in \ccgbank is a 4-tuple containing the head token, the
+head lexical category, the argument slot and the child lexical category. For
+instance, the labelled dependency between \emph{Robin} and \emph{bought} in:
+
+\begin{lexamples}
+\item \gll The present Robin bought Kelly
+\cf{NP/N} \cf{N} \cf{NP} \cf{(S[dcl]\bs NP)/NP)^{NP\bs NP}/NP} \cf{NP}
+\gln
+\glend
+\end{lexamples}
+
+would be:
+
+\begin{equation}
+(bought,\;\; \cf{(S[dcl]\bs NP_1)/NP_2)^{NP\bs NP_2}/NP_3},\;\; 1,\;\; Robin)
+\end{equation}
+
+The hat makes this dependency more specific than the equivalent in \ccgbank,
+because it represents information that would not have been in the original
+lexical category in the hat. This can make parsing results difficult to compare.
+Additionally, one hat category can affect multiple dependencies, because a verb
+like \emph{bought} governs multiple dependencies.
+
+However, the fact that the hat version is \emph{more} specific means we can
+accurately map down to the \ccgbank labels. All we need to do is align the
+dependencies for the training partitions of the two corpora, and find the most
+frequent \ccgbank label for each of the new labels. The mapping consists of the
+new labels paired with their most frequent \ccgbank label. It is equivalent to
+training a classifier that predicts the \ccgbank label using only one feature,
+the new label.
+
+This technique worked very well the \hatsys and \trsys corpora. We evaluated it
+by counting how often the mapping assigned the correct label over the training
+section. The \hatsys and \trsys mappings both scored over 99.5\% accuracy on
+this measure.
+
+The mapping was more problematic for the \nounary corpus, which scored 97.9\%.
+While the categories in the \nounary corpus are, on average, more specific than
+the \ccgbank categories, the re-analyses described in Section
+\ref{sec:nounary_corpus} often reuses categories that occur elsewhere in the
+corpus. By contrast, the changes in the \hatsys and \trsys always involved novel
+categories.
+
+The most common source of error occurs when bare nominals are relabelled. As we
+described in Section \ref{sec:nounary_corpus}, the \psunary{\cf{N}}{\cf{NP}} is
+compiled into the subtree, producing the following change:
+
+\begin{eqnarray}
+ \ptbegtree
+   \ptbeg \ptnode{\cf{NP}}
+     \ptbeg \ptnode{\cf{N}}
+       \ptbeg \ptnode{\cf{N/N}} \ptleaf{dangerous} \ptend
+       \ptbeg \ptnode{\cf{N}} \ptleaf{asbestos} \ptend
+     \ptend
+   \ptend
+  \ptendtree
+&
+\longrightarrow
+&
+ \ptbegtree
+   \ptbeg \ptnode{\cf{NP}}
+     \ptbeg \ptnode{\cf{NP/NP}} \ptleaf{dangerous} \ptend
+     \ptbeg \ptnode{\cf{NP}} \ptleaf{asbestos} \ptend
+   \ptend
+  \ptendtree
+\end{eqnarray}
+
+When this occurs, the \nounary version's dependency, \ref{nounary_dep} needs to
+be mapped to the \ccgbank dependency \ref{ccgbank_dep}:
+
+\begin{eqnarray}
+(dangerous,\;\; \cf{NP/NP_1},\; 1,\;\; asbestos)\label{nounary_dep}\\
+(dangerous,\;\; \cf{N/N_1},\;\; 1,\;\; asbestos)\label{ccgbank_dep}
+\end{eqnarray}
+
+The problem is that there is already a \cf{NP/NP} category in \ccgbank, which is
+used for pre-determiners. Some examples of this category are:
+
+\begin{lexamples}
+ \item \gll Neither Lorillard   nor     the~researchers
+         \cf{NP/NP} \cf{NP}   \cf{conj} \cf{NP}
+\gln
+\glend
+ \item \gll Three~times the~expected~number
+            \cf{NP/NP}  \cf{NP}
+\gln
+\glend
+ \item \gll Formerly a~vice~chairman
+         \cf{NP/NP}  \cf{NP}
+\gln
+\glend
+\end{lexamples}
+
+Mapping (\cf{NP/NP_1}, 1) dependencies to (\cf{N/N_1}, 1) produces errors for
+all of these original uses of the category. There are other constructions which
+display the same problem. This is why the mapping achieves only 97.9\% accuracy.
+This problem means that only the unlabelled dependencies are properly comparable
+for the \nounary corpus. The unlabelled mapping is 99.8\%.
+
+\section{Lexicalised Parsing Models}
+
+This section describes the parsing models we selected for the \hatsys, \nounary
+and \trsys corpora. The models were selected by running a series of experiments
+on Section 00 of the \wsj for each corpus. The purpose of these experiments is
+to find a good configuration for evaluation on the test data. Evaluation will be
+conducted on Section 23 of the \wsj and the \wikieval Wikipedia test set
+described in Section \ref{sec:wikipedia_results}, using the configurations
+decided on Section 00.
+
+For each corpus, we first select an appropriate model from the five discussed in
+Section \ref{sec:system_summary}, using the default $\beta$ levels. We then use
+that model to search for better $\beta$ levels using the search strategy
+described in Section \ref{beta_k} over Section 00. As we described in Section
+\ref{sec:ccgbank_beta_opt}, we used accuracy over automatic \pos tags as the
+objective criterion, because we found it produced better results than accuracy
+over gold standard \pos tags.
+
+
+
+
+\subsection{Selecting the \hatsys Model}
+\label{sec:hat_dev}
+\begin{table}
+\centering
+\small
+\renewcommand{\arraystretch}{0.85}
+\setlength{\tabcolsep}{1.5mm}
+
+ \begin{tabular}{l|ccccc|ccccc}
+\hline
+            & \multicolumn{5}{c|}{Gold \textsc{pos}}               &
+\multicolumn{5}{c}{Auto \textsc{pos}}\\
+Model       & $LF$  & $UF$  & $L$-sent & cat   & w/s & $LF$  & $UF$  & $L$-sent
+& cat   & w/s\\
+\hline
+\hline
+\hybrid            & 86.66 & 92.55 & 34.86 & 92.92 & 403 & 84.81 & 91.39 & 32.52
+& 91.74 & 413 \\
+\hybrid\optbeta    & 87.09 & 92.79 & 35.46 & 93.20 & 430 & 85.04 & 91.58 & 32.68
+& 91.93 & 435 \\
+\hline
+%\hybridv           & 86.60 & 92.56 & 35.97 & 92.98 & 443 & 84.70 & 91.39 & 32.95
+%& 91.79 & 465 \\
+%\hybridv\optbeta   & 87.00 & 92.80 & 36.41 & 93.21 & 472 & 84.96 & 91.60 & 33.16
+% & 91.97& 498 \\
+%& 87.00 & 92.80 & 36.41 & 93.21 & 458 & 84.96 & 91.60 & 33.16 & 91.97 & 482 \\
+%\hline
+%\derivsexp         & 86.23 & 92.37 & 34.33 & 92.94 & 455 & 84.31 & 91.14 & 31.36
+%& 91.78 & 463 \\
+%\derivsexp\optbeta & 86.60 & 92.61 & 34.88 & 93.16 & 449 & 84.58 & 91.37 & 31.84
+%& 91.93 & 479 \\
+%\hline
+\derivsrev         & 86.28 & 92.40 & 34.76 & 92.99 & 447 & 84.41 & 91.17 & 31.52
+& 91.85 & 448 \\
+\derivsrev\optbeta & 86.67 & 92.63 & 35.25 & 93.22 & 461 & 84.69 & 91.42 & 31.94
+& 92.03 & 491 \\
+\hline
+\derivsbad         & 83.68 & 90.91 & 32.07 & 91.23 & 435 & 81.92 & 89.81 & 29.62
+& 90.11 & 467 \\
+\derivsbad\optbeta & 83.79 & 91.17 & 31.14 & 91.39 & 465 & 81.84 & 89.98 & 28.35
+& 90.11 & 504 \\
+\hline
+\end{tabular}
+\caption[\hatsys development results.]{Development results for the \hatsys
+parser with default and optimised $\beta$s. $\beta$s were optimised over
+automatic \pos tags using the \hybrid model. \label{tab:hat_dev}}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{l|rrrr|rrrr}
+\hline
+      & \multicolumn{4}{c|}{Optimised}& \multicolumn{4}{c}{Default} \\
+Level & $\beta$ & $K$ & Gold & Auto   & $\beta$ & $K$  & Gold & Auto \\
+\hline
+\hline
+1     & 0.05    & 22  & 1718 & 1677 & 0.075    & 20  & 1658   & 1621\\
+2     & 0.05    & 40  & 32   &   29 & 0.03     & 20  & 89     & 99  \\
+3     & 0.005   & 50  & 120  &  148 & 0.01     & 20  & 52     & 65  \\
+4     & 0.001   & 10  & 14   &   21 & 0.005    & 20  & 26     & 26  \\
+5     & 0.001   & 150 & 14   &   19 & 0.001    & 150 & 74     & 83  \\
+\hline
+Cover &         &     & 99.21& 98.9 &          &     & 99.27  & 99.01\\
+\hline
+\end{tabular}
+ \caption[Optimised $\beta$ levels for \hatsys parser.]{Optimised $\beta$ levels
+for \hatsys parser. The gold and auto columns show the number of sentences
+successfully parsed at each level.\label{tab:hat_betas}}
+\end{table}
+
+
+The \hatsys corpus uses hat categories to lexicalise the \ccgbank
+type-changing rules, as described in Section \ref{sec:hat_corpus}. Table
+\ref{tab:hat_dev} shows the development result for the three models trained on
+the \hatsys corpus, and evaluated on the \ccgbank dependencies of Section 00.
+We selected the most accurate model, \hybrid, to optimise the $\beta$ levels.
+%although the difference between its gold and
+%automatic \pos tag $LF$ scores and \hybridv's might not be statistically
+%significant. We selected the \hybrid model to optimise the $\beta$ levels.
+
+The Corrected Greedy Search strategy selected the $\beta$ levels shown in Table
+\ref{tab:hat_betas}. One disadvantage of the automated search is that it does
+not optimise for speed at all. There are two $\beta$ levels which differ only in
+their corresponding $K$ level. Most sentences which failed at the first level
+will also fail at the second level, slowing down the parser. However, we decided
+to accept the $\beta$ levels found by the search strategy as they were, to avoid
+the error-prone manual tuning the search is designed to replace.
+ 
+Table \ref{tab:hat_dev} shows the results using the new $\beta$ levels. The
+labelled $F$-score results improve by similar amounts (roughly 0.5\%) for most
+of the models, using both gold and automatic \pos tags. The exception is the
+\derivsbad model, which only shows a slight improvement. This might be because
+the parsing model is less accurate, while the supertagger accuracy is the same
+for all models. The \derivsbad model would probably benefit from $\beta$ values
+that trusted the supertagger more, by delivering a smaller set of categories to
+the parser.
+
+The new $\beta$ values produced roughly the same parsing speeds as the original
+values. In \citet{honnibal:09}, we report results using hand-selected high $K$
+values, producing parse speeds of 550 words per second using gold \pos tags,
+with $LF$ accuracy of 87.12\%. However, the automatic \pos tag accuracy was only
+84.85\%. This is an example of how $\beta$ levels can be selected to optimise
+for gold standard \pos tag performance at the expense of the more likely use
+case, automatically selected \pos tags.
+
+We selected the \hybrid\optbeta model to represent the \hatsys corpus, as it
+was the most accurate model on both gold and automatic \pos tags.
+ %This model was only 0.08\% more accurate than the
+%\hybridv\optbeta model, but was 15\% slower. We therefore selected the \hybridv
+%model as the representative for the \hatsys corpus.
+
+\subsection{Selecting the \nounary Model}
+\label{sec:nounary_dev}
+
+The \nounary corpus compiles out the type-changing rules from \ccgbank, using
+no extra grammatical machinery beyond the application, composition and
+type-raising rules, as described in Section \ref{sec:nounary_corpus}. Table
+\ref{tab:nounary_dev} shows the development results for the parser trained on
+the \nounary corpus and evaluated on the \ccgbank dependencies for Section 00.
+As we describe in Section \ref{sec:dependency_mapping}, there is an upper bound
+of 97.9\% on the labelled dependency accuracy for the \nounary corpus, because
+of errors in the dependency mapping to \ccgbank. However, the labelled and
+unlabelled accuracies in Table \ref{tab:nounary_dev} display similar trends.
+
+Although we reserve detailed comparison for Section \ref{sec:wsj_evaluation}, it
+is immediately noticeable that the performance on the \nounary corpus is
+substantially lower than the development performance of the \ccgbank and \hatsys
+parsers discussed above. One potential explanation is the lower label mapping
+accuracy for the \nounary corpus, described in Section
+\ref{sec:dependency_mapping}, but we see similar loss of performance in
+unlabelled accuracy, suggesting that this is not the explanation.
+
+We used the \hybrid model to search for the most accurate $\beta$ levels on
+automatic \pos tags using the Corrected Greedy Search strategy described in
+Section \ref{beta_k}. Table \ref{tab:nounary_betas} shows the $\beta$ levels
+selected. There is no clear pattern in the levels selected, suggesting a degree
+of over-fitting. The search strategy may be able to over-fit more often on the
+\nounary corpus because the grammar is more restrictive and the lexical
+categories in the corpus are more sparse, so the parser fails to find a spanning
+analysis more often. This makes the set of sentences covered by each $\beta$ and $K$
+combination smaller, giving the search strategy more freedom. 
+
+For instance, the first level selected in Table \ref{tab:nounary_betas} is the
+same as the first level selected for the original \ccgbank, in Table
+\ref{tab:ccgbank_betas}. On \ccgbank, this level covers 1846 sentences with
+automatic \pos tags. On the \nounary corpus it only covers 1680. The \nounary
+corpus does not have the \ccgbank type-changing rules in its grammar, so the
+parser has less freedom to construct a spanning analysis from a problematic set
+of supertags. Sparse data problems in the corpus may also make the supertagger
+less accurate, so the set of categories at a given $\beta$ and $K$ configuration may
+also contain more errors.
+
+\hybrid\optbeta is the most accurate of the \nounary models. The optimised
+$\beta$ values bring a larger performance improvement on the \nounary models
+than they did for the \hatsys and \ccgbank models, which could also be
+interpretted as evidence of over-fitting. The \hybrid\optbeta model outperforms
+the \hybrid default $\beta$s model by 0.8\% labelled $F$-score with gold \pos
+tags, and 0.6\% with automatic \pos tags. The only model where the optimised
+$\beta$ values perform more poorly is \derivsbad, where for the first time the
+optimised $\beta$ levels perform worse than the defaults. This is probably
+because of the 3.5\% gap in accuracy between the \derivsbad model, and the
+\hybrid model used to select the $\beta$ values. The difference in accuracy of
+these models mean they require different $\beta$ levels, because it is better to
+rely on the supertagger when the parsing model is less accurate, by supplying
+the parser fewer categories per word.
+
+
+\begin{table}
+\centering
+\small
+\renewcommand{\arraystretch}{0.85}
+\setlength{\tabcolsep}{1.5mm}
+ \begin{tabular}{l|ccccc|ccccc}
+\hline
+                  & \multicolumn{5}{c|}{Gold \textsc{pos}} &
+\multicolumn{5}{c}{Auto \textsc{pos}}\\
+Model             & $LF$  & $UF$   & $L$-sent & cat   & w/s & $LF$  & $UF$  &
+$L$-sent & cat   & w/s\\
+\hline
+\hline
+\hybrid            & 84.25 & 91.55 & 30.33 & 91.56 & 446 & 82.36 & 90.39 & 27.97
+& 90.43 & 437 \\
+\hybrid\optbeta    & 84.98 & 92.02 & 30.96 & 91.85 & 340 & 82.82 & 90.73 & 28.03
+& 90.46 & 343 \\
+\hline
+%\hybridv           & 84.17 & 91.56 & 30.75 & 91.53 & 511 & 82.27 & 90.39 & 28.40
+%& 90.39 & 512 \\
+%\hybridv\optbeta   & 84.82 & 92.04 & 31.33 & 91.78 & 363 & 82.64 & 90.70 & 28.50
+%& 90.46 & 376 \\
+%\hline
+%\derivsexp         & 84.08 & 91.33 & 30.33 & 91.60 & 514 & 82.22 & 90.15 & 27.81
+%& 90.49 & 504 \\
+%\derivsexp\optbeta & 84.59 & 91.73 & 30.90 & 91.82 & 357 & 82.58 & 90.47 & 27.97
+%& 90.55 & 373 \\
+%\hline
+\derivsrev         & 83.95 & 91.27 & 30.17 & 91.52 & 509 & 82.07 & 90.06 & 27.60
+& 90.36 & 502 \\
+\derivsrev\optbeta & 84.41 & 91.67 & 30.43 & 91.69 & 364 & 82.36 & 90.39 & 27.50
+& 90.39 & 376 \\
+\hline
+\derivsbad         & 80.64 & 89.26 & 27.78 & 89.26 & 512 & 78.95 & 88.17 & 25.63
+& 88.24 & 493 \\
+\derivsbad\optbeta & 78.62 & 88.65 & 22.03 & 87.78 & 346 & 76.57 & 87.35 & 20.52
+& 86.44 & 374 \\
+\hline
+\end{tabular}
+\caption[\nounary development results.]{Development results for the \nounary
+parser with default and optimised $\beta$s. $\beta$s were optimised over
+automatic \pos tags using the \hybrid model. \label{tab:nounary_dev}}
+\end{table}
+
+\begin{table}
+\centering
+ \begin{tabular}{l|rrrr|rrrr}
+\hline
+      & \multicolumn{4}{c|}{Optimised}& \multicolumn{4}{c}{Default} \\
+Level & $\beta$ & $K$ & Gold & Auto  & $\beta$ & $K$  & Gold & Auto \\
+\hline
+\hline
+1     & 0.02   & 22    & 1692 & 1680 & 0.075 & 20  & 1568 & 1522\\
+2     & 0.1    & 40    & 27   & 23   & 0.03  & 20  & 89   & 114 \\
+3     & 0.04   & 10000 & 61   & 53   & 0.01  & 20  & 71   & 83  \\
+4     & 0.015  & 10    & 15   & 12   & 0.005 & 20  & 44   & 47  \\
+5     & 0.001  & 80    & 82   & 101  & 0.001 & 150 & 114  & 111 \\
+6     & 0.0005 & 1000  & 16   & 22   &       &     &      &     \\
+\hline
+Cover &        &       &98.95 & 98.85&       &     & 98.59& 98.12\\
+\hline
+\end{tabular}
+\caption[Optimised $\beta$ levels for \nounary parser.]{Optimised $\beta$ levels
+for \nounary parser. The gold and auto columns show the number of sentences
+successfully parsed at each level.\label{tab:nounary_betas}}
+\end{table}
+
+\subsection{Selecting the \trsys Model}
+\label{sec:hattr_dev}
+Table \ref{tab:trsys_dev} shows the development results for the parser trained
+on the \trsys corpus and evaluated on the \ccgbank dependencies for Section 00.
+The corpus uses hat categories to lexicalise type-raising, in addition to the
+type-changing rules. The corpus is described in Section
+\ref{sec:hattr_corpus}. There were several strange development results for this
+corpus. First, the \hybrid models performed substantially worse than the \derivs
+models, which is the opposite of what we saw on the other corpora. We suspect
+that the lexicalisation of the type-raising rules has interfered with some of
+the \hybrid model's feature functions, but we have not been able to identify the
+issue.
+
+We used the \derivsrev model to search for $\beta$ levels that optimised
+labelled $F$-score with automatic \pos tags using the Corrected Greedy Search
+strategy described in Section \ref{beta_k}. The $\beta$ levels selected are
+shown in Table \ref{tab:hattr_betas}. Much like the \nounary corpus, there is no
+clear intuition behind the $\beta$ levels selected, which may indicate a degree
+of over-fitting. The first level is particularly curious. A $K$ level of 1 means
+that the supertagger will use its word-specific tag dictionary for every word in
+the sentence, even if it has only occurred once in the training data. Arguably,
+we should not have included $K$ levels below 10 in the search space, but we
+wanted to make fewer assumptions about what would constitute good $\beta$ and
+$K$ settings and see whether the search strategy was able to select good values.
+As it turns out, the $\beta$ levels that the strategy selected generalised to
+the Wikipedia data surprisingly well, as we discuss in Section
+\ref{sec:wikipedia_results}.
+
+The $\beta$ levels selected by the search strategy caused small decreases in
+accuracy on gold \pos tags for the \derivsrev model,
+although these differences may not be statistically significant. All of the
+models improved in accuracy using automatic \pos tags, with the
+\derivsrev\optbeta model performing the best. The improvement in accuracy was
+similar to the improvement seen from $\beta$ level optimistion on the \hatsys
+corpus, in Section \ref{sec:hat_dev}.
+
+The first selected $\beta$ value, 0.2, is quite restrictive. This leads to
+faster parsing for the \derivs models, because the parser is supplied a smaller
+set of categories, leading to small charts and efficient parsing for the 60\% of
+sentences for which the parser can construct a spanning analysis at this level.
+The reduction in chart sizes is worth the cost of building a chart twice for the
+other 40\% of sentences, because the chart sizes grow exponentially with respect
+to the number of categories they are seeded with. This means that a sentence can
+take many times longer to parse at a low $\beta$ level than it would to parse at
+a high $\beta$ level.
+
+%What is strange is that the \hybrid models get \emph{slower} with the new
+% $\beta$s, despite the fact that the same chart parser is being seeded with the
+% the same categories, and the only thing that is different is the model being
+% used to select the most likely parse. This is another strong indication that
+% there is an implementation issue with the \hybrid models for the \trsys corpus,
+% affecting their results.
+
+\begin{table}
+\centering
+\small
+\renewcommand{\arraystretch}{0.85}
+\setlength{\tabcolsep}{1.5mm}
+ \begin{tabular}{l|ccccc|ccccc}
+\hline
+                  & \multicolumn{5}{c|}{Gold \textsc{pos}}               &
+\multicolumn{5}{c}{Auto \textsc{pos}}\\
+Model             & $LF$  & $UF$  & $L$-sent & cat    & w/s & $LF$  & $UF$  &
+$L$-sent & cat   & w/s\\
+\hline
+\hline
+\hybrid            & 85.15 & 91.36 & 31.63 & 92.18 & 678 & 83.09 & 90.02 & 28.80
+& 90.87 & 537 \\
+\hybrid\optbeta    & 85.34 & 91.52 & 32.21 & 92.26 & 581 & 83.48 & 90.33 & 29.73
+& 91.12 & 502 \\
+\hline
+%\hybridv           & 84.76 & 91.03 & 30.53 & 92.14 & 662 & 82.73 & 89.69 & 27.64
+%& 90.86 & 681 \\
+%\hybridv\optbeta   & 84.93 & 91.15 & 30.58 & 92.19 & 636 & 83.08 & 89.94 & 28.30
+%& 91.08 & 590 \\
+%\hline
+%\derivsexp         & 86.31 & 92.48 & 34.37 & 92.85 & 475 & 84.02 & 90.96 & 30.87
+%& 91.44 & 510 \\
+%\derivsexp\optbeta & 86.27 & 92.39 & 33.96 & 92.72 & 503 & 84.46 & 91.28 & 31.22
+%& 91.59 & 552 \\
+%\hline
+\derivsrev         & 86.37 & 92.48 & 34.26 & 92.87 & 601 & 84.10 & 90.97 & 30.85
+& 91.50 & 678 \\
+\derivsrev\optbeta & 86.30 & 92.37 & 33.74 & 92.76 & 663 & 84.53 & 91.28 & 31.10
+& 91.67 & 626 \\
+\hline
+\derivsbad         & 84.03 & 91.20 & 32.21 & 91.35 & 687 & 82.09 & 89.90 & 29.54
+& 90.13 & 675 \\
+\derivsbad\optbeta & 84.48 & 91.35 & 32.69 & 91.63 & 645 & 82.86 & 90.39 & 30.10
+& 90.59 & 560 \\
+\hline
+\end{tabular}
+\caption[\trsys development results.]{Development results for the \trsys parser
+with default and optimised $\beta$s. $\beta$s were optimised over automatic \pos
+tags using the \derivsrev model. \label{tab:trsys_dev}}
+\end{table}
+
+\begin{table}
+\centering
+ \begin{tabular}{l|rrrr|rrrr}
+\hline
+      & \multicolumn{4}{c|}{Optimised}& \multicolumn{4}{c}{Default} \\
+Level & $\beta$ & $K$ & Gold & Auto  & $\beta$ & $K$  & Gold & Auto \\
+\hline
+\hline
+1     & 0.2   & 1    & 1181 & 1161 & 0.075   & 20  & 1677 & 1632\\
+2     & 0.04  & 30   & 591  &  572 & 0.03    & 20  & 89   & 110\\
+3     & 0.06  & 40   &   8  &   10 & 0.01    & 20  & 70   & 73\\
+4     & 0.1   & 150  &  20  &   20 & 0.005   & 20  & 19   & 29\\
+5     & 0.007 & 15   &  74  &   93 & 0.001   & 150 & 48   & 52\\
+6     & 0.001 & 50   &  29  &   38 &         &     &      &    \\
+\hline
+Cover &       &      & 99.47& 99.01&         &     & 99.48& 99.11\\
+\hline
+\end{tabular}
+\caption[Optimised $\beta$ levels for \trsys parser.]{Optimised $\beta$ levels
+for \trsys parser, selected using the \derivsrev model. The gold and auto
+columns show the number of sentences successfully parsed at each
+level.\label{tab:hattr_betas}}
+\end{table}
+
+\subsection{Summary of Performance on Section 00}
+\label{sec:dev_summary}
+\begin{table}
+\centering
+\small
+\renewcommand{\arraystretch}{0.85}
+\setlength{\tabcolsep}{1.5mm}
+ \begin{tabular}{ll|cccccc|cccccc}
+\hline
+       &               & \multicolumn{6}{c|}{Gold \textsc{pos}}         &
+\multicolumn{6}{c}{Auto \textsc{pos}}\\
+Corpus & Model         & $LF$  & $UF$  & $L$-sent & cat& cover & w/s & $LF$  &
+$UF$  & $L$-sent & cat& cover & w/s\\
+\hline
+\hline
+\ccgbank & \hybrid         & 87.27 & 93.01 & 35.94 & 94.16 & 99.06 & 365 & 85.30
+& 91.77 & 32.93  & 93.00 & 99.06 & 359 \\
+%\ccgbank & \hybridv        & 87.35 & 93.07 & 36.78 & 94.17 & 99.06 & 391 & 85.31
+%& 91.77 & 33.30  & 92.97 & 99.06 & 395 \\
+\ccgbank & \hybrid\optbeta & 87.46 & 93.14 & 36.02 & 94.13 & 99.17 & 266 & 85.65
+& 92.04 & 33.05 & 93.02 & 99.06 & 261 \\
+\hline
+\hatsys & \hybrid\optbeta  & 87.09 & 92.79 & 35.46 & 93.20 & 99.21 & 430 & 85.04 & 91.58 & 32.68
+& 91.93 & 98.9 & 435 \\
+\nounary & \hybrid\optbeta & 84.98 & 92.02 & 30.96 & 91.85 & 98.95 & 340 & 82.82
+& 90.73 & 28.03 & 90.46 & 98.85 & 343 \\
+\trsys   & \derivsrev\optbeta & 86.30 & 92.37 & 33.74 & 92.76 & 99.47 & 663 &
+84.53 & 91.28 & 31.10 & 91.67 & 99.01 & 626 \\
+\hline
+\end{tabular}
+\caption[Best \wsj development results.]{Development results for the best model
+on each corpus on \wsj Section 00. The \ccgbank \hybrid model is the current
+state-of-the-art \ccg parser.\label{tab:dev_summary}}
+\end{table}
+
+Table \ref{tab:dev_summary} summarises the results for our six models on Section
+00. These are the models we have selected for evaluation on Section 23 and on
+the \wikieval corpus. The systems were each trained on different corpora
+described in Chapter \ref{chapter:hat_corpus}, but are compared on \ccgbank's
+dependencies via the mapping discussed in Section \ref{sec:dependency_mapping}.
+The current state-of-the-art is the \ccgbank \hybrid model, so we have also
+included it in our comparison.
+%We have also included the \ccgbank \hybridv
+%model, which uses Viterbi decoding instead of the \citet{clark:cl07}
+%dependencies decoder, as described in Section \ref{sec:deriv_deps}.
+
+The three more lexicalised models showed substantial variation in performance. The
+relatively low accuracy for the \trsys parser may be due to undetected
+implementation problems with the \hybrid model, forcing us to use the \derivs
+model which is generally less accurate, as discussed in Section
+\ref{sec:hattr_dev}. The label mapping problems discussed in Section
+\ref{sec:nounary_dev} may be a mitigating factor in the \nounary poor
+performance of the \nounary parser. However, this issue would not affect the
+unlabelled dependency scores, so it seems likely that the \nounary corpus simply
+makes parsing more difficult. Section \ref{sec:nounary_corpus} discusses several
+problematic analyses in the \nounary corpus, all the result of the lack of
+descriptive power in the corpus's grammar once the \ccgbank type-changing
+rules were compiled out.
+
+The category accuracies for the more lexicalised corpora were considerably lower than
+the category accuracy achieved by the \ccgbank parser. Category accuracies were
+calculated with the native category sets for each corpus. They were not mapped
+to \ccgbank categories, unlike the dependencies. The drop in category accuracy
+is caused by the larger, more specific category set that is the result of full
+lexicalisation. The fact that there was not a corresponding drop in dependency
+accuracy indicates that there was a trade-off between the more difficult
+supertagging phase, and a subsequently easier parsing phase, due to the
+reduction in ambiguity from removing the type-changing rules from the grammar. The
+difference between the category accuracy and dependency results thus supports
+our hypothesis that the parsing phase is easier on the more lexicalised corpora.
+
+The \hatsys corpus seems to be a superior strategy for lexicalising the
+type-changing rules in \ccgbank. The \hatsys parser achieved accuracy scores
+within 0.3\% of the current state-of-the-art model. This suggests that it is
+possible to achieve the linguistically desirable properties of full
+lexicalisation while maintaining parser accuracy. The \hatsys parser was
+substantially faster than the \ccgbank \hybrid parser, however.
+%This was partly
+%the result of the Viterbi decoding, which is faster than the \citet{clark:cl07}
+%dependencies decoder. The \hatsys parser was 26\% faster than the \ccgbank
+%\hybrid model.
+
+The most accurate parser was the \ccgbank\hybrid\optbeta model, which
+outperformed the current state-of-the-art parser by 0.35\% with automatic \pos
+tags. However, it achieved this improvement in accuracy at the expense of a 40\%
+drop in efficiency. As we discuss in Section \ref{sec:ccgbank_beta_opt}, this
+suggests that it would be desirable to have a way to balance speed and accuracy
+in the objective function of the $\beta$ search strategy described in Section
+\ref{beta_k}.
+The \hatsys\hybrid\optbeta parser was 0.6\% less accurate than
+the \ccgbank\hybrid\optbeta model when automatic \pos tags were used.
+However, it was also 66\% faster.
+
+\section{Evaluation on \wsj Section 23}
+\label{sec:wsj_evaluation}
+\begin{table}
+\centering
+\small
+\renewcommand{\arraystretch}{0.85}
+\setlength{\tabcolsep}{1.5mm}
+ \begin{tabular}{ll|cccccc|cccccc}
+\hline
+       &                   & \multicolumn{6}{c|}{Gold \textsc{pos}}         &
+\multicolumn{6}{c}{Auto \textsc{pos}}\\
+Corpus & Model             & $LF$  & $UF$  & $L$-sent & cat   & cover & w/s &
+$LF$  & $UF$  & $L$-sent & cat   & cover & w/s\\
+\hline
+\hline
+\ccgbank & \hybrid           & 87.68 & 93.00 & 36.74 & 94.33 & 99.63 & 558 &
+85.50 & 91.66 & 33.08  & 92.99 & 99.58 & 472 \\
+\ccgbank & \hybrid\optbeta   & 87.73 & 92.99 & 36.84 & 94.18 & 99.92 & 314 &
+85.55 & 91.73 & 33.35  & 92.88 & 99.79 & 318 \\
+\hline
+\hatsys  & \hybrid\optbeta  & 87.45 & 92.76 & 36.98 & 93.36 & 99.09 & 814 &
+85.35 & 91.53 & 33.67  & 92.03 & 98.96 & 686 \\
+\nounary & \hybrid\optbeta   & 85.24 & 91.78 & 31.59 & 91.90 & 99.42 & 501 &
+83.22 & 90.57 & 28.61  & 90.55 & 99.17 & 450 \\
+\trsys   & \derivsrev\optbeta& 86.76 & 92.26 & 35.58 & 92.95 & 99.38 & 789 &
+84.58 & 90.96 & 31.92  & 91.56 & 99.17 & 673 \\
+\hline
+\end{tabular}
+\caption[\wsj evaluation results.]{Evaluation results for the four models on
+\wsj Section 23. The \ccgbank \hybrid model is the current state-of-the-art \ccg
+parser.\label{tab:wsj23_results}}
+\end{table}
+%The standard test set for the \wsj corpus is Section 23. The test set is an
+% attempt to model the system's behaviour on novel data, so it is desirable to
+% perform as few experiments as possible, because we are interested in estimating
+% the performance of a system we have configured on the development data on novel
+% text.
+
+Our in-domain evaluation experiments involved running the four models selected
+in Section \ref{sec:dev_summary} on Section 23 of the Wall Street Journal. We
+report the same figures we did for the development data: unlabelled dependency
+$F$-score ($UF$), labelled dependency $F$-score ($LF$), percentage of
+sentences with 100\% labelled dependency $F$-score ($L$-sent), category
+accuracy (cat), coverage (cover), and speed in words per second (w/s). The
+specifics of these measures are described in Section
+\ref{sec:evaluation_framework}.
+
+The results are shown in Table \ref{tab:wsj23_results}. The
+\ccgbank\hybrid\optbeta system remains the most accurate, although the gap in
+accuracy between it and the \ccgbank default $\beta$ configuration is smaller
+than it was on the development data. The optimised $\beta$s bring an accuracy
+improvement of only 0.05\% with automatic \pos tags, compared to the 0.34\%
+improvement on the development data. This suggests that the $\beta$ search
+strategy over-fitted to some extent.
+
+One problem for accuracy comparison with these results is the difference in
+coverage between the \ccgbank models and the \hatsys model. The
+\ccgbank\hybrid\optbeta system achieves near perfect coverage on Section 23,
+while the \hatsys system fails to find a spanning analysis for 1.04\% of
+sentences using automatic \pos tags. The problem is that the sentences the
+\hatsys parser rejects are not evaluated, following the evaluation methodology
+of \citet{clark:cl07}. The 1.04\% of sentences rejected by
+the \hatsys parser might be long and difficult, which would mean that the
+\ccgbank parsers were penalised for returning an analysis for them. This might
+be why the \hatsys parser is slightly closer in accuracy to the \ccgbank parsers
+on Section 23 than it is on Section 00.
+
+Having lower coverage is not an advantage for parse speed, however, because the
+parser never rejects a sentence outright. For a sentence to fail, the parser
+must try to find a spanning analysis at each $\beta$ level, so low coverage is
+actually less efficient than high coverage. Despite this, the \hatsys parser
+remains much more efficient than the \ccgbank parsers. It is 45\% faster than
+the \ccgbank default $\beta$ parser, and 215\%
+faster than the \ccgbank \optbeta parser, demonstrating the utility of full
+lexicalisation for parsing.
+
+The \hatsys parser is faster because it allows the supertagger to decide when to
+activate the type-changing rules. In the \ccgbank grammar, a type-changing rule
+such as \psunary{\cf{NP}}{\cf{S/(S/NP)}} is an option for every \cf{NP}, even though
+many of these productions are unlikely given the context of the word. The \candc
+parser creates a packed chart of all derivations generated by its grammar
+using the lexical categories supplied to it by the supertagger. It does
+not use a beam to search for only likely derivations.
+
+Hat categories offer a way to prevent the parser from considering unlikely type-changing
+rules, using the supertagger. If the supertagger cannot decide well between the \cf{NP}
+and \cf{NP^{S/(S/NP)}} lexical categories, then both will be supplied to the parser.
+The parser will be able to generate derivations using
+either category, just as though the type-changing rule were in its grammar.
+However, when the supertagger is confident, it might only supply \cf{NP}.
+Without the type-changing rule in the grammar, the parser will then not generate the
+unlikely analyses relying on \cf{NP^{S/(S/NP)}}.
+
+This design, where the supertagger prunes the parser's search space ahead of time,
+is why the \candc parser is far more efficient than comparable parsers. Hat categories
+move the parser further in this direction, by making the set of grammatical rules that
+are always available even smaller, and giving even more derivational control to the
+supertagger.
+
+
+
+\section{Cross-Domain Evaluation on Wikipedia}
+\label{sec:wikipedia_results}
+
+As we described in Chapter \ref{chapter:background}, statistical parsing results
+have shown consistent improvement over the fifteen years or so since the Penn
+Treebank was released. Having a large, high quality shared resource has been
+hugely important for the development of the field, but it has also resulted in a
+degree of domain dependence. Domain dependence raises two issues for our
+evaluation, related to two ways evaluation can be used.
+
+First, there is the basic question of how well our parser currently performs.
+This kind of evaluation can address questions about how viable parsing is as an
+approach to various tasks, although ultimately this can be tested empirically.
+For this kind of evaluation, our main concern for domain dependence is
+quantifying the loss of performance when the parser (or other \nlp tool) is
+ported to a new domain.
+
+The second question is whether conclusions we have previously reached in our
+research on the training data hold true for other domains. In other words, has
+our research agenda been overfit to the training domain, or could our methods be
+applied equally well to a new domain given a sufficient quantity of labelled
+data? This type of over-fitting is very important to uncover. Labelled data may
+be costly, but research energy is far more expensive.
+
+We prepared a cross-domain evaluation for the \candc parser to address the
+second question --- the issue of whether our conclusions are valid in a
+cross-domain context. We were concerned about this because lexicalisation
+arguably increases the system's dependence on extracting a high coverage lexicon
+from the training data, and that extraction process might be very domain
+specific.
+
+A cross-domain evaluation also lets us examine whether some of the previous
+observations about the \candc parser hold true. For instance,
+\citet{clark:acl04} came to the novel conclusion that a supertagging phase was
+important for accuracy as well as speed, by showing that the parser was more
+accurate when the supertagger supplied a smaller set of categories. We can also
+see whether more subtle observations, such as that the hybrid model out-performs
+the derivs model, hold true on the Wikipedia data.
+
+We chose Wikipedia, a free online encyclopedia, as the target for our
+cross-domain evaluation. We chose this domain because we wanted text which
+conformed to standard English grammar, allowing us to factor out some of the
+well observed problems that arise when newswire tools are applied to technical
+or informal domains. We wanted a domain that was different from 1989 financial
+news text, but one which was similar enough that we would hope our more general
+research conclusions would remain valid.
+
+Wikipedia is also an interesting domain in its own right. It has become a hugely
+influential resource for \nlp, because it is large (the English Wikipedia dump
+we used had approximately 1 billion words using our pre-processing method),
+available in multiple languages, and contains a variety of interesting
+meta-data. A review of the \nlp applications using Wikipedia is beyond the scope
+of this thesis, but it has been particularly prominent for entity recognition
+\citep{nothman:09} and disambiguation \citep{bunescu:06}, and lexical semantics
+\citep{strube:06}. This means that we can also make a useful contribution to the
+first kind of evaluation question, by investigating how well a state-of-the-art
+parser performs on this domain. Our results are the first published accuracy
+evaluation of a parser on Wikipedia. The only previous investigation of parsing
+performance on Wikipedia was performed by \citep{ytrestol:09}, who ran the LinGo
+\hpsg parser \citep{oepen:04} over Wikipedia, and found that the correct parse
+was in the top 500 returned parses for 60\% of sentences.
+
+Our cross-domain evaluation was conducted on 200 sentences, which were manually
+annotated by a single annotator. This is far from ideal, but it is enough to
+assess the issues we are most interested in. We first describe how we selected
+and pre-processed the sentences for annotation. Next, we discuss the annotation
+procedure, and how future \ccg manual annotation might be performed faster.
+Finally, we perform the evaluation and discuss our findings.
+
+\subsection{Preparing the Data}
+\label{sec:wiki_preprocessing}
+
+In general, our pre-processing strategy was to throw away any data that was
+likely to be noisy or non-sentential. The evaluation set would by necessity be
+small, and we wanted to avoid having any noisy sentences in the data. We
+therefore chose not to expand occurrences of the Wikipedia templates, to avoid
+including boilerplate sentences in our evaluation data. We also discarded any
+non-paragraph text, such as lists, picture captions, etc.
+
+The pre-processing was performed using the Wikipedia processing tools developed
+by \citet{nothman:09}. These tools are largely an interface for database access
+of articles, which are then parsed using \texttt{mwlib} \citep{mwlib}. The tools
+also make the link graph available.
+
+We used a simple relevance metric to avoid selecting sentences from the long
+tail of less relevant articles in Wikipedia. We wanted to get sentences from the
+types of articles people were likely to encounter when navigating Wikipedia. Our
+metric is therefore based on the link-structure of the encyclopedia. We judged
+an article's relevance according to how many other articles linked to it. This
+was easier to compute than a more sophisticated measure like PageRank
+\citep{pagerank}, and satisfied our requirements. We also imposed an additional
+constraint on the articles we could draw sentences from. We were initially
+interested in using the Simple English Wikipedia as self-training data,
+hypothesising that the basic English used in that corpus would be easier to
+parse. We therefore excluded all articles whose title matched a Simple English
+Wikipedia article, to avoid evaluating on sentences whose subject matter was too
+similar to our self-training data. Having applied this filter, we selected the
+5,000 articles that were linked to the most from other Wikipedia pages.
+
+Once we had a set of candidate articles, we set about extracting sentences from
+them. We extracted paragraphs from the \texttt{mwlib} MediaWiki parse trees, and
+split them into sentences using the Punkt sentence boundary detector
+\citep{punkt}. Punkt uses an unsupervised algorithm, so it could be
+parameterised on Wikipedia text. It was also a convenient option, because it is
+freely distributed with \nltk \citep{nltkbook:09,nltkweb}. The sentences were
+then tokenised according to the Penn Treebank standard, using custom regular
+expressions.
+
+\subsection{Annotating the Wikipedia Data}
+
+The \wikieval annotation set consists of 200 Wikipedia sentences which we
+manually annotated with \ccg derivations. Only one annotator was available.
+Because the goal of the annotation was to evaluate the \candc parser, we tried
+to stay as close to the \ccgbank annotation guidelines \citep{hock:thesis03} as
+possible. The only exception to this policy was that we did not attempt to
+recreate the known problems with \ccgbank annotation. Specifically, \ccgbank
+contains incorrect noun phrase brackets, because there was no way to accurately
+binarise the flat Penn Treebank noun phrase brackets automatically.
+
+The most difficult annotation decisions involved complement/adjunct distinctions
+for prepositional phrases that attached to verbs. \citet{propbank} showed that
+the accuracy of these decisions can be substantially improved if they are made
+with reference to a lexicon, rather than on a case-by-case basis. We therefore
+referred to the \ccgbank and PropBank lexicons to guide our decisions. 
+
+\citet{marcus:93} found that correcting parser output is both faster and less
+error-prone than treebanking entirely by hand. We began by parsing the sentences
+with the \candc parser. Four of the two hundred sentences could not be parsed.
+For these sentences we just used the most likely categories returned by the
+supertagger. Our strategy was to correct the supertags, which could then be
+supplied back to the parser to produce very high quality parses. We did not
+correct the part-of-speech tags. \citet{clark:cl07} report that with gold
+standard supertags, the parser achieves 97\% $F$-score on labelled dependencies.
+We hoped that this would mean most of the annotation could be done in a standard
+text editor.
+
+We corrected the supertags for the first 50 sentences of the annotation in 85
+minutes. Annotation speeds remained fairly constant, and the supertag correction
+phase was completed in just over five hours. In hindsight, it would have been
+better to use the multi-tagging output of the supertagger, instead of the
+categories selected by the parser. The multi-tagger returns the correct category
+for 98\% of words, with an average of 3.4 categories returned per word. This
+would have allowed the annotator to simply select the correct tag from three or
+four alternatives, which should be possible fairly quickly. A comparison of
+supertag annotation methods would be a useful contribution to the field, as
+previous work \citep{clark:emnlp04,rimell:08} has shown that supertag annotation
+is almost as useful as full \ccg treebanking.
+
+Once the supertags were corrected, we supplied them to the parser in a
+\textsc{gui} that displayed the derivation produced using the selected
+supertags. If the analysis was incorrect, the annotator could change the
+supertags, or add a constraint to the chart that prohibited the current
+analysis. Three kinds of constraint were possible. With a \emph{require}
+constraint, only derivations which bracketed together some sequence of words
+could be constructed. A \emph{match} constraint was similar, but additionally
+specified a label for the bracket. The third constraint, \emph{exclude},
+prohibited a span of words from being bracketed together. Usually, the
+constraints were used to resolve attachment ambiguities. The most common case
+involved two adnominal prepositional phrases. For instance, consider the
+sentence:
+
+\begin{lexamples}
+ \item We all know the man on the hill with the telescope.
+\end{lexamples}
+
+If we assign both \emph{on} and \emph{with} the category \cf{(NP\bs NP)/NP},
+there is still an attachment ambiguity. \emph{with} could attach to \emph{hill}
+or \emph{man}. A \emph{require} constraint will not help here, but if we
+\emph{exclude} a bracket spanning \emph{the hill with the telescope}, the
+attachment ambiguity is resolved, and the correct parse will be displayed. The
+interactive interface was also useful for debugging remaining problems with the
+supertags. Careless mistakes and syntax errors were immediately flagged, because
+the supertags could not be used to construct a parse.
+
+The annotation took approximately 18 hours in total. The two phase process
+turned out to be less useful than we had hoped. Doing the annotation in two
+passes meant that each sentence had to be mentally analysed twice, because the
+initial annotation decisions were only dimly familiar by the time the sentence
+came up again in the second pass. It would have been better to add a text box to
+perform the supertagging to the chart constraint interface. This would have
+allowed the annotator to perform the annotation in a single pass.
+
+
+\subsection{Wikipedia Evaluation}
+
+\begin{table}
+\centering
+\small
+\renewcommand{\arraystretch}{0.85}
+\setlength{\tabcolsep}{1.5mm}
+ \begin{tabular}{ll|ccccc|ccccc}
+\hline
+         &                    & \multicolumn{5}{c|}{Wikipedia}       &
+\multicolumn{5}{c}{\textsc{wsj} 23 Auto}\\
+Corpus   & Model              & $LF$  & $UF$  &$L$-sent& cover & w/s & $LF$  &
+$UF$  &$L$-sent& cover & w/s\\
+\hline
+\hline
+\ccgbank & \derivsrev         & 80.86 & 88.73 & 27.78  & 98.71 & 231 & 85.06 &
+91.41 & 33.08 & 99.58 & 545 \\
+\ccgbank & \hybrid            & 81.22 & 88.75 & 26.77  & 98.71 & 225 & 85.50 &
+91.66 & 33.08 & 99.58 & 472 \\
+\ccgbank & \hybrid\optbeta    & 81.24 & 88.62 & 28.00  & 98.57 & 157 & 85.55 &
+91.73 & 33.35 & 99.79 & 318 \\
+\hline
+\hatsys  & \hybrid\optbeta   & 81.12 & 88.41 & 26.53  & 98.47 & 288 & 85.35 &
+91.53 & 33.67 & 98.96 & 686 \\
+\nounary & \hybrid\optbeta    & 79.18 & 87.60 & 24.37  & 98.1  & 252 & 83.22 &
+90.57 & 28.61 & 99.17 & 450 \\
+\trsys   & \derivsrev\optbeta & 80.93 & 88.38 & 26.77  & 98.8  & 328 & 84.58 &
+90.96 & 31.92 & 99.17 & 673 \\
+\hline
+\end{tabular}
+\caption[Wikipedia evaluation results.]{Comparison of the more lexicalised \hatsys,
+\nounary and \trsys models against \ccgbank trained parsers on
+Wikipedia.\label{tab:wiki_results}}
+\end{table}
+
+We evaluated the four models that performed best on the development data, as
+described in Section \ref{sec:dev_summary}, on the two hundred sentence
+\wikieval evaluation set we manually annotated. We also evaluated two of
+\citepos{clark:cl07} models, the \ccgbank \hybrid and \ccgbank \derivsrev
+models. The results are shown in Table \ref{tab:wiki_results}. Because the test
+set was only two hundred sentences, we performed separate coverage and speed
+evaluation on a set of 10,000 unannotated sentences that were pre-processed and
+selected in the same manner as the \wikieval sentences, described in Section
+\ref{sec:wiki_preprocessing}.
+
+The \ccgbank \hybrid and \ccgbank \hybrid \optbeta models achieved the highest
+accuracy. However, the variation in performance was quite small, apart from the
+\nounary corpus, which performed over 2\% worse than the \ccgbank models. The
+\hatsys parser was only 0.1\% less accurate, and the \trsys was behind by only
+0.3\%. The drop in performance between Wikipedia and the in-domain \wsj 23
+evaluation was fairly constant, except for the \trsys result, which caught up to
+the other models in accuracy.
+
+% \begin{table}
+% \centering
+%  \begin{tabular}{lrr|cc|cc}
+%      &       &     & \multicolumn{2}{c}{Wikipedia}      &
+%\multicolumn{2}{c}{\wsj 00}\\
+%      &$\beta$& $K$ & Cats per word & \% unparsed        & Cats per word & \%
+%unparsed \\
+% \hline
+% \hline
+% 1    & 0.075 & 20  & ??            & 100                &  ??             &
+%100\\
+% 2    & 0.03  & 20  & ??            & 7.7                &  ??             &
+%6.7\\
+% 3    & 0.01  & 20  & ??            & 5.4                &  ??             &
+%4.2\\
+% 4    & 0.005 & 20  & ??            & 3.5                &  ??             &
+%3.0\\
+% 5    & 0.001 & 150 & ??            & 2.9                &  ??             &
+%2.1\\
+% \hline
+% %-    &       &     &              & 1.3                &               & 0.5
+%  \end{tabular}
+% \caption[Supertagger-parser integration in Wikipedia and \wsj]{Sentences to be
+%parsed at each of the \candc-default $\beta$ levels in Wikipedia and \wsj
+%Section 00.\label{tab:supertag_table}}
+% \end{table}
+%\subsubsection{Investigation of Loss of Speed}
+
+We were surprised to find how much the parsers dropped in speed on the
+out-of-domain data. All of the parsers were roughly twice as efficient on the
+in-domain data. Wikipedia has fewer tokens per sentence than the \wsj using our
+pre-processing (22.4 vs. 23.5), so we doubt that the text is simply harder to
+parse. Instead, we hypothesised that the loss of speed was due to the way the
+supertagger and parser are integrated in the \candc parser. As we described in
+Section \ref{sec:background_candc} and Section \ref{beta_k}, the supertagger
+supplies the parser with a set of categories per word, and the parser then
+attempts to build a spanning analysis. If it cannot, the supertagger supplies
+more categories, and the parser tries again.
+
+There are two ways the \candc parser might become slower when the supertagger
+encounters text outside of its training domain. First, out-of-domain data may
+cause the supertagger to supply lower quality categories to the parser. There
+will then be more cases where the parser will fail to build a spanning analysis,
+causing it to drop down a $\beta$ level and try again. The second possibility is
+that the supertagger will simply supply the parser with more categories per
+word. The number of categories supplied for a given word is largely determined
+by the way the supertagger distributes probability mass between its categories.
+A uniform distribution will result in more categories being assigned to that
+word. This means that if the supertagger assigns higher entropy probability
+distributions to categories in the out-of-domain data, the parser will receive
+more categories per word, on average.
+
+%TODO: Fix this  To investigate how much each of these factors made an impact on
+% the parse speeds on Wikipedia, we compared the average number of categories
+% supplied per word and the percentage of sentences being parsed at each $\beta$
+% level on Wikipedia against Section 00. We used the set of 10,000 unannotated
+% Wikipedia sentences for this comparison, to make our estimates on Wikipedia more
+% robust. We chose Section 00 to avoid over-analysing the parser's performance on
+% Section 23. We used the \candc default $\beta$ levels and the default \ccgbank
+% supertagger. Automatic \pos tags were used for both Wikipedia and the \wsj.
+% 
+% Table \ref{tab:supertag_table} presents the comparison. At each level, we are
+% interested in the percentage of sentences that have not been parsed yet, and the
+% average number of categories the supertagger supplies per word for that set of
+% sentences. First, we see that the first $\beta$ level takes care of the majority
+% of sentences for both Wikipedia and the \wsj, but the difference is only 1\%,
+% and the gap in coverage does not grow as the sentences progress through the
+% levels. The difference between the first level failures is thus almost entirely
+% the result by the difference in coverage, which is 0.8\% lower on Wikipedia.
+% TODO: discuss cats per word.
+
+
+
+The most important result from the Wikipedia evaluation is that the more lexicalised
+parsers are no more domain sensitive than those trained on \ccgbank. The
+advantages and disadvantages of each more lexicalised model remained fairly constant,
+except for fact that the \trsys parser is closer in accuracy than it is on the
+\wsj. The \hatsys parser is 28\% faster than the \ccgbank \hybrid model,
+maintaining its advantage of trading a small amount of accuracy for a large
+increase in efficiency. It is also 83\% faster than the \ccgbank \optbeta
+system, which was only slightly more accurate than the \ccgbank system with
+default $\beta$s.
+
+\section{Summary}
+
+In this chapter, we described the evaluation of parsers trained on the \hatsys,
+\nounary and \trsys corpora. The parsers were first parameterised on Section 00,
+to select an appropriate model for each corpus, in order to avoid selecting
+parameter values that were tuned for the original \ccgbank.
+
+The main difference between the lexicalised corpora and \ccgbank was the level
+of lexicalisation. The new corpora all used a much smaller grammar than
+\ccgbank, because their grammars did not include the \ccgbank type-changing rules.
+Instead the work performed by the unary rules was shifted into the lexicon. For
+the \candc parser, this had the effect of making the supertagging phase more
+difficult, but the chart parsing phase easier.
+
+This new division of labour generally made the parser more efficient. The
+exception was the \nounary corpus. We believe that the low supertagging accuracy
+for this corpus explains this result. If lexicalisation is achieved at the
+expense of too much category ambiguity, the supertagger supplies the parser with
+larger, less accurate sets of categories. When this occurs, the parser fails to
+find a spanning analysis more often, and the average chart sizes are larger.
+This prevents the potential efficiency gains of a smaller grammar being
+realised.
+
+Performing more work in the supertagger can speed up parsing because parse
+speeds are dominated by chart ambiguity. By making the grammar smaller, the
+chart ambiguity can be reduced, so long as the supertagger is suitably accurate.
+Another way to understand this interaction is to say that the work is shifted to
+the supertagger, which runs in linear time, away from the parser, where the time
+complexity is sensitive to the grammatical ambiguity.
+
+
+

@@ -1,0 +1,572 @@
+\documentclass[11pt,twoside,final]{ahudson-harvard}
+\usepackage{bm,float}
+\usepackage{times}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{verbatim}
+\usepackage{pgf}
+\usepackage{mathptmx}
+\usepackage{latexsym}
+\usepackage{LI}
+\usepackage{natbib}
+\usepackage{parsetree}
+\usepackage{xspace}
+\usepackage{covington}
+\usepackage{avm}
+
+\avmfont{\sc}
+\avmoptions{sorted,active}
+\avmvalfont{\rm}
+\avmsortfont{\scriptsize\it}
+
+\newcommand{\cf}[1]{\mbox{$\it{#1}$}}   % category font
+\newcommand{\assign}{:=\xspace}
+
+\newcommand{\gis}{\textsc{gis}\xspace}
+\newcommand{\iis}{\textsc{iis}\xspace}
+\newcommand{\pos}{\textsc{pos}\xspace}
+\newcommand{\wsj}{\textsc{wsj}\xspace}
+\newcommand{\ccg}{\textsc{ccg}\xspace}
+\newcommand{\tag}{\textsc{tag}\xspace}
+\newcommand{\ltag}{\textsc{ltag}\xspace}
+\newcommand{\hpsg}{\textsc{hpsg}\xspace}
+\newcommand{\lbfgs}{\textsc{l-bfgs}\xspace}
+\newcommand{\bfgs}{\textsc{bfgs}\xspace}
+\newcommand{\cfg}{\textsc{cfg}\xspace}
+\newcommand{\pcfg}{\textsc{pcfg}\xspace}
+\newcommand{\nlp}{\textsc{nlp}\xspace}
+\newcommand{\dop}{\textsc{dop}\xspace}
+\newcommand{\lfg}{\textsc{lfg}\xspace}
+\newcommand{\pp}{\textsc{pp}\xspace}
+\newcommand{\cky}{\textsc{cky}\xspace}
+\newcommand{\gb}{\textsc{gb}\xspace}
+\newcommand{\mb}{\textsc{mb}\xspace}
+\newcommand{\ram}{\textsc{ram}\xspace}
+\newcommand{\mpi}{\textsc{mpi}\xspace}
+\newcommand{\cpu}{\textsc{cpu}\xspace}
+\newcommand{\parseval}{\textsc{parseval}}
+\newcommand{\trec}{\textsc{trec}\xspace}
+\newcommand{\epsrc}{\textsc{epsrc}\xspace}
+\newcommand{\dt}{\textsc{dt}\xspace}
+\newcommand{\hmm}{\textsc{hmm}\xspace}
+\newcommand{\ghz}{\textsc{ghz}\xspace}
+\newcommand{\rasp}{\textsc{rasp}\xspace}
+\newcommand{\ldc}{\textsc{ldc}\xspace}
+\newcommand{\gr}{\textsc{gr}\xspace}
+\newcommand{\qa}{\textsc{qa}\xspace} 
+\newcommand{\jj}{\textsc{jj}\xspace}
+\newcommand{\vbn}{\textsc{vbn}\xspace}
+\newcommand{\cd}{\textsc{cd}\xspace}
+\newcommand{\rp}{\textsc{rp}\xspace}
+\newcommand{\cc}{\textsc{cc}\xspace}
+\newcommand{\susanne}{\textsc{susanne}\xspace}
+\newcommand{\bandc}{\textsc{b{\small \&}c}\xspace}
+\newcommand{\ccgbank}{CCGbank\xspace}
+\newcommand{\candc}{\textsc{C}\&\textsc{C}\xspace}
+\newcommand{\cg}{\textsc{cg}\xspace}
+\newcommand{\penn}{\textsc{ptb}\xspace}
+\newcommand{\mmccg}{\textsc{MMCCG}\xspace}
+
+\newcommand{\develtwo}{\textsc{devel-2}}
+
+\newcommand{\deps}{\mbox{\em deps}}
+\newcommand{\cdeps}{\mbox{\em cdeps}}
+\newcommand{\dmax}{\mbox{\em dmax}}
+
+% commands for xyling
+\newcommand{\unode}[2][]{\K{#1$_{#2}$}}
+\newcommand{\bnode}[2][]{\K{#1$_{#2}$}\V}
+\newcommand{\vpmod}{}
+\newcommand{\bks}{$\backslash$}
+
+\newcommand{\unify}{\equiv}
+\newcommand{\nounify}{\neq}
+\newcommand{\dest}{\textsc{dest}\xspace}
+
+\newcommand{\nounary}{\textsc{nounary}\xspace}
+\newcommand{\cn}{\emph{\[citation needed\]}\xspace}
+\newcommand{\psrule}[2]{#1 #2}
+
+\newcommand{\term}[1]{\emph{#1}}
+%\newcommand{\comment}[1]{\quote{#1}}
+
+\usepackage{parsetree}
+
+\begin{document}
+
+
+%\chapter{Unlicensed Unary Productions in CCGbank}
+\label{chapter:nounary}
+\section{Introduction}
+
+\subsection{Related Work}
+
+\begin{itemize}
+ \item Dave's NP work
+ \item My propmod work
+ \item Michael White's propmod work
+ \item Work on CG analyses
+ \item Work on lexical rules
+\end{itemize}
+
+
+\subsection{Contributions}
+
+This chapter describes how the non-combinatory rules can be removed from \ccgbank, allowing us to explore the extent of the problem they were introduced to solve, explained in detail in Chapter \ref{chapter:cat_dep}. By parsing the corpus with a minimally adapted version of the \candc parser, we show that the non-combinatory rules cause an enormous increase in the number of analyses the parser must consider. This is a novel result, since this is the first time a wide coverage corpus has been parsed using only rules licensed by a \ccg grammar. We also show that the purely combinatory version of the corpus requires more categories, and higher lexical ambiguity. The adaptation script has been made available on my website, allowing other researchers to make use of the purely \ccg corpus we have created.
+
+\subsection{Relevance to Thesis}
+
+This thesis argues that categorial grammars are forced into inefficient analyses of some constructions, because they are unable to represent form and function simultaneously. The theoretical problem is described in Chapter \ref{chapter:cat_dep}, and in this chapter we provide empirical results to support these claims. In Chapter \ref{chapter:hats}, we describe our solution to the problem, and in Chapter \ref{chapter:hat_corpus} we describe the implementation of that solution. The corpus created in this chapter provides a benchmark that allows us to compare how a parser performs on our modified corpus against a corpus that implements purely combinatory analyses. Many of the corpus modification methods described in this chapter are also reused in creating the corpus in Chapter \ref{chapter:hat_corpus}.
+
+\subsection{Chapter Outline}
+
+\section{Types of Non-Combinatory Rules in CCGbank}
+
+\ccgbank includes a variety of unary and binary non-combinatory rules. In this section, we review why these rules ended up in the corpus. For a more general review of the \ccgbank corpus and how it was constructed, see Section \ref{background:ccgbank}.
+
+\subsection{The N to NP Rule}
+
+The most common production in \ccgbank is the \cf{N}$\Rightarrow$ \cf{NP} rule, which transforms a nominal into a noun phrase.  In Figures \ref{nnp_ccgbank} and \ref{np_ccgbank}, \emph{lions} and \emph{hungry} can be assigned the categories \cf{N} and \cf{N/N} regardless of whether the \cf{NP} has a determiner. In Figure \ref{nnp_ccg}, the non-combinatory rule is not used, so both the noun and its adjective require different categories than they do in Figure \ref{np_ccg}.
+
+\subsection{Clausal Adjuncts}
+
+
+
+
+
+\begin{figure}
+\deriv{4}{
+\rm Gnu & \rm lions & \rm ate & \rm hungrily \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/(S/NP)} &
+\cf{NP} &
+\cf{(S\bs NP)/NP} &
+\cf{VP\bs VP} \\
+& \ftype{1} & \bxcomp{2} \\
+& \mc{1}{\cf{S/(S\bs NP)}} & \mc{2}{\cf{(S\bs NP)/NP}} \\
+& \fcomp{3} \\
+& \mc{3}{\cf{S/NP}} \\
+\fapply{4} \\
+\mc{4}{\cf{NP}}
+}\caption{\ccg analysis of reduced relative clause.}\label{ccg_obj_rel}
+\end{figure}
+
+\begin{figure}[t]
+\deriv{4}{
+\rm Gnu & \rm lions & \rm ate & \rm hungrily \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{NP} &
+\cf{(S\bs NP)/NP} &
+\cf{VP\bs VP} \\
+& \ftype{1} & \bxcomp{2} \\
+& \mc{1}{\cf{S/(S\bs NP)}} & \mc{2}{\cf{(S\bs NP)/NP}} \\
+& \fcomp{3} \\
+& \mc{3}{\cf{S/NP}} \\
+& \psgrule{3} \\
+& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{NP}}
+}\caption{\ccgbank analysis of reduced relative clause.}\label{ccgbank_obj_rel}
+\end{figure}
+
+\subsection{Other Predicative Adjuncts}
+
+
+\subsection{Nominal Clauses}
+
+
+\subsection{Derivation Forcing Rules}
+
+
+
+\section{Desired Analyses}
+
+In this section, we provide the \ccg analyses we will use to replace the non-combinatory rules in \ccgbank. There are usually a few possible \ccg analyses for each of the constructions that currently rely on type-changing rules. We have tried to select analyses which seem likely to cause the least over-generation, and the smallest increase in lexical category ambiguity possible.
+
+A unary type-changing rule allows a category \cf{X} to be transformed into a category \cf{Y}. One way to handle the reanalysis is to simply relabel the category \cf{Y} from the start. This is the option we prefer for bare noun phrases, as described in Section \ref{section:bare_np}. Sometimes, it is better to let the constituent keep its \cf{X} category, and restructure the rest of the derivation around the change. This is the strategy we prefer when analysing bare relatives, as explained in Section \ref{section:bare_relatives}. Each of the sections below explain the distribution of the construction to be reanalysed, and which analysis we ended up preferring. However, these are largely judgment calls, and better analyses that we have not considered may be available.
+
+\subsection{Additional Constraints Imposed by the \candc Parser}
+
+One of the goals of this chapter is to produce a corpus that allows us to compare a statistical parser's performance on purely combinatory analyses against \ccgbank, and then against the lexicalised type-changing corpus we create in Chapter \ref{hat_corpus}. Our selection of analysis is therefore coloured by the \candc parsing system. There are two particularly relevant constraints the structure of the parser imposes.
+
+\subsubsection{Learning the Lexicon}
+
+As Chapter \ref{chapter:pipeline_analysis} shows, the parsing system needs access to a reasonable number of training examples of every $(word, category)$ pair. If a sentence requires an unseen category, or requires a category to be assigned to a word that did not receive that category in the training data, the parser is unlikely to analyse that sentence correctly. This makes the parser very sensitive to increases in the overall number of categories, and increases in the number of categories that open class lexical items can receive.
+
+Unfortunately, most of the constructions we consider below involve a form-function transformation that does not involve a function word --- so new categories have to be assigned to open class items. One of our goals is to select analyses that reduce this as much as possible.
+
+\subsubsection{One Semantic Analysis Per Category}
+
+As Section \ref{background:candc_parser} desribes, the parser assumes that there is only one semantic analysis for each supertag in the lexicon. This is an approximation motivated by engineering considerations. Unfortunately, the \ccgbank type-changing rules do a lot to ensure that the cases where this assumption is problematic are relatively rare. When we try to remove these rules, we find that some otherwise desirable analyses are unavailable to us, since they introduce categories that require multiple semantic analyses. 
+
+\subsection{Bare Noun Phrases}
+
+We analyse bare noun phrases by assigning their heads the lexical category \cf{NP}, as shown in Figure \ref{nnp_ccg}. Because bare noun phrases are quite common, this analysis causes a substantial increase in lexical ambiguity, since it also forces many nominal modifiers to change category from \cf{N/N} to \cf{NP/NP}. Where possible, we have moved post-modifiers of determinate noun phrases from attaching at the \cf{N} node to attaching at the \cf{NP} node. This reduces the amount of \cf{N\bs N} category nominal modifiers, reducing lexical ambiguity. An example of this change is shown in Figure \ref{npnp_change}.
+
+\begin{figure}
+\begin{verbatim}
+Figure showing a N\N PP changed to NP\NP, say on the phrase "The lions in the long grass". Also show an analysis for "Lions in the long grass" to show that it receives the same category.
+\end{verbatim}
+\label{npnp_change}
+\end{figure}
+
+\begin{figure}
+\begin{verbatim}
+A derivation showcasing a bare NP, with an NP/NP adjective
+\end{verbatim}
+\label{nnp_ccg}
+\end{figure}
+
+We prefer the \cf{NP} analysis for bare noun phrases because we see few alternatives, and none of which are attractive. The first alternative would be to force other categories to distinguish between bare and non-bare \cf{NP} arguments. This would introduce categories like \cf{(S[dcl]\bs N)/NP}, \cf{(S[dcl]\bs NP)/N}, \cf{(S[dcl]\bs N)/N}, \cf{PP/N}, etc. This would introduce a large number of extra categories, making the lexicon much more sparse and ambiguous. This analysis seems impossible to justify: bare and determinate noun phrases behave identically; forcing other categories to distinguish between them makes little sense.
+
+Another option would be to remove the \cf{N} and \cf{NP} distinction from the grammar altogether. This would certainly make the lexicon less ambiguous, but it would also cause considerable over-generation: pronouns, proper nouns and common nouns would all receive the same category, so there would be nothing to block derivations like the one shown in Figure \ref{pro_mod}.
+
+\begin{figure}
+\begin{verbatim}
+A derivation showing an NP category pronoun being modified by an NP/NP or NP\NP category modifier
+\end{verbatim}
+\label{pro_mod}
+\end{figure}
+
+Perhaps the most viable solution would be to handle the \cf{N} and \cf{NP} distinction using features. However, \ccgbank currently uses an atomic feature model, making this change difficult to implement. While a fuller feature system would certainly be advantageous, it would also slow down the parser considerably, as well as motivating a number of other analysis reforms. While there are strong arguments for adapting \ccgbank to accomodate unification \ccg \citet{uccg}, those changes are beyond the scope of this thesis.
+
+\subsection{Analysing Reduced Relatives}
+
+In a reduced relative clause, the subject or object of a clause is extracted and functions as the constituent's head, but there is no relative pronoun to mark the transformation. Figure \ref{subject_relative} shows a reduced subject relative, and Figure \ref{object_relative} shows a reduced object relative. In some dialects of English, sentences like the one shown in Figure \ref{weird_subject_relative} are also grammatical.
+
+We prefer analyses of reduced relative clauses that change the category of the extracted noun to take the rest of the clause as an argument. The other two options --- relabelling the verb, and relabelling another argument of the verb --- are both problematic, for reasons we will explain.
+ 
+ Our discussion in this section draws heavily on suggestions provided by Jason Baldridge, Johan Bos, Julia Hockenmaier and Mark Steedman (personal communication, 2007).
+
+\begin{figure}
+\begin{verbatim}
+subject relative
+\end{verbatim}
+\label{subject_relative}
+\end{figure}
+
+\begin{figure}
+\begin{verbatim}
+object relative
+\end{verbatim}
+\label{object_relative}
+\end{figure}
+
+\begin{figure}
+\begin{verbatim}
+I know a guy reads books
+\end{verbatim}
+\label{weird_subject_relative}
+\end{figure}
+
+\subsubsection{Changing the Verb Category}
+\label{rrc_verb_change}
+Perhaps the most obvious \ccg analysis for reduced relatives is to change the verb, as shown in Figure \ref{verb_reduced_relative}. There are several problems with this analysis, however:
+
+\begin{itemize}
+\item Adjuncts must change category to accomodate the verb's change in function. This can introduce a lot of extra categories, especially if the adjunct is a clause
+\item If we make the verb's category `responsible' for the construction, it is very difficult to account for the fact that some nouns are much more likely to participate in these constructions than others. Compare:\\
+\begin{examples}
+\item Something lions eat
+\item * John lions eat
+\end{examples}
+\item Assigning verbal categories \cf{NP\$} form categories can causes problem for analyses that do not use multi-modal slashes, due to the composition constraints explained in Section \ref{background:composition_constraints}.
+\end{itemize}
+
+\begin{figure}
+ \begin{verbatim}
+  reduced relative analysis based on changing the verb category
+ \end{verbatim}
+\label{change_verb_reduced_relative}
+\end{figure}
+
+\subsubsection{Changing an Argument in the Relative Clause}
+\label{section:rrc_argument}
+
+Figure \ref{change_subject_reduced_relative} shows an analysis for a reduced object relative that is based on changing the category of the verb's subject. This analysis allows the verb to receive its canonical category, which means its modifiers can receive canonical categories, too. It also allows the clause to receive the category \cf{NP\bs NP}, reflecting its function as a modifier of the noun. Unfortunately, the analogous analysis for closely related constructions is much less attractive, like the reduced subject relative shown in Figure \ref{change_object_reduced_subject_relative}; and for reduced subject relatives where the verb is intransitive, there is no analogous analysis at all.
+
+\begin{figure}
+ \begin{verbatim}
+  reduced relative clause with extracted subject and intransitive verb
+ \end{verbatim}
+\label{change_object_reduced_subject_relative}
+\end{figure}
+
+
+\subsubsection{Changing the Extracted Argument}
+
+Figure \ref{change_extracted_subject_reduced_relative} shows the analysis we prefer for reduced relative clauses. The analysis treats the verb phrase as an argument of the extracted constituent. The most important advantage of this is that it allows the verb to receive its canonical category. The extracted noun requires a different category, but the changes only extend to its argument structure, so its modifier categories can remain the same. Figure \ref{change_extracted_object_reduced_relative} shows how the analysis for reduced object relatives is analogous, using type-raising and composition rule to arrive at the \cf{S/NP} argument the extracted object requires.
+
+By controlling the construction with the category assigned to the extracted noun, we are able to block questionably ungrammatical noun phrases like:
+
+\begin{examples}
+\item * John lions eat
+\end{examples}
+
+The analysis gets awkward if two or more reduced relative clauses are attached to the same noun, since the clauses are being analysed as arguments, not adjuncts. However, constructions like this, shown in Figure \ref{double_rrc}, are rare --- if they are grammatical at all.
+
+\begin{figure}
+ \begin{verbatim}
+questionably grammatical double rrc
+ \end{verbatim}
+\label{double_rrc}
+\end{figure}
+
+
+\subsection{Analysing Adverbial Participles}
+
+Figure \ref{ccgbank_clause_adjunct} shows the \ccgbank analysis of a clausal adjunct. We consider two possible analyses, one which treats the clause as a complement, and the other where it is analysed as an adjunct. Figure \ref{internal_argument_adverbial_clause} shows a third possible analysis. Much like the analysis discussed in Section \ref{section:rrc_argument}, there is no analogous account for intransitive verbs, which rules out this analysis.
+
+Ultimately, we prefer the adjunct analysis, although we are not completely satisfied with it.
+
+\begin{figure}
+ \begin{verbatim}
+Analysis hockenmaier gives when explaining type-changing rules
+ \end{verbatim}
+\label{ccgbank_clause_adjunct}
+\end{figure}
+
+\begin{figure}
+ \begin{verbatim}
+Adverbial clause where the object handles the transformation
+ \end{verbatim}
+\label{internal_argument_adverbial_clause}
+\end{figure}
+
+
+\subsubsection{Adverbial Participles as Adjuncts}
+
+Figure \ref{adverbial_adjunct} shows an adverbial clause analysed as an adjunct. Because there is no subordinating conjunction, the verb category needs to change, necessitating changes to its modifier categories. The arguments of adjunct categories cannot be extracted, so sentences like the following are blocked:
+
+\begin{examples}
+ \item Dixie, which I entered the room whistling
+\end{examples}
+
+\begin{figure}
+ \begin{verbatim}
+The ccgbank example analysed as an adjunct
+ \end{verbatim}
+\label{adverbial_adjunct}
+\end{figure}
+
+Multiple participles can modify a clause without using different categories, as shown in Figure \ref{multiple_adjuncts}. However, if a participle modifies another adverbial participles, the categories become \emph{depth sensitive}, and we encounter the problem described in Chapter \ref{chapter:cat_dep}. Figure \ref{depth_sensitive_adjuncts} shows a derivation where this occurs. Of course, even if these constructions are grammatical, they will always be vanishingly rare for pragmatic reasons, since the attachment ambiguities they introduce make them very difficult to parse.
+
+\subsubsection{Adverbial Participles as Complements}
+
+Figure \ref{adverbial_complement} shows the opposite analysis of participial clauses, where the matrix verb subcategorises for the participle. This allows the extraction construction shown in Figure \ref{adverbial_complement_extraction}. On the other hand, the analogous analysis for a fronted participle, shown in Figure \ref{fronted_participle_complement} seems awkward.
+
+\begin{figure}
+ \begin{verbatim}
+The ccgbank example analysed as a complement
+ \end{verbatim}
+\label{adverbial_complement}
+\end{figure}
+
+\begin{figure}
+ \begin{verbatim}
+Steedman's daft whistling dixie extraction
+ \end{verbatim}
+\label{adverbial_complement_extraction}
+\end{figure}
+
+\begin{figure}
+ \begin{verbatim}
+CCGbank example, but fronted, and handled as a complement
+ \end{verbatim}
+\label{fronted_participle_complement}
+\end{figure}
+
+
+\subsection{Analysing Nominal Clauses}
+
+We consider two possible analyses for nominal clauses. While the second analysis is problematic, it is the one we prefer for the purposes of this Chapter, since we do not wish to assign verbal constituents \cf{NP\$} formed categories.
+
+\subsubsection{Nominal Clauses as \cf{NP}}
+
+In the analysis shown in Figure \ref{nom_clause_np}, the innermost result of the verb is \cf{NP}. This means changing the clause's substructure, so that the rest of the derivation does not treat it differently than any other \cf{NP}. Like the analysis discussed in Section \ref{rrc_verb_change}, this analysis potentially conflicts with the composition constraints used in non-multi modal \ccg, which assume all verbal constituents receive a category of the form \cf{S\$}.
+
+\begin{figure}
+ \begin{verbatim}
+nominal clause analysed as an NP
+ \end{verbatim}
+\label{nom_clause_np}
+\end{figure}
+
+\subsubsection{Nominal Clauses as \cf{S\$}}
+
+In the analysis shown in Figure \ref{nom_clause_S}, the verb receives its canonical category, and so the categories of its heads must subcategorise differently. This analysis does not reflect the fact that any nominal argument slot can be filled by a nominal clause. Instead, every such replacement will require a different category, as shown in Figure \ref{nom_clause_subject}. This is potentially problematic for a lexicalised parsing framework, since each of these constructions needs to be inferred from the data. 
+
+\begin{figure}
+ \begin{verbatim}
+nominal clause analysed as an S$
+ \end{verbatim}
+\label{nom_clause_S}
+\end{figure}
+
+\begin{figure}
+ \begin{verbatim}
+nominal clause functioning as subject
+ \end{verbatim}
+\label{nom_clause_subject}
+\end{figure}
+
+\section{Creating the Corpus}
+
+\subsection{Relabelling CCG Nodes}
+
+Node labels in a \ccg tree are interdependent, so when we change one node label we need to propagate the change down its subtree. For instance, if we change a node labelled \cf{NP} to \cf{NP\bs NP}, we will need to make corresponding changes to its children, to ensure that we do not create an invalid production.
+
+It is also not enough to simply ensure that the production can be validated by some \ccg rule. If we have a tree where the left child is a function and the right child is an argument, we must not produce child labels that make the right child the function, or that make the right child an adjunct. Figure \ref{faulty_transform} shows the kind of transformation we have to avoid. Figure \ref{correct_transform} shows the correct transformation.
+
+\begin{figure}
+ \begin{verbatim}
+Show a before and after where the functor/argument relationship has been swapped because the parent node changed.
+ \end{verbatim}
+\label{faulty_transform}
+\end{figure}
+
+\begin{figure}
+ \begin{verbatim}
+Show a before and after where the functor/argument relationship is preserved
+ \end{verbatim}
+\label{correct_transform}
+\end{figure}
+
+We therefore first identify the \emph{type} of production. For instance, both an adjunct and a function might use forward application, but we will need to treat the two productions differently. We sort productions into the following categories:
+\begin{itemize}
+\item Adjunction by application
+\item Adjunction by composition
+\item Function application
+\item Function composition
+\item Conjunction
+\item Punctuation
+\end{itemize}
+
+Essentially, we wish to be able assign child labels intelligently given a parent label, the production type, and its directionality. For function application, this means assigning the functor a label whose result is the new parent label, and whose argument is the child. An adjunction rule, on the other hand, leaves one child unchanged, while the other is an adjunct category. We therefore replace one child with the parent category and select the appropriate adjunct category for its sibling. The full conversion algorithm is given in Appendix \ref{node_change_algorithm}.
+
+\subsection{Replacing the \cf{N}$\Rightarrow$\cf{NP} Rule}
+
+\subsection{Replacing Reduced Relative Rules}
+
+\subsection{Replacing Participial Adjunct Rules}
+
+\subsection{Replacing Nominal Clause Rules}
+
+\subsection{Replacing Derivation Forcing Rules}
+
+\section{Evaluating the Conversion}
+
+\subsection{Rule Compliance}
+
+\subsection{New Categories}
+
+\subsection{Manual Validation}
+
+\section{Adapting the \candc System}
+
+\subsection{Disabling Non-Combinatory Rules}
+
+\subsection{Adding New Type-Raise Categories}
+
+\subsection{Lexical Rules}
+
+\section{Parser Performance}
+
+\subsection{Lexicon Analysis}
+
+\subsection{Chart Sizes}
+
+\subsection{Dependency Accuracy}
+
+\subsection{Parsing Speed}
+
+\section{Conclusion}
+
+% \section{Implementation}
+% 
+% We implement the traditional combinatory analyses (Combinatory) and lexicalised type-change (LexChange) versions of the corpus by removing as many of the non-combinatory rules in \ccgbank as possible.
+% 
+% Changing \ccgbank involves propagating label changes down the tree. \ccg node labels are inter-dependent, because each production rule must be an instance of a combinatory rule. To ensure that our changes were propagated correctly, we classified the productions according to which combinatory rule they instantiated, handling each combinator individually.
+% 
+% Binary rules are handled by inserting an intermediary node that is a valid product of the daughters of the binary production, effectively converting the binary non-combinatory production into a unary non-combinatory production. Where no valid parent could be found for the binary production, the production was left unchanged. This resulted in a long tail of rare, noisy productions that remained in both adaptations.
+% 
+% Converting a non-combinatory unary rule instance into a LexChange analysis involves simply inserting the parent category into the \dest field of the child, and then propagating this change into the child's subtree.
+% 
+% The Combinatory corpus was slightly harder to implement than the LexChange analyses. Converting a non-combinatory rule into a \ccg analysis involves compiling out the non-combinatory rules so that the parent category is reflected in the result of its daughter. The changes that must be made can be seen by comparing the Combinatory and \ccgbank analyses in Figures \ref{ccg_nom} and \ref{ccgbank_nom}. Binary productions were again handled through conversion into unary productions.
+% 
+% Creating the Combinatory corpus involved deciding on a \ccg analysis to implement for various constructions. This was often very challenging, and it is not clear what impact these decisions had on the quality of the final corpus. For instance, the analysis in Figure \ref{ccg_obj_rel} could easily have been quite different, tagging \emph{ate} with a category like \cf{(NP\bs NP)\bs NP}.
+% 
+% \begin{itemize}
+% item Replace unary type-changing rules
+% \item Replace all punctuation cued type changing
+% \item Replace all conjunction cued type changing
+% \item Introduce form category node for all modifiers
+% \end{itemize}
+% 
+% \subsection{Handling Type-Changes}
+% 
+% Existing unary productions are the simplest case to convert. To lexicalise the rule, we simply store the parent of the production as a transform category in the child, and propagate the label change down its tree as described above. To remove the rule altogether, we flatten the tree and replace the child's label with the parent's, again propagating the changes.
+% 
+% Punctuation and conjunction cued type changes are productions where one node is a conjunction term or a punctuation leaf, and the parent's label does not match the other child's. We convert these cases to unary type changes by inserting a node that does match the other child before the parent. We then replace the new unary production as normal.
+% 
+% \subsection{Introducing Form Categories for Modifiers}
+% 
+% As described above, a prepositional phrase currently receives different categories depending on its function --- \cf{NP\bs NP} and \cf{(S\bs NP)\bs (S\bs NP)}. We convert these into unary form/function transformations, so that their analysis matches the type-changing based analysis applied to clausal and other modifiers.
+% 
+% Prepositional phrases are the most common modifier constituent type, but we apply similar changes to \cf{NP} adjuncts, and introduce a new atomic category for adverbial phrases, \cf{AP}. This allows us to consistently change all adjuncts so that they are anchored by form categories.
+% 
+% There are three stages to this process:
+% 
+% \begin{enumerate}
+% \item Identify adjuncts
+% \item Identify form category
+% \item Insert form node
+% \end{enumerate}
+% 
+% Adjuncts are defined as categories where the result exactly matches the argument. The form of the constituent is identified by examining the part-of-speech of the head. We do not apply any changes to clausal modifiers, as these are either type-changed by subordinating conjunctions, or already use unary productions.
+
+
+% \section{Required Results}
+% 
+% This section must set up the unlicensed productions problem, introduce the CCG-only corpus conversion, and provide parsing results for that corpus.
+% 
+% \subsection{Corpus Analysis}
+% 
+% We have three corpora which need to be analysed: the original CCGbank, the CCG-only no-unary version, and the CCG-only-except N$\Rightarrow$NP rule. We also need to analysis the conversion \emph{process}, showing where, why and how many errors were introduced.
+% 
+% \subsubsection{Lexicon Analysis}
+% 
+% \begin{itemize}
+% \item Average entropy
+% \item Category size
+% \item Coverage and entropy at different frequency cut-offs
+% \end{itemize}
+% 
+% \subsubsection{Required: Conversion Accuracy Analysis}
+% 
+% Time required: $<1$ day
+% 
+% These results were too fine grained for the paper, but should be supplied in the thesis.
+% 
+% \begin{itemize}
+% \item Validation results
+% \item Rule frequency table
+% \end{itemize}
+% 
+% \subsection{Required: NP Unary Experiments}
+% 
+% The corpus is ready, as are supertagger results. But we need parsing results for it, which requires implementation of extra $N\$\Rightarrow NP\$$ rules in the parser.
+% 
+% \subsection{Parsing Results}
+% 
+% \begin{itemize}
+% \item Supertagger results as per CL paper
+% \item Chart sizes for various corpora
+% \item TODO: Parser results as per CL paper
+% \item TODO: supertagger results with accuracy held constant showing varying $\beta$
+% \item TODO: EMNLP reviewers recommended exploration of lexical rules, and possibly lexical rule inspired features, for NoUnary
+% \end{itemize}
+
+\end{document}

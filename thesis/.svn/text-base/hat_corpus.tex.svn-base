@@ -1,0 +1,1463 @@
+
+\chapter{Changing the Level of Lexicalisation of \ccgbank}
+
+\label{chapter:hat_corpus}
+
+Statistical parsing often involves some level of linguistic compromise. The
+\candc parser \citep{clark:cl07} implements a subset of the \ccgbank grammar.
+This subset was selected to reduce ambiguity, and the \ccgbank grammar
+itself was largely determined by what could be cheaply acquired from the Penn
+Treebank \citep{marcus:93}. The Penn Treebank grammar itself involved linguistic
+compromises, as its annotation scheme was heavily influenced by concerns about
+annotation cost \citep{bies:95}.
+
+This chapter and the next explore perhaps the most fundamental theoretical
+compromise in \ccgbank, the decision to relax the level of lexicalisation in the
+corpus. We explore this issue by developing two versions of the corpus that
+replace the type-changing rules in \ccgbank with lexicalised analyses.
+
+One strategy for replacing these rules relies on the extension to the category
+objects we described in Chapter~\ref{chapter:hat_cats}, hat categories. The hat
+categories offer considerable flexibility, which makes them well suited to the
+development of a minimally different version of \ccgbank, where we change almost
+nothing but the level of lexicalisation. Hat categories let us do this with only
+one altered category for each instance of type-changing.
+
+The second strategy we implement compiles out the type-changing rules without
+using hat categories, by replacing the child of a unary production with its
+parent and updating the categories of its children appropriately. This corpus
+allows us to investigate how well the hat categories control the modifier
+category proliferation problem described in Chapter~\ref{chapter:ling_mot}. This
+corpus is also intended to be minimally different from \ccgbank, which can
+result in incorrect analyses. For some constructions, we modify the analysis
+slightly, to prevent what would otherwise be a frequent, problematic analysis.
+We also conduct an experiment where type-raising is lexically specified, using
+hat categories.
+
+The chapter is structured as follows.
+First, we describe our approach to adapting \ccgbank. This includes a general
+algorithm to propagate label changes down a \ccg derivation.
+We then describe the \hatsys corpus, where we use hat categories to lexicalise
+the type-changing rules in \ccgbank. We then provide a description of the
+\nounary corpus, which implements lexicalised analyses using the \ccg grammar
+described by \citet{steedman:00} --- in other words, a \ccg grammar that uses
+application, composition, coordination and type-raising rules, but no
+type-changing rules and no hat categories. We then describe some additional
+lexicalisation experiments, and some alternative analyses we explored. Finally,
+we summarise the corpora that we will use for our experiments in Chapter
+\ref{chapter:results}.
+
+\section{Adapting \ccgbank}
+
+This section describes how we created the various corpora we required for the
+experiments described in Chapter~\ref{chapter:results}. The corpora were all
+created by adapting \ccgbank using conversion scripts we implemented, since the
+original \ccgbank generation code was unavailable to us.
+
+We will first provide a brief overview of how we approached the adaptation task,
+and what we believe are the most important aspects of our current approach. We
+then present the node relabelling algorithm we developed. We then describe our
+process for annotating novel lexical categories and discuss how we generated the
+predicate-argument files for the corpora we created, before briefly noting a
+pre-processing step that unarises binary type-changing rules. The evaluation and
+debugging processes we employed to validate the changes are discussed in Section
+\ref{sec:validation}.
+
+\subsection{Overview and General Lessons}
+
+Adapting annotated corpora is a well studied problem
+\citep{wang:94,lin:98,meyers:01,frank:03,miyao:04,shen:06,hock:cl07}, but it is
+one that is very difficult to generalise from. Despite having experience with
+this kind of problem
+\citep{honnibal:04,honnibal:dlp07sfl,honnibal:pacling07prop}, our process
+underwent several revisions as the research evolved. 
+
+Conceptually, there are two ways to alter a \ccg derivation: top down, or bottom
+up. The bottom up method involves changing the lexical categories and then
+rebuilding the normal form derivation. The top down method involves changing a
+production, and propagating changes down the tree to the lexical categories. We
+found the top down method far simpler.
+
+The other important developments were methodological. The use of well
+structured, unit-tested libraries was important, because bugs which produce
+suboptimal analyses can be difficult to catch, as we cannot manually review the
+whole corpus. We also developed a framework for validating new versions of a
+corpus according to its grammatical and lexical properties, as described in
+Section~\ref{sec:validation}, and a labour saving device for the
+frequent category-index annotation that was required.
+
+The most important innovation in our  approach was the generalised node
+relabelling algorithm described in Section~\ref{sec:relabel_rule}. Once this
+issue was solved, specifying changes was much simpler. This algorithm also led
+us to the proof that the \textsc{unhat} rule could not change the weak
+generative power of the grammar, because it is always possible to replace a node
+label with another arbitrary label without producing an invalid derivation.
+
+\subsection{Relabelling CCG Nodes}
+\label{sec:node_relabelling}
+Node labels in a \ccg tree are interdependent, so when we change one node label
+we need to propagate the change to other labels. We adopt a strategy of always
+propagating changes downwards. For instance, if we change a node labelled
+\cf{NP} to \cf{NP\bs NP}, we will need to make corresponding changes to its
+children, to ensure that we do not create an invalid production. 
+
+It is also not enough to simply ensure that the production can be validated by
+some \ccg rule. If we have a tree where the left child is a functor and the
+right child is an argument, we must not produce child labels that reverse this
+relationship, or that change it by making one child a modifier. For example, the
+tree on the right below is a valid \ccg production --- but a malformed analysis:
+
+\begin{equation}
+\ptbegtree
+\ptbeg \ptnode{\cf{PP}}
+  \ptleaf{\cf{PP/NP}}
+  \ptleaf{\cf{NP}}
+\ptend
+\ptendtree
+\longrightarrow
+\ptbegtree
+\ptbeg \ptnode{\cf{VP\bs VP}}
+  \ptleaf{\cf{PP/NP}}
+  \ptleaf{\cf{(VP\bs VP)\bs (PP/NP)}}
+\ptend
+\ptendtree
+\end{equation}
+
+The correct transformation would change the result of the left side, instead of
+reversing the functor/argument relationship of the two:
+
+\begin{equation}
+\ptbegtree
+\ptbeg \ptnode{\cf{PP}}
+  \ptleaf{\cf{PP/NP}}
+  \ptleaf{\cf{NP}}
+\ptend
+\ptendtree
+\longrightarrow
+\ptbegtree
+\ptbeg \ptnode{\cf{VP\bs VP}}
+  \ptleaf{\cf{(VP\bs VP)/NP}}
+  \ptleaf{\cf{NP}}
+\ptend
+\ptendtree
+\end{equation}
+
+Changing the corpus is much simpler if we have a generic label changing
+algorithm that does not make any assumptions about the relationship between the
+old label and the new label. We therefore need a more complicated process than
+previous work which has made quite restricted changes, such as
+\citet{honnibal:pacling07prop} and \citet{boxwell:08}, who updated \ccgbank's
+complement\slash adjunct labels to conform to Propbank's \citep{propbank}, or
+\citet{vadas:08}, who reformed the structure of left-branching \cf{NP}s.
+
+\subsubsection{Relabelling Binary Productions}
+\label{sec:relabel_rule}
+The first step is to identify the  \emph{production type}, which does not
+correspond one-to-one to the combinatory rule used. For instance, both a
+modifier and a predicate might use forward application, but we will need to treat
+the two productions differently. We sort binary productions into the following
+categories:
+\begin{itemize}
+\item Argument application;
+\item Argument composition;
+\item Modifier application;
+\item Modifier composition;
+\item Conjunction;
+\item Punctuation.
+\end{itemize}
+
+In general, the rules for binary productions find the result $A_r$ and argument
+$A_a$ of the original parent $A$ and replace them with the appropriate of the
+new parent $B$. If one of the children is a modifier category, a different rule
+is used. The node change rules for forward combinators are given below, with an
+example given below each rule type. The translation rules for backward
+combinators are directly analogous.
+
+\begin{table}
+\begin{tabular}{l|ccccc}
+\hline
+\textbf{Production Type}           & \textbf{Old left}    & \textbf{Old right}  
+ & $\to$ & \textbf{New left}    & \textbf{New right}\\
+\hline
+\hline
+Argument Application               & \cf{A/Y}      & \cf{Y}         &$\to$&
+\cf{B/Y}       & \cf{Y}    \\
+\cf{PP} $\to$ \cf{S/S}             & \cf{PP/NP}    & \cf{NP}        &$\to$&
+\cf{(S/S)/NP}  & \cf{NP}   \\
+\hline
+Argument Composition                & \cf{A_r/Y}    & \cf{Y/A_a}     &$\to$&
+\cf{B_r/Y}     & \cf{Y/B_a}\\
+\cf{(S\bs S)/S[em]} $\to$ NP/PP    & \cf{(S/S)/NP} & \cf{NP/S[em]}  &$\to$&
+\cf{NP/NP}     & \cf{NP/PP}\\
+\hline
+Modifier Application                & \cf{A/A}      & \cf{A}         &$\to$&
+\cf{B/B}       & \cf{B}    \\
+\cf{VP/NP} $\to$ \cf{(VP/NP)^{NP}} & \cf{VP/VP}    & \cf{VP}        &$\to$&
+\cf{VP/VP}     & \cf{(VP/NP)^{NP}}\\
+\hline
+Modifier Composition                & \cf{A_r/A_r}  & \cf{A_r/A_a}   &$\to$&
+\cf{B_r/B_r}   & \cf{B_r/B_a}\\
+\cf{(VP/VP)/NP} $\to$ \cf{PP/NP}   & \cf{VP/VP}    & \cf{(VP/VP)/NP}&$\to$&
+\cf{PP/PP}     & \cf{PP/NP}\\
+\hline
+Conjunction                        & \cf{A}        & \cf{conj}      &$\to$&
+\cf{B}         & \cf{conj}\\
+\cf{NP[conj]} $\to$ \cf{NP^{(S/S)}[conj]} & \cf{NP}& \cf{conj}      &$\to$&
+\cf{NP^{(S/S)}}& \cf{conj}\\
+\hline
+\end{tabular}
+\caption{The relabelling rule and an example for each production type.}
+\end{table}
+
+Modifier application and composition present the most complicated cases. Modifiers
+should not specify features or hat categories, as these should be inherited from
+the head. Where possible, we also remove arguments from the modifier category, to
+prevent forming categories like \cf{((S\bs NP)/NP)/((S\bs NP)/NP)}. Instead, we
+form the category \cf{(S\bs NP)/(S\bs NP)}, and the new production will rely on
+a composition rule, rather than application. There are four exceptions where we
+form a complex modifier, instead of trimming its arguments:
+
+\begin{enumerate}
+ \item If the head is a complex category with an innermost result that is not
+\cf{S}, and a crossing composition rule would be needed, we form a complex
+modifier;
+ \item If the head is \cf{S\bs NP}, we do not strip the \cf{NP} argument. This
+allows us to match the analyses in \ccgbank, which draws a distinction between
+\cf{S/S} and \cf{(S\bs NP)/(S\bs NP)} for sentential and verb phrase modifiers
+respectively;
+ \item If the head is a modifier, a composition rule would produce incorrect
+dependencies, because the category the new modifier's argument will unify with is
+not coindexed with the modifier's lexical head. Essentially, the composition rule
+cannot be used in place of a modifier-of-modifier category, as discussed in
+Section~\ref{sec:infinite_categories}.
+\end{enumerate}
+
+\subsubsection{Relabelling Unary Productions}
+
+There are two types of unary productions in \ccgbank: type raising rules, and
+type-changing rules. The unary rules will be replaced by the
+rules described in Sections~\ref{sec:hat_corpus} and~\ref{sec:nounary_corpus},
+so we only need to relabel type-raising instances. The rule to relabel type-raising
+follows a simple schema. To transform a type-raised category \cf{A} such as \cf{S/(S\bs A)}
+into a type-raised category \cf{B}, we simply replace the original category:
+
+\begin{eqnarray}
+ \mbox{Forward  type raise} & \cf{T/(T\bs A)} & \to \cf{T/(T\bs B)}\\
+ \mbox{Backward type raise} & \cf{T\bs(T/A)}  & \to \cf{T\bs(T/B)}
+\end{eqnarray}
+
+The only complication is when the new category is a modifier. Instead of generating a
+type-raised category such as \cf{T\bs T/(S\bs S)}, we truncate the type-raising production,
+and relabel its child node.
+
+
+\subsection{Head and Dependency Annotation}
+\label{mu_annotation}
+
+Changing \ccg analyses introduces new lexical categories. These categories must
+be assigned head indices and dependency markers consistent with how other
+categories are annotated in the \candc parser, which does not always correspond
+to the lexical categories that are specified in \ccgbank. We therefore manually
+specify the head and dependency annotation for categories we introduce that
+occur more than 10 times in the training portion of a corpus. This is the same
+policy used by \citet{clark:cl07} when annotating the original \ccgbank
+categories.
+
+Head and dependency annotation is specified in the \markedup file. The file also
+contains mappings from \ccgbank dependencies to \depbank dependencies, for the
+extrinsic \depbank-based annotation described in \citet{clark:acl07parseval}. We
+do not implement \depbank mappings for our categories, although these could be
+acquired by extension through our mapping to \ccgbank dependency labels.
+
+
+It is not clear that manually specifying the head and dependency annotation is
+the best policy. In hindsight, it may have been better to attempt to manipulate
+annotated versions of the categories from the start, allowing the annotation to
+be naturally propagated down the derivation. A properly structured,
+inheritance-based lexicon would make this task much easier, but the \candc
+parser uses a flat lexicon, and we have largely followed their process for
+category annotation. However, we have implemented a few generalisation
+mechanisms, where it is obvious that the new categories we have created have a
+predictable structure based on existing category annotations.
+
+Over the various adaptations we experimented with, we added 901 new categories
+to the \markedup file, which contained the 580 annotated categories created by
+\citeauthor{clark:cl07}. Our policy was to manually annotate all categories that
+occurred in a corpus 10 or more times before we ran parsing experiments, to
+match the methodology of \citet{clark:cl07}. After doing this, we also
+experimented with generalisation mechanisms. Of the categories we added, 211
+were annotated manually, 509 were hat categories generalised from existing
+\markedup categories, and 181 were generalisations from \cf{N} to \cf{NP} or
+vice versa, using the method described in Section~\ref{sec:generalisation}.
+
+Table~\ref{markedup_stats} shows statistics for the annotated categories of
+different versions of the corpus. The statistics are calculated on the training
+partitions of each corpus, sections 02-21. For each version, the table shows the
+coverage with the existing \candc markedup categories, the coverage with the
+manually-added entries for categories occurring 10 or more times, the coverage
+achieved once the automatically annotated categories were
+added, and the total number of categories occurring in the corpus. Coverage was
+defined as the percentage of tokens in the training portion whose category was
+annotated in the \markedup file. We investigated training coverage because we
+were interested in how many of the possible annotations were found in the
+\markedup file, and categories occurring in the development and testing sections
+were not candidates for annotation.
+
+Our addition of rare categories did not increase training coverage
+substantially, compared to the original \ccgbank. \ccgbank's coverage changed
+slightly because some categories that were too rare to receive annotation in
+\ccgbank were more frequent in one or more versions of the corpus we created.
+The absence of frequent categories from the \markedup file can affect
+development and test scores, because they are unavailable for selection by the
+supertagger. Rare categories can only affect training coverage, because
+categories less frequent than 10 are filtered out of the category set for
+parsing.
+
+\begin{table}
+\centering
+ \begin{tabular}{l|r|r|r|r}
+\hline
+  Corpus   & Orig. Cover. & + New cats $>= 10$ & + All new cats & \# Cats\\
+\hline
+\hline
+  CCGbank  & 99.82 & 99.83 & 99.83 & 1285\\
+  \hatsys  & 85.73 & 99.67 & 99.86 & 1847 \\
+  \nounary & 98.59 & 99.67 & 99.75 & 1646\\
+\hline
+ \end{tabular}
+\caption{\markedup statistics for the various corpora.\label{markedup_stats}}
+\end{table}
+
+
+\subsubsection{Interface for Markedup Annotation}
+
+A \candc \markedup entry consists of the bare category, the annotated category,
+the number of argument slots in the annotated category, and a \depbank mapping
+for each argument slot. Some example \markedup entries, using the \candc syntax
+(extended to include a notation for hat categories):
+
+\begin{quote}
+\begin{verbatim}
+(S[pss]\NP)^(N\N)
+  1 (S[pss]{_}\NP{Y}<1>){_}^(N{Y}\N{Y}){_}
+  1 ncsubj %l %f
+
+((S[b]\NP)/(S[to]\NP))/NP
+  3 (((S[b]{_}\NP{Y}<1>){_}/(S[to]{Z}<2>\NP{W*}){Z}){_}/NP{W}<3>){_}
+  1 ncsubj %l %f _
+  2 xcomp %f %l %k =(S[to]\NP)/(S[b]\NP)
+  3 dobj %l %f
+
+(S[dcl]\S[dcl])\NP
+  2 ((S[dcl]{_}\S[dcl]{Y}<1>){_}\NP{Z}<2>){_}
+  1 cmod _ %l %f
+  2 ncsubj %l %f
+\end{verbatim}
+\end{quote}
+
+Heads are labelled in curly brackets, with the lexical head listed as
+\verb1{_}1. Arguments that produce a dependency are labelled with an argument
+index between angled brackets. After the annotated category is given, each
+argument is mapped to a \depbank dependency. \verb1%l1 and \verb1%f1 specify
+whether the functor corresponds to the head of the dependency, or whether the
+argument does.
+
+This format makes annotating the categories manually quite inefficient, because
+a simple alteration requires multiple changes to the annotated category string.
+For instance, the variable ordering is significant, so coindexing one category
+may require updating all of the other head indices. The same is true for the
+argument indices, which also must be kept synchronised with the dependency
+mapping information.
+
+We developed a simple text-based \textsc{gui} to speed up the annotation
+process, that also suggested matches based on previous entries. The program
+searches previous entries for the longest matching result, and asks whether the
+annotation is desirable. If it is rejected, it finds the next longest matching
+result, until annotation begins with a desirable match or the innermost result
+atom.
+
+Once a match has been selected, the interface iterates through each category
+that must receive a head or argument index, and prompts the user to supply one.
+The user can either select an existing variable to coindex the category against,
+or press return to introduce a new variable. At each argument, the user is
+prompted to decide whether that argument should receive an argument index. The
+interface sped up our annotation considerably, and helped ensure that our
+annotations were consistent with previously annotated categories.
+
+\subsection{Generalisation Mechanisms}
+\label{sec:generalisation}
+
+We developed two generalisation mechanisms to help with annotation. One
+mechanism guesses how to annotate a hat category where annotation is known for
+both the hat and the base category. The second mechanism generalises from
+categories which only differ based on the distinction between \cf{N} and
+\cf{NP}.
+
+Given a hat category \cf{((S[pss]\bs NP)^{NP\bs NP}/PP)/NP}, where we know the
+annotation for its component pieces, \cf{(((S[pss]_x\bs NP_y)_x/PP_z)_x/NP_y)_x}
+and \cf{(NP_y\bs NP_y)_x}, we should be able to guess the annotation of the new
+category. The only trick lies in determining the coindexing between the hat and
+the base categories. This is approximated with two heuristics:
+
+\begin{enumerate}
+ \item The hat will always be coindexed with the category that projects it, so
+the lexical head of the hat must be mapped to the head variable of the base
+category.
+ \item If there is an argument inside the base that matches a variable in the
+hat (where \cf{N} and \cf{NP} are declared a match, and the matching is not
+sensitive to features), those categories should be coindexed.
+\end{enumerate}
+
+The two heuristics allow us to guess the correct annotation for this category:
+ 
+\begin{eqnarray}
+\cf{(((S[pss]_x\bs NP_y)_x^{(NP_y\bs NP_y)_x}/PP_w)/NP_v)_x} 
+\end{eqnarray}
+
+ The annotation is correct in this case, but the process is not perfect. Since
+incorrect annotation will lead to either incorrect dependencies or parse
+failures, we manually annotated the hat categories that occurred more than 10
+times. A comparison of our heuristic-based guesses against the manually
+annotated categories shows that the heuristics produce the correct annotation
+88\% of the time.
+
+The second generalisation mechanism was based on the assumption that if two
+categories differed only in the distinction between \cf{N} and \cf{NP}, their
+annotations probably matched. The mechanism was straightforward to implement: we
+simply mapped all \cf{N}s and \cf{NP}s to \cf{NOM}, looked up the annotated
+category that matched the generalised version of the novel category, and then
+mapped the annotated category's \cf{NOM}s back to the original \cf{N} or \cf{NP}
+value. 
+
+\subsection{Unarising Binary Type-changing Rules}
+\label{sec:unarising}
+The lexicalisation strategies described in Section~\ref{sec:hat_corpus} and
+Section~\ref{sec:nounary_corpus} assume that all type-changing rules are
+unary. To achieve this, we pre-process \ccgbank, converting binary productions
+into unary productions. There are three types of binary productions in \ccgbank:
+punctuation cued type-changes, conjunction cued type-changes, and a long tail of
+miscellaneous arbitrary productions. Punctuation queued type changes are used
+for form-to-function coercions that only occur alongside punctuation, such as
+the extraposed appositives discussed in Section~\ref{sec:extraposition}.
+Conjunction based type-changes are used to handle coordination between
+mismatched constituents.
+
+For the conjunction and punctuation cued productions, we insert a unary node
+above the sibling. The label of this new node matches the label of the parent,
+producing a valid production:
+
+\begin{eqnarray}
+\ptbegtree
+\ptbeg \ptnode{\cf{S[adj]\bs NP[conj]}}
+  \ptleaf{\cf{conj}}
+  \ptleaf{\cf{PP}}
+\ptend
+\ptendtree
+&
+\longrightarrow
+&
+\ptbegtree
+\ptbeg \ptnode{\cf{S[adj]\bs NP[conj]}}
+  \ptleaf{\cf{conj}}
+  \ptbeg \ptnode{\cf{S[adj]\bs NP}}
+    \ptleaf{\cf{PP}}
+  \ptend
+\ptend
+\ptendtree
+\end{eqnarray}
+
+The third type of binary type-changing rule in \ccgbank functions as a fall-back
+strategy for sentences where \citeauthor{hock:cl07}'s \penn-to-\ccgbank
+heuristics could not otherwise produce a derivation. This might occur because of
+analysis mistakes in the Penn Treebank, source sentences of dubious
+grammaticality, or exceptional cases the conversion heuristics did not cover.
+
+These fall-back productions marry two arbitrary children to produce a parent
+category. The important property of these rules is that they isolate the
+problematic production rule, leaving the rest of the derivation relatively
+intact. Lexicalising these rules causes this property to be lost, because the
+new category has to be propagated down into the children's subtrees. We
+therefore avoid changing binary productions which are not licensed by any
+combinatory rules, and do not involve punctuation or conjunction. This means
+that all of the noisy constructions, where the binary type-changing rule is
+simply introduced to coerce a derivation, are left unchanged.
+
+\section{The \hatsys Corpus}
+\label{sec:hat_corpus}
+The \hatsys corpus was created by lexically specifying the unary type-changing
+productions using hat categories. Binary type-changing rules were unarised using
+the rules described in Section~\ref{sec:unarising}. Converting the unary
+type-changes was straightforward. All we have to do is add the parent as a hat
+category on its immediate child:
+
+\begin{equation}
+\ptbegtree
+\ptbeg \ptnode{\cf{S[adj]\bs NP[conj]}}
+  \ptleaf{\cf{conj}}
+  \ptbeg \ptnode{\cf{S[adj]\bs NP}}
+    \ptleaf{\cf{PP}}
+  \ptend
+\ptend
+\ptendtree
+\longrightarrow
+\ptbegtree
+\ptbeg \ptnode{\cf{S[adj]\bs NP[conj]}}
+  \ptleaf{\cf{conj}}
+  \ptbeg \ptnode{\cf{S[adj]\bs NP}}
+    \ptleaf{\cf{PP^{S[adj]\bs NP}}}
+  \ptend
+\ptend
+\ptendtree
+\end{equation}
+
+The relabelling rules described in Section~\ref{sec:node_relabelling} handle the
+propagation of the hat category down the subtree. 
+
+\section{\hatsys Corpus Analyses}
+
+The lexicalised type-changing scheme we have proposed offers many opportunities
+for favourable analyses, because it allows form and function to be represented
+simultaneously. However, we have limited our changes to replacing the existing
+\ccgbank non-combinatory rules. This allows us to compare the two strategies for
+controlling modifier category proliferation more closely.
+
+In this section, we briefly examine some of the analyses that this strategy
+produces. Some of these issues are discussed in more detail from a linguistic
+perspective in Chapters~\ref{chapter:ling_mot} and~\ref{chapter:hat_cats}; the
+discussion here focuses on the consequences of these analyses for parsing.
+
+\subsection{Bare Noun Phrases}
+
+By far the most frequent unary production in \ccgbank is the
+\psunary{\cf{N}}{\cf{NP}}. rule, which handles bare noun phrases. The rule
+ensures that nominals can always take the \cf{N} category, so compound nouns and
+adjectives do not  need to be assigned the category \cf{NP/NP}, which is only
+used for pre-determiners. Because adjectives and nouns are open lexical classes,
+and bare noun phrases are fairly common, this reduction in category sparsity is
+quite important.
+
+When bare noun phrases perform a function other than \cf{NP}, a
+\emph{hat-in-hat} category is used, like \cf{N^{NP^{S/S}}}. The \cf{NP} stage is
+necessary because the phrase could be modified at either level:
+
+\begin{center}
+\ptbegtree
+\ptbeg \ptnode{\cf{S[dcl]}}
+\ptbeg \ptnode{\cf{S/S}}
+  \ptbeg \ptnode{\cf{NP^{S/S}}}
+    \ptbeg \ptnode{\cf{NP^{S/S}}}
+      \ptbeg \ptnode{\cf{N^{NP^{S/S}}}}
+        \ptbeg \ptnode{\cf{N/N}} \ptleaf{No} \ptend
+        \ptbeg \ptnode{\cf{N^{NP^{S/S}}}} \ptleaf{dummies} \ptend
+      \ptend
+    \ptend
+    \ptbeg \ptnode{\cf{NP\bs NP}}
+      \ptbeg \ptnode{\cf{(NP\bs NP)/NP}} \ptleaf{at} \ptend
+      \ptbeg \ptnode{\cf{NP}} \ptbeg \ptnode{\cf{N^{NP}}} \ptleaf{finance,}
+\ptend \ptend
+    \ptend
+  \ptend
+\ptend
+\ptbeg \ptnode{\cf{S[dcl]}} \ptleaf{senators typically outperform top analysts
+in the market.}
+\ptend
+\ptend
+\ptendtree
+\end{center}
+
+We are dissatisfied with the attachment of the modifier at \cf{NP} rather than
+\cf{N}, but it was the best available to us without changing the \ccgbank
+analysis of the construction. Ideally, restrictive modifiers should attach to
+unspecified \cf{N} nodes, while restrictive modifiers attach to specified noun
+phrases.
+
+Another solution would be to allow the distinction between \cf{N} and
+\cf{NP} to be underspecified, as suggested by \citet{baldridge:02}. Instead of a
+category-level distinction, a feature such as \textsc{spec} could be used.
+Restrictive and non-restrictive relatives would then both receive the \cf{N\bs
+N} category, and their interpretation would depend on their attachment height.
+
+This analysis would still require a hat category for bare noun phrases, however.
+There needs to be some way to provide two attachment levels to distinguish
+between the restrictive and non-restrictive readings of \emph{policemen who are
+severely obese} and \emph{policemen, who are severely obese}. We
+therefore have no functional proposal  that would eliminate nested hat
+categories such as \cf{N^{NP^{S/S}}}, which we regard as unfortunate.
+
+\subsection{Hats and Determiner Categories}
+\label{sec:hat_determiners}
+
+
+As we describe in Chapter~\ref{chapter:hat_cats}, hat categories are transferred
+during unification when \hatsc attributes are coindexed.
+In our implementation on the \candc parser, we equate the \hatsc index with the \headsc
+index, and assume that categories must be identical for hats to be passed across.
+This compromise was made to simplify the implementation, as we wished to avoid
+complicating the parser's unification algorithm, lest it impact efficiency.
+
+One consequence of this compromise is that hats can only be transmitted by true
+modifier categories, of the form \cf{X/X}. Other categories that coindex their
+argument and result cannot, as their arguments and results fail the identity check.
+The only category in English that this effects is the determiner, \cf{NP_y/N_y}.
+This produces the following analysis for nouns functioning as modifiers, which
+may or may not be suboptimal:
+
+\begin{center}
+\deriv{2}{
+\rm these & \rm days \\
+\uline{1}&\uline{1} \\
+\cf{NP^{(S\bs NP)\bs (S\bs NP)}/N} &
+\cf{N} \\
+\fapply{2} \\
+\mc{2}{\cf{NP^{(S\bs NP)\bs (S\bs NP)}}} \\
+\unhat{2} \\
+\mc{2}{\cf{(S\bs NP)\bs (S\bs NP)}}
+}\end{center}
+
+From a theoretical perspective, the biggest problem with this analysis is that
+it prevents the dependencies from being specified in the head of the lexical
+category. This is not a problem for our parsing evaluation, because we evaluate
+against the \ccgbank \textsc{parg} files, which cannot capture these
+dependencies either.
+
+It is possible that this analysis is actually favourable for
+parsing, given the specific mechanisms of the \candc parser. By placing the hat
+on the determiner, some relevant information may be outside of the tagger's
+context window, but at least the category is guaranteed to be available in the
+word's tag dictionary, and there will be plenty of training examples that pair
+the determiner with the hat category. On the other hand, it may be better to
+condition the dependency on the head word.
+
+\subsection{Reduced Relative Clauses}
+
+The second most common class of type-changing rules in \ccgbank produce reduced
+relative clauses. The following rules take verb phrases and convert them into
+nominal post-modifiers:
+
+\begin{eqnarray}
+ \eqnpsrule{\cf{S[*]\bs NP}}{}{\cf{NP\bs NP}}\\
+ \eqnpsrule{\cf{S[*]/NP}}{}{\cf{NP\bs NP}}
+\end{eqnarray}
+
+When these rules are lexicalised, they produce categories of the forms:
+
+\begin{eqnarray}
+\cf{(S[*]\bs NP)^{NP\bs NP}/\$}\\
+\cf{((S[*]/NP)/\$)^{NP\bs NP}}
+\end{eqnarray}
+
+For example, the analysis of a reduced subject relative looks like this:
+
+\begin{center}
+\deriv{6}{
+\rm asbestos & \rm once & \rm used & \rm in & \rm cigarette & \rm filters \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{N^{NP}} &
+\cf{(S\bs NP)/(S\bs NP)} &
+\cf{(S[pss]\bs NP)^{NP\bs NP}} &
+\cf{((S\bs NP)\bs (S\bs NP))/NP} &
+\cf{N/N} &
+\cf{N^{NP}} \\
+\unhat{1} & \fapply{2} && \fapply{2} \\
+\mc{1}{\cf{NP}} & \mc{2}{\cf{(S[pss]\bs NP)^{NP\bs NP}}} && \mc{2}{\cf{N^{NP}}}
+\\
+&&&& \unhat{2} \\
+&&&& \mc{2}{\cf{NP}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{(S\bs NP)\bs (S\bs NP)}} \\
+& \bapply{5} \\
+& \mc{5}{\cf{(S[pss]\bs NP)^{NP\bs NP}}} \\
+& \unhat{5} \\
+& \mc{5}{\cf{NP\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{NP}}
+}
+\end{center}
+
+The derivation for reduced object relatives involves the hat passing via
+composition described in Section~\ref{sec:hat_composition}:
+
+\begin{center}
+\deriv{4}{
+\rm The~asbestos & \rm cigarette~filters & \rm once & \rm used \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{NP} &
+\cf{(S\bs NP)/(S\bs NP)} &
+\cf{((S[pss]\bs NP)/NP)^{NP\bs NP}} \\
+&  \ftype{1} & \fcomp{2} \\
+&  \mc{1}{\cf{S/(S\bs NP)}} & \mc{2}{\cf{((S[pss]\bs NP)/NP)^{NP\bs NP}}} \\
+& \fcomp{3} \\
+& \mc{3}{\cf{(S[pss]/NP)^{NP\bs NP}}} \\
+& \unhat{3} \\
+& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{NP}}
+}
+\end{center}
+
+The hat categories enable matching analyses of subject and object reduced relatives.
+The hat category analysis allows all modifiers and arguments to receive their canonical
+categories, with only the verb receiving a different category.
+
+\subsection{Gerund Nominals}
+
+Gerund nominals are a relatively infrequent construction in the Wall Street
+Journal corpus, with approximately 300 occurrences. The construction involves a
+non-finite verb phrase functioning as a noun phrase. As we describe in Section
+\ref{ling_mot:nominal}, their distribution is the same as ordinary \cf{NP}s.
+\ccgbank handles gerund nominals by using \psunary{\cf{VP}}{\cf{NP}}
+type-changing rules. The \candc parser does not implement this rule, because
+the increase in coverage is not worth the ambiguity the rule would introduce.
+
+Hat categories offer a way to mimic the \ltag analysis, where the constituent is
+ultimately \cf{NP}-typed but has a \cf{VP}-like structure (or, in the terms
+introduced in Chapter~\ref{chapter:ling_mot}, functions as an \cf{NP} but has a
+\cf{VP} constituent type):
+
+\begin{center}
+\deriv{8}{
+\rm I & \rm gave & \rm doing & \rm things & \rm his & \rm way & \rm a & \rm
+chance \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}
+\\
+\cf{NP} &
+\cf{((S[dcl]\bs NP)/NP)/NP} &
+\cf{(S[ng]\bs NP)^{NP}/NP} &
+\cf{N^{NP}} &
+\cf{NP^{VP\bs VP}/N} &
+\cf{N} &
+\cf{NP/N} &
+\cf{N} \\
+&&& \unhat{1} & \fapply{2} & \fapply{2} \\
+&&& \mc{1}{\cf{NP}} & \mc{2}{\cf{NP^{VP\bs VP}}} & \mc{2}{\cf{NP}} \\
+&& \fapply{2} & \unhat{2} \\
+&& \mc{2}{\cf{(S[ng]\bs NP)^{NP}}} & \mc{2}{\cf{(S\bs NP)\bs (S\bs NP)}} \\
+&& \bapply{4} \\
+&& \mc{4}{\cf{(S[ng]\bs NP)^{NP}}} \\
+&& \unhat{4} \\
+&& \mc{6}{\cf{NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{(S[dcl]\bs NP)/NP}} \\
+& \fapply{7} \\
+& \mc{7}{\cf{S[dcl]\bs NP}} \\
+\bapply{8} \\
+\mc{8}{\cf{S[dcl]}}
+}
+\end{center}
+
+This analysis correctly captures all of the relevant properties of the
+construction:
+
+\begin{itemize}
+\item The distribution of the constituent is identical to any noun phrase;
+\item The constituent is headed by the head of the verb phrase;
+\item The verb phrase can be modified as normal.
+\end{itemize}
+
+
+\subsection{Reported Speech}
+\label{sec:hat_speech}
+Written genres that involve a lot of direct speech (such as narratives and news
+text) arrange quotations in a variety of ways, and often place the projecting
+verb inside the quotation. \ccgbank follows the Penn Treebank in analysing the
+quotation as the matrix clause, and handling the projecting verb as a
+parenthetical \citep{bies:95}:
+
+\begin{center}
+\deriv{5}{
+\rm ``That~is~an~issue\mbox{''}, & \rm he & \rm said, & \rm ``but & \rm
+we~can~handle~it\mbox{''} \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{S[dcl]} &
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/S[dcl]} &
+\cf{conj} &
+\cf{S[dcl]} \\
+& \ftype{1} \\
+& \mc{1}{\cf{S/(S\bs NP)}} \\
+& \fcomp{2} \\
+& \mc{2}{\cf{S[dcl]/S[dcl]}} \\
+& \psgrule{2} \\
+& \mc{2}{\cf{S\bs S}} \\
+\bapply{3} & \conj{2} \\
+\mc{3}{\cf{S[dcl]}} & \mc{2}{\cf{S[dcl][conj]}} \\
+\conj{5} \\
+\mc{5}{\cf{S[dcl]}}
+}
+\end{center}
+
+\noindent This rule is also used to handle quotations where the projecting verb
+follows the whole quotation:
+
+\begin{center}
+\deriv{5}{
+\rm ``That~is~an~issue, & \rm but & \rm we~can~handle~it\mbox{''}, & \rm he &
+\rm said \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{S[dcl]} &
+\cf{conj} &
+\cf{S[dcl]} &
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/S[dcl]} \\
+&&& \ftype{1} \\
+&&& \mc{1}{\cf{S/(S\bs NP)}} \\
+& \conj{2} & \fcomp{2} \\
+& \mc{2}{\cf{S[dcl][conj]}} & \mc{2}{\cf{S[dcl]/S[dcl]}} \\
+\conj{3} & \psgrule{2} \\
+\mc{3}{\cf{S[dcl]}} & \mc{2}{\cf{S\bs S}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[dcl]}}
+}
+\end{center}
+
+There are several benefits to lexicalising this construction. The construction
+is specific to verbs of speech, so only a few, frequent verbs will require the
+altered category. The construction is also locally decidable, so the
+supertagger should have little trouble assigning the correct category. The
+parsing model is capable of making the same distinction, of course --- but less
+efficiently. The hat analysis looks like this:
+ 
+\deriv{5}{
+\rm ``That~is~an~issue\mbox{''}, & \rm he & \rm said, & \rm ``but & \rm
+we~can~handle~it\mbox{''} \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{S[dcl]} &
+\cf{NP} &
+\cf{((S[dcl]\bs NP)/S[dcl])^{(S\bs S)}} &
+\cf{conj} &
+\cf{S[dcl]} \\
+& \ftype{1} \\
+& \mc{1}{\cf{S/(S\bs NP)}} \\
+& \fcomp{2} \\
+& \mc{2}{\cf{(S[dcl]/S[dcl])^{(S\bs S)}}} \\
+& \unhat{2} & \conj{2} \\
+& \mc{2}{\cf{S\bs S}} & \mc{2}{\cf{S[dcl][conj]}} \\
+\conj{5} \\
+\mc{5}{\cf{S[dcl]}}
+}
+
+For both of these constructions, the subject can occur after the verb, although
+usually not when the subject is a pronoun (presumably due to information
+structure constraints, such as those that force pronoun objects to occur before
+verb particles):
+
+\begin{lexamples}
+\item ``That is an issue'', said John, ``but we can handle it''.
+\item ``That is an issue, but we can handle it'', said John.
+\item * Said John, ``that is an issue, but we can handle it''.
+\end{lexamples}
+
+The subject-verb alternation is handled with category ambiguity in \ccgbank, an
+analysis which we follow.
+
+
+\subsection{Extraposed NPs and Other Punctuation Cued Type-Changing}
+\label{sec:extraposition}
+
+Appositive noun phrases can be extraposed out of a sentence or verb phrase.
+However, in standard written English, a
+comma is required before or after the appositive:
+\begin{lexamples}
+ \item \emph{No dummies}, the drivers pointed out they still had space.
+ \item Factory inventories fell 0.1\% in September, \emph{the first decline
+since February 1987}.
+\end{lexamples}
+
+\ccgbank uses the comma as a cue for binary type-changing rules:
+
+\begin{eqnarray}
+\eqnpsrule{\cf{,}}{\cf{NP}}{\cf{S\bs S}}\\
+\eqnpsrule{,}{\cf{NP}}{\cf{(S\bs NP)\bs (S\bs NP)}}\\
+\eqnpsrule{\cf{NP}}{\cf{,}}{\cf{S/S}}
+\end{eqnarray}
+
+The binary rules introduce much less ambiguity than the equivalent unary rules,
+such as \psunary{\cf{NP}}{\cf{S\bs S}}. One way to lexicalise these rules ---
+and other punctuation cued type-changing --- is to assign a category to the
+punctuation mark that performs the transformation, analysing it as a kind of
+function word:
+
+\begin{center}
+\deriv{3}{
+\rm Factory~inventories~fell~0.1\% & \rm , & \rm
+the~first~decline~since~February~1987 \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{S[dcl]} &
+\cf{(S\bs S)/NP} &
+\cf{NP} \\
+& \fapply{2} \\
+& \mc{2}{\cf{S\bs S}} \\
+\bapply{3} \\
+\mc{3}{\cf{S[dcl]}}
+}
+\end{center}
+
+Assigning a complex category to the punctuation is acceptable because it is
+phonologically realised. It represents an obligatory distinction in the way the
+sentences are spoken. However, this analysis raises semantic problems. The
+\cf{(S\bs S)/NP} category assigned to the punctuation does not allow a
+dependency to be created between \emph{decline} and \emph{fell}, so the
+dependency graph will not be connected, with the extraposed element left without
+a head. This is actually what happens in the current \ccgbank analysis, because
+the type-changing rule encounters a similar problem.
+
+The hat category analysis puts the \cf{S} argument into the lexical category of
+the \cf{NP}, allowing the dependency to be created:
+
+\begin{center}
+\deriv{2}{
+\rm Factory~inventories~fell~0.1\%, & \rm the~first~decline~since~February~1987
+\\
+\uline{1}&\uline{1} \\
+\cf{S[dcl]} &
+\cf{NP^{S\bs S}} \\
+& \unhat{1} \\
+& \mc{1}{\cf{S\bs S}} \\
+\bapply{2} \\
+\mc{2}{\cf{S[dcl]}}
+}
+\end{center}
+
+The punctuation becomes insignificant in the hat analysis, after the
+type-changing rule is unarised as described in Section~\ref{sec:unarising}. The
+punctuation symbol is no longer a hard constraint on the rule. Instead, the
+supertagger will be able to use it as a contextual cue to decide that the coming
+category might be extraposed, in much the same way that a human might. Factoring
+punctuation out of the grammar is also desirable, because it allows the analyses
+to be ported to domains where punctuation is used less reliably.
+
+\citet{white:punct08} implements an alternate treatment of punctuation cued
+type-changing in \ccgbank, using the analyses suggested for \ltag by
+\citet{doran:98}. They find that these corrections improve the accuracy
+of a statistical \ccg surface realiser, making their analyses
+an interesting target for future work.
+
+\subsection{Unlike Coordinated Phrases}
+
+One of the strengths of a partially associative categorial grammar like \ccg is
+the attractive analysis of non-constituent coordination, as we describe in
+Section~\ref{sec:associativity}. However, some unlike coordinated phrases still
+pose a problem. For instance, some verbs have arguments which can be realised by
+multiple constituent types, allowing two arguments with different syntactic
+categories to be conjoined based on their shared function:
+
+\begin{lexamples}
+\item These actions are risky and not in the best interests of the public.
+\item Compound yields assume reinvestment of dividends and that the current
+yield continues.
+\end{lexamples}
+
+These constructions could be analysed better with a type hierarchy, following
+the proposal of \citet{mcconville:06}. This would allow the verb to specify a
+less general argument type, with inheritance mechanisms ensuring that this does
+not result in redundancy. Something similar can be seen in the analysis of the
+second example, where the verb requires the argument \cf{S[adj]\bs NP}, which
+can be realised by a variety of different constituent types.
+
+\ccgbank uses a binary rule cued by the coordinator. The coordinator makes the
+type-change rule less ambiguous, in much the same way punctuation is used to in
+binary rules, as we describe in Section~\ref{sec:extraposition}. After the
+binary rule is unarised, we perform the standard flattening of the unary rule
+into a hat category. Here is an example:
+
+\begin{center}
+\deriv{5}{
+\rm These~actions & \rm are & \rm risky & \rm and & \rm
+not~in~our~best~interests \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/(S[adj]\bs NP)} &
+\cf{S[adj]\bs NP} &
+\cf{conj} &
+\cf{PP^{(S[adj]\bs NP)}} \\
+&&&& \unhat{1} \\
+&&&& \mc{1}{\cf{S[adj]\bs NP}} \\
+&&& \conj{2} \\
+&&& \mc{2}{\cf{S[adj]\bs NP[conj]}} \\
+&& \conj{3} \\
+&& \mc{3}{\cf{S[adj]\bs NP}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{S[dcl]\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[dcl]}}
+}
+\end{center}
+
+Sometimes, this strategy still produces suboptimal analyses, as in the following
+example, where the constituent \emph{that the yield continues} cannot reasonably
+be analysed as an \emph{NP}:
+
+\begin{center}
+\deriv{5}{
+\rm Those~figures & \rm assume & \rm reinvestment & \rm and & \rm
+that~the~yield~continues \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{NP} &
+\cf{conj} &
+\cf{S[em]^{NP}} \\
+&&&& \unhat{1} \\
+&&&& \mc{1}{\cf{NP}} \\
+&&& \conj{2} \\
+&&& \mc{2}{\cf{NP[conj]}} \\
+&& \conj{3} \\
+&& \mc{3}{\cf{NP}} \\
+& \fapply{4} \\
+& \mc{4}{\cf{S[dcl]\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[dcl]}}
+}
+\end{center}
+
+
+\section{The \nounary Corpus}
+\label{sec:nounary_corpus}
+
+The \nounary corpus is a fully lexicalised corpus that does not employ any
+extensions to the grammar. It implements a purely application, composition and
+type-raising (\act) grammar. The \candc parser is somewhat ill-suited to a
+purely \act analyses, as it was designed for \ccgbank. A wide-coverage, purely
+combinatory corpus would greatly benefit from a structured lexicon, which the
+\candc parser architecture does not currently support. Purely combinatory
+analyses are also more sensitive to analysis quality and noise than the \ccgbank
+grammar, so the corpus described in this section is far from ideal.
+
+For the \hatsys corpus, we were able to translate the \ccg analysis directly.
+This is not an option for the \nounary corpus, because the only unary
+productions that are allowed in its grammar are instances of type-raising. This
+means that we first have to decide on a set of analyses for the phenomena
+\ccgbank handles using type-changing rules. We settle on a strategy that
+largely adopts a simple transformation, so that the corpus is more closely
+comparable to the Hat corpus and \ccgbank. The general strategy for compressing
+a unary rule is to replace the child category with the parent category, relying
+on the rules described in Section~\ref{sec:node_relabelling} to propagate the
+changes down the subtree. This amounts to always assigning function-based
+categories whenever there is a form/function distinction.
+
+This section describes the most common constructions that are relabelled in the
+\nounary corpus, paying particular attention to constructions where we have
+deviated from the general relabelling strategy. We start by describing the
+analysis for bare noun phrases, before describing the analysis for bare
+relatives and reported speech. Many of the issues that come up here were also
+discussed in Chapter~\ref{chapter:ling_mot}.
+
+\subsection{Bare Noun Phrases}
+
+Bare noun phrases are analysed with the default strategy: the \cf{N} is replaced
+by an \cf{NP}:
+
+\begin{eqnarray}
+ \ptbegtree
+   \ptbeg \ptnode{\cf{NP}}
+     \ptbeg \ptnode{\cf{N}}
+       \ptbeg \ptnode{\cf{N/N}} \ptleaf{dangerous} \ptend
+       \ptbeg \ptnode{\cf{N}} \ptleaf{asbestos} \ptend
+     \ptend
+   \ptend
+  \ptendtree
+&
+\longrightarrow
+&
+ \ptbegtree
+   \ptbeg \ptnode{\cf{NP}}
+     \ptbeg \ptnode{\cf{NP/NP}} \ptleaf{dangerous} \ptend
+     \ptbeg \ptnode{\cf{NP}} \ptleaf{asbestos} \ptend
+   \ptend
+  \ptendtree
+\end{eqnarray}
+
+The modifier category ambiguity that results from this is problematic,
+particularly if the analysis is left-branching, e.g. \emph{very dangerous
+asbestos}. We see no way to avoid this ambiguity with a pure \ccg analysis.
+
+\subsection{Reduced Relative Clauses}
+\label{sec:pure_rrc}
+
+As we describe in Section~\ref{sec:ling_rrc}, \ccg offers two possible ways to
+analyse reduced relative clauses without extending the grammar. The best
+approach is to have the noun subcategorise for the relative clause, because
+changing the verb category to have an \cf{NP}-typed inner most result breaks the
+assumptions that \citet{steedman:00} builds into the grammar about different
+behaviours of \cf{NP\$} and \cf{S\$} types. The analysis looks like this:
+
+\begin{center}
+\deriv{6}{
+\rm asbestos & \rm once & \rm used & \rm for & \rm cigarette & \rm filters \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/(S[pss]\bs NP)} &
+\cf{(S\bs NP)/(S\bs NP)} &
+\cf{(S[pss]\bs NP)/PP} &
+\cf{PP} &
+\cf{NP/NP} &
+\cf{NP} \\
+&&&& \fapply{2} \\
+&&&& \mc{2}{\cf{NP}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{PP}} \\
+&& \fapply{4} \\
+&& \mc{4}{\cf{S[pss]\bs NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{S[pss]\bs NP}} \\
+\fapply{6} \\
+\mc{6}{\cf{NP}}
+}
+\end{center}
+
+This transformation is implemented as a set of rewrite rules that are run as a
+preprocess before the main node changing algorithm. The rules are:
+
+\begin{eqnarray}
+\ptbegtree
+\ptbeg \ptnode{\cf{NP}}
+  \ptleaf{\cf{NP\bs NP}}
+  \ptleaf{\cf{S[*]\bs NP}}
+\ptend
+\ptendtree
+\longrightarrow
+\ptbegtree
+\ptbeg \ptnode{\cf{NP}}
+  \ptleaf{\cf{NP/(S\bs NP)}}
+  \ptleaf{\cf{S[*]\bs NP}}
+\ptend
+\ptendtree
+\\
+\ptbegtree
+\ptbeg \ptnode{\cf{NP}}
+  \ptleaf{\cf{NP\bs NP}}
+  \ptleaf{\cf{S[*]/NP}}
+\ptend
+\ptendtree
+\longrightarrow
+\ptbegtree
+\ptbeg \ptnode{\cf{NP}}
+  \ptleaf{\cf{NP/(S/NP)}}
+  \ptleaf{\cf{S[*]/NP}}
+\ptend
+\ptendtree
+\end{eqnarray}
+
+Where $*$ represents a feature value that is transmitted across to the rewritten
+tree. This subcategorisation analysis of reduced relative clauses caused some
+problems for the corpus. \ccgbank inherits its complement\slash adjunct distinctions
+from the Penn Treebank, which results in very few nominal predicates. This means
+that prepositional phrases that we would analyse as complements often occur
+between the head noun and the verb phrase. When this happens, the prepositional
+phrases are forced to subcategorise for the \cf{NP}'s argument structure,
+causing problematic analyses like the following:
+
+\begin{center}
+\small
+\deriv{7}{
+\rm The & \rm effects & \rm of & \rm this & \rm policy & \rm seen & \rm today \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N/(S[pss]\bs NP)} &
+\cf{((NP/(S\bs NP))\bs ((NP/(S\bs NP)))/NP} &
+\cf{NP/N} &
+\cf{N} &
+\cf{S[pss]\bs NP} &
+\cf{(S\bs NP)\bs (S\bs NP)} \\
+\fcomp{2} && \fapply{2} & \bapply{2} \\
+\mc{2}{\cf{NP/(S[pss]\bs NP)}} && \mc{2}{\cf{NP}} & \mc{2}{\cf{S[pss]\bs NP}} \\
+&&\fapply{3}\\
+&&\mc{3}{\cf{NP/(S[pss]\bs NP)}}\\
+\bapply{5} \\
+\mc{5}{\cf{NP/(S[pss]\bs NP)}} \\
+\fapply{7} \\
+\mc{7}{\cf{NP}}
+}
+\end{center}
+
+Prepositional phrases attach at the \cf{NP} level in \ccgbank, so our node
+relabelling rules correctly cause the determiner to compose with \emph{effects}
+to produce the \cf{NP/(S\bs NP)} category required. However, the prepositional
+phrase is prevented from cross-composing into the \cf{NP}-rooted category by the
+\citet{steedman:00} crossing composition constraints used in our grammar. \mmccg
+would not help here either, because \cf{NP} modifiers cannot be assigned
+permutative modes, lest they over-generate analyses for sentences such as
+\emph{the tasty with anchovies pizza} that have \emph{with anchovies} modifying
+\emph{pizza} \citep{baldridge:03}.
+
+The root cause of our problem here is not the grammar, it is that the Penn
+Treebank (and therefore \ccgbank) has the wrong analysis. \emph{of this policy}
+is not an adjunct, it is a complement --- which is why it is allowed to occur
+before the reduced relative clause (which we do believe is an adjunct). We could
+reanalyse the prepositional phrases as arguments when this specific conflict
+occurs, but then the corpus would be inconsistent, because nouns would only
+subcategorise for prepositional phrases in the presence of reduced relative
+clauses.
+
+What we need is a way of reliably determining noun phrase argument structure.
+Probably the best solution would be to use Nombank \citep{nombank} for this
+purpose, employing the strategy used with Propbank by
+\citet{honnibal:pacling07prop} and \citet{boxwell:08}. We have not pursued this
+for the \nounary corpus, following the principle that we should not embark on
+changes to \ccgbank outside the scope of the unary rules we are removing, to
+ensure that our corpora are as comparable as possible.
+
+The problems with this construction suggest that the additional descriptive
+power provided by the \ccgbank type-changing rules or the hat categories we
+have introduced help mitigate the problems caused by suboptimal analyses. In the
+\nounary corpus, analysis problems tend to propagate through the derivation,
+because of the increased sensitivity of modifiers to their heads' categories.
+
+\subsection{Reported Speech}
+
+The analyses described in Section~\ref{sec:hat_speech} would require a number of
+extra categories in the \nounary corpus, which does not seem worthwhile to us.
+Instead, we analyse these sentences as though the projecting verb were the head,
+as it is when the quotation follows the verb. This introduces three argument
+structure alternations for verbs of speech:
+
+\begin{enumerate}
+\item \cf{(S[dcl\bs NP)/S[dcl]}: \emph{John said, ``...''}
+\item \cf{(S[dcl\bs NP)\bs S[dcl]}: \emph{``...'', John said}
+\item \cf{(S[dcl/NP)\bs S[dcl]}: \emph{``...'', said John}
+\end{enumerate}
+
+These modifications are also implemented as preprocessing rewrite rules. The
+rules are:
+
+\begin{eqnarray}
+&
+\ptbegtree
+\ptbeg \ptnode{\cf{S\bs S}}
+  \ptbeg \ptnode{\cf{S[dcl]/S[dcl]}}
+    \ptleaf{\cf{S/(S\bs NP)}}
+    \ptleaf{\cf{(S[dcl]\bs NP)/S[dcl]}}
+  \ptend
+\ptend
+\ptendtree
+&\longrightarrow
+\ptbegtree
+\ptbeg \ptnode{\cf{S[dcl]\bs S[dcl]}}
+  \ptleaf{\cf{S/(S\bs NP)}}
+  \ptleaf{\cf{(S[dcl]\bs NP)\bs S[dcl]}}
+\ptend
+\ptendtree
+\\
+&
+\ptbegtree
+\ptbeg \ptnode{\cf{S\bs S}}
+  \ptbeg \ptnode{\cf{S[dcl]/S[dcl]}}
+    \ptleaf{\cf{(S[dcl]/S[dcl])/NP}}
+    \ptleaf{\cf{NP}}
+  \ptend
+\ptend
+\ptendtree
+&\longrightarrow
+\ptbegtree
+\ptbeg \ptnode{\cf{S[dcl]\bs S[dcl]}}
+  \ptleaf{\cf{(S[dcl]\bs S[dcl])/NP}}
+  \ptleaf{\cf{NP}}
+\ptend
+\ptendtree
+\end{eqnarray}
+
+\section{The Hat-TR Corpus}
+\label{sec:hattr_corpus}
+\begin{figure}
+ \centering
+\deriv{6}{
+\rm Casey & \rm likes & \rm but & \rm Erin & \rm hates & \rm Pat \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP^{S/(S\bs NP)}} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{conj} &
+\cf{NP^{S/(S\bs NP)}} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{NP} \\
+\unhat{1} &&& \unhat{1} \\
+\mc{1}{\cf{S/(S\bs NP)}} &&& \mc{1}{\cf{S/(S\bs NP)}} \\
+\fcomp{2} && \fcomp{2} \\
+\mc{2}{\cf{S[dcl]/NP}} && \mc{2}{\cf{S[dcl]/NP}} \\
+&& \conj{3} \\
+&& \mc{3}{\cf{S[dcl]/NP[conj]}} \\
+\conj{5} \\
+\mc{5}{\cf{S[dcl]/NP}} \\
+\fapply{6} \\
+\mc{6}{\cf{S[dcl]}}
+}
+\caption{Example of forward type-raising lexicalised with a hat
+category.\label{hattr_ftype}}
+\end{figure}
+
+Type-raising is an open ended unary rule: it can transform any \cf{NP},
+\cf{S[adj]\bs NP} or \cf{PP} category into an unbounded number of other
+logically equivalent categories. This unbounded productivity is problematic for a
+chart parser, because local ambiguities can have a substantial impact on efficiency
+even if they cannot be used to generate alternate analyses that span the whole sentence.
+The \candc parser therefore implements type-raising as a pre-specified
+set of unary transformations that cover most of the type-raising that occurs in
+\ccgbank. This still introduces a lot of ambiguity, so we experiment with
+lexically specifying the type-raise rules using hat categories, instead.
+
+Lexicalising type-raising rules may bring smaller chart sizes, which should
+produce faster parse times, and possibly higher accuracy. It also prevents the
+% developer of a practical parsing system from having to decide whether to include
+a given type-raising rule is worth the extra ambiguity it introduces.
+
+The main question about this analysis is how locally decidable type-raising
+really is. If the evidence required is not present inside the supertagger's
+context window, then the tagger has little opportunity to make the right decision. This
+will cause a reduction in speed and accuracy, as the required type-raise
+category will not be highly ranked in the tagger's analysis.
+
+The implementation of the hat-base reanalysis of type-raising was
+straightforward. We simply collapse type-raising rules using the unary
+collapsing function described in Section~\ref{sec:hat_corpus}. This causes the
+type-raising rules to be lexicalised in exactly the same way as the unary
+type-changing rules. An example of lexicalised forward type-raising is shown
+in Figure~\ref{hattr_ftype}.
+
+Figure~\ref{hattr_btype} shows an example of lexicalised backward type-raising.
+The gist of this analysis is that the two argument clusters must coordinate,
+which means that each cluster must form a constituent. They do this by both
+type-raising into functions over the verb phrase category that requires their
+argument, and then composing. This is the standard \ccg analysis of argument
+cluster coordination, which is a particularly good example of \ccg's flexible
+treatment of coordination \citep{steedman:00}.
+
+\begin{sidewaysfigure}
+ \centering
+\deriv{8}{
+\rm They & \rm held & \rm a & \rm treaty & \rm in & \rm one & \rm hand & \rm and~a~pistol~in~the~other \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{((S[dcl]\bs NP)/PP)/NP} &
+\cf{NP^{((S\bs NP)/PP)\bs (((S\bs NP)/PP)/NP)}/N} &
+\cf{N} &
+\cf{PP^{(S\bs NP)\bs ((S\bs NP)/PP)}} &
+\cf{NP/N} &
+\cf{N} &
+\cf{(S\bs NP)\bs (((S\bs NP)/PP)/NP)[conj]} \\
+&& \fapply{2} && \fapply{2} \\
+&& \mc{2}{\cf{NP^{((S\bs NP)/PP)\bs (((S\bs NP)/PP)/NP)}}} && \mc{2}{\cf{NP}} \\
+&& \unhat{2} & \fapply{3} \\
+&& \mc{2}{\cf{((S\bs NP)/PP)\bs (((S\bs NP)/PP)/NP)}} & \mc{3}{\cf{PP^{(S\bs NP)\bs ((S\bs NP)/PP)}}} \\
+&&&& \unhat{3} \\
+&&&& \mc{3}{\cf{(S\bs NP)\bs ((S\bs NP)/PP)}} \\
+&& \bcomp{5} \\
+&& \mc{5}{\cf{(S\bs NP)\bs (((S\bs NP)/PP)/NP)}} \\
+&& \conj{6} \\
+&& \mc{6}{\cf{(S\bs NP)\bs (((S\bs NP)/PP)/NP)}} \\
+&\bapply{7} \\
+&\mc{7}{\cf{S[dcl]\bs NP}} \\
+\bapply{8} \\
+\mc{8}{\cf{S[dcl]}}
+}
+\caption{Example of backward type-raising lexicalised with a hat
+category.\label{hattr_btype}}
+\end{sidewaysfigure}
+
+
+\section{Validating Changes}
+
+\label{sec:validation}
+
+Since we experimented with a variety of different corpus configurations, it was
+not practical to construct a manually converted evaluation set to compare our
+adaptation processes against. However, the conversion process can introduce
+subtle problems, and an unintended analysis applied to a relatively small
+portion of sentences can completely obscure results. We used a variety of
+diagnostic measures to try to validate our changes.
+
+\subsection{Rule Validation}
+
+Rule validation involved checking whether each production in the derivation
+could be produced by a \ccg combinatory rule. While it is not sufficient for a
+derivation to be the product of the \ccg combinatory rules, it is certainly
+necessary. Rule validation was mostly used to catch bugs in the conversion code
+and node relabelling algorithm. We also performed a second rule validation,
+using approximations of the composition heuristics implemented in the \candc
+parser. This helped us determine whether our analyses would be invalid with the
+parser's restricted implementation.
+
+A minority of sentences persistently fail validation in each of the corpora, due
+to the long tail of noisy derivations in \ccgbank. The noise is due to
+inaccuracies in the Penn Treebank and imperfections in \ccgbank's conversion
+heuristics.
+
+\subsection{Examining the Lexicon and Grammar}
+
+Once the corpus has been converted with a minority of rule failures, we inspect
+the lexicon and grammar to see how many categories have been added, and how the
+distribution of combinatory rules required has changed. This helps us to
+determine whether our analysis has had unintended consequences. The first thing
+we do is look at the category coverage of the corpus if we annotate a given
+number of categories. What we are looking at here is how much more sparse our
+analyses have made the corpus. We then look at the individual categories to be
+added, as well as a frequency-sorted list of novel productions that have been
+introduced. This helps us to find interactions between our rules and \ccgbank's
+analyses that we had not anticipated.
+
+For instance, an analysis of the novel categories led us to the problems
+discussed in Section~\ref{sec:pure_rrc}. We were initially surprised by the
+frequency of the following strange looking categories, which were assigned to
+prepositions:
+
+\begin{eqnarray}
+ \cf{(NP/(S\bs NP))/(NP/(S\bs NP))/NP}\\
+ \cf{(NP/(S/NP))/(NP/(S/NP))/NP}
+\end{eqnarray}
+
+When we looked at where these categories occurred, we encountered the
+interaction between the complement\slash adjunct distinction errors in \ccgbank and
+the new subcategorisation frames.
+
+\subsection{Examining Parser Training Failures}
+
+
+Once we had examined the grammar and lexicon, and added annotation for frequent
+categories to the \markedup file, we attempted to train the parser. During
+training, the \candc parser attempts to reproduce the gold standard \ccgbank
+derivation for each sentence. If it cannot, the sentence is discarded from the
+training set. There are a few ways the parser might be unable to reproduce the
+correct analysis:
+
+\begin{enumerate}
+ \item If it contains a category with no \markedup entry;
+ \item If it contains a production that cannot be produced with any implemented
+rules;
+ \item If the annotation on the categories' \markedup entries causes a head
+conflict that makes the parse fail.
+\end{enumerate}
+
+As we saw in Section~\ref{mu_annotation}, the category coverages of our corpora
+are very similar to \ccgbank's once we have updated the \markedup file, so
+binary rule errors are the focus of our attention when examining training
+failures. We debug the training failures by sorted the categories by the
+percentage of sentences they occur in that fail. If a category causes parse
+failures almost every time it occurs, there is likely to be something wrong with
+the analyses that produce it, or with its \markedup annotation.
+
+\section{Summary}
+
+We have described the creation of three lexicalised corpora. During this
+process, we encountered practical examples of many of the problems discussed in
+Chapter~\ref{chapter:ling_mot}, particularly when creating the \nounary corpus.
+We found that problems with the \ccgbank analyses for many constructions made it
+very difficult to compile out unary rules while maintaining consistent,
+linguistically desirable and efficient analyses using only application,
+composition and type-raising rules. While the \ccgbank analyses might be
+considered the root cause of many of the issues we have discussed for the
+\nounary corpus, it was also clear that there was another factor involved. The
+lack of descriptive power provided by the \nounary corpus's grammar made it very
+sensitive to any annotation noise, because of the undesirable dependence between
+modifier categories and their heads. If there was even a small problem with one
+part of the analysis, it tended to spread throughout the rest of the derivation,
+causing sparse data problems.
+
+In contrast, the \hatsys corpus's grammar had almost as much descriptive power
+as the original \ccgbank, because the unary rules could be easily replicated. We
+did encounter some problems caused by our implementation of hat categories,
+which relied on category unification rather than full coindexing. This caused
+some undesirable analyses, with hats assigned to determiners instead of head
+nouns. We presented several constructions where the \hatsys corpus was able to
+implement a favourable, lexicalised analysis. These examples, and our
+observations during the conversion process, suggest to us that the \hatsys
+corpus is cleaner and more consistent than the \nounary corpus. We investigate
+this in the following chapter, by comparing the performance of \candc parsers
+adapted for use with these corpora against a parser trained on \ccgbank.

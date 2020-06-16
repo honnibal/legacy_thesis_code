@@ -1,0 +1,160 @@
+\documentclass[11pt]{article}
+\usepackage{LI}
+
+\newcommand{\cf}[1]{\mbox{$\it{#1}$}}   % category font
+\begin{document}
+\begin{figure}
+\deriv{3}{
+\rm destruction & \rm of & \rm Rome \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/NP} &
+\cf{NP} \\
+& \fapply{2} \\
+& \mc{2}{\cf{NP\bs NP}} \\
+\bapply{3} \\
+\mc{3}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm destruction & \rm of & \rm Rome \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/PP} &
+\cf{PP/NP} &
+\cf{NP} \\
+& \fapply{2} \\
+& \mc{2}{\cf{PP}} \\
+\fapply{3} \\
+\mc{3}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm Rome & \rm 's & \rm destruction \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP/(NP/PP))\bs NP} &
+\cf{NP/PP} \\
+\bapply{2} \\
+\mc{2}{\cf{NP/(NP/PP)}} \\
+\fapply{3} \\
+\mc{3}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{7}{
+\rm Rome & \rm 's & \rm gift & \rm of & \rm peace & \rm to & \rm Europe \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP/(NP/PP))\bs NP} &
+\cf{(NP/PP)/PP)/PP} &
+\cf{PP/NP} &
+\cf{NP} &
+\cf{PP/NP} &
+\cf{NP} \\
+\bapply{2} && \fapply{2} & \fapply{2} \\
+\mc{2}{\cf{NP/(NP/PP)}} && \mc{2}{\cf{PP}} & \mc{2}{\cf{PP}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{(NP/PP)/PP}} \\
+&& \fapply{5} \\
+&& \mc{5}{\cf{NP/PP}} \\
+\fapply{7} \\
+\mc{7}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{4}{
+\rm all & \rm staff & \rm on & \rm casual~contracts \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{(N\bs N)/NP} &
+\cf{NP} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{N\bs N}} \\
+& \bapply{3} \\
+& \mc{3}{\cf{N}} \\
+\fapply{4} \\
+\mc{4}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{4}{
+\rm Four & \rm of & \rm our & \rm members \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/PP} &
+\cf{PP/NP} &
+\cf{NP/N} &
+\cf{N} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{PP}} \\
+\fapply{4} \\
+\mc{4}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{5}{
+\rm Those & \rm of & \rm us & \rm who & \rm smoke \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{(NP/(N\bs N))/PP} &
+\cf{PP/NP} &
+\cf{NP} &
+\cf{(N\bs N)/VP} &
+\cf{VP} \\
+& \fapply{2} & \fapply{2} \\
+& \mc{2}{\cf{PP}} & \mc{2}{\cf{N\bs N}} \\
+\fapply{3} \\
+\mc{3}{\cf{NP/(N\bs N)}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{3}{
+\rm destruction & \rm in~149~B.C. & \rm of...right \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N/PP} &
+\cf{(N/PP)\bs (N/PP)} &
+\cf{PP} \\
+\bapply{2} \\
+\mc{2}{\cf{N/PP}} \\
+\fapply{3} \\
+\mc{3}{\cf{N}}
+}\end{figure}
+
+\begin{figure}
+\deriv{4}{
+\rm The & \rm war & \rm in & \rm 149~B.C. \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{(N\bs N)/NP} &
+\cf{NP} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{N\bs N}} \\
+& \bapply{3} \\
+& \mc{3}{\cf{N}} \\
+\fapply{4} \\
+\mc{4}{\cf{NP}}
+}\end{figure}
+
+\begin{figure}
+\deriv{6}{
+\rm Google & \rm 's & \rm decision & \rm to & \rm buy & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP/(N/PP))\bs NP} &
+\cf{(N/PP_1)/(S[to]_2\bs NP_1)_2} &
+\cf{VP[to]/VP[b]} &
+\cf{VP[b]} &
+\cf{NP} \\
+\bapply{2} &&& \fapply{2} \\
+\mc{2}{\cf{NP/(N/PP)}} &&& \mc{2}{\cf{VP[b]}} \\
+\fcomp{3} & \fapply{3} \\
+\mc{3}{\cf{NP_{decision}/(S[to]_1\bs NP_{Google}))_1}} & \mc{3}{\cf{S[to]_{buy}\bs NP_1}} \\
+\fapply{6} \\
+\mc{6}{\cf{NP}}
+}\end{figure}\end{document}

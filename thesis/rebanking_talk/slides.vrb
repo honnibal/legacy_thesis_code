@@ -1,0 +1,7 @@
+\frametitle {Conclusion} \notetitle {Conclusion} \newcommand {\p }{\item } \begin {itemize} 
+ \p New and improved CCGbank including all previous updates
+ \p Incorporation of SRL information from NomBank and PropBank into CCGbank
+ \p New analyses to allow transparent interface between grammar and SRL-semantics
+ \p 29.4\% of dependencies in CCGbank updated
+ \p Parsing remains feasible with the new, fine-grained resource
+\beamerclosesubstitutedenvironement {points}

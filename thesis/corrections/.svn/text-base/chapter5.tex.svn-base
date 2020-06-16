@@ -1,0 +1,59 @@
+% \documentclass[a4paper,10pt]{article}
+% \usepackage[utf8x]{inputenc}
+% 
+% %opening
+% \title{Chapter 5 Corrections}
+% \author{Matthew Honnibal}
+% 
+% \usepackage{natbib}
+% 
+% \begin{document}
+% 
+% \maketitle
+
+\chapter{Corrections to Chapter 5}
+
+\section{Jason Baldridge}
+
+\subsection{Cite Baldridge SPEC feature for N vs NP distinction}
+
+\emph{Added the citation and clarified this discussion to refer to
+restrictive and non-restrictive interpretations.}
+
+\subsection{Fix result of `cigarette filters'}
+
+\emph{Corrected.}
+
+\subsection{Reference Doran's thesis for analyses of punctuation}
+
+\emph{Done, including discussion of the \citet{white:punct08} implementation of these analyses, and our negative result attempting to implement them.}
+
+\subsection{NP modifiers can get harmonic composition modes}
+
+\emph{Clarified the wording of this.}
+
+\section{Mark Steedman}
+
+\subsection{Final slash wrong direction}
+
+\emph{Corrected.}
+
+\subsection{Correct the hat on `a treaty'}
+
+\emph{Corrected.}
+
+\subsection{Base cat for `they' should be NP}
+
+\emph{Corrected.}
+
+\section{Stephen Clark}
+
+\subsection{`we also explore conduct'}
+
+\emph{Corrected.}
+
+% \bibliographystyle{aclnat}
+% 
+% \bibliography{thesis}
+% 
+% \end{document}

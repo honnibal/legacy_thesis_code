@@ -1,0 +1,2358 @@
+% This file was created with JabRef 2.3.1.
+% Encoding: UTF-8
+
+@INPROCEEDINGS{genabith:99,
+  author = {Josef {van Genabith} and Andy Way and Louisa Sadler},
+  title = {Semi-Automatic Generation of {F}-Structures from {T}ree {B}anks},
+  booktitle = {Proceedings of the LFG99 Conference},
+  year = {1999},
+  series = {CSLI Online Publications},
+  address = {Stanford, CA, USA},
+  publisher = {CSLI}
+}
+
+@ARTICLE{ades:80,
+  author = {Ades, Anthony and Steedman, Mark},
+  title = {On the Order of Words},
+  journal = {Linguistics and Philosophy},
+  year = {1982},
+  volume = {4},
+  pages = {517--558}
+}
+
+@INCOLLECTION{ajdukiewicz:35,
+  author = {Ajdukiewicz, Kazimierz},
+  title = {Die syntaktische {Konnexit\" at}},
+  booktitle = {Polish Logic 1920--1939},
+  publisher = {Oxford University Press},
+  year = {1935},
+  pages = {207--231},
+  address = {Oxford, UK},
+  note = {Translated from Studia Philosophica, 1, 1--27},
+  editors = {S. McCall}
+}
+
+@INPROCEEDINGS{aone:90,
+  author = {Chinatsu Aone and Kent Wittenburg},
+  title = {Zero Morphemes in Unification-Based {C}ombinatory {C}ategorial {G}rammar},
+  booktitle = {Proceedings of the 28th annual meeting on Association for Computational
+	Linguistics},
+  year = {1990},
+  pages = {188--193}
+}
+
+@INCOLLECTION{baldridge:11,
+  author = {Jason Baldridge},
+  title = {{C}ategorial {G}rammar},
+  booktitle = {Handbook of Syntax},
+  publisher = {Berlin: de Gruyter},
+  year = {to appear},
+  editor = {Kiss, Tibor and Alexiadou},
+  note = {(to appear)}
+}
+
+@PHDTHESIS{baldridge:thesis02,
+  author = {Jason Baldridge},
+  title = {Lexically Specified Derivational Control in Combinatory Categorial
+	Grammar},
+  school = {University of Edinburgh},
+  year = {2002},
+  address = {Edinburgh, UK}
+}
+
+@INPROCEEDINGS{baldridge:03,
+  author = {Jason Baldridge and Geert-Jan Kruijff},
+  title = {Multi-{M}odal {C}ombinatory {C}ategorial {G}rammar},
+  booktitle = {Proceedings of 10th Annual Meeting of the European Association for
+	Computational Linguistics ({EACL})},
+  year = {2003},
+  pages = {211--218},
+  address = {Budapest, Hungary}
+}
+
+@INPROCEEDINGS{baldridge:02,
+  author = {Jason Baldridge and Geert-Jan M. Kruijff},
+  title = {Coupling CCG and Hybrid Logic Dependency Semantics},
+  booktitle = {ACL},
+  year = {2002},
+  pages = {319-326},
+  bibsource = {DBLP, http://dblp.uni-trier.de},
+  ee = {http://www.aclweb.org/anthology/P02-1041.pdf}
+}
+
+@INCOLLECTION{baldwin:05,
+  author = {Baldwin, Timothy and Beavers, John and Bender, Emily M. and Flickinger,
+	Dan and Kim, Ara and Oepen, Stephan},
+  title = {Beauty and the Beast: What running a broad-coverage precision grammar
+	over the {BNC} taught us about the grammar --- and the corpus},
+  booktitle = {Linguistic Evidence: Empirical, Theoretical, and Computational Perspectives},
+  publisher = {Mouton de Gruyter},
+  year = {2005},
+  editor = {Kepser, Stephan and Reis, Marga},
+  pages = {49--70},
+  address = {Berlin},
+  seriestitle = {Studies in Generative Grammar}
+}
+
+@ARTICLE{srinivas:2000,
+  author = {Srinivas Bangalore},
+  title = {A Lightweight Dependency Analyser for Partial Parsing},
+  journal = {Natural Language Engineering},
+  year = {2000},
+  volume = {6},
+  pages = {113-138},
+  number = {2}
+}
+
+@ARTICLE{srinivas:99,
+  author = {Srinivas Bangalore and Aravind Joshi},
+  title = {Supertagging: An Approach to Almost Parsing},
+  journal = {Computational Linguistics},
+  year = {1999},
+  volume = {25},
+  pages = {237-265},
+  number = {2}
+}
+
+@ARTICLE{bar-hillel:53,
+  author = {Yehoshua Bar-Hillel},
+  title = {A Quasi-Arithmetical Notation for Syntactic Description},
+  journal = {Language},
+  year = {1953},
+  volume = {29},
+  pages = {47-58},
+  publisher = {Linguistic Society of America}
+}
+
+@ARTICLE{bar-hillel:60,
+  author = {Bar-Hillel, Y. and Gaifman, C. and Shamir, E.},
+  title = {On categorial and phrase structure grammars.},
+  journal = {The Bulletin of the Research Council of Israel},
+  year = {1960},
+  volume = {9F},
+  pages = {1-16}
+}
+
+@ARTICLE{bateman:99,
+  author = {John A. Bateman and Christian M. I. M Matthiessen and Licheng Zeng},
+  title = {{M}ultilingual natural language generation for multilingual software:
+	a functional linguistic approach},
+  journal = {Applied Artificial Intelligence},
+  year = {1999},
+  volume = {13},
+  pages = {607--639},
+  number = {6},
+  month = {September},
+  topics = {area.sfl; area.compling; area.ml}
+}
+
+@INPROCEEDINGS{beavers:04,
+  author = {Beavers, John},
+  title = {Type-inheritance {C}ombinatory {C}ategorial {G}rammar},
+  booktitle = {Proceedings of the 20th international conference on Computational
+	Linguistics ({COLING})},
+  year = {2004},
+  pages = {57-63},
+  address = {Geneva, Switzerland}
+}
+
+@INCOLLECTION{benthem:88,
+  author = {Johan van Benthem},
+  title = {The {L}ambek Calculus},
+  booktitle = {Categorial Grammars and Natural Language Structures},
+  publisher = {Reidel},
+  year = {1988},
+  editor = {Richard T. Oehrle and Emmon Bach and Deidre Wheeler},
+  pages = {35-68},
+  address = {Dordrecht, The Netherlands}
+}
+
+@BOOK{benthem:91,
+  title = {Categories, Lambdas and Dynamic Logic},
+  publisher = {North-Holland},
+  year = {1991},
+  author = {Johan van Benthem},
+  address = {Amsterdam}
+}
+
+@TECHREPORT{bies:95,
+  author = {Ann Bies and Mark Ferguson and Karen Katz and Robert MacIntyre},
+  title = {Bracketing Guidelines for {T}reebank {II} Style {P}enn {T}reebank
+	Project},
+  institution = {MS-CIS-95-06, University of Pennsylvania},
+  year = {1995},
+  address = {Philadelphia, PA, USA},
+  optmonth = {January}
+}
+
+@PHDTHESIS{bikel:04,
+  author = {Daniel M. Bikel},
+  title = {On the Parameter Space of Generative Lexicalized Statistical Parsing
+	Models},
+  school = {University of Pennsylvania},
+  year = {2004},
+  address = {Philadelphia, PA, USA}
+}
+
+@INPROCEEDINGS{birch:07,
+  author = {Birch, Alexandra and Osborne, Miles and Koehn, Philipp},
+  title = {{CCG} Supertags in Factored Statistical Machine Translation},
+  booktitle = {Proceedings of the Second Workshop on Statistical Machine Translation},
+  year = {2007},
+  pages = {9--16},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association for Computational Linguistics}
+}
+
+@BOOK{nltkbook:09,
+  title = {Natural Language Processing with {P}ython},
+  publisher = {O'Reilly Media Inc.},
+  year = {2009},
+  author = {Steven Bird and Ewan Klein and Edward Loper},
+  address = {Sebastopol, CA, USA}
+}
+
+@MISC{nltkweb,
+  author = {Steven Bird and Ewan Klein and Edward Loper},
+  title = {{N}atural {L}anguage {T}oolkit},
+  year = {2009},
+  url = {http://www.nltk.org}
+}
+
+@INPROCEEDINGS{black:91,
+  author = {Black, Ezra and Steven Abney and Dan Flickinger and Claudia Gdaniec
+	and Ralph Grishman and Philip Harrison and Donald Hindle and Robert
+	Ingria and Frederick Jelinek and Judith Klavans and Mark Liberman
+	and Mitch Marcus and Salim Roukos and Beatrice Santorini and Tomek
+	Strzalkowski},
+  title = {A Procedure for quantitatively comparing the syntactic coverage of
+	{E}nglish grammars},
+  booktitle = {Proceedings of the February 1991 DARPA Speech and Natural Language
+	Workshop},
+  year = {1991},
+  location = {Pacific Grove, California}
+}
+
+@INPROCEEDINGS{black:96,
+  author = {Black, Ezra and Eubank, Stephen and Kashioka, Hideko and Magerman,
+	David M. and Garside, Roger and Leech, Geoffrey},
+  title = {Beyond skeleton parsing: Producing a comprehensive large-scale general-{E}nglish
+	treebank with full grammatical analysis},
+  booktitle = {Proceedings of the 16th International Conference on Computational
+	Linguistics},
+  year = {1996},
+  pages = {107--112},
+  citeulike-article-id = {593064},
+  keywords = {bibtex-import, parsing, treebank},
+  posted-at = {2006-04-20 23:51:23},
+  priority = {0}
+}
+
+@BOOK{black:93,
+  title = {Statistically driven computer grammars of {E}nglish: the {IBM}-{L}ancaster
+	approach},
+  publisher = {Rodopi},
+  year = {1993},
+  author = {Black, Ezra and Garside, Roger and Leech, Geoffrey}
+}
+
+@INPROCEEDINGS{bos:06,
+  author = {Johan Bos},
+  title = {The {L}a {S}apienza Question Answering System at {TREC}-2006},
+  booktitle = {The Fifteenth Text Retrieval Conference {(TREC)}},
+  year = {2006},
+  series = {NIST Special Publication},
+  address = {Gaithersburg, MD, USA}
+}
+
+@INPROCEEDINGS{bos:coling04,
+  author = {Johan Bos and Stephen Clark and Mark Steedman and James R. Curran
+	and Julia Hockenmaier},
+  title = {Wide-Coverage Semantic Representations from a {C}{C}{G} Parser},
+  booktitle = {Proceedings of the 20th International Conference on Computational
+	Linguistics (COLING)},
+  year = {2004},
+  pages = {1240-1246},
+  address = {Geneva, Switzerland}
+}
+
+@INPROCEEDINGS{bos:07,
+  author = {Johan Bos and James R. Curran and Edoardo Guzzetti},
+  title = {The {P}ronto {QA} System at {TREC} 2007: Harvesting Hyponyms, Using
+	Nominalisation Patterns, and Computing Answer Cardinality},
+  booktitle = {Proceedings of the 16th Text REtrieval Conference (TREC 2007)},
+  year = {2007},
+  series = {NIST Special Publication},
+  address = {Gaithersburg, MD, USA}
+}
+
+@INPROCEEDINGS{bos:05,
+  author = {Johan Bos and Katja Markert},
+  title = {Recognising Textual Entailment with Logical Inference},
+  booktitle = {Proceedings of Human Language Technology Conference and Conference
+	on Empirical Methods in Natural Language Processing},
+  year = {2005},
+  pages = {628--635},
+  address = {Vancouver, British Columbia, Canada},
+  month = {October},
+  publisher = {Association for Computational Linguistics}
+}
+
+@INPROCEEDINGS{boxwell:09,
+  author = {Boxwell, Stephen and Mehay, Dennis and Brew, Chris},
+  title = {Brutus: A Semantic Role Labeling System Incorporating {CCG}, {CFG},
+	and dependency features},
+  booktitle = {Proceedings of the Joint Conference of the 47th Annual Meeting of
+	the ACL and the 4th International Joint Conference on Natural Language
+	Processing of the AFNLP},
+  year = {2009},
+  pages = {37--45},
+  address = {Suntec, Singapore},
+  month = {August},
+  publisher = {Association for Computational Linguistics}
+}
+
+@INPROCEEDINGS{boxwell:08,
+  author = {Stephen Boxwell and Michael White},
+  title = {Projecting {P}ropbank Roles onto the {CCG}bank},
+  booktitle = {Proceedings of the Sixth International Language Resources and Evaluation
+	({LREC'08})},
+  year = {2008},
+  address = {Marrakech, Morocco},
+  month = {May},
+  publisher = {European Language Resources Association ({ELRA})},
+  date = {28-30},
+  language = {english}
+}
+
+@ARTICLE{bozsahin:02,
+  author = {Bozsahin, Cem},
+  title = {The combinatory morphemic lexicon},
+  journal = {Computational Linguistics},
+  year = {2002},
+  volume = {28},
+  pages = {145--186},
+  number = {2},
+  address = {Cambridge, MA, USA},
+  doi = {http://dx.doi.org/10.1162/089120102760173634},
+  issn = {0891-2017},
+  publisher = {MIT Press}
+}
+
+@INPROCEEDINGS{pagerank,
+  author = {Sergey Brin and Lawrence Page},
+  title = {The anatomy of a large-scale hypertextual Web search engine},
+  booktitle = {Proceedings of the Seventh International {W}orld {W}ide {W}eb Conference},
+  year = {1998},
+  pages = {107--117},
+  address = {Brisbane, Australia}
+}
+
+@INPROCEEDINGS{briscoe:poster06,
+  author = {Ted Briscoe and John Carroll},
+  title = {Evaluating the accuracy of an unlexicalized statistical parser on
+	the {P}{A}{R}{C} {D}ep{B}ank},
+  booktitle = {Proceedings of the Poster Session of the Joint Conference of the
+	International Committee on Computational Linguistics and the Association
+	for Computational Linguistics (COLING/ACL-06)},
+  year = {2006},
+  address = {Sydney, Austrailia}
+}
+
+@INPROCEEDINGS{bunescu:06,
+  author = {Razvan Bunescu and Marius Pa{\c{s}}ca},
+  title = {Using Encyclopedic Knowledge for Named Entity Disambiguation},
+  booktitle = {Proceedings of the 11th Conference of the European Chapter of the
+	Association for Computational Linguistics ({EACL})},
+  year = {2006},
+  pages = {9--16},
+  address = {Trento, Italy}
+}
+
+@INCOLLECTION{Buszkowski88,
+  author = {W. Buszkowski},
+  title = {Generative Power of Categorial Grammars},
+  booktitle = {Categorial Grammars and Natural Language Structures},
+  publisher = {Reidel},
+  year = {1988},
+  editor = {R. T. Oehrle and E. Bach and D. Wheeler},
+  pages = {69-94},
+  address = {Dordrecht, The Netherlands}
+}
+
+@ARTICLE{cahill:08,
+  author = {Aoife Cahill and Michael Burke and Ruth O'Donovan and Stefan Riezler
+	and Josef van Genabith and Andy Way},
+  title = {Wide-Coverage Deep Statistical Parsing using Automatic Dependency
+	Structure Annotation},
+  journal = {Computational Linguistics},
+  year = {2008},
+  volume = {34},
+  pages = {81--124},
+  number = {1}
+}
+
+@INPROCEEDINGS{cahill:06,
+  author = {Cahill, Aoife and van Genabith, Josef},
+  title = {Robust {PCFG}-Based Generation Using Automatically Acquired {LFG}
+	Approximations},
+  booktitle = {Proceedings of the 21st International Conference on Computational
+	Linguistics and 44th Annual Meeting of the Association for Computational
+	Linguistics},
+  year = {2006},
+  pages = {1033--1040},
+  address = {Sydney, Australia},
+  month = {July},
+  publisher = {Association for Computational Linguistics},
+  doi = {10.3115/1220175.1220305},
+  url = {http://www.aclweb.org/anthology/P06-1130}
+}
+
+@BOOK{carpenter:98,
+  title = {Type-Logical Semantics},
+  publisher = {Cambridge University Press},
+  year = {1998},
+  author = {Bob Carpenter},
+  address = {{C}ambridge}
+}
+
+@INCOLLECTION{carpenter:92,
+  author = {Bob Carpenter},
+  title = {Lexical and Unary Rules in Categorial Grammar},
+  booktitle = {Formal Grammar: Theory and Implementation},
+  publisher = {Oxford University Press},
+  year = {1992},
+  chapter = {3},
+  pages = {168--242}
+}
+
+@INPROCEEDINGS{carroll:98,
+  author = {John Carroll and Ted Briscoe and Antonio Sanfilippo},
+  title = {Parser evaluation: a survey and a new proposal},
+  booktitle = {Proceedings of the 1st LREC Conference},
+  year = {1998},
+  pages = {447-454},
+  address = {Granada, Spain}
+}
+
+@INPROCEEDINGS{carroll:99,
+  author = {John Carroll and Guido Minnen and Ted Briscoe},
+  title = {Corpus Annotation for Parser Evaluation},
+  booktitle = {Proceedings of the {EACL}-99 Post-Conference Workshop on Linguistically
+	Interpreted Corpora},
+  year = {1999},
+  pages = {35--41},
+  address = {Bergen, Norway}
+}
+
+@ARTICLE{cha:02,
+  author = {Cha, Jeongwon and Lee, Geunbae and Lee, Jonghyeok},
+  title = {{Korean {C}ombinatory {C}ategorial {G}rammar and statistical parsing}},
+  journal = {Computers and the Humanities},
+  year = {2002},
+  volume = {36},
+  pages = {431--453},
+  number = {4},
+  publisher = {Springer}
+}
+
+@INPROCEEDINGS{charniak:00,
+  author = {Eugene Charniak},
+  title = {A Maximum-Entropy-Inspired Parser},
+  booktitle = {Proceedings of the North American Chapter of the Association for
+	Computational Linguistics},
+  year = {2000},
+  pages = {132-139},
+  bibsource = {DBLP, http://dblp.uni-trier.de},
+  ee = {http://acl.ldc.upenn.edu/A/A00/A00-2018.pdf}
+}
+
+@INPROCEEDINGS{charniak:97,
+  author = {Eugene Charniak},
+  title = {Tree-Bank Grammars},
+  booktitle = {Proceedings of the Thirteenth National Conference on Artificial Intelligence},
+  year = {1996},
+  pages = {1031-1036},
+  publisher = {AAAI Press/MIT Press},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+@INPROCEEDINGS{charniak:05,
+  author = {Charniak, Eugene and Johnson, Mark},
+  title = {Coarse-to-Fine n-Best Parsing and MaxEnt Discriminative Reranking},
+  booktitle = {Proceedings of the 43rd Annual Meeting of the Association for Computational
+	Linguistics (ACL'05)},
+  year = {2005},
+  pages = {173--180},
+  address = {Ann Arbor, Michigan},
+  month = {June},
+  doi = {10.3115/1219840.1219862},
+  web = {http://www.aclweb.org/anthology/P05-1022}
+}
+
+@INPROCEEDINGS{chen:tag02,
+  author = {John Chen and Srinivas Bangalore and Michael Collins and Owen Rambow},
+  title = {Reranking an {N}-Gram Supertagger},
+  booktitle = {Proceedings of the TAG+ Workshop},
+  year = {2002},
+  pages = {259-268},
+  address = {Venice, Italy}
+}
+
+@ARTICLE{chen:06,
+  author = {John Chen and Srinivas Bangalore and K. Vijay-Shanker},
+  title = {Automated extraction of {Tree-Adjoining Grammars} from treebanks},
+  journal = {Natural Language Engineering},
+  year = {2006},
+  volume = {12},
+  pages = {251--299},
+  number = {3},
+  address = {New York, NY, USA},
+  doi = {http://dx.doi.org/10.1017/S1351324905003943},
+  issn = {1351-3249},
+  publisher = {Cambridge University Press}
+}
+
+@INPROCEEDINGS{chen:99,
+  author = {John Chen and Srinivas Bangalore and K. Vijay-Shanker},
+  title = {New Models for Improving Supertag Disambiguation},
+  booktitle = {Proceedings of the 9th Meeting of {EACL}},
+  year = {1999},
+  address = {Bergen, Norway}
+}
+
+@INPROCEEDINGS{chen:00,
+  author = {John Chen and K. Vijay-Shanker},
+  title = {Automated Extraction of {TAG}s from the {P}enn {T}reebank},
+  booktitle = {Proceedings of the 6th International Workshop on Parsing Technologies},
+  year = {2000},
+  address = {Trento, Italy}
+}
+
+@BOOK{chomsky:aspects,
+  title = {Aspects of the Theory of Syntax},
+  publisher = {MIT Press},
+  year = {1965},
+  author = {Chomsky, Noam},
+  address = {{C}ambridge}
+}
+
+@BOOK{chomsky:57,
+  title = {Syntactic Structures},
+  publisher = {Mouton},
+  year = {1957},
+  author = {Noam Chomsky},
+  address = {The Hague}
+}
+
+@INPROCEEDINGS{clark:tag02,
+  author = {Stephen Clark},
+  title = {Supertagging for {C}ombinatory {C}ategorial {G}rammar},
+  booktitle = {Proceedings of the Sixth International Workshop on Tree Adjoining
+	Grammar and Related Frameworks},
+  year = {2002},
+  pages = {19--24},
+  address = {Venice, Italy},
+  month = {20--23 May},
+  abbr = {TAG+},
+  keywords = {CCG Parsing}
+}
+
+@INPROCEEDINGS{clark:09,
+  author = {Clark, Stephen and Curran, James R.},
+  title = {Comparing the Accuracy of {CCG} and {P}enn {T}reebank {P}arsers},
+  booktitle = {Proceedings of the ACL-IJCNLP 2009 Conference Short Papers},
+  year = {2009},
+  pages = {53--56},
+  address = {Suntec, Singapore},
+  month = {August},
+  web = {http://www.aclweb.org/anthology/P/P09/P09-2014}
+}
+
+@INPROCEEDINGS{clark:acl07parseval,
+  author = {Stephen Clark and James R. Curran},
+  title = {Formalism-Independent Parser Evaluation with {CCG} and {DepBank}},
+  booktitle = {Proceedings of the 45th Annual Meeting of the Association for Computational
+	Linguistics},
+  year = {2007},
+  pages = {248--255},
+  address = {Prague, Czech Republic},
+  month = {25--27 June},
+  abbr = {ACL},
+  anthology = {P/P07/P07-1032},
+  keywords = {CCG Parsing,Evaluation},
+  myurl = {acl07parseval}
+}
+
+@ARTICLE{clark:cl07,
+  author = {Stephen Clark and James R. Curran},
+  title = {Wide-Coverage Efficient Statistical Parsing with {CCG} and Log-Linear
+	Models},
+  journal = {Computational Linguistics},
+  year = {2007},
+  volume = {33},
+  pages = {493--552},
+  number = {4},
+  month = {December},
+  abbr = {Computational Linguistics},
+  keywords = {CCG Parsing},
+  myurl = {cl07parser},
+  web = {http://www.mitpressjournals.org/doi/pdf/10.1162/coli.2007.33.4.493}
+}
+
+@INPROCEEDINGS{clark:dlp07perc,
+  author = {Stephen Clark and James R. Curran},
+  title = {Perceptron Training for a Wide-Coverage Lexicalized-Grammar Parser},
+  booktitle = {Proceedings of the {ACL} 2007 Workshop on Deep Linguistic Processing},
+  year = {2007},
+  pages = {9--16},
+  address = {Prague, Czech Republic},
+  month = {28 June},
+  abbr = {DLP},
+  anthology = {W/W07/W07-1202},
+  keywords = {CCG Parsing,Statistical Models},
+  myurl = {dlp07perc}
+}
+
+@INPROCEEDINGS{clark:naacl06,
+  author = {Stephen Clark and James R. Curran},
+  title = {Partial Training for a Lexicalized-Grammar Parser},
+  booktitle = {Proceedings of the Human Language Technology Conference of the North
+	American Chapter of the Association for Computational Linguistics},
+  year = {2006},
+  pages = {144--151},
+  address = {New York, NY USA},
+  month = {4--9 June},
+  abbr = {NAACL},
+  anthology = {N/N06/N06-1019},
+  keywords = {CCG Parsing},
+  myurl = {naacl06partial}
+}
+
+@INPROCEEDINGS{clark:acl04,
+  author = {Stephen Clark and James R. Curran},
+  title = {Parsing the {WSJ} using {CCG} and Log-Linear Models},
+  booktitle = {Proceedings of the 42nd Annual Meeting of the Association for Computational
+	Linguistics},
+  year = {2004},
+  pages = {104--111},
+  address = {Barcelona, Spain},
+  month = {21--26 July},
+  abbr = {ACL},
+  anthology = {P/P04/P04-1014},
+  keywords = {CCG Parsing},
+  myurl = {acl04parser}
+}
+
+@INPROCEEDINGS{clark:coling04,
+  author = {Stephen Clark and James R. Curran},
+  title = {The Importance of Supertagging for Wide-Coverage {CCG} Parsing},
+  booktitle = {Proceedings of 20th International Conference on Computational Linguistics},
+  year = {2004},
+  pages = {282--288},
+  address = {Geneva, Switzerland},
+  month = {23--27 August},
+  abbr = {COLING},
+  anthology = {C/C04/C04-1041},
+  keywords = {CCG Parsing},
+  myurl = {coling04super}
+}
+
+@INPROCEEDINGS{clark:emnlp03,
+  author = {Stephen Clark and James R. Curran},
+  title = {Log-Linear Models for Wide-Coverage {CCG} Parsing},
+  booktitle = {Proceedings of the 2003 Conference on Empirical Methods in Natural
+	Language Processing},
+  year = {2003},
+  pages = {97--104},
+  address = {Sapporo, Japan},
+  month = {11--12 July},
+  abbr = {EMNLP},
+  anthology = {W/W03/W03-1013},
+  keywords = {CCG Parsing},
+  myurl = {emnlp03models}
+}
+
+@INPROCEEDINGS{clark:conll03boot,
+  author = {Stephen Clark and James R. Curran and Miles Osborne},
+  title = {Bootstrapping {POS} taggers using Unlabelled Data},
+  booktitle = {Proceedings of the 7th Conference on Natural Language Learning},
+  year = {2003},
+  pages = {49--55},
+  address = {Edmonton, Canada},
+  month = {31 May--1 June},
+  abbr = {CoNLL},
+  anthology = {W/W03/W03-0407},
+  keywords = {Tagging,Statistical Models},
+  myurl = {conll03boot},
+  web = {http://www.cnts.ua.ac.be/conll2003/pdf/04955cla.pdf}
+}
+
+@INPROCEEDINGS{clark:acl02,
+  author = {Stephen Clark and Julia Hockenmaier and Mark Steedman},
+  title = {Building Deep Dependency Structures with a Wide-Coverage {CCG} Parser},
+  booktitle = {Proceedings of the 40th Annual Meeting of the Association for Computational
+	Linguistics},
+  year = {2002},
+  pages = {327--334},
+  address = {Philadelphia, PA USA},
+  month = {7--12 July},
+  abbr = {ACL},
+  anthology = {P/P02/P02-1042},
+  keywords = {CCG Parsing}
+}
+
+@INPROCEEDINGS{clark:emnlp04,
+  author = {Stephen Clark and Mark Steedman and James R. Curran},
+  title = {Object-Extraction and Question-Parsing using {CCG}},
+  booktitle = {Proceedings of the 2004 Conference on Empirical Methods in Natural
+	Language Processing},
+  year = {2004},
+  pages = {111--118},
+  address = {Barcelona, Spain},
+  month = {25--26 July},
+  abbr = {EMNLP},
+  keywords = {CCG Parsing},
+  myurl = {emnlp04questions}
+}
+
+@BOOK{cocke:70,
+  title = {Programming languages and their compilers: preliminary notes},
+  publisher = {Courant Institute of Mathematical Sciences, New York University},
+  year = {1970},
+  author = {John Cocke and Jacob T. Schwartz},
+  address = {New York, NY, USA},
+  isbn = {B0007F4UOA}
+}
+
+@INPROCEEDINGS{collins:00,
+  author = {Michael Collins},
+  title = {Discriminative Reranking for Natural Language Parsing},
+  booktitle = {Proceedings of the 17th International Conference on Machine Learning
+	(ICML-00)},
+  year = {2000},
+  pages = {175--182},
+  address = {San Francisco, CA, USA}
+}
+
+@INPROCEEDINGS{collins:97,
+  author = {Michael Collins},
+  title = {Three Generative, Lexicalised Models for Statistical Parsing},
+  booktitle = {Proceedings of the 35th Annual Meeting of the Association for Computational
+	Linguistics and 8th Conference of the European Chapter of the Association
+	for Computational Linguistics},
+  year = {1997},
+  pages = {16--23},
+  address = {Madrid, Spain}
+}
+
+@INPROCEEDINGS{collins:96,
+  author = {Michael Collins},
+  title = {A new statistical parser based on bigram lexical dependencies},
+  booktitle = {Proceedings of the 34th Annual Meeting of the Association for Computational
+	Linguistics (ACL-96)},
+  year = {1996},
+  pages = {184--191},
+  address = {Santa Cruz, CA, USA},
+  month = {June 24--27}
+}
+
+@INPROCEEDINGS{collins:95,
+  author = {Michael Collins and James Brooks},
+  title = {Prepositional Phrase Attachment through a Backed-Off Model},
+  booktitle = {Proceedings of the Third Workshop on Very Large Corpora},
+  year = {1995},
+  pages = {27--38}
+}
+
+@INPROCEEDINGS{constable:09,
+  author = {James Constable and James Curran},
+  title = {Integrating Verb-Particle Constructions into {CCG} Parsing},
+  booktitle = {Proceedings of the Australasian Language Technology Association Workshop2009},
+  year = {2009},
+  pages = {114--118},
+  address = {Sydney, Australia},
+  month = {December}
+}
+
+@ARTICLE{culy:85,
+  author = {Culy, Christopher},
+  title = {The Complexity of the Vocabulary of {B}ambara},
+  journal = {Linguistics and Philosophy},
+  year = {1985},
+  volume = {8},
+  pages = {345--351},
+  number = {3},
+  keywords = {bibtex-import}
+}
+
+@INPROCEEDINGS{curran:acl07demo,
+  author = {James R. Curran and Stephen Clark and Johan Bos},
+  title = {Linguistically Motivated Large-Scale NLP with C\&C and Boxer},
+  booktitle = {Proceedings of the ACL 2007 Demonstrations},
+  year = {2007},
+  pages = {33--36},
+  address = {Prague, Czech Republic},
+  month = {26 June},
+  abbr = {ACL demo},
+  anthology = {P/P07/P07-2009},
+  keywords = {CCG Parsing,Semantics},
+  myurl = {acl07demo}
+}
+
+@INPROCEEDINGS{curran:acl06multitag,
+  author = {James R. Curran and Stephen Clark and David Vadas},
+  title = {Multi-Tagging for Lexicalized-Grammar Parsing},
+  booktitle = {Proceedings of the Joint Conference of the International Committee
+	on Computational Linguistics and the Association for Computational
+	Linguistics},
+  year = {2006},
+  pages = {697--704},
+  address = {Sydney, Austrailia},
+  month = {17--21 July},
+  abbr = {ACL},
+  anthology = {P/P06/P06-1088},
+  keywords = {CCG Parsing,Tagging},
+  myurl = {acl06multitag}
+}
+
+@BOOK{curry:58,
+  title = {Combinatory Logic: Vol. I},
+  publisher = {Amsterdam},
+  year = {1958},
+  author = {Haskell B. Curry and Robert Feys},
+  address = {North Holland}
+}
+
+@INPROCEEDINGS{djordjevic:altw06,
+  author = {Bojan Djordjevic and James R. Curran},
+  title = {Faster wide-coverage {CCG} parsing},
+  booktitle = {Proceedings of the Australasian Language Technology Workshop 2006},
+  year = {2006},
+  pages = {3--10},
+  address = {Sydney, Australia},
+  month = {30 November--1 December},
+  abbr = {ALTW},
+  keywords = {CCG Parsing},
+  myurl = {altw06efficiency},
+  web = {http://www.alta.asn.au/events/altw2006/proceedings/djordjevic-curran.pdf}
+}
+
+@INPROCEEDINGS{djordjevic:iwpt07efficiency,
+  author = {Bojan Djordjevic and James R. Curran and Stephen Clark},
+  title = {Improving the Efficiency of a Wide-Coverage CCG Parser},
+  booktitle = {Proceedings of the 10th International Workshop on Parsing Technologies},
+  year = {2007},
+  pages = {39--47},
+  address = {Prague, Czech Republic},
+  month = {23--24 June},
+  abbr = {IWPT},
+  anthology = {W/W07/W07-2206},
+  keywords = {CCG Parsing,Efficiency},
+  myurl = {iwpt07efficiency}
+}
+
+@INPROCEEDINGS{xtag,
+  author = {Doran, Christy and Egedi, Dania and Hockey, Beth Ann and Srinivas,
+	Bangalore and Zaidel, Martin},
+  title = {{XTAG} system: a Wide Coverage Grammar for {E}nglish},
+  booktitle = {Proceedings of the 15th conference on Computational Linguistics},
+  year = {1994},
+  pages = {922--928},
+  address = {Kyoto, Japan},
+  publisher = {Association for Computational Linguistics}
+}
+
+@INPROCEEDINGS{doran:97,
+  author = {Doran, C. and B. Hockey and P. Hopely and J. Rosenzweig and A. Sarkar
+	and B. Srinivas and F. Xia and A. Nasr and O. Rambow},
+  title = {Maintaining the Forest and Burning out the Underbrush in {X}{T}{A}{G}},
+  booktitle = {Proceedings of the ENVGRAM Workshop},
+  year = {1997},
+  address = {Madrid, Spain}
+}
+
+@PHDTHESIS{doran:98,
+  author = {Christine D. Doran},
+  title = {Incorporating Punctuation into the Sentence Grammar: A {L}exicalised
+	{T}ree {A}djoing {G}rammar Perspective},
+  school = {University of Pennsylvania},
+  year = {1998},
+  address = {Pennsylvania, USA}
+}
+
+@INPROCEEDINGS{eisner:96,
+  author = {Jason Eisner},
+  title = {Efficient normal-form parsing for {Combinatory Categorial Grammar}},
+  booktitle = {Proceedings of the 34th Annual Meeting of the Association for Computational
+	Linguistics},
+  year = {1996},
+  pages = {79--86},
+  address = {Santa Cruz, CA, USA},
+  month = {June 24--27}
+}
+
+@PHDTHESIS{erkan:03,
+  author = {G\"{u}ne\c{s} Erkan},
+  title = {A type system for {C}ombinatory {C}ategorial {G}rammar},
+  school = {The Middle East Technical University},
+  year = {2003},
+  address = {Ankara, Turkey}
+}
+
+@INPROCEEDINGS{espinosa:08,
+  author = {Espinosa, Dominic and White, Michael and Mehay, Dennis},
+  title = {Hypertagging: Supertagging for Surface Realization with {CCG}},
+  booktitle = {Proceedings of the 46th annual meeting of the Assocation for Computational
+	Linguistics: Human Language Technologies},
+  year = {2008},
+  pages = {183--191},
+  address = {Columbus, Ohio},
+  web = {http://www.aclweb.org/anthology/P/P08/P08-1022}
+}
+
+@INPROCEEDINGS{finkel:06,
+  author = {Finkel, Jenny Rose and Manning, Christopher D. and Ng, Andrew Y.},
+  title = {Solving the Problem of Cascading Errors: Approximate {B}ayesian Inference
+	for Linguistic Annotation Pipelines},
+  booktitle = {Proceedings of the 2006 Conference on Empirical Methods in Natural
+	Language Processing},
+  year = {2006},
+  pages = {618--626},
+  address = {Sydney, Australia},
+  month = {July},
+  publisher = {Association for Computational Linguistics}
+}
+
+@ARTICLE{erg,
+  author = {Flickinger, Dan},
+  title = {On building a more efficient grammar by exploiting types},
+  journal = {Natural Language Engineering},
+  year = {2000},
+  volume = {6},
+  pages = {15--28},
+  number = {1},
+  address = {New York, NY, USA},
+  doi = {http://dx.doi.org/10.1017/S1351324900002370},
+  issn = {1351-3249},
+  publisher = {Cambridge University Press}
+}
+
+@PHDTHESIS{flickinger:thesis87,
+  author = {Dan Flickinger},
+  title = {Lexical Rules in the Hierarchical Lexicon},
+  school = {Stanford University},
+  year = {1987},
+  address = {Stanford, {CA}, USA}
+}
+
+@INPROCEEDINGS{frank:00,
+  author = {Anette Frank},
+  title = {Automatic {F}-structure Annotation of Treebank Trees},
+  booktitle = {Proceedings of the LFG 00 Conference},
+  year = {2000},
+  pages = {139--160},
+  address = {Berkeley, CA, USA},
+  publisher = {CSLI Publications}
+}
+
+@INBOOK{frank:03,
+  chapter = {21},
+  pages = {367--389},
+  title = {From Treebank Resources To {LFG} {F}-{S}tructures - Automatic {F}-{S}tructure
+	Annotation of Treebank Trees and {CFG}s extracted from Treebanks},
+  publisher = {Kluwer Academic Publishers},
+  year = {2003},
+  author = {Anette Frank and Louisa Sadler and Josef van Genabith and Andy Way},
+  address = {Dordrecht, The Netherlands},
+  booktitle = {Building and Using Parsed Corpora}
+}
+
+@INCOLLECTION{frege:1879,
+  author = {Gottlob Frege},
+  title = {Begriffsschrift, a formula language, modeled upon that for arithmetic,
+	for pure thought},
+  booktitle = {From Frege to G\"{o}del : A Source Book in Mathematical Logic, 1879-1931
+	(Source Books in the History of the Sciences)},
+  publisher = {Harvard University Press},
+  year = {1879},
+  editor = {van Heijenoort, Jean},
+  pages = {1--82},
+  month = {January}
+}
+
+@INPROCEEDINGS{Gildea:emnlp01,
+  author = {Daniel Gildea},
+  title = {Corpus Variation and Parser Performance},
+  booktitle = {2001 Conference on Empirical Methods in Natural Language Processing
+	(EMNLP)},
+  year = {2001},
+  address = {Pittsburgh, PA}
+}
+
+@INPROCEEDINGS{gildea:03,
+  author = {Gildea, Daniel and Hockenmaier, Julia},
+  title = {Identifying semantic roles using {C}ombinatory {C}ategorial {G}rammar},
+  booktitle = {Proceedings of the 2003 conference on Empirical Methods in Natural
+	Language Processing},
+  year = {2003},
+  pages = {57--64},
+  address = {Sapporo, Japan},
+  publisher = {Association for Computational Linguistics}
+}
+
+@INPROCEEDINGS{gildea:07,
+  author = {Gildea, Daniel and Temperley, David},
+  title = {Optimizing Grammars for Minimum Dependency Length},
+  booktitle = {Proceedings of the 45th Annual Meeting of the Association of Computational
+	Linguistics},
+  year = {2007},
+  pages = {184--191},
+  address = {Prague, Czech Republic},
+  month = {June},
+  web = {http://www.aclweb.org/anthology/P/P07/P07-1024}
+}
+
+@INPROCEEDINGS{goodman:acl96,
+  author = {Joshua Goodman},
+  title = {Parsing algorithms and metrics},
+  booktitle = {Proceedings of the 34th Meeting of the ACL},
+  year = {1996},
+  pages = {177-183},
+  address = {Santa Cruz, CA}
+}
+
+@TECHREPORT{deprxtag,
+  author = {{XTAG}~Research~Group},
+  title = {A Lexicalized Tree Adjoining Grammar for English},
+  institution = {{IRCS}, University of Pennsylvania},
+  year = {2001},
+  number = {IRCS-01-03}
+}
+
+@BOOK{ifg,
+  title = {An Introduction to Functional Grammar},
+  publisher = {Edward Arnold},
+  year = {2004},
+  author = {Michael A. K. Halliday and Christian M. I. M. Matthiessen},
+  address = {London, UK},
+  edition = {3rd}
+}
+
+@INPROCEEDINGS{hassan:09,
+  author = {Hassan, Hany and Sima'an, Khalil and Way, Andy},
+  title = {A Syntactified Direct Translation Model with Linear-time Decoding},
+  booktitle = {Proceedings of the 2009 Conference on Empirical Methods in Natural
+	Language Processing},
+  year = {2009},
+  pages = {1182--1191},
+  address = {Singapore},
+  month = {August},
+  web = {http://www.aclweb.org/anthology/D/D09/D09-1123}
+}
+
+@INPROCEEDINGS{hassan:07,
+  author = {Hassan, Hany and Sima'an, Khalil and Way, Andy},
+  title = {Supertagged Phrase-Based Statistical Machine Translation},
+  booktitle = {Proceedings of the 45th Annual Meeting of the Association of Computational
+	Linguistics},
+  year = {2007},
+  pages = {288--295},
+  address = {Prague, Czech Republic},
+  month = {June},
+  web = {http://www.aclweb.org/anthology/P07-1037}
+}
+
+@ARTICLE{hawkins:90,
+  author = {Hawkins, J. A.},
+  title = {A parsing theory of word order universals},
+  journal = {Linguistic Inquiry},
+  year = {1990},
+  volume = {21},
+  pages = {223--261}
+}
+
+@TECHREPORT{hindle:83,
+  author = {Hindle, Donald},
+  title = {User manual for {F}idditch, a deterministic parser},
+  institution = {Naval Research Laboratory},
+  year = {1983},
+  type = {Technical Memorandum},
+  number = {7590-142},
+  keywords = {NLP}
+}
+
+@INPROCEEDINGS{hock:06,
+  author = {Julia Hockenmaier},
+  title = {Creating a CCGbank and a wide-coverage CCG lexicon for German},
+  booktitle = {Proceedings of COLING/ACL},
+  year = {2006},
+  pages = {201-209},
+  address = {Sydney, Australia}
+}
+
+@INPROCEEDINGS{hock:acl03,
+  author = {Julia Hockenmaier},
+  title = {Parsing with Generative Models of Predicate-Argument Structure},
+  booktitle = {Proceedings of the 41st Meeting of the Association for Computational
+	Linguistics},
+  year = {2003},
+  pages = {359-366},
+  address = {Sapporo, Japan}
+}
+
+@PHDTHESIS{hock:thesis03,
+  author = {Julia Hockenmaier},
+  title = {Data and Models for Statistical Parsing with Combinatory Categorial
+	Grammar},
+  school = {University of Edinburgh},
+  year = {2003},
+  address = {Edinburgh, UK}
+}
+
+@INPROCEEDINGS{hock:01,
+  author = {Julia Hockenmaier},
+  title = {Statistical Parsing for {C}{C}{G} with Simple Generative Models
+	
+	},
+  booktitle = {Proceedings of Student Research Workshop, 39th Meeting of the Association
+	for Computational Linguistics/10th Meeting of the European Chapter
+	of the Association for Computational Linguistics},
+  year = {2001},
+  address = {Toulose, France},
+  month = {July}
+}
+
+@INPROCEEDINGS{hock:02a,
+  author = {Julia Hockenmaier and Gann Bierner and Jason Baldridge},
+  title = {Extending the Coverage of a {C}{C}{G} System},
+  booktitle = {Journal of Logic and Computation},
+  year = {2002}
+}
+
+@INPROCEEDINGS{hock:00,
+  author = {Julia Hockenmaier and Gann Bierner and Jason Baldridge},
+  title = {Providing Robustness for a {C}{C}{G} System},
+  booktitle = {Proceedings of ESSLLI 2000 Workshop on Linguistic Theory and Grammar
+	Implementation},
+  year = {2000},
+  address = {Birmingham, UK}
+}
+
+@ARTICLE{hock:cl07,
+  author = {Julia Hockenmaier and Mark Steedman},
+  title = {{CCG}bank: a corpus of {CCG} derivations and dependency structures
+	extracted from the {P}enn {T}reebank},
+  journal = {Computational Linguistics},
+  year = {2007},
+  volume = {33},
+  pages = {355-396},
+  number = {3},
+  publisher = {MIT Press}
+}
+
+@TECHREPORT{hock:man05,
+  author = {Julia Hockenmaier and Mark Steedman},
+  title = {{CCG}bank Manual},
+  institution = {Department of Computer and Information Science, University of Pennsylvania},
+  year = {2005},
+  number = {MS-CIS-05-09}
+}
+
+@INPROCEEDINGS{hock:acl02,
+  author = {Julia Hockenmaier and Mark Steedman},
+  title = {Generative Models for Statistical Parsing with {C}ombinatory {C}ategorial
+	{G}rammar},
+  booktitle = {Proceedings of the 40th Meeting of the Association for Computational
+	Linguistics},
+  year = {2002},
+  pages = {335-342},
+  address = {Philadelphia, PA, USA}
+}
+
+@INPROCEEDINGS{hock:lrec02,
+  author = {Julia Hockenmaier and Mark Steedman},
+  title = {Acquiring Compact Lexicalized Grammars from a Cleaner Treebank},
+  booktitle = {Proceedings of the Third Conference on Language Resources and Evaluation
+	Conference},
+  year = {2002},
+  pages = {1974-1981},
+  address = {Las Palmas, Spain}
+}
+
+@INPROCEEDINGS{msccg,
+  author = {Beryl Hoffman},
+  title = {Integrating ``Free'' Word Order Syntax and Information Structure},
+  booktitle = {Proceedings of the Seventh Conference of the European Chapter of
+	the Association for Computational Linguistics},
+  year = {1995},
+  pages = {245--252},
+  address = {Dublin, Ireland}
+}
+
+@INPROCEEDINGS{honnibal:04,
+  author = {Matthew Honnibal},
+  title = {Converting the {Penn Treebank} to {S}ystemic {F}unctional {G}rammar},
+  booktitle = {Proceedings of the {Australasian Language Technology Workshop (ALTW04)}},
+  year = {2004},
+  topics = {area.sfl,area.analysis}
+}
+
+@INPROCEEDINGS{honnibal:09,
+  author = {Honnibal, Matthew and Curran, James R.},
+  title = {Fully Lexicalising {CCGbank} with Hat Categories},
+  booktitle = {Proceedings of the 2009 Conference on Empirical Methods in Natural
+	Language Processing},
+  year = {2009},
+  pages = {1212--1221},
+  address = {Singapore},
+  month = {August}
+}
+
+@INPROCEEDINGS{honnibal:dlp07sfl,
+  author = {Matthew Honnibal and James R. Curran},
+  title = {Creating a {S}ystemic {F}unctional {G}rammar Corpus from the {P}enn
+	{T}reebank},
+  booktitle = {Proceedings of the ACL 2007 Workshop on Deep Linguistic Processing},
+  year = {2007},
+  pages = {89--96},
+  address = {Prague, Czech Republic},
+  month = {28 June},
+  abbr = {DLP}
+}
+
+@INPROCEEDINGS{honnibal:pacling07prop,
+  author = {Matthew Honnibal and James R. Curran},
+  title = {Improving the complement/adjunct distinction in {CCGBank}},
+  booktitle = {Proceedings of the Conference of the Pacific Association for Computational
+	Linguistics},
+  year = {2007},
+  pages = {210--217},
+  address = {Melbourne, Australia},
+  month = {19--21 September},
+  abbr = {PACLING},
+  keywords = {CCG Parsing},
+  myurl = {pacling07prop},
+  web = {http://mandrake.csse.unimelb.edu.au/pacling2007/files/final/103/103_Paper_meta.pdf}
+}
+
+@INPROCEEDINGS{hoyt:08,
+  author = {Hoyt, Frederick and Baldridge, Jason},
+  title = {A Logical Basis for the {D} Combinator and Normal Form in {CCG}},
+  booktitle = {Proceedings of ACL-08: HLT},
+  year = {2008},
+  pages = {326--334},
+  address = {Columbus, Ohio},
+  month = {June},
+  web = {http://www.aclweb.org/anthology/P/P08/P08-1038}
+}
+
+@INCOLLECTION{joshi:85,
+  author = {Aravind Joshi},
+  title = {Tree-adjoining grammars: How much context sensitivity is required
+	to provide reasonable structural descriptions},
+  booktitle = {Natural Language Parsing},
+  publisher = {Cambridge University Press},
+  year = {1985},
+  editor = {David Dowty and Laurri Karttunen and Arnold Zwicky},
+  pages = {206-250},
+  address = {Cambridge, MA, USA}
+}
+
+@INCOLLECTION{joshi:92,
+  author = {Joshi, Aravind and Yves Schabes},
+  title = {Tree adjoining grammars and lexicalized grammars},
+  booktitle = {Tree Automata and Languages},
+  publisher = {North-Holland},
+  year = {1992},
+  pages = {409--432},
+  editors = {M. Nivat and M. Podelski}
+}
+
+@ARTICLE{joshi:04,
+  author = {Joshi, Aravind K.},
+  title = {Domains of locality},
+  journal = {Data and Knowledge Engineering},
+  year = {2004},
+  volume = {50},
+  pages = {277--289},
+  number = {3},
+  address = {Amsterdam, The Netherlands, The Netherlands},
+  publisher = {Elsevier Science Publishers B. V.}
+}
+
+@INPROCEEDINGS{joshi:00,
+  author = {Aravind K. Joshi},
+  title = {Relationship between strong and weak generative power of formal systems},
+  booktitle = {Proceedings of the Fifth International Workshop on Tree Adjoining
+	Grammars and Related Formalisms (TAG+5)},
+  year = {2000},
+  pages = {107--114},
+  address = {Paris, France}
+}
+
+@INPROCEEDINGS{joshi:99,
+  author = {Aravind K. Joshi},
+  title = {Explorations of a domain of locality: Lexicalized Tree-Adjoining
+	Grammar },
+  booktitle = {CLIN'99},
+  year = {1999},
+  address = {Utrecht}
+}
+
+@INPROCEEDINGS{srinivas:94,
+  author = {Joshi, Aravind K. and Srinivas, B.},
+  title = {Disambiguation of super parts of speech (or supertags): almost parsing},
+  booktitle = {Proceedings of the 15th conference on Computational linguistics},
+  year = {1994},
+  pages = {154--160},
+  address = {Morristown, NJ, USA},
+  publisher = {Association for Computational Linguistics},
+  location = {Kyoto, Japan}
+}
+
+@BOOK{jurafsky:00,
+  title = {Speech and Language Processing},
+  publisher = {Prentice-Hall},
+  year = {2000},
+  author = {Daniel Jurafsky and James H. Martin},
+  address = {Upper Saddle River, NJ, USA}
+}
+
+@INPROCEEDINGS{kakkonen:08,
+  author = {Tuomo Kakkonen},
+  title = {Robustness Evaluation of Two {CCG}, a {PCFG} and a Link Grammar Parsers},
+  booktitle = {Proceedings of the 3rd Language \& Technology Conference: Human Language
+	Technologies as a Challenge for Computer Science and Linguistics},
+  year = {2007},
+  month = {October}
+}
+
+@INPROCEEDINGS{xle,
+  author = {Ron Kaplan and Stefan Riezler and Tracy H. King and John T. Maxwell
+	III and Alexander Vasserman and Richard Crouch},
+  title = {Speed and Accuracy in Shallow and Deep Stochastic Parsing},
+  booktitle = {Proceedings of the Human Language Technology Conference and the 4th
+	Meeting of the North American Chapter of the Association for Computational
+	Linguistics (HLT-NAACL'04)},
+  year = {2004},
+  address = {Boston, MA, USA}
+}
+
+@CONFERENCE{kaplan-EtAl:2004:HLTNAACL,
+  author = {Kaplan, Ron and Riezler, Stefan and King, Tracy H and Maxwell III,
+	John T and Vasserman, Alex and Crouch, Richard},
+  title = {Speed and Accuracy in Shallow and Deep Stochastic Parsing},
+  booktitle = {HLT-NAACL 2004: Main Proceedings },
+  year = {2004},
+  editor = {Susan Dumais, Daniel Marcu and Salim Roukos},
+  pages = {97--104},
+  address = {Boston, Massachusetts, USA},
+  month = {May 2 - May 7},
+  publisher = {Association for Computational Linguistics}
+}
+
+@INCOLLECTION{kaplan:82,
+  author = {Ronald M. Kaplan and Joan Bresnan},
+  title = {{L}exical-{F}unctional {G}rammar: A formal system for grammatical
+	representation},
+  booktitle = {The mental representation of grammatical relations},
+  publisher = {MIT Press},
+  year = {1982},
+  editor = {Joan Bresnan},
+  pages = {173--281},
+  address = {Cambridge, MA, USA}
+}
+
+@TECHREPORT{kasami:65,
+  author = {Kasami, Tadao},
+  title = {An efficient recognition and syntax analysis algorithm for context-free
+	languages},
+  institution = {Air Force Cambridge Research Lab},
+  year = {1965},
+  number = {AFCRL-65-758},
+  address = {Bedford, MA, USA}
+}
+
+@INPROCEEDINGS{king:lic03,
+  author = {Tracy H. King and Richard Crouch and Stefan Riezler and Mary Dalrymple
+	and Ronald M. Kaplan},
+  title = {The {P}{A}{R}{C} 700 {D}ependency {B}ank},
+  booktitle = {Proceedings of the 4th International Workshop on Linguistically Interpreted
+	Corpora},
+  year = {2003},
+  address = {Budapest, Hungary}
+}
+
+@ARTICLE{punkt,
+  author = {Tibor Kiss and Jan Strunk},
+  title = {Unsupervised multilingual sentence boundary detection},
+  journal = {Computational Linguistics},
+  year = {2006},
+  volume = {32},
+  pages = {485--525},
+  number = {4}
+}
+
+@INPROCEEDINGS{klein:03,
+  author = {Dan Klein and Christopher Manning},
+  title = {Accurate unlexicalized parsing},
+  booktitle = {Proceedings of the 41st Annual Meeting of the Association for Computational
+	Linguistics},
+  year = {2003},
+  pages = {423--430},
+  address = {Sapporo, Japan}
+}
+
+@PHDTHESIS{komagata:99,
+  author = {Komagata, Nobo},
+  title = {A Computational Analysis of Information Structure Using Parallel
+	Expository Texts in English and Japanese},
+  school = {University of Pennsylvania},
+  year = {1999}
+}
+
+@INPROCEEDINGS{komagata97,
+  author = {Nobo Komagata},
+  title = {Efficient Parsing for {C}{C}{G}s with generalized type-raised categories},
+  booktitle = {Proceedings of the 5th International Workshop on Parsing Technologies},
+  year = {1997},
+  pages = {135-146},
+  address = {Boston, MA, USA}
+}
+
+@INPROCEEDINGS{komagata:97,
+  author = {Komagata, Nobo},
+  title = {Efficient Parsing for {CCG}s with Generalized Type-Raised Categories},
+  booktitle = {Proceedings of International Workshop on Parsing Technologies ({IWPT97})},
+  year = {1997},
+  pages = {135--146},
+  address = {Boston, {MA}}
+}
+
+@INPROCEEDINGS{kruijff:01,
+  author = {Geert-Jan M. Kruijff and Ivana Kruijff-Korbayov{\'a}},
+  title = {A Hybrid Logic Formalization of Information Structure Sensitive Discourse
+	Interpretation},
+  booktitle = {TSD},
+  year = {2001},
+  pages = {31-38},
+  bibsource = {DBLP, http://dblp.uni-trier.de},
+  ee = {http://link.springer.de/link/service/series/0558/bibs/2166/21660031.htm}
+}
+
+@INPROCEEDINGS{kruijff:07,
+  author = {Geert-Jan M. Kruijff and Pierre Lison and Trevor Benjamin and Henrik
+	Jacobsson and Nick Hawes},
+  title = {Incremental, multi-level processing for comprehending situated dialogue
+	in human-robot interaction},
+  booktitle = {Symposium on Language and Robots (LangRo 2007)},
+  year = {2007},
+  editor = {Luis Seabra Lopes and Tony Belpaeme and Stephen J. Cowley},
+  address = {Aveiro, Portugal},
+  month = {December},
+  date-added = {2009-01-05 11:46:50 +0000},
+  date-modified = {2009-01-06 09:03:50 +0000},
+  keywords = {cosy; irlab}
+}
+
+@BOOK{kubler:09,
+  title = {Dependency Parsing},
+  publisher = {Morgan {\&} Claypool Publishers},
+  year = {2009},
+  author = {Sandra K{\"u}bler and Ryan T. McDonald and Joakim Nivre},
+  series = {Synthesis Lectures on Human Language Technologies},
+  bibsource = {DBLP, http://dblp.uni-trier.de},
+  booktitle = {Dependency Parsing}
+}
+
+@INCOLLECTION{lambek:88,
+  author = {Joachim Lambek},
+  title = {Categorial and Categorical Grammars},
+  booktitle = {Categorial Grammars and Natural Language Structures},
+  publisher = {Reidel},
+  year = {1988},
+  editor = {Richard T. Oehrle and Emmen Bach and Deirdre Wheeler},
+  pages = {297-317},
+  address = {Dordrecht, The Netherlands}
+}
+
+@ARTICLE{lambek:58,
+  author = {Joachim Lambek},
+  title = {The Mathematics of Sentence Structure},
+  journal = {American Mathematical Monthly},
+  year = {1958},
+  volume = {65},
+  pages = {154--170},
+  number = {3},
+  month = {March}
+}
+
+@INPROCEEDINGS{leidner:04,
+  author = {Leidner, Jochen L. and Johan Bos and Tiphaine Dalmas and James R.
+	Curran and Stephen Clark and Colin J. Bannard and Mark Steedman and
+	Bonnie Webber},
+  title = {The {QED} Open-Domain Answer Retrieval System for {TREC} 2003},
+  booktitle = {Proceedings of the Twelfth Text Retrieval Conference ({TREC} 2003)},
+  year = {2003},
+  series = {NIST Special Publication 500-255},
+  pages = {595--599},
+  address = {Gaithersburg, MD, USA},
+  institution = {U.S. National Institute of Standards and Technology (NIST)}
+}
+
+@ARTICLE{lin:98,
+  author = {Lin, Dekang},
+  title = {A dependency-based method for evaluating broad-coverage parsers},
+  journal = {Natural Language Engineering},
+  year = {1998},
+  volume = {4},
+  pages = {97--114},
+  number = {2},
+  address = {New York, NY, USA},
+  doi = {http://dx.doi.org/10.1017/S1351324998001958},
+  publisher = {Cambridge University Press}
+}
+
+@INPROCEEDINGS{magerman:95,
+  author = {David Magerman},
+  title = {Statistical decision tree models for parsing},
+  booktitle = {Proceedings of the 33rd Annual Meeting of the Association for Computational
+	Linguistics (ACL-95)},
+  year = {1995},
+  pages = {276--283},
+  address = {Cambridge, MA, USA},
+  month = {June 26--30}
+}
+
+@PHDTHESIS{magerman:94,
+  author = {David Magerman},
+  title = {Natural Language Parsing as Statistical Pattern Recognition},
+  school = {University of Pennsylvania},
+  year = {1994},
+  address = {Philadelphia, PA, USA}
+}
+
+@INCOLLECTION{mann:85,
+  author = {William C. Mann},
+  title = {{A}n introduction to the {N}igel text generation grammar},
+  booktitle = {{S}ystemic {P}erspectives on {D}iscourse: {S}elected {T}heoretical
+	{P}apers from the 9th. {I}nternational {S}ystemic {W}orkshop},
+  publisher = {{A}blex {P}ub. {C}orp.},
+  year = {1985},
+  editor = {James D. Benson and William S. Greaves},
+  pages = {84--95},
+  address = {Norwood, NJ},
+  topics = {area.sfl; systemicbib}
+}
+
+@INPROCEEDINGS{manning:97,
+  author = {Christopher D. Manning and Bob Carpenter},
+  title = {Probabilistic Parsing Using Left Corner Language Models},
+  booktitle = {Proceedings of the Fifth International Workshop on Parsing Technologies
+	(IWPT-97)},
+  year = {1997},
+  pages = {147--158},
+  address = {Cambridge, MA, USA}
+}
+
+@ARTICLE{marcus:93,
+  author = {Mitchell Marcus and Beatrice Santorini and Mary Marcinkiewicz},
+  title = {Building a Large Annotated Corpus of {E}nglish: The {P}enn {T}reebank},
+  journal = {Computational Linguistics},
+  year = {1993},
+  volume = {19},
+  pages = {313-330},
+  number = {2},
+  month = {October}
+}
+
+@INPROCEEDINGS{matsuzaki:05,
+  author = {Takuya Matsuzaki and Yusuke Miyao and Jun'ichi Tsujii},
+  title = {Probabilistic {CFG} with latent annotations},
+  booktitle = {Proceedings of the 43rd Annual Meeting of the Association for Computational
+	Linguistics},
+  year = {2005},
+  pages = {75--82},
+  address = {Ann Arbor, MI, USA}
+}
+
+@INPROCEEDINGS{mcclosky:06,
+  author = {McClosky, David and Charniak, Eugene and Johnson, Mark},
+  title = {Reranking and Self-Training for Parser Adaptation},
+  booktitle = {Proceedings of the 21st International Conference on Computational
+	Linguistics and 44th Annual Meeting of the Association for Computational
+	Linguistics},
+  year = {2006},
+  pages = {337--344},
+  address = {Sydney, Australia},
+  month = {July},
+  doi = {10.3115/1220175.1220218},
+  web = {http://www.aclweb.org/anthology/P06-1043}
+}
+
+@INPROCEEDINGS{mcconville:06,
+  author = {Mark McConville},
+  title = {Inheritance and the {CCG} Lexicon},
+  booktitle = {11th Conference of the European Chapter of the Association for Computational
+	Linguistics},
+  year = {2006},
+  pages = {1--8},
+  address = {Trento, Italy}
+}
+
+@INPROCEEDINGS{meyers:01,
+  author = {Adam Meyers and Ralph Grishman and Michiko Kosaka and Shubin Zhao},
+  title = {Covering Treebanks with {G}{L}{A}{R}{F}},
+  booktitle = {Proceedings of the ACL 2001 Workshop on Sharing Tools and Resources},
+  year = {2001},
+  pages = {58--59},
+  address = {Toulouse, France}
+}
+
+@INPROCEEDINGS{nombank,
+  author = {Adam Meyers and Ruth Reeves and Catherine Macleod and Rachel Szekely
+	and Veronika Zielinska and Brian Young and Ralph Grishman},
+  title = {The {NomBank} Project: An Interim Report},
+  booktitle = {Frontiers in Corpus Annotation: Proceedings of the Workshop},
+  year = {2004},
+  pages = {24--31},
+  address = {Boston, MA, USA}
+}
+
+@INPROCEEDINGS{miyao:04,
+  author = {Yusuke Miyao and Takashi Ninomiya and Jun'ichi Tsujii},
+  title = {Corpus-oriented Grammar Development for Acquiring a Head-driven Phrase
+	Structure Grammar from the {P}enn {T}reebank},
+  booktitle = {Proceedings of the First International Joint Conference on Natural
+	Language Processing (IJCNLP-04)},
+  year = {2004},
+  pages = {684-693},
+  address = {Hainan Island, China}
+}
+
+@ARTICLE{miyao:08,
+  author = {Miyao, Yusuke and Tsujii, Jun'ichi},
+  title = {Feature Forest Models for Probabilistic {HPSG} Parsing},
+  journal = {Computational Linguistics},
+  year = {2008},
+  volume = {34},
+  pages = {35--80},
+  number = {1},
+  month = {March},
+  abbr = {Computational Linguistics}
+}
+
+@INPROCEEDINGS{miyao:acl05,
+  author = {Yusuke Miyao and Jun'ichi Tsujii},
+  title = {Probabilistic disambiguation models for wide-coverage {H}{P}{S}{G}
+	parsing},
+  booktitle = {Proceedings of the 43rd meeting of the {A}{C}{L}},
+  year = {2005},
+  pages = {83-90},
+  address = {University of Michigan, Ann Arbor}
+}
+
+@INPROCEEDINGS{miyao:coling04,
+  author = {Yusuke Miyao and Jun'ichi Tsujii},
+  title = {Deep Linguistic Analysis for the Accurate Identification of Predicate-Argument
+	Relations},
+  booktitle = {Proceedings of COLING-2004},
+  year = {2004},
+  pages = {1392-1397},
+  address = {Geneva, Switzerland}
+}
+
+@INPROCEEDINGS{miyao:conll03,
+  author = {Yusuke Miyao and Jun'ichi Tsujii},
+  title = {A model of syntactic disambiguation based on lexicalized grammars},
+  booktitle = {Proceedings of the Seventh Conference on Natural Language Learning
+	(CoNLL)},
+  year = {2003},
+  pages = {1-8},
+  address = {Edmonton, Canada}
+}
+
+@INPROCEEDINGS{miyao:ranlp03,
+  author = {Yusuke Miyao and Jun'ichi Tsujii},
+  title = {Probabilistic modeling of argument structures including non-local
+	dependencies},
+  booktitle = {Proceedings of the Conference on Recent Advances in Natural Language
+	Processing (RANLP)},
+  year = {2003},
+  pages = {285-291},
+  address = {Borovets, Bulgaria}
+}
+
+@INPROCEEDINGS{miyao:hlt02,
+  author = {Yusuke Miyao and Jun'ichi Tsujii},
+  title = {Maximum Entropy Estimation for Feature Forests},
+  booktitle = {Proceedings of the Human Language Technology Conference},
+  year = {2002},
+  address = {San Diego, CA}
+}
+
+@INCOLLECTION{moortgat:97,
+  author = {Michael Moortgat},
+  title = {Categorial Type Logics},
+  booktitle = {Handbook of Logic and Language},
+  publisher = {Elsevier, Amsterdam and MIT Press},
+  year = {1997},
+  editor = {Johan van Benthem and Alice ter Meulen},
+  chapter = {2},
+  pages = {93-177},
+  address = {Cambridge, MA, USA}
+}
+
+@BOOK{moortgat:88,
+  title = {Categorial Investigations: Logical and Linguistic Aspects of the
+	Lambek Calculus},
+  publisher = {Foris Pubns},
+  year = {1998},
+  author = {Michael Moortgat},
+  address = {Dordrecht, The Netherlands}
+}
+
+@BOOK{morrill:94,
+  title = {Type Logical Grammar: Categorial Logic of Signs},
+  publisher = {Kluwer},
+  year = {1994},
+  author = {Morrill, Glyn},
+  address = {Dordrecht, The Netherlands}
+}
+
+@INPROCEEDINGS{nasr:tag04,
+  author = {Alexis Nasr and Owen Rambow},
+  title = {SuperTagging and Full Parsing},
+  booktitle = {Proceedings of the TAG+7 Workshop},
+  year = {2004},
+  address = {Vancouver, Canada}
+}
+
+@INPROCEEDINGS{nothman:09,
+  author = {Joel Nothman and Tara Murphy and James R. Curran},
+  title = {Analysing {Wikipedia} and Gold Standard Corpora for {NER} Training},
+  booktitle = {Proceedings of the 12th Conference of the European Chapter of the
+	Association for Computational Linguistics},
+  year = {2009},
+  pages = {612--620}
+}
+
+@INCOLLECTION{oehrle:88,
+  author = {R. T. Oehrle},
+  title = {Multi-Dimensional Compositional Functions as a Basis for Grammatical
+	Analysis},
+  booktitle = {Categorial Grammars and Natural Language Structures},
+  publisher = {Reidel},
+  year = {1988},
+  editor = {R. T. Oehrle and E. Bach and D. Wheeler},
+  pages = {349-389},
+  address = {Dordrecht, The Netherlands}
+}
+
+@ARTICLE{oepen:04,
+  author = {Stepan Oepen and Daniel Flickenger and Kristina Toutanova and Christopher
+	D. Manning},
+  title = {{LinGO} {Redwoods}. A rich and dynamic treebank for {HPSG}},
+  journal = {Research on Language and Computation},
+  year = {2004},
+  volume = {2},
+  pages = {575--596},
+  number = {4}
+}
+
+@ARTICLE{oepen:98,
+  author = {Stephan Oepen and Dan Flickinger},
+  title = {Towards systematic grammar profiling. {T}est suite technology 10
+	years after},
+  journal = {Journal of Computer Speech {\&} Language},
+  year = {1998},
+  volume = {12},
+  pages = {411-435},
+  number = {4},
+  bibsource = {DBLP, http://dblp.uni-trier.de},
+  ee = {http://dx.doi.org/10.1006/csla.1998.0105}
+}
+
+@ARTICLE{propbank,
+  author = {Palmer, Martha and Gildea, Daniel and Kingsbury, Paul },
+  title = {The Proposition Bank: An Annotated Corpus of Semantic Roles},
+  journal = {Computational Linguistics},
+  year = {2005},
+  volume = {31},
+  pages = {71--106},
+  number = {1},
+  month = {March},
+  citeulike-article-id = {159098},
+  doi = {10.1162/0891201053630264},
+  issn = {0891-2017},
+  keywords = {ref-corpus},
+  priority = {2},
+  publisher = {MIT Press}
+}
+
+@MISC{mwlib,
+  author = {PediaPress},
+  title = {\texttt{mwlib}: {MediaWiki} parsing library},
+  year = {2007},
+  url = {http://code.pediapress.com}
+}
+
+@INPROCEEDINGS{petrov:06,
+  author = {Slav Petrov and Leon Barrett and Romain Thibaux and Dan Klein},
+  title = {Learning accurate, compact, and interpretable tree annotation},
+  booktitle = {Proceedings of the 21st International Conference on Computational
+	Linguistics and the 44th Annual Meeting of the Association for Computational
+	Linguistics},
+  year = {2006},
+  pages = {433--440},
+  address = {Sydney, Australia}
+}
+
+@INPROCEEDINGS{petrov:07,
+  author = {Petrov, Slav and Klein, Dan},
+  title = {Improved Inference for Unlexicalized Parsing},
+  booktitle = {Human Language Technologies 2007: The Conference of the North American
+	Chapter of the Association for Computational Linguistics; Proceedings
+	of the Main Conference},
+  year = {2007},
+  pages = {404--411},
+  address = {Rochester, NY, USA},
+  month = {April},
+  web = {http://www.aclweb.org/anthology/N/N07/N07-1051}
+}
+
+@BOOK{pollard:94,
+  title = {Head-Driven Phrase Structure Grammar},
+  publisher = {The University of Chicago Press},
+  year = {1994},
+  author = {Carl Pollard and Ivan Sag},
+  address = {Chicago}
+}
+
+@INPROCEEDINGS{preiss:eacl03,
+  author = {Judita Preiss},
+  title = {Using Grammatical Relations to Compare Parsers},
+  booktitle = {Proceedings of the 10th Meeting of the EACL},
+  year = {2003},
+  pages = {291-298},
+  address = {Budapest, Hungary}
+}
+
+@ARTICLE{pullum:82,
+  author = {G. K. Pullum and G. Gazdar},
+  title = {Natural languages and context-free languages},
+  journal = {Linguistics and Philosophy},
+  year = {1982},
+  volume = {4},
+  pages = {471--504}
+}
+
+@BOOK{quirk:85,
+  title = {A Comprehensive Grammar of the English Language},
+  publisher = {Longman},
+  year = {1985},
+  author = {Randolph Quirk and Sidney Greenbaum and Geoffrey Leech and Jan Svartvik},
+  address = {London, UK}
+}
+
+@INPROCEEDINGS{raj:09,
+  author = {Rajkumar, Rajakrishnan and White, Michael and Espinosa, Dominic},
+  title = {Exploiting Named Entity Classes in CCG Surface Realization},
+  booktitle = {Proceedings of Human Language Technologies: The 2009 Annual Conference
+	of the North American Chapter of the Association for Computational
+	Linguistics, Companion Volume: Short Papers},
+  year = {2009},
+  pages = {161--164},
+  address = {Boulder, Colorado},
+  month = {June}
+}
+
+@INPROCEEDINGS{rajkumar:09,
+  author = {Rajkumar, Rajakrishnan and White, Michael and Espinosa, Dominic},
+  title = {Exploiting Named Entity Classes in {CCG} Surface Realization},
+  booktitle = {Proceedings of Human Language Technologies: The 2009 Annual Conference
+	of the North American Chapter of the Association for Computational
+	Linguistics},
+  year = {2009},
+  pages = {161--164},
+  address = {Boulder, Colorado},
+  month = {June},
+  publisher = {Association for Computational Linguistics}
+}
+
+@INPROCEEDINGS{ratnaparkhi:97,
+  author = {Ratnaparkhi, Adwait},
+  title = {A linear observed time statistical parser based on maximum entropy
+	models},
+  booktitle = {Proceedings of the Second Conference on Empirical Methods in Natural
+	Language Processing (EMNLP-2)},
+  year = {1997},
+  pages = {1--10},
+  address = {Providence, RI, USA},
+  month = {August 1--2}
+}
+
+@INPROCEEDINGS{ratnaparkhi:96,
+  author = {Adwait Ratnaparkhi},
+  title = {A Maximum Entropy Part-Of-Speech Tagger},
+  booktitle = {Proceedings of the Conference on Empirical Methods in Natural Language
+	Processing},
+  year = {1996},
+  pages = {133-142},
+  address = {Philadelphia, PA, USA}
+}
+
+@INPROCEEDINGS{rimell:08,
+  author = {Rimell, Laura and Clark, Stephen},
+  title = {Adapting a Lexicalized-Grammar Parser to Contrasting Domains},
+  booktitle = {Proceedings of the 2008 Conference on Empirical Methods in Natural
+	Language Processing},
+  year = {2008},
+  pages = {475--484},
+  address = {Honolulu, Hawaii},
+  month = {October},
+  publisher = {Association for Computational Linguistics},
+  url = {http://www.aclweb.org/anthology/D08-1050}
+}
+
+@INPROCEEDINGS{rimell:09,
+  author = {Rimell, Laura and Clark, Stephen and Steedman, Mark},
+  title = {Unbounded Dependency Recovery for Parser Evaluation},
+  booktitle = {Proceedings of the 2009 Conference on Empirical Methods in Natural
+	Language Processing},
+  year = {2009},
+  pages = {813--821},
+  address = {Singapore},
+  month = {August}
+}
+
+@BOOK{rosenbaum:67,
+  title = {The grammar of English predicate complement constructions},
+  publisher = {{MIT} Press},
+  year = {1967},
+  author = {Rosenbaum, Peter S.},
+  address = {Cambridge, MA, USA}
+}
+
+@INPROCEEDINGS{sadler:00,
+  author = {Louisa Sadler and Josef van Genabith and Andy Way},
+  title = {Automatic {F}-Structure Annotation from the {AP} Treebank},
+  booktitle = {Proceedings of the LFG 00 Conference},
+  year = {2000},
+  pages = {226--243},
+  address = {Berkeley, CA, USA},
+  publisher = {CSLI Publications}
+}
+
+@INCOLLECTION{sarkar:03,
+  author = {Anoop Sarkar and Aravind Joshi},
+  title = {Tree-Adjoining Grammars and its application to statistical parsing},
+  booktitle = {Data-oriented parsing},
+  publisher = {CSLI},
+  year = {2003},
+  editor = {Rens Bod and Remko Scha and Khalil Sima'an}
+}
+
+@INPROCEEDINGS{sarkar:00,
+  author = {Anoop Sarkar and Fei Xia and Aravind Joshi},
+  title = {Some Experiments on Indicators of Parsing Complexity for Lexicalized
+	Grammars},
+  booktitle = {Proceedings of the COLING Workshop on Efficiency in Large-Scale Parsing
+	Systems},
+  year = {2000},
+  pages = {37-42},
+  address = {Luxembourg}
+}
+
+@INPROCEEDINGS{schabes:88,
+  author = {Yves Schabes and Anne Abeill$\acute{\mbox{e}}$ and Aravind Joshi},
+  title = {Parsing strategies with 'lexicalised' grammars: Application to Tree
+	Adjoining Grammar},
+  booktitle = {Proceedings of the 12th COLING Conference},
+  year = {1988},
+  address = {Budapest, Hungary}
+}
+
+@PHDTHESIS{shen:06,
+  author = {Libin Shen},
+  title = {Statistical {LTAG} parsing},
+  school = {University of Pennsylvania},
+  year = {2006},
+  address = {Philadelphia, PA, USA}
+}
+
+@BOOK{shieber:86,
+  title = {An Introduction to Unification-Based Approaches to Grammar},
+  publisher = {CSLI Publications, Stanford, CA},
+  year = {1986},
+  author = {Stuart M. Shieber},
+  volume = {4},
+  series = {CSLI Lecture Notes}
+}
+
+@ARTICLE{shieber:85,
+  author = {Shieber, Stuart M.},
+  title = {Evidence against the context-freeness of natural language},
+  journal = {Linguistics and Philosophy},
+  year = {1985},
+  volume = {8},
+  pages = {333--343},
+  number = {3}
+}
+
+@INCOLLECTION{steedman:88,
+  author = {M. Steedman},
+  title = {Combinators and Grammars},
+  booktitle = {Categorial Grammars and Natural Language Structures},
+  publisher = {Reidel},
+  year = {1988},
+  editor = {Richard T. Oehrle and Emmon Bach and Deirdre Wheeler},
+  pages = {417-442},
+  address = {Dordrecht, The Netherlands}
+}
+
+@BOOK{steedman:00,
+  title = {The Syntactic Process},
+  publisher = {The MIT Press},
+  year = {2000},
+  author = {Mark Steedman},
+  address = {Cambridge, MA, USA}
+}
+
+@BOOK{steedman:96,
+  title = {Surface Structure and Interpretation},
+  publisher = {The MIT Press},
+  year = {1996},
+  author = {Mark Steedman},
+  address = {Cambridge, MA, USA}
+}
+
+@TECHREPORT{steedman_jhu:02,
+  author = {Mark Steedman and Steven Baker and Stephen Clark and Jeremiah Crim
+	and Julia Hockenmaier and Rebecca Hwa and Miles Osborne and Paul
+	Ruhlen and Anoop Sarkar},
+  title = {Semi-Supervised Training for Statistical Parsing: Final Report},
+  institution = {Center for Language and Speech Processing, Johns Hopkins University},
+  year = {2002},
+  address = {Baltimore, MD}
+}
+
+@INCOLLECTION{steedman:pedia,
+  author = {Mark Steedman and Jason Baldridge},
+  title = {{C}ombinatory {C}ategorial {G}rammar},
+  booktitle = {Constraint-based approaches to grammar: alternatives to transformational
+	syntax},
+  publisher = {Oxford: Blackwells},
+  year = {to appear},
+  editor = {Robert Borsley and Kersti Borjars},
+  note = {(to appear)}
+}
+
+@INPROCEEDINGS{steedman_etal:03,
+  author = {Mark Steedman and Miles Osborne and Anoop Sarkar and Stephen Clark
+	and Rebecca Hwa and Julia Hockenmaier and Paul Ruhlen and Steve Baker
+	and Jeremiah Crim},
+  title = {Bootstrapping statistical parsers from small datasets},
+  booktitle = {Proceedings of the 11th Conference of the European Association for
+	Computational Linguistics},
+  year = {2003},
+  address = {Budapest, Hungary}
+}
+
+@INPROCEEDINGS{strube:06,
+  author = {Strube, Michael and Ponzetto, Simone Paolo},
+  title = {WikiRelate! Computing Semantic Relatedness Using {Wikipedia}},
+  booktitle = {Proceedings of the Twenty-First National Conference on Artificial
+	Intelligence},
+  year = {2006},
+  pages = {1419--1424},
+  address = {Boston, MA, USA}
+}
+
+@INPROCEEDINGS{taskar:emnlp04,
+  author = {B. Taskar and D. Klein and M. Collins and D. Koller and C. Manning},
+  title = {Max-Margin Parsing},
+  booktitle = {Proceedings of the EMNLP conference},
+  year = {2004},
+  address = {Barcelona, Spain}
+}
+
+@INPROCEEDINGS{toutanova:03,
+  author = {Toutanova, Kristina and Klein, Dan and Manning, Christopher and Singer,
+	Yoram},
+  title = {Feature-Rich Part-of-Speech Tagging with a Cyclic Dependency Network},
+  booktitle = {Proceedings of the HLT/NAACL conference},
+  year = {2003},
+  pages = {252-259},
+  address = {Edmonton, Canada}
+}
+
+@INPROCEEDINGS{toutanova:02,
+  author = {Kristina Toutanova and Christopher Manning and Stuart Shieber and
+	Dan Flickinger and Stephan Oepen},
+  title = {Parse Disambiguation for a Rich {H}{P}{S}{G} Grammar},
+  booktitle = {Proceedings of the First Workshop on Treebanks and Linguistic Theories},
+  year = {2002},
+  pages = {253-263},
+  address = {Sozopol, Bulgaria}
+}
+
+@INPROCEEDINGS{toutanova:04,
+  author = {Kristina Toutanova and Penka Markova and Christopher Manning},
+  title = {The Leaf Projection Path View of Parse Trees: Exploring String Kernels
+	for {H}{P}{S}{G} Parse Selection},
+  booktitle = {Proceedings of the EMNLP conference},
+  year = {2004},
+  pages = {166-173},
+  address = {Barcelona, Spain}
+}
+
+@MISC{tse:honours,
+  author = {Daniel Tse},
+  title = {Wide-coverage efficient parsing with multi-modal combinatory categorial
+	grammar},
+  howpublished = {Honours Thesis},
+  year = {2007},
+  address = {Sydney, Australia},
+  school = {University of Sydney}
+}
+
+@INPROCEEDINGS{tse:08,
+  author = {Daniel Tse and James R. Curran},
+  title = {{Punctuation normalisation for cleaner treebanks and parsers}},
+  booktitle = {Proceedings of the Australian Language Technology Workshop},
+  year = {2008},
+  volume = {6},
+  pages = {151--159},
+  address = {Hobart, Australia},
+  publisher = {Australasian Language Technology Association}
+}
+
+@INPROCEEDINGS{tse:07,
+  author = {Daniel Tse and James R. Curran},
+  title = {Extending {CCGbank} with quotes and {M}ulti-{M}odal {CCG}},
+  booktitle = {Proceedings of the Australasian Language Technology Workshop ({ALTW})},
+  year = {2007},
+  pages = {109--116},
+  address = {Melbourne, Australia}
+}
+
+@INPROCEEDINGS{vadas:07,
+  author = {Vadas, David and Curran, James},
+  title = {Adding Noun Phrase Structure to the {P}enn {T}reebank},
+  booktitle = {Proceedings of the 45th Annual Meeting of the Association of Computational
+	Linguistics},
+  year = {2007},
+  pages = {240--247},
+  address = {Prague, Czech Republic},
+  month = {June},
+  publisher = {Association for Computational Linguistics},
+  web = {http://www.aclweb.org/anthology/P07-1031}
+}
+
+@INPROCEEDINGS{vadas:08,
+  author = {Vadas, David and Curran, James R.},
+  title = {Parsing Noun Phrase Structure with {CCG}},
+  booktitle = {Proceedings of the 46th Annual Meeting of the Association for Computational
+	Linguistics},
+  year = {2008},
+  pages = {335--343},
+  address = {Columbus, Ohio, USA},
+  month = {June},
+  publisher = {Association for Computational Linguistics}
+}
+
+@ARTICLE{vijay:93,
+  author = {K. Vijay-Shanker and David Weir},
+  title = {Parsing some Constrained Grammar Formalisms},
+  journal = {Computational Linguistics},
+  year = {1993},
+  volume = {19},
+  pages = {591-636}
+}
+
+@PHDTHESIS{villavicencio:01,
+  author = {Aline Villavicencio},
+  title = {The Acquisition of a Unification-Based Generalised Categorial Grammar},
+  school = {University of Cambridge},
+  year = {2001},
+  address = {Cambridge, England}
+}
+
+@INPROCEEDINGS{wang:94,
+  author = {Jong-Nae Wang and Jing-Shin Chang and Keh-Yih Su},
+  title = {An Automatic Treebank Conversion Algorithm for Corpus Sharing},
+  booktitle = {Proceedings of the 32nd Annual Meeting of the Association for Computational
+	Linguistics},
+  year = {1994},
+  pages = {248--254},
+  address = {Las Cruces, New Mexico, USA},
+  month = {June}
+}
+
+@INPROCEEDINGS{watkinson:pacling01,
+  author = {Stephen Watkinson and Suresh Manandhar},
+  title = {Acquisition of Large Categorial Grammar Lexicons},
+  booktitle = {Proceedings of the Conference of the Pacific Association for Computational
+	Linguistics (PACLING-01)},
+  year = {2001},
+  address = {Kitakyushu, Japan}
+}
+
+@INPROCEEDINGS{white:03,
+  author = {White, Michael and Baldridge, Jason},
+  title = {Adapting Chart Realization to {CCG}},
+  booktitle = {Proceedings of the 9th European Workshop on Natural Language Generation
+	({ENLG-2009})},
+  year = {2003},
+  address = {Budapest, Hungary},
+  month = {April}
+}
+
+@ARTICLE{white:10,
+  author = {White, Michael and Clark, Robert A. J. and Moore, Johanna D.},
+  title = {Generating tailored, comparative descriptions with contextually appropriate
+	intonation},
+  journal = {Computational Linguistics},
+  year = {2010},
+  volume = {36},
+  pages = {159--201},
+  number = {2},
+  month = {May}
+}
+
+@INPROCEEDINGS{white:09,
+  author = {White, Michael and Rajkumar, Rajakrishnan},
+  title = {Perceptron Reranking for {CCG} Realization},
+  booktitle = {Proceedings of the 2009 Conference on Empirical Methods in Natural
+	Language Processing},
+  year = {2009},
+  pages = {410--419},
+  address = {Singapore},
+  month = {August},
+  publisher = {Association for Computational Linguistics},
+  url = {http://www.aclweb.org/anthology/D/D09/D09-1043}
+}
+
+@INPROCEEDINGS{white:08punct,
+  author = {White, Michael and Rajkumar, Rajakrishnan},
+  title = {A More Precise Analysis of Punctuation for Broad-Coverage Surface
+	Realization with {CCG}},
+  booktitle = {Coling 2008: Proceedings of the workshop on Grammar Engineering Across
+	Frameworks},
+  year = {2008},
+  pages = {17--24},
+  address = {Manchester, England},
+  month = {August}
+}
+
+@INPROCEEDINGS{white:punct08,
+  author = {White, Michael and Rajkumar, Rajakrishnan},
+  title = {A More Precise Analysis of Punctuation for Broad-Coverage Surface
+	Realization with {CCG}},
+  booktitle = {Coling 2008: Proceedings of the workshop on Grammar Engineering Across
+	Frameworks},
+  year = {2008},
+  pages = {17--24},
+  address = {Manchester, England},
+  month = {August},
+  publisher = {Coling 2008 Organizing Committee},
+  url = {http://www.aclweb.org/anthology/W08-1703}
+}
+
+@INPROCEEDINGS{white:07,
+  author = {Michael White and Rajakrishnan Rajkumar and Scott Martin},
+  title = {Towards Broad Coverage Surface Realization with {CCG}},
+  booktitle = {In Proceedings of the Workshop on Using Corpora for {NLG}: Language
+	Generation and Machine Translation (UCNLG+MT},
+  year = {2007}
+}
+
+@INPROCEEDINGS{wilcock:98,
+  author = {Graham Wilcock},
+  title = {Head-Driven Generation with {HPSG}},
+  booktitle = {Proceedings of the 36th Annual Meeting of the Association for Computational
+	Linguistics and 17th International Conference on Computational Linguistics,
+	Volume 2},
+  year = {1998},
+  pages = {1393--1397},
+  address = {Montreal, Quebec, Canada},
+  month = {August},
+  publisher = {Association for Computational Linguistics},
+  doi = {10.3115/980691.980796},
+  url = {http://www.aclweb.org/anthology/P98-2096}
+}
+
+@BOOK{wood:93,
+  title = {Categorial Grammars},
+  publisher = {Routledge},
+  year = {1993},
+  author = {Mary McGee Wood},
+  address = {London, UK}
+}
+
+@INPROCEEDINGS{xia:99,
+  author = {Fei Xia},
+  title = {Extracting {T}ree {A}djoining {G}rammars from Bracketed Corpora},
+  booktitle = {Proceedings of the 5th Natural Language Processing Pacific Rim Symposium},
+  year = {1999},
+  address = {Beijing, China}
+}
+
+@INPROCEEDINGS{xia:00,
+  author = {Fei Xia and Martha Palmer and Aravind Joshi},
+  title = {A uniform method of grammar extraction and its applications},
+  booktitle = {Proceedings of the 2000 Joint SIGDAT conference on Empirical Methods
+	in Natural Language Processing and Very Large Corpora},
+  year = {2000},
+  pages = {53--62},
+  address = {Hong Kong}
+}
+
+@ARTICLE{younger:67,
+  author = {Daniel Younger},
+  title = {Recognition and Parsing of Context-free languages in time $n^3$},
+  journal = {Information and Control},
+  year = {1967},
+  volume = {10},
+  pages = {189--208},
+  number = {2}
+}
+
+@INPROCEEDINGS{ytrestol:09,
+  author = {Gisle Ytrest{\o}l and Stepan Oepen and Daniel Flickinger},
+  title = {Extracting and Annotating {W}ikipedia Sub-Domains},
+  booktitle = {Proceedings of the 7th International Workshop on Treebanks and Linguistic
+	Theories},
+  year = {2009},
+  pages = {185--197},
+  location = {Groningen, The Netherlands}
+}
+
+@INPROCEEDINGS{zettlemoyer:09,
+  author = {Zettlemoyer, Luke and Collins, Michael},
+  title = {Learning Context-Dependent Mappings from Sentences to Logical Form},
+  booktitle = {Proceedings of the Joint Conference of the 47th Annual Meeting of
+	the ACL and the 4th International Joint Conference on Natural Language
+	Processing of the AFNLP},
+  year = {2009},
+  pages = {976--984},
+  address = {Suntec, Singapore},
+  month = {August}
+}
+
+@INPROCEEDINGS{zettlemoyer:07,
+  author = {Zettlemoyer, Luke and Collins, Michael},
+  title = {Online Learning of Relaxed {CCG} Grammars for Parsing to Logical
+	Form},
+  booktitle = {Proceedings of the 2007 Joint Conference on Empirical Methods in
+	Natural Language Processing and Computational Natural Language Learning
+	(EMNLP-CoNLL)},
+  year = {2007},
+  pages = {678--687},
+  address = {Prague, Czech Republic},
+  month = {June}
+}
+

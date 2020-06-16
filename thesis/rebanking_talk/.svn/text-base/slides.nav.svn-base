@@ -1,0 +1,68 @@
+\beamer@endinputifotherversion {3.06pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\sectionentry {1}{Introduction}{2}{Introduction}{0}}
+\headcommand {\beamer@sectionpages {1}{1}}
+\headcommand {\beamer@subsectionpages {1}{1}}
+\headcommand {\beamer@subsectionpages {2}{1}}
+\headcommand {\slideentry {1}{1}{1}{2/2}{Motivating Examples}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\beamer@subsectionpages {2}{2}}
+\headcommand {\slideentry {1}{2}{1}{3/3}{Overview}{0}}
+\headcommand {\beamer@framepages {3}{3}}
+\headcommand {\beamer@subsectionpages {2}{3}}
+\headcommand {\slideentry {1}{3}{1}{4/4}{Semantic transparency in \textsc {ccg}\xspace }{0}}
+\headcommand {\beamer@framepages {4}{4}}
+\headcommand {\sectionentry {2}{NP Semantics}{5}{NP Semantics}{0}}
+\headcommand {\beamer@sectionpages {2}{4}}
+\headcommand {\beamer@subsectionpages {2}{4}}
+\headcommand {\beamer@subsectionpages {5}{4}}
+\headcommand {\slideentry {2}{1}{1}{5/5}{Deverbal Nouns in CCGbank}{0}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\beamer@subsectionpages {5}{5}}
+\headcommand {\slideentry {2}{2}{1}{6/6}{Our Analysis of Deverbal Nouns}{0}}
+\headcommand {\beamer@framepages {6}{6}}
+\headcommand {\beamer@subsectionpages {5}{6}}
+\headcommand {\slideentry {2}{3}{1}{7/7}{Deverbal nouns passing long-range dependencies}{0}}
+\headcommand {\beamer@framepages {7}{7}}
+\headcommand {\beamer@subsectionpages {5}{7}}
+\headcommand {\slideentry {2}{4}{1}{8/8}{Implementation}{0}}
+\headcommand {\beamer@framepages {8}{8}}
+\headcommand {\sectionentry {3}{Other Rebanking Processes}{9}{Other Rebanking Processes}{0}}
+\headcommand {\beamer@sectionpages {5}{8}}
+\headcommand {\beamer@subsectionpages {5}{8}}
+\headcommand {\beamer@subsectionpages {9}{8}}
+\headcommand {\slideentry {3}{1}{1}{9/9}{Merging Previous Changes}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\beamer@subsectionpages {9}{9}}
+\headcommand {\slideentry {3}{2}{1}{10/11}{Restrictive vs. Non-restrictive Adnominals}{0}}
+\headcommand {\beamer@framepages {10}{11}}
+\headcommand {\beamer@subsectionpages {9}{11}}
+\headcommand {\slideentry {3}{3}{1}{12/13}{Partitive Constructions}{0}}
+\headcommand {\beamer@framepages {12}{13}}
+\headcommand {\sectionentry {4}{Results}{14}{Results}{0}}
+\headcommand {\beamer@sectionpages {9}{13}}
+\headcommand {\beamer@subsectionpages {9}{13}}
+\headcommand {\beamer@subsectionpages {14}{13}}
+\headcommand {\slideentry {4}{1}{1}{14/14}{Extent of the Changes}{0}}
+\headcommand {\beamer@framepages {14}{14}}
+\headcommand {\beamer@subsectionpages {14}{14}}
+\headcommand {\slideentry {4}{2}{1}{15/15}{Parsing Results}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\beamer@subsectionpages {14}{15}}
+\headcommand {\slideentry {4}{3}{1}{16/16}{Intersection Evaluation}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\sectionentry {5}{Conclusion}{17}{Conclusion}{0}}
+\headcommand {\beamer@sectionpages {14}{16}}
+\headcommand {\beamer@subsectionpages {14}{16}}
+\headcommand {\beamer@subsectionpages {17}{16}}
+\headcommand {\slideentry {5}{1}{1}{17/17}{Replacing the pipeline}{0}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\beamer@subsectionpages {17}{17}}
+\headcommand {\slideentry {5}{2}{1}{18/18}{Conclusion}{0}}
+\headcommand {\beamer@framepages {18}{18}}
+\headcommand {\beamer@partpages {1}{18}}
+\headcommand {\beamer@subsectionpages {17}{18}}
+\headcommand {\beamer@sectionpages {17}{18}}
+\headcommand {\beamer@documentpages {18}}
+\headcommand {\def \inserttotalframenumber {16}}

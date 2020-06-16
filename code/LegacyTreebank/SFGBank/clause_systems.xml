@@ -1,0 +1,302 @@
+<Grammar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="E:\Honours\Schemas\grammar.xsd">
+<!-- Clause -->
+<!--INTERPERSONAL-->
+<System name="clause class" entrycondition="CLAUSE">
+	<Selection name="major" id="clause_class.major"/>
+	<Selection name="minor" id="clause_class.minor"/>
+</System>
+<System name="rank" entrycondition="clause_class.major">
+	<Selection name="ranking" id="rank.ranking"/>
+	<Selection name="shifted" id="rank.shifted"/>
+</System>
+<System name="shift type" entrycondition="rank.shifted">
+	<Selection name="embedded" id="shift_type.embedded"/>
+	<Selection name="nominal" id="shift_type.nominal"/>
+</System>
+<System name="embed type" entrycondition="shift_type.embedded">
+	<Selection name="nominal qualifier" id="embed_type.nominal_qualifier"/>
+	<Selection name="adverbial qualifier" id="embed_type.adverbial_qualifier"/>
+	<Selection name="other qualifier" id="embed_type.other_qualifier"/>
+</System>
+<!--Polarity-->
+<System name="polarity" entrycondition="clause_class.major">
+	<Selection name="positive" id="polarity.positive"/>
+	<Selection name="negative" id="polarity.negative"/>
+</System>
+<System name="negative type" entrycondition="polarity.negative">
+	<Selection name="combined negative" id="negative_type.combined_negative"/>
+	<Selection name="simple negative" id="negative_type.simple_negative"/>
+</System>
+
+<!--Modality-->
+
+<!-- This section is pending a good resolution to the problem of multiple selection-->
+
+<System name="status" entrycondition="clause_class.major">
+	<Selection name="free" id="status.free"/>
+	<Selection name="bound" id="status.bound"/>
+</System>		
+
+<!--Mood type-->
+
+<System name="mood type" entrycondition="status.free">
+	<Selection name="indicative" id="mood_type.indicative"/>
+	<Selection name="imperative" id="mood_type.imperative"/>
+</System>
+<System name="indicative type" entrycondition="mood_type.indicative">
+	<Selection name="interrogative" id="indicative_type.interrogative"/>
+	<Selection name="declarative" id="indicative_type.declarative"/>
+</System>
+<!--<System name="declarative type" entrycondition="indicative_type.declarative">
+	<Selection name="non-exclamative" id="declarative_type.non-exclamative"/>
+	<Selection name="exclamative" id="declarative_type.exclamative"/>
+</System>-->
+<System name="interrogative type" entrycondition="indicative_type.interrogative">
+	<Selection name="wh" id="interrogative_type.wh"/>
+	<Selection name="polar" id="interrogative_type.polar"/>
+</System>
+<!--WH selection-->
+<!--<System name="wh status" entrycondition="interrogative_type.wh">
+	<Selection name="neutral_wh" id="wh_status.neutral_wh"/>
+	<Selection name="echo_wh" id="wh_status.echo_wh"/>
+</System>-->
+<System name="wh selection" entrycondition="interrogative_type.wh">
+	<Selection name="subject wh" id="wh_selection.subject_wh"/>
+	<Selection name="non subject wh" id="wh_selection.non_subject_wh"/>
+</System>
+<!--<System name="wh projection" entrycondition="wh_selection.non_wh_subject">
+	<Selection name="non-projected" id="wh_projection.non-projected"/>
+	<Selection name="projected" id="wh_projection.projected"/>
+</System>-->
+<System name="non subject wh selection" entrycondition="wh_selection.non_subject_wh">
+	<Selection name="adjunct wh" id="non_subject_wh_selection.adjunct_wh"/>
+	<Selection name="complement wh" id="non_subject_wh_selection.complement_wh"/>
+</System>
+<!--Mood Person-->
+<!--In SysAm this is declarative subject presumption. I'm ammending it to indicative subject presumption to deal with:
+"Wasn't Jimmy Carter's mama that..." (sw2065.mrg~0080) - IE presumed 'it' subject. Presumably other cases exist-->
+<System name="indicative subject presumption" entrycondition="mood_type.indicative">
+	<Selection name="explicit indicative subject" id="indicative_subject_presumption.explicit_indicative_subject"/>
+	<Selection name="implicit indicative subject" id="indicative_subject_presumption.implicit_indicative_subject"/>
+</System>
+<System name="subject ellipsis" entrycondition="finiteness.finite">
+	<Selection name="worded subject" id="subject_ellipsis.worded_subject"/>
+	<Selection name="ellipsed subject" id="subject_ellipsis.ellipsed_subject"/>
+</System>
+<System name="indicative mood person" entrycondition="indicative_subject_presumption.explicit_indicative_subject | finiteness.finite">
+	<Selection name="interactant" id="indicative_mood_person.interactant"/>
+	<Selection name="non-interactant" id="indicative_mood_person.non-interactant"/>
+</System>
+<System name="interactant type" entrycondition="indicative_mood_person.interactant">
+	<Selection name="speaker" id="interactant_type.speaker"/>
+	<Selection name="speaker plus" id="interactant_type.speaker_plus"/>
+	<Selection name="addressee" id="interactant_type.addressee"/>
+</System>
+
+<!--<System name="interrogative mood presumption" entrycondition="interrogative_type.polar | interactant_type.speaker">
+	<Selection name="explicit_declarative_subject" id="interrogative_mood_presumption.explicit_interrogative_mood"/>
+	<Selection name="implicit_declarative_subject" id="interrogative_mood_presumption.implicit_interrogative_mood"/>
+</System>-->
+<!--Deicticity-->
+<System name="deicticity" entrycondition="mood_type.indicative | finiteness.finite">
+	<Selection name="modal" id="deicticity.modal"/>
+	<Selection name="temporal" id="deicticity.temporal"/>
+</System>
+<!--<System name="modality type" entrycondition="deicticity.modal">
+	<Selection name="modalization" id="modality_type.modalization"/>
+	<Selection name="modulation" id="modality_type.modulation"/>
+</System>-->
+<System name="primary tense" entrycondition="deicticity.temporal">
+	<Selection name="past" id="primary_tense.past"/>
+	<Selection name="present" id="primary_tense.present"/>
+	<Selection name="future" id="primary_tense.future"/>
+</System>
+
+<!--Imperative-->
+
+<System name="imperative type" entrycondition="mood_type.imperative">
+	<Selection name="optative" id="imperative_type.optative"/>
+	<Selection name="non-optative" id="imperative_type.non-optative"/>
+</System>
+<System name="imperative mood person" entrycondition="imperative_type.non-optative">
+	<Selection name="jussive" id="imperative_mood_person.jussive"/>
+	<Selection name="suggestive" id="imperative_mood_person.suggestive"/>
+	<Selection name="oblative" id="imperative_mood_person.oblative"/>
+</System>
+<System name="jussive type" entrycondition="imperative_mood_person.jussive">
+	<Selection name="explicit jussive subject" id="jussive_type.explicit_jussive_subject"/>
+	<Selection name="implicit jussive subject" id="jussive_type.implicit_jussive_subject"/>
+</System>
+<!--Tagging-->
+<!--<System name="tagging" entrycondition="mood_type.imperative | declarative_type.non-exclamative">
+	<Selection name="untagged" id="tagging.untagged"/>
+	<Selection name="tagged" id="tagging.tagged"/>
+</System>
+<System name="tag polarity" entrycondition="tagging.tagged">
+	<Selection name="reversed polarity" id="tag_polarity.reversed_polarity"/>
+	<Selection name="constant polarity" id="tag_polarity.constant_polarity"/>
+</System>-->
+<!--Bound-->
+<System name="finiteness" entrycondition="clause_class.major">
+	<Selection name="non-finite" id="finiteness.non-finite"/>
+	<Selection name="finite" id="finiteness.finite"/>
+</System>
+<!--Vocative-->
+<System name="vocative" entrycondition="clause_class.major">
+	<Selection name="vocative" id="vocative.vocative"/>
+	<Selection name="no vocative" id="vocative.no_vocative"/>
+</System>
+<!--Assessment-->
+<System name="assessment" entrycondition="clause_class.major">
+	<Selection name="assessed" id="assessment.assessed"/>
+	<Selection name="non-assessed" id="assessment.non-assessed"/>
+</System>
+<!--
+<System name="section" entrycondition="CLAUSE">
+	<Selection name="ws" id="section.ws"/>
+	<Selection name="sw" id="section.sw"/>
+	<Selection name="cf" id="section.cf"/>
+	<Selection name="cg" id="section.cg"/>
+	<Selection name="ck" id="section.ck"/>
+	<Selection name="cl" id="section.cl"/>
+	<Selection name="cm" id="section.cm"/>
+	<Selection name="cn" id="section.cn"/>
+	<Selection name="cp" id="section.cp"/>
+	<Selection name="cr" id="section.cr"/>
+</System>
+-->
+
+
+<!--TEXTUAL-->
+<!--Theme Markedness-->
+<System name="theme selection" entrycondition="finiteness.finite">
+	<Selection name="unmarked" id="theme_selection.unmarked"/>
+	<Selection name="marked" id="theme_selection.marked"/>
+</System>
+<System name="theme matter" entrycondition="theme_selection.marked">
+	<Selection name="as theme matter" id="theme_matter.as_theme_matter"/>
+	<Selection name="as transitivity role" id="theme_matter.as_transitivity_role"/>
+</System>
+<System name="theme role" entrycondition="theme_matter.as_transitivity_role">
+	<Selection name="as process" id="theme_role.as_process"/>
+	<Selection name="as participant" id="theme_role.as_participant"/>
+	<Selection name="as adjunct" id="theme_role.as_adjunct"/>
+</System>
+<System name="theme predication" entrycondition="indicative_subject_presumption.explicit_indicative_subject">
+	<Selection name="non-predicated theme" id="theme_predication.non-predicated_theme"/>
+	<Selection name="predicated theme" id="theme_predication.predicated_theme"/>
+</System>
+<!--Non-SysAm (own idea)-->
+<System name="thematic equative" entrycondition="theme_predication.non-predicated_theme">
+	<Selection name="single nominalisation" id="thematic_equative.single_nominalisation"/>
+	<Selection name="double nominalisation" id="thematic_equative.double_nominalisation"/>
+	<Selection name="no thematic equative" id="thematic_equative.no_thematic_equative"/>
+</System>
+<System name="nominalisation position" entrycondition="thematic_equative.single_nominalisation">
+	<Selection name="as theme" id="nominalisation_position.as_theme"/>
+	<Selection name="as rheme" id="nominalisation_position.as_rheme"/>
+</System>
+<!--<System name="local theme selection" entrycondition="theme_predication.predicated_theme">
+	<Selection name="unmarked local" id="local_theme_selection.unmarked_local"/>
+	<Selection name="marked local" id="local_theme_selection.marked_local"/>
+</System>-->
+<!--Conjunction-->
+<System name="conjunction" entrycondition="clause_class.major">
+	<Selection name="non-conjuncted" id="conjunction.non-conjuncted"/>
+	<Selection name="conjuncted" id="conjunction.conjuncted"/>
+</System>
+<!--<System name="conjunction type" entrycondition="conjunction.conjuncted">
+	<Selection name="elaborating" id="conjunction.elaborating"/>
+	<Selection name="extending" id="conjunction.extending"/>
+	<Selection name="enhancing" id="conjunction.enhancing"/>
+</System>-->
+<System name="textual theme" entrycondition="conjunction.conjuncted">
+	<Selection name="no textual theme" id="textual_theme.textual_theme"/>
+	<Selection name="textual theme" id="textual_theme.no_textual_theme"/>
+</System>
+<!--Assessment-->
+<System name="assessment theme" entrycondition="assessment.assessed">
+	<Selection name="no assessment theme" id="assessment_theme.no_assessment_theme"/>
+	<Selection name="assessment theme" id="assessment_theme.assessment_theme"/>
+</System>
+<!--Vocative-->
+<System name="vocative theme" entrycondition="vocative.vocative">
+	<Selection name="no vocative theme" id="vocative_theme.no_vocative_theme"/>
+	<Selection name="vocative theme" id="vocative_theme.vocative_theme"/>
+</System>
+<!--Voice-->
+<!--<System name="range voice" entrycondition="ranging.ranged">
+	<Selection name="medio-operative" id="range_voice.medio-operative"/>
+	<Selection name="medio-receptive" id="range_voice.medio-receptive"/>
+</System>
+<System name="benefactive voice" entrycondition="benefaction.benefactive">
+	<Selection name="bene-operative" id="benefactive_voice.bene-operative"/>
+	<Selection name="bene-receptive" id="benefactive_voice.bene-receptive"/>
+</System>
+<System name="effective voice" entrycondition="agency.effective">
+	<Selection name="operative" id="effective_voice.operative"/>
+	<Selection name="receptive" id="effective_voice.receptive"/>
+</System>
+<System name="receptive agency" entrycondition="effective_voice.receptive">
+	<Selection name="agentive" id="receptive_agency.agentive"/>
+	<Selection name="non-agentive" id="receptive_agency.non-agentive"/>
+</System>-->
+<!--The SysAm ones are hard to calculate, so use the lexcart ones for now-->
+<!--<System name="agency" entrycondition="clause_class.major">
+	<Selection name="effective" id="agency.effective"/>
+	<Selection name="middle" id="agency.middle"/>
+</System>-->
+
+
+
+
+
+
+
+
+
+<!--IDEATIONAL-->
+
+<!--Transitivity-->
+
+<System name="agency" entrycondition="clause_class.major">
+	<Selection name="middle" id="agency.middle"/>
+	<Selection name="effective" id="agency.effective"/>
+</System>
+<System name="effective voice" entrycondition="agency.effective">
+	<Selection name="operative" id="effective_voice.operative"/>
+	<Selection name="receptive" id="effective_voice.receptive"/>
+</System>
+<System name="receptive agency" entrycondition="effective_voice.receptive">
+	<Selection name="agentive" id="receptive_agency.agentive"/>
+	<Selection name="non-agentive" id="receptive_agency.non-agentive"/>
+</System>
+<!--<System name="ranging" entrycondition="agency.middle">
+	<Selection name="ranged" id="ranging.ranged"/>
+	<Selection name="non-ranged" id="ranging.non-ranged"/>
+</System>-->
+<!--<System name="benefaction" entrycondition="agency.effective">
+	<Selection name="benefactive" id="benefaction.benefactive"/>
+	<Selection name="non-benefactive" id="benefaction.non-benefactive"/>
+</System>-->
+
+<!--Logical-->
+
+<System name="secondary or beta clause" entrycondition="clause_class.major">
+	<Selection name="true" id="secondary_or_beta_clause.true"/>
+	<Selection name="false" id="secondary_or_beta_clause.false"/>
+</System>
+<System name="taxis" entrycondition="secondary_or_beta_clause.true">
+	<Selection name="parataxis" id="taxis.parataxis"/>
+	<Selection name="hypotaxis" id="taxis.hypotaxis"/>
+</System>
+<System name="interdependency type" entrycondition="secondary_or_beta_clause.true">
+	<Selection name="projection clause" id="interdependency_type.projection_clause"/>
+	<Selection name="expansion clause" id="interdependency_type.expansion_clause"/>
+</System>
+<System name="expansion clause type" entrycondition="interdependency_type.expansion_clause">
+	<Selection name="extending clause" id="expansion_clause_type.extending_clause"/>
+	<Selection name="elaborating clause" id="expansion_clause_type.elaborating_clause"/>
+	<Selection name="enhancing clause" id="expansion_clause_type.enhancing_clause"/>
+</System>
+</Grammar>

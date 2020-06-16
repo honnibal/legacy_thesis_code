@@ -1,0 +1,168 @@
+\chapter{Conclusion}
+
+This thesis has described a problem with Combinatory Categorial Grammar (\ccg),
+and proposed a solution. We implemented our solution for use in a statistical
+parser, alongside a control experiment. Our experiments investigated the effect
+of removing a set of exceptional cases from \ccg, which had been added to the
+grammar to address sparse data problems, but which contradict the central
+hypothesis of the linguistic theory. We demonstrated via our control experiment
+on the \nounary corpus
+that without these exceptions the sparse data problems do become unmanageable.
+This established that the existing choices for the \ccg theory were between
+analyses that could not scale to a wide-coverage corpus, and an extension to the
+grammar that contradicted its central hypothesis. Our solution provides an
+analysis that scales just as well as the \citet{hock:cl07} type-changing rules
+proposal, but is also compatible with the central claims of the theory.
+
+The \ccg hypothesis is that surface syntax is a
+completely transparent interface between the linguistic input signal and a
+compositional interpretation of its meaning, where each syntactic operation
+corresponds exactly to a simple semantic operation. \ccg also adopts the theory of
+radical lexicalism: that the innate universal component of the human language
+processor is exactly the grammar, and the acquired portion is exactly the
+lexicon. These hypotheses are investigated by formulating proposals about the
+objects that populate the lexicon and the innate grammar that manipulates them,
+and testing whether they explain the data: observed variation in human
+language. If we cannot describe the nature of a language faculty that conforms
+to these hypotheses and explains our observations about language, we must
+abandon them until we can.
+
+\citet{baldridge:03} argued that a universal \ccg consisting of application,
+composition and type-raising rules explained the bulk of our observations about
+language very well. We have argued that this \ccg grammar actually encounters
+problems that limit how efficiently it can be scaled beyond the limited set of
+cases traditionally used to probe a grammar. The consequences of the problem we
+identify had already been observed, when \citet{hock:lrec02} attempted to
+implement a wide-coverage \ccg grammar on a large corpus of English. Since the
+production of a practical corpus was the main aim of study,
+\citet{hock:thesis03} designed a grammar that did scale well, and was well
+suited to statistical parsing. However, the scalable grammar compromises some of
+the key theoretical properties of the formalism. \citeauthor{hock:thesis03}'s grammar
+is not language universal, and its syntactic rules are not necessarily paired with 
+elementary semantic operations.
+
+We argue that the adoption of this grammar for practical \ccg language
+processing tasks has masked what should have been an interesting observation. This
+issue, which we have explored in detail for the first time, is that the \ccg
+formalism makes it difficult to encode some central, linguistically relevant
+generalisations. This forces \ccg grammars to
+adopt analyses that work well on the limited scale used in traditional methodology,
+but are exposed as inadequate when they are implemented on a system capable of
+handling the range of syntactic phenomena a human can process.
+
+We address this by proposing an
+updated model that is compatible with the \ccg hypotheses. The new model solves
+the inefficiency and over-generation that caused the scalability problems the
+previous application, composition and type-raising proposal encountered. The
+main change in our proposal is to the structure of the linguistic objects the
+\ccg rules manipulate, the \emph{categories}. We propose that \ccg categories
+must contain an additional attribute, which we have dubbed \emph{hat}. The
+addition of this attribute allows the grammar to account for a linguistically
+relevant property it could not previously accommodate, constituent type.
+Accounting for constituent type allows the grammar to make more efficient
+generalisations, and ultimately provide more convincing explanations of
+syntactic phenomena. We do add one rule to the grammar, which is used to
+manipulate the new hat attribute. We show that this addition does not change the
+weak generative power of the grammar, ensuring that our model still explains the
+observed upper bound on the power required to generate natural languages.
+
+We adopt a data-driven methodology to test our proposal. We do this because we
+claim that the issue we have identified prevents the existing model from scaling
+to a wide-coverage grammar. To test this, we adapted a large corpus of
+\ccg-annotated sentences of English, \ccgbank \citep{hock:cl07}, to implement
+analyses using the hat categories we proposed. We also implemented our
+proposal on a state-of-the-art statistical parser \citep{clark:cl07}. Our corpus
+and parsing experiments are an indirect way of testing our proposal, because
+errors in the corpus and the parser's statistical model can act as
+confounding variables. However, we compare our solution against an exacting
+standard: the original \ccgbank grammar, which was designed to maximise the
+efficiency of current statistical parsers on noisy analyses. The \ccgbank
+grammar does not completely adopt two key \ccg hypotheses of combinatory
+type-transparency and radical lexicalisation.
+
+Our proposed, newly scalable \ccg model actually improved on the \ccgbank
+grammar results, by achieving a substantial increase in efficiency at a very
+small reduction in accuracy. That is, by adopting the constraints of the \ccg
+hypothesis, a parser implementing our model achieves a more favourable trade-off
+between speed and accuracy than a
+parser implementing the grammar solely concerned with its practical properties.
+In contrast, a parser trained using the prior \ccg model of application,
+composition and type-raising rules performed substantially worse than the \ccgbank
+grammar. The confounding variables of analysis noise and the specifics of the
+\ccg parser we use mean that the negative result must be interpreted with
+caution. It does not demonstrate that effective parsing with an application,
+composition and type-raising model is impossible. But it does demonstrate that
+\ccg theory-compliant parsing is difficult, and establishes that hat categories
+are currently the best approach to the problem.
+
+We summarise our key contributions as follows. First, we have proposed a grammar
+conforming to the \ccg hypotheses that is more efficient than the current
+proposal. Second, we have shown that conforming to these hypotheses makes a
+statistical parser more efficient. Both of these contributions have interesting
+implications.
+
+% We achieve the increased efficiency by making it easier to express linguistically
+% relevant generalisations in \ccg grammars.
+% We noted in Chapter \ref{chapter:ling_mot} that this allowed \ccg to
+% replicate the analysis of a related formalism, \ltag, for a construction which
+% previously posed problems. One of the open questions for modern generative
+% grammars is the relationship between the strong generative powers of the four
+% most prominent syntactic theories: \ccg, \hpsg, \ltag and \lfg. Increasing the
+% strong generative power of \ccg therefore raises interesting questions. Which
+% desirable analyses from the other formalisms can we still not replicate in \ccg?
+% Precisely which aspects of the \ccg machinery enable the \ccg analyses that
+% other formalisms have trouble replicating? One way to pursue these questions is
+% to investigate the extended domain of locality and factoring of recursion
+% properties of \ccg categories more deeply. We touched on these issues in Chapter
+% \ref{chapter:ling_mot}, but what we have not done is pursue our conjecture that
+% hat categories offer a way to produce \ccg analyses with lexical categories that
+% always exhibit the extended domain of locality property. This property has been
+% identified as one of the most important aspects of the \ltag formalism, and the
+% explanation for many of its advantages over context-free phrase structure
+% grammars \citep{joshi:04}. Perhaps adopting this property for \ccg categories
+% will allow \ccg to replicate all of the desirable \ltag analyses --- and if it
+% does not, we will have obtained valuable clues about where the formalism might
+% be lacking.
+
+% Implementing the \ltag analyses described by the \xtag grammar \citep{xtag} will
+% also allow us to reduce the confounding variables in our methodology.
+% Specifically, it will help us to make further corrections to \ccgbank, reducing
+% the noise in the corpus.
+Our results suggest an appealing feedback loop
+between the application of a linguistic theory and the proposals of the theory
+itself. Paying close attention to the problems that arose when the formalism was
+applied in a statistical parser led us to a weakness in the formalism.
+Correcting this weakness improved the performance of the system. The implication
+of this is that we should attempt to make the corpus and parser as faithful an
+implementation of the theory as possible. Substantial progress has already been
+made on this front. Some of the problematic analyses that \ccgbank inherited
+from the Penn Treebank have been corrected
+\citep{honnibal:pacling07prop,vadas:08,white:punct08}, and initial exploratory work on
+adopting \mmccg in \ccgbank has been performed \citep{tse:honours}. These
+updates are currently either incomplete, or currently awaiting release, so we
+have not included them in our experiments. However, each of these resources
+would reduce some of the problematic analysis noise we encountered. Further work
+in this direction would include using Nombank \citep{nombank} to correct the
+predicate-argument structure of nouns, and better analyses of multi-word
+expressions in the grammar, particularly for named entities and verb-particle
+constructions. It would also be interesting to explore the use of the \textbf{D}
+combinator proposed by \citet{hoyt:08} in \ccgbank, to assess its interaction
+with the other \ccg combinators in wide-coverage parsing.
+
+These changes will make the corpus more theoretically sound, improving the
+impact of the methodology we have demonstrated. The strength of this methodology
+is that it provides a different type of evidence from the native speaker
+intuition which has always been so important in syntactic inquiry. It provides a
+way to build a precise model of the \emph{process} of the human language
+faculty, where much of the effort in syntactic description has focused on the
+objects being manipulated. It also has important technological implications. Our
+processing power and the text we have available for processing continues to grow
+exponentially, creating a pressing need for faster and more accurate ways of
+extracting information from text, to capitalise on the opportunity modern
+computing has made available. There is therefore a considerable \emph{practical}
+benefit to developing better linguistic theories, as we have shown by improving
+the efficiency of a state-of-the-art statistical parser. There is also a considerable
+\emph{theoretical} benefit to crafting formal proposals precisely enough to be implemented,
+so that they can be evaluated empirically.
+
+

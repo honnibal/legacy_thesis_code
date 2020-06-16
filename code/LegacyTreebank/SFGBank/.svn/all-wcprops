@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank
+END
+NodeVisitors.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/NodeVisitors.py
+END
+selectionsTable.tex
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/selectionsTable.tex
+END
+Converters.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/Converters.py
+END
+Metafunction.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/Metafunction.py
+END
+sfg_corpus_law2007.tex
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/sfg_corpus_law2007.tex
+END
+system_selections.txt
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/system_selections.txt
+END
+TraverseNetwork.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/TraverseNetwork.py
+END
+FunctionAnalysers.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/FunctionAnalysers.py
+END
+ConstituentConstructors.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/ConstituentConstructors.py
+END
+FileVisiters.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/FileVisiters.py
+END
+makeSFGBank.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/makeSFGBank.py
+END
+word_systems.xml
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/word_systems.xml
+END
+clause_systems.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/clause_systems.xml
+END
+sansConstituency.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/sansConstituency.py
+END
+treebank2SFG.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/treebank2SFG.py
+END
+SelectionFunctions.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/SelectionFunctions.py
+END
+Metafunctions.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/Metafunctions.py
+END
+Constituency.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/matt/!svn/ver/87/code/LegacyTreebank/SFGBank/Constituency.py
+END

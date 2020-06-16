@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 26
+/matt/!svn/ver/206/code/pb
+END
+ptb_propbank.txt
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/matt/!svn/ver/102/code/pb/ptb_propbank.txt
+END
+nombank_stats.txt
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/matt/!svn/ver/102/code/pb/nombank_stats.txt
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/matt/!svn/ver/206/code/pb/__init__.py
+END
+printPropbankTB.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/matt/!svn/ver/124/code/pb/printPropbankTB.py
+END
+pb.py
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/matt/!svn/ver/198/code/pb/pb.py
+END
+testNombank.py
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/matt/!svn/ver/124/code/pb/testNombank.py
+END

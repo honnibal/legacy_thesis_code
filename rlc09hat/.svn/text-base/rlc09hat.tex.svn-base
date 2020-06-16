@@ -1,0 +1,1112 @@
+\documentclass[a4paper,10pt,doublespacing]{article}
+
+\include{config}
+\include{names}
+
+%opening
+\title{Hat Categories: Representing Form and Function Simultaneously in a Combinatory Categorial Grammar}
+\author{Blind Review}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In a combinatory categorial grammar, each word is associated with a lexical category that denotes its argument structure. These categories can be said to represent the word's grammatical function, in that they control how the constituents headed by that word interact with the rest of the derivation. What is not represented is the syntactic \emph{type} of the constituents, which we claim makes the grammar inefficient. Modifiers are forced to reference their heads by function, rather than constituent type, causing over-generation and category proliferation when the head has discrepant form and function.
+
+We introduce an additional attribute, which we call \emph{hat}, on the category objects that allows the category to lexically specify a unary production. Disparate form and function categories can then be lexically specified simultaneously. This allows modifiers to attach at the form level, while arguments are specified at the function level. We show that this promotes better linguistic analyses and more efficient lexicons than are possible with a standard \ccg grammar for a variety of English constructions, without altering the grammar's weak generative power.
+\end{abstract}
+
+\section{Introduction}
+
+\section{Combinatory Categorial Grammar}
+
+\section{Constituent Type and Constituent Function}
+
+\section{Over-generation Caused by Lack of Constituent Type}
+
+Languages specify the grammaticality of many attachment decisions --- notably modification --- with reference to constituent type, not function. 
+This means that generating modification structures with reference to the head's function can produce ungrammatical attachments, leading to over-generation. This problem arises when multiple constituent types can perform the same function, but only one can be modified by a particular constituent type.
+
+
+In English, there are many constituent types that can function adverbially, such as temporal nouns, prepositional phrases, adverbs and participial clauses. Obviously, these have very different internal structures. Unfortunately, modifiers refer to function categories, so their modifiers all require the same category. This licenses ungrammatical attachments:
+
+\begin{lexamples}
+\item \gll Robin slept very well
+\cf{NP} \cf{S\bs NP} \cf{(VP\bs VP)/(VP\bs VP)} \cf{(VP\bs VP)}
+\gln
+\glend
+\item \gll Robin slept all~Tuesday
+\cf{NP} \cf{S\bs NP} \cf{(VP\bs VP)}
+\gln
+\glend
+\item \gll *~Robin slept very all~Tuesday
+\cf{NP} \cf{S\bs NP} \cf{(VP\bs VP)/(VP\bs VP)} \cf{(VP\bs VP)}
+\gln
+\glend
+\end{lexamples}
+
+One way to control this kind of over-generation is to use rich feature structures that amount to a representation of constituent type. Sophisticated unification is undoubtedly necessary for an adequate treatment of a variety of linguistic phenomena, such as case and number agreement, particularly for morphologically rich languages \citep{erkan:03}. Feature structures are the only available space to represent constituent type in \ccg consistently. This would require a structured lexicon, so that a single definition for something like \emph{adverb} specified the features necessary to guarantee the correct modification. \citet{beavers:04} and \citet{mcconville:06} present proposals for how a \ccg lexicon could be structured to support this kind of inheritance, which has been a well-studied problem in \hpsg since at least \citet{flickinger:thesis87}.
+
+A \ccg grammar that controlled all modification would be a kind of hybrid unification grammar. This might be desirable, but it is quite a different proposal from the current \ccg analyses. It would also not address the problem described in Section \ref{sec:infinite_categories}, where we show that \ccg requires an infinitely large lexicon, or the undesirable analyses discussed in Section \ref{sec:descriptive_power}.
+
+\section{Constrained Descriptive Power Caused by Lack of Constituent Type}
+
+\label{sec:descriptive_power}
+In Section \ref{sec:ab_sucks}, we considered an \abcg analysis of extraction that relied on category ambiguity instead of grammatical machinery:
+
+\begin{center}
+\deriv{4}{
+\rm Pat, & \rm who & \rm Erin & \rm hates \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/(S/NP)} &
+\cf{NP} &
+\cf{(S[dcl]/NP)\bs NP} \\
+&& \bapply{2} \\
+&& \mc{2}{\cf{S[dcl]/NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{NP}}
+}
+\end{center}
+
+In general, this is not a strategy we wish to adopt. Instead, we wish to assign categories that place the arguments in canonical positions, and use the grammar to account for predictable transformations. \citet{steedman:00} presents this constraint as the Principle of Head Categorial Uniqueness:
+
+\begin{headcat}
+A single non-disjunctive lexical category for the head of a given construction specifies both the bounded dependencies that arise when its complements
+are in canonical position and the unbounded dependencies that arise when those complements are displaced under relativization, co-ordination, and the like.
+\end{headcat}
+
+Form-function discrepancies are another class of predictable transformations. Form-function discrepancies can be handled by introducing additional category ambiguity, but this treatment is not particularly satisfactory. We will pursue two examples, both involving verbs: nominalisation, and reduced relative clauses. There are many other constructions which force \ccg into an undesirable analysis, such as predicative complements, adverbial nouns, and topicalisation. What these constructions share in common is a mismatch between the underlying type of the constituent and the category it must receive to function in the derivation.
+
+In general, there are two strategies for handling this mismatch: we can change the category of the head of constituent, which will also force the categories of its modifiers to change. Alternatively, we can change the category of its head, usually by altering its argument structure.
+
+\subsection{Nominal Clauses}
+\label{ling_mot:nominal}
+Any English verb can head a nominal clause, in gerund and infinitive forms:
+
+\begin{lexamples}
+\item Seeing things is believing things.\\
+\item To see things is to believe them.
+\end{lexamples}
+
+A detailed analysis such as that provided by the \xtag grammar \citep{xtag} identifies several varieties of gerund in English, but the important property for our purposes is that they have the internal structure of sentences, but a distribution roughly equal to other noun phrases \citep{rosenbaum:67}. A nominal clauses can fill any \cf{NP} typed argument slot:
+
+\begin{lexamples}
+\item I gave \emph{doing things his way} a chance.\\
+\item I gave a chance to \emph{doing things his way}.\\
+\item \emph{Doing things his way} gave me a chance.
+\end{lexamples}
+
+This makes an analysis that changes the argument structure of the clause's head verb unattractive, because it introduces an extra category for every combination of \cf{NP} typed arguments in the category:
+
+\begin{eqnarray}
+to   &\assign& \cf{PP/S[nom]}\nonumber\\
+gave &\assign& \cf{((S[dcl]\bs S[nom])/NP)/NP}\nonumber\\
+gave &\assign& \cf{((S[dcl]\bs NP)/S[nom])/NP} \nonumber\\
+gave &\assign& \cf{((S[dcl]\bs NP)/NP)/S[nom]} \nonumber\\
+gave &\assign& \cf{((S[dcl]\bs S[nom])/S[nom])/NP}\nonumber\\
+etc  &    & \nonumber
+\end{eqnarray}
+
+Unfortunately, the only alternative is to type the inner-most result of the nominalised clause as an \cf{NP}. This introduces extra verbal categories, which in turn introduces extra categories for any constituent that can function adverbially:
+
+\begin{center}
+\deriv{5}{
+\rm Seeing & \rm things & \rm clearly & \rm is & \rm important \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/NP} &
+\cf{NP} &
+\cf{NP\bs NP} &
+\cf{(S[dcl]\bs NP)/(S[adj]\bs NP)} &
+\cf{S[adj]\bs NP} \\
+\fapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP}} && \mc{2}{\cf{S[dcl]\bs NP}} \\
+\bapply{3} \\
+\mc{3}{\cf{NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[dcl]}}
+}
+\end{center}
+
+As we described in Section \ref{sec:over-generation}, this leads to over-generation. The categories required for the \cf{NP}-typing analysis above license the following incorrect analysis, where \emph{clearly} modifies \emph{things} instead of \emph{seeing}.
+
+\begin{center}
+\deriv{5}{
+\rm Seeing & \rm things & \rm clearly & \rm is & \rm important \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/NP} &
+\cf{NP} &
+\cf{NP\bs NP} &
+\cf{(S[dcl]\bs NP)/(S[adj]\bs NP)} &
+\cf{S[adj]\bs NP} \\
+& \bapply{2} \\
+& \mc{2}{\cf{NP}} \\
+\fapply{3} & \fapply{2} \\
+\mc{3}{\cf{NP}} & \mc{2}{\cf{S[dcl]\bs NP}} \\
+\bapply{5} \\
+\mc{5}{\cf{S[dcl]}}
+}
+\end{center}
+
+These problems lead us to conclude that there is no satisfactory \ccg analysis of this construction. It is clear what the desirable dependencies are, and it is straightforward to produce the natural analysis in other formalisms. We therefore suggest that this is an example where the lack of constituent type in \ccg produces a limitation on its strong generative power.
+
+% Assigning \emph{seeing} an \cf{NP} type also raises problems for a \ccg grammar that relies on \citeauthor{steedman:00}'s restrictions on backward crossing composition, which rely on the inner-most result category (the `root' category for \citet{baldridge:thesis02}) being \cf{S}-typed. Multi-modal \ccg implements the restriction by assigning \cf{NP} modifiers application-only modal slashes. At first glance, the \cf{NP}-gerund analysis would seem to cause similar problems for \mmccg, but careful use of features to distinguish gerund nominals from ordinary noun phrases would allow composition to proceed as required:
+% 
+% \begin{center}
+% \deriv{6}{
+% \rm collecting & \rm with~love & \rm and & \rm organising & \rm with~care & \rm stamps \\
+% \uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+% \cf{NP[ger]/\xmode NP} &
+% \cf{NP[ger]\bs \xmode NP[ger]} &
+% \cf{(X\bs X)/X} &
+% \cf{NP[ger]/NP} &
+% \cf{NP[ger]/\xmode NP[ger]} &
+% \cf{NP} \\
+% \bxcomp{2} && \bxcomp{2} \\
+% \mc{2}{\cf{NP[ger]/\xmode NP}} && \mc{2}{\cf{NP[ger]/\xmode NP}} \\
+% && \fapply{3} \\
+% && \mc{3}{\cf{(NP[ger]/\xmode NP)\bs (NP[ger]/\xmode NP)}} \\
+% \bapply{5} \\
+% \mc{5}{\cf{NP[ger]/\xmode NP}} \\
+% \fapply{6} \\
+% \mc{6}{\cf{NP[ger]}}
+% }
+% \end{center}
+% 
+% The \cf{[ger]} feature allows the introduction of an \cf{NP} rooted category that allows crossing composition without making it available to other \cf{NP}s, where it would license ungrammatical sentences.
+
+\subsection{Reduced Relative Clauses}
+\label{sec:ling_rrc}
+\begin{figure}
+\centering
+\deriv{6}{
+\rm Ashley & \rm likes & \rm Pat & \rm who & \rm Casey & \rm hates \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{NP} &
+\cf{(NP\bs NP)/(S[dcl]/NP)} &
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} \\
+&&&& \ftype{1} \\
+&&&& \mc{1}{\cf{S/(S\bs NP)}} \\
+&&&& \fcomp{2} \\
+&&&& \mc{2}{\cf{S[dcl]/NP}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{NP\bs NP}} \\
+&& \bapply{4} \\
+&& \mc{4}{\cf{NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{S[dcl]}}
+}
+\caption[Partial associativity provided by type-raising and composition.]{Interaction of type-raising and composition to produce partial associativity. This allows the WH-movement to be analysed with the canonical category assignments.\label{fig:ling_wh_movement}}
+\end{figure}
+
+\ccg offers an excellent analysis of extraction mediated by relative pronouns, as shown in Figure~\ref{fig:ling_wh_movement}. The type-raising and composition rules allow the extraction phenomenon to be represented entirely in the category assigned to \emph{who}. Unfortunately, reduced relative clauses pose more of a problem. The two closely related constructions are:
+
+\begin{lexamples}
+\item \textbf{WH-mediated}: \emph{asbestos that was once used for cigarette filters}\\
+\item \textbf{Bare}: \emph{asbestos once used for cigarette filters}
+\end{lexamples}
+
+Without the WH item to coerce the clause into an \cf{NP} modifier, we must either change the category of the noun, or the category of the verb. An analysis that relies on changing some other constituent can be dismissed out of hand, as the modifiers and non-extracted arguments of the verb are essentially innocent bystanders. We consider each of the viable alternatives in turn.
+
+\subsubsection{Blaming the verb}
+
+Perhaps the most obvious solution is to change the verb category, so that its category becomes \cf{(NP\bs NP)/PP}:
+
+\begin{center}
+\deriv{6}{
+\rm asbestos & \rm once & \rm used & \rm for & \rm cigarette & \rm filters \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP\bs NP)/(NP\bs NP)} &
+\cf{(NP\bs NP)/PP} &
+\cf{PP} &
+\cf{NP/NP} &
+\cf{NP} \\
+&&&& \fapply{2} \\
+&&&& \mc{2}{\cf{NP}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{PP}} \\
+&& \fapply{4} \\
+&& \mc{4}{\cf{NP\bs NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{NP\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{NP}}
+}
+\end{center}
+
+This analysis is undesirable for the same reasons as the \cf{NP}-rooted nominalisation analysis described above. It forces an additional, undesirable category onto its modifiers, and it breaks the assumption that the inner-most result of a category can be used to characterise it in any meaningful way.
+
+\subsubsection{Blaming the noun}
+
+The alternative analysis that involves changing the noun's category was pointed out to us by Baldridge and Steedman (p.c. 2007):
+
+\begin{center}
+\deriv{6}{
+\rm asbestos & \rm once & \rm used & \rm for & \rm cigarette & \rm filters \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/(S\bs NP)} &
+\cf{(S\bs NP)/(S\bs NP)} &
+\cf{(S\bs NP)/PP} &
+\cf{PP} &
+\cf{NP/NP} &
+\cf{NP} \\
+&&&& \fapply{2} \\
+&&&& \mc{2}{\cf{NP}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{PP}} \\
+&& \fapply{4} \\
+&& \mc{4}{\cf{S\bs NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{S\bs NP}} \\
+\fapply{6} \\
+\mc{6}{\cf{NP}}
+}
+\end{center}
+
+This analysis allows the verb to keep its canonical category, and the noun's inner-most result is preserved. Unfortunately, it is a rather unnatural analysis. The omission of the relativiser does not change the clause from an adjunct into an argument. The clause still has all the hallmarks of a modifier. A noun can be modified by multiple relative clauses:
+
+\begin{lexamples}
+\item The lawsuit was based on (asbestos (linked to cancer) (used in cigarette filters))
+\end{lexamples}
+
+The relationship between the noun and the relative clause is identical whether the relative is bare or WH-mediated, suggesting that they are either both adjuncts, or both arguments. So while this analysis is convenient, and certainly better than the alternative, it is also unsatisfying.
+
+\subsection{Clausal Adjuncts}
+
+
+
+\section{Unbounded Lexicon Size Caused by Lack of Constituent Type}
+
+\label{sec:infinite_categories}
+In English, some constituent types can function as modifiers of their own type. The result is unbounded recursion depth. This can be problematic for \ccg, because it means depth sensitive categories are required. The result of this is an inability to generate the full set of grammatical constituents with a finite set of categories.
+
+Compound nouns are the clearest example of this in English. Adverbial clauses are another example. We assume that a phrase like \emph{management system} would be analysed as noun-noun modification, with \emph{system} as head:
+
+\begin{center}
+\begin{parsetree}
+(.\cf{N}.
+  (.\cf{N/N}. `management')
+  (.\cf{N}.   `system')
+)
+\end{parsetree}
+\end{center}
+
+The opposite ordering is also grammatical:
+
+\begin{center}
+\begin{parsetree}
+(.\cf{N}.
+  (.\cf{N/N}. `system')
+  (.\cf{N}.   `management')
+)
+\end{parsetree}
+\end{center}
+
+Both words head constituents of the same type, which we will call \nom, to distinguish it from the category, \cf{N}. One of the possible functions of \nom constituents is leftward modification of another \nom. In the example above, the category of the modifier constituent changed to reflect its function as a modifier. If the whole constituent functions as a modifier of another \nom, both of their categories must change:
+
+\begin{center}
+\ptbegtree
+\ptbeg \ptnode{\cf{N}}
+  \ptbeg \ptnode{\cf{N/N}}
+    \ptbeg \ptnode{\cf{(N/N)/(N/N)}} \ptleaf{water} \ptend
+    \ptbeg \ptnode{\cf{N/N}}  \ptleaf{meter} \ptend
+  \ptend
+  \ptbeg \ptnode{\cf{N}} \ptleaf{cover}\ptend
+\ptend
+\ptendtree
+\end{center}
+
+At each depth of modification, a new category is required. A longer left-branching example, like \emph{water meter cover adjustment screw} would require the category:
+
+\begin{equation}
+\cf{(((N/N)/(N/N))/((N/N)/(N/N)))/(((N/N)/(N/N))/((N/N)/(N/N))))}
+\end{equation}
+
+With an even slightly longer phrase, like \emph{hot water meter cover adjustment screw}, the categories required become unprintable.
+
+%\subsubsection{The recursion is infinite, so we will need infinite categories}
+
+If we call one constituent that modifies another a \emph{modifier}, a constituent that modifies the first one will be a \emph{modifier modifier}, which might be modified in turn by a \emph{modifier modifier modifier} --- and so on, into infinity. Such a phrase of length $n$ will require $n$ different categories. Since the phrase is grammatical at any length, a finite category set is inadequate.
+
+The crux of the problem is that the grammaticality of a \emph{(modifier, head)} attachment is determined by the types of the two constituents. But this is not how categorial grammars model modification. With no theory of constituent type, a modifier instead refers to its head's function, which might be forced to refer to \emph{its} head's function --- and so on.
+
+%\subsubsection{Composition doesn't help}
+
+At first glance, it might seem that the long categories are unnecessary, because we can bracket the modifiers together using the composition rule:
+
+\begin{center}
+\deriv{3}{
+\rm water & \rm meter & \rm cover \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N/N} &
+\cf{N/N} &
+\cf{N} \\
+\fcomp{2} \\
+\mc{2}{\cf{N/N}} \\
+& \fapply{2} \\
+& \mc{2}{\cf{N}}
+}
+\end{center}
+
+However, this derivation does not produce the analysis we want, because of the semantic annotation of the \cf{N/N} category:
+
+\begin{lexample}
+ \cf{(N_y/N_y)_x}
+\end{lexample}
+
+The \cf{x} variable is filled by the word that heads the modifier. When \emph{water} composes with \emph{cover}, its argument unifies with \emph{cover}'s result, which is unified with \emph{cover}'s argument. When this argument unifies with \emph{meter}, we get the following dependencies:
+
+\begin{eqnarray}
+(water, \;\; \cf{N/N},\;\; 1, \;\; cover)\nonumber \\
+(meter, \;\; \cf{N/N},\;\; 1, \;\; cover)\nonumber
+\end{eqnarray}
+
+The left-branching derivation using composition is therefore equivalent to the right-branching derivation using application:
+
+\begin{center}
+\deriv{3}{
+\rm water & \rm meter & \rm cover \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N/N} &
+\cf{N/N} &
+\cf{N} \\
+& \fapply{2} \\
+& \mc{2}{\cf{N}} \\
+\fapply{3} \\
+\mc{3}{\cf{N}}
+}
+\end{center}
+
+Adverbial examples of this problem are less concise, because the construction encounters semantic and pragmatic constraints. Verb phrases can function as direct modifier of other verb phrases, in the same way as noun-noun compounding. For instance, \emph{Feeling} here modifies \emph{caught} directly, and would receive a category like \cf{S/S)/(S[adj]\bs NP)}:
+
+\begin{lexample}
+\item Feeling chilly, Robin caught a Taxi.
+\end{lexample}
+
+\emph{Feeling} is non-finite, but its constituent type is still a verb phrase, so it is susceptible to modification by its own clausal adjuncts, which can themselves be modified by other clausal adjuncts:
+
+\begin{lexample}
+ \item ((Feeling chilly) ((wearing a t-shirt) ((walking home) (carrying shopping (...))))).
+\end{lexample}
+
+In the intended reading, where \emph{carrying} modifies \emph{walking}, which modifies \emph{wearing}, which modifies \emph{Feeling}, we will need to assign the following category to \emph{carrying}:
+\begin{equation}
+ \cf{(((S/S)\bs (S/S))\bs ((S/S)\bs (S/S)))\bs (((S/S)\bs (S/S))\bs ((S/S)\bs (S/S)))}
+\end{equation}
+
+
+The pragmatic problem with this example is that the attachment ambiguity make the sentence very difficult to process, and the dependency distances become very long because the verb phrases all have argument structures. There is also no obvious way to construct an infinite example, as we did with \emph{modifier modifier}, because verb phrase modification typically involves temporal or logical relations, and time and causation do not readily form loops. The closest we can construct involves a sort of feedback loop. If we believed that depression might act to make someone more depressed, we might express their mood as \emph{((Feeling blue) ((feeling blue) ((feeling blue) (...))))}.
+
+At any rate, even if a construction is impossible for pragmatic or semantic reasons, if it is \emph{syntactically} licensed, it should be within the coverage of the grammar. There will always be pragmatic constraints on modification depth, if nothing else because speakers do not perform infinitely long utterances. The question is whether the mechanisms in our grammar seem to model the way language is structured. These examples make clear that recursive modification constructions pose a problem for \ccg, because full coverage of the phenomenon requires an infinite lexicon.
+
+\section{Previous Proposals}
+
+A great range of grammatical machinery has been proposed to extend a pure \abcg. We briefly review three proposals that mitigate the problems we have discussed. The first is \citepos{lambek:58} division combinator, also known as the Geach rule. This rule neatly allows categorial grammars to factor out recursion. The second are the zero-morphemes of \citet{aone:90}. The third proposal is \citepos{hock:lrec02} addition of phrase-structure rules to the grammar.
+
+\subsection{Lambek's Division Combinator}
+\label{division}
+
+In the Lambek calculus \citep{lambek:58}, \emph{category division} is a unary rule somewhat related to composition. Lambek's rule is different from the \textbf{D} combinator \citep{curry:58} proposed for use in \ccg by \citet{hoyt:08}, a proposal which does not affect the issues we are concerned with. Lambek's rule is:
+
+\begin{equation}
+\cf{X/Y} \;\;\Rightarrow\;\; \cf{X\$/Y\$}
+\end{equation}
+
+Where \$ is a variable denoting an arbitrary mono-directional argument structure. The Lambek calculus uses four core rules (application, associativity, composition, and raising), and Lambek only noted division in an aside, commenting that it was proveable under the system \citep{wood:93}. The rule provides an attractive solution to the need for infinite categories described in Section \ref{sec:infinite_categories}:
+
+\begin{center}
+\deriv{3}{
+\rm water & \rm meter & \rm cover \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N/N} &
+\cf{N/N} &
+\cf{N} \\
+\division{1} \\
+\mc{1}{\cf{(N/N)/(N/N)}} \\
+\fapply{2} \\
+\mc{2}{\cf{N/N}} \\
+\fapply{3} \\
+\mc{3}{\cf{N}}
+}
+\end{center}
+
+The division rule does not increase the generative power of the grammar, but it does present procedural difficulties for a parser. Division can interact with composition and type-raising to produce extreme spurious ambiguity:
+
+\begin{quote}
+If a sequence of categories $X_1$, ... $X_n$ reduces to $Y$, there is a reduction to $Y$ for any bracketing of $X_1$, ... $X_n$ into constituents. Among these representations, there is no privileged one as far as the categorial calculus is concerned.
+\end{quote}\citep{moortgat:88}
+
+That is, all possible bracketings can be produced in a categorial grammar that includes composition, type-raising and division. One way to avoid this problem might be to specify normal-form constraints for division, as \citet{eisner:96} did for application and composition.
+
+Even with normal form constraints, open-ended unary rules still present implementation issues. The \candc parser handles type-raising by pre-specifying the set of type-raise productions that can be performed. In other words, type-raising rules are treated like non-combinatory unary phrase-structure operations, in order to control the potential productivity of the rule. It is unclear whether the equivalent treatment of division would be useful, or whether too many specific division productions would be required.
+
+One compromise might be to implement a subset of division as it applies to adjuncts, using schematic categories of the form \cf{X\$/X\$} and \cf{X\$\bs X\$}:
+
+\begin{center}
+\deriv{3}{
+\rm water & \rm meter & \rm cover \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{N\$/N\$} &
+\cf{N/N} &
+\cf{N} \\
+\fapply{2} \\
+\mc{2}{\cf{N/N}} \\
+\fapply{3} \\
+\mc{3}{\cf{N}}
+}
+\end{center}
+
+If the division rule could be incorporated into \ccg efficiently, it would offer a good solution to the modifier category proliferation problem. However, it would not address the underlying issue. Modification would still not proceed with reference to the constituent type of their head. This means that the over-generation discussed in Section \ref{sec:over-generation} would still be an issue:
+
+\begin{lexamples}
+\item \gll Robin slept very well
+\cf{NP} \cf{S[dcl]\bs NP} \cf{S\$/S\$} \cf{S\$\bs S\$}
+\gln
+\glend
+\item \gll Robin slept all~Tuesday
+\cf{NP} \cf{S[dcl]\bs NP} \cf{S\$\bs S\$}
+\gln
+\glend
+\item \gll *~Robin slept very all~Tuesday
+\cf{NP} \cf{S[dcl]\bs NP} \cf{S\$/S\$} \cf{S\$\bs S\$}
+\gln
+\glend
+\end{lexamples}
+
+Category division also does not address the expressivity problems described in Section \ref{sec:descriptive_power}.
+
+\subsection{Morpheme Categories}
+
+One way to summarise the problems we have identified is that a single \ccg category has conflicting demands: internal constituents want one category (based on constituent type), while external constituents want another. \citet{aone:90} put forward a proposal that partially addresses this, by assigning categories to morphemes, and even to empty strings which they refer to as \emph{zero} morphemes. Their proposal reduces category ambiguity by breaking up the information categories specify into several pieces.
+
+Morpheme categories could also be used to perform type-to-function coercions. A morpheme based analysis of nominal clauses would assign a category to the morphological suffix, allowing the open class lexical items to receive their canonical categories:
+
+\begin{center}
+\deriv{3}{
+\rm See & \rm -ing & \rm things \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{(S[b]\bs NP)/\xmode NP} &
+\cf{NP\bs\xmode (S[b]\bs NP)} &
+\cf{NP} \\
+\bxcomp{2} \\
+\mc{2}{\cf{NP/NP}} \\
+\fcomp{3} \\
+\mc{3}{\cf{NP}}
+}
+\end{center}
+
+The analysis requires crossed composition from a category rooted in \cf{NP}, so we describe an \mmccg analysis. This closely corresponds to the seemingly attractive analysis for infinitive nominalisations, which hang the type-change onto \emph{to}:
+
+\begin{center}
+\deriv{3}{
+\rm to & \rm see & \rm things \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/(S\bs NP)} &
+\cf{(S\bs NP)/NP} &
+\cf{NP} \\
+& \fapply{2} \\
+& \mc{2}{\cf{S\bs NP}} \\
+\fapply{3} \\
+\mc{3}{\cf{NP}}
+}
+\end{center}
+
+Unfortunately, things become difficult when adverbs are introduced:
+
+\begin{lexamples}
+\item \gll See -ing things clearly
+\cf{(S\bs NP)/NP} \cf{NP\bs (S\bs NP)} \cf{NP} \cf{(S\bs NP)\bs (S\bs NP)}
+\gln
+\glend
+\end{lexamples}
+
+If the adverb \emph{clearly} is assigned its canonical category, it can no longer apply to \emph{see}, and cannot compose with the \cf{NP}-rooted \emph{-ing} morpheme. Similar problems occur when an adverb must right-modify an infinitive (which is of questionable grammaticality in our dialect):
+
+\begin{lexamples}
+\item \gll ?~boldly to go
+\cf{(S\bs NP)/(S\bs NP)} \cf{NP/(S\bs NP)} \cf{S\bs NP}
+\gln
+\glend
+\end{lexamples}
+
+Similar difficulties apply to zero morphemes. The zero category interferes with modification, unless it is moved arbitrary distances away from the head --- a highly unattractive solution. This makes \citepos{aone:90} argument that zero morphemes can be compiled into the grammar as equivalent unary rules problematic. The fact is that a unary rule is not equivalent to a zero morpheme lexical category, because unary rules do not have these interactions with the linear order of the string.
+
+In general, morpheme based categories are a promising concept --- so long as the morpheme is explicitly realised, and so long as it does not interfere with modification. \citeauthor{aone:90}'s proposal to introduce zero morphemes increases the generative power of the language \citep{carpenter:92}, and introduces far more descriptive power than is necessary. It also presents considerable processing challenges, since it is unclear how the supertagging stage of current \ccg parsing methods \citep{clark:cl07} might be adapted to accommodate category sequences of arbitrary length
+
+%The biggest problem with zero morpheme categories is that they contradict the central argument of the \ccg theory: that there is a transparent interface between the surface string and the semantic analysis.
+
+\subsection{Phrase-structure Rules}
+\label{sec:ling_psg_rules}
+
+
+
+
+\begin{figure}
+\begin{center}
+\hspace*{-30mm}\scalebox{0.9}{
+\ptbegtree
+\pthorgap{7pt}
+\ptnodefont{\small\rm}{11pt}{2pt}
+\ptleaffont{\small\it}{11pt}{2pt}
+\ptbeg \ptnode{\cf{S}}
+  \ptbeg \ptnode{\cf{S}}
+    \ptbeg \ptnode{\cf{NP}} \ptleaf{It} \ptend
+    \ptbeg \ptnode{\cf{S[dcl]\bs NP}}
+      \ptbeg \ptnode{\cf{(S[dc]\bs NP)/NP}} \ptleaf{is}  \ptend
+      \ptbeg \ptnode{\cf{NP}}
+        \ptbeg \ptnode{\cf{NP}}
+          \ptbeg \ptnode{\cf{NP}} \ptleaf{the fourth time} \ptend
+          \ptbeg \ptnode{\cf{NP\bs NP}}
+            \ptbeg \ptnode{\cf{(NP\bs NP)/N}} \ptleaf{this} \ptend
+            \ptbeg \ptnode{\cf{N}} \ptleaf{week} \ptend
+          \ptend
+        \ptend
+        \ptbeg \ptnode{\cf{NP\bs NP}}
+          \ptbeg \ptnode{\cf{S[dcl]}} \ptleaf{it has happened} \ptend
+        \ptend
+      \ptend
+    \ptend
+  \ptend
+  \ptbeg \ptnode{\cf{S\bs S}}
+    \ptbeg \ptnode{\cf{,}} \ptleaf{,}\ptend
+    \ptbeg \ptnode{\cf{NP}}
+      \ptbeg \ptnode{\cf{NP/NP}} \ptleaf{almost}\ptend
+      \ptbeg \ptnode{\cf{NP}}
+        \ptbeg \ptnode{\cf{NP}}
+          \ptbeg \ptnode{\cf{NP/N}} \ptleaf{a}\ptend
+          \ptbeg \ptnode{\cf{N}}\ptleaf{way}\ptend
+        \ptend
+        \ptbeg \ptnode{\cf{NP\bs NP}}
+          \ptbeg \ptnode{\cf{(NP\bs NP)/NP}} \ptleaf{of}\ptend
+          \ptbeg \ptnode{\cf{NP}}
+            \ptbeg \ptnode{\cf{N}} \ptleaf{life}\ptend
+          \ptend
+        \ptend
+      \ptend
+    \ptend
+  \ptend
+\ptend
+\ptendtree
+}
+\end{center}
+\caption{\ccgbank derivation showing \psg rules.}\label{full_sentence_ccgbank}
+\end{figure}
+
+\begin{figure}
+\centering
+\deriv{4}{
+\rm John & \rm Paul & \rm Mary & \rm loves \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{NP} &
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} \\
+& \psgrule{1} & \ftype{1} \\
+& \mc{1}{\cf{S/(S/NP)}} & \mc{1}{\cf{S/(S\bs NP)}} \\
+&& \fcomp{2} \\
+&& \mc{2}{\cf{S[dcl]/NP}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{S[dcl]}} \\
+& \psgrule{3} \\
+& \mc{3}{\cf{NP\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{NP}}
+}
+\caption{Over-generation by \ccgbank rules.\label{fig:twisted_love}}
+\end{figure}
+
+\citet{hock:lrec02} includes a brief discussion of the modifier category proliferation problem, and introduces unary phrase-structure (\psg) rules to address the situation. Appendix \ref{appendix:type-changing} provides a list of all unary and binary \psg rules that occur more than 10 times in Sections 02-21 of \ccgbank. There are 204 type-changing \psg rules in the training partition of \ccgbank. 53 of the frequent rules produce modifier categories, 48 of them transforming verbal categories. The \psg rules also handle a variety of other constructions, such as form/function discrepancies like gerund nominals. By far the most frequent rule (115,333 occurrences) is \psunary{\cf{N}}{\cf{NP}}, which transforms bare nominals into noun phrases.
+
+Figure \ref{full_sentence_ccgbank} shows two such rules. The \psunary{\cf{S[dcl]}}{\cf{NP\bs NP}} rule allows the reduced relative clause, \emph{it has happened}, to function as a modifier while all words are assigned their canonical categories. The other \psg type-changing rule in the derivation, \psbinary{\cf{,}}{\cf{NP}}{\cf{S\bs S}}, enables the extraposition of \emph{almost a way of life}. This rule illustrates how \psg rules prevent the modifier category proliferation problem. The modifier \emph{almost} receives the form-based category \cf{NP/NP}. The function of its head is factored away from the modifier's category.
+
+The rule is binary so that the punctuation can make the rule more precise. Precision is important for \psg rules, because they come at the cost of over-generation. \citet{hock:cl07} do not introduce any mechanisms that can be used to specify a context for \psg rules. This means that the \psg rules must be chosen judiciously, lest the solution become more costly than the initial problem.
+
+Figure \ref{fig:twisted_love} shows an example of over-generation caused by a unary rule. The rule, \psunary{\cf{NP}}{\cf{S/(S/NP)}}, is used to handle object extraposition, as in the following:
+
+\begin{lexamples}
+ \item Robin I love, but Pat I hate.
+\end{lexamples}
+
+
+
+Adding this rule to the grammar without any restrictions allows local scrambling, undoing all of the careful work to restrict the combinatory rules in \citet{steedman:00}, and making \citepos{baldridge:03} replacement of them a moot point. Many of the \psg rules that are rare in \ccgbank offer similarly unattractive trade-offs between descriptive power and over-generation. The \psunary{\cf{S[dcl]}}{\cf{NP\bs NP}} rule is another example of this.
+
+The ambiguity problem prevents \psg rules from being a practical way to consistently represent constituent type in the corpus. For instance, prepositional phrases receive modifier categories directly, because unary rules transforming prepositional phrases into nominal or verbal modifiers would be very problematic. One problem with the addition of a rule such as \psunary{\cf{PP}}{\cf{NP\bs NP}} to the grammar is that prepositional phrase attachment would no longer be lexically specified. A word would receive the category \cf{PP/NP}, and after applying its argument, it could then function as an argument, nominal modifier, or verbal modifier. This loss of lexicalisation is undesirable.
+
+Perhaps the biggest problem with a \psg rule like \psunary{\cf{PP}}{\cf{NP\bs NP}} is the loss of semantic transparency that it causes. In \citepos{steedman:00} formulation, all \ccg lexical categories are paired with a semantic category. The arguments of the two categories are coindexed to each other, so that a filled argument in the derivation automatically corresponds to a filled argument in the semantics. This is the mechanism why \ccg is said to have a transparent mapping between the grammar and the semantics: every grammatical analysis corresponds directly to exactly one semantic analysis.
+
+With the introduction of \psg rules, this is no longer true. A \psg rule like \psunary{\cf{PP}}{\cf{NP\bs NP}} adds an argument to the \cf{PP} category that was not specified in the preposition's lexical category \cf{PP/NP}. There is no way to map the new leftward \cf{NP} argument to the semantic category, because the isomorphism is constructed between lexical categories. The \ccg combinators are supposed to simply instantiate the dependencies. \psg rules therefore contradict the fundamental design principles of the formalism.
+
+\citet{hock:cl07} do not include a \psunary{\cf{PP}}{\cf{NP\bs NP}} rule in \ccgbank, but they do include other rules which add arguments. The binary extraposition rule in Figure~\ref{full_sentence_ccgbank} is an example of this. \ccgbank's dependencies are also specified over lexical categories, because the dependency graph is constructed during the derivation, in the same way \citet{steedman:00} describes the creation of a compositional semantic analysis. When the \psbinary{\cf{,}}{\cf{NP}}{\cf{S\bs S}} rule occurs, no dependency can be created between the \cf{NP} and the head of \cf{S}, which should govern it. This usually means that the dependency graph for the sentence is disconnected.
+
+Finally, phrase-structure rules also destroy the explanatory power of \ccg as a model of the human language processor. One of the appeal of a lexicalised grammar in this respect is that it makes a strong claim about exactly which part of the human language faculty is innate (the grammar), and which part is acquired (the lexicon). If the grammar is innate, it must be language universal, confining all language specific variation to the lexicon. The phrase-structure rules contradict this hypothesis, just when it seemed that the last language specific exceptions to the grammar had been removed by \citepos{baldridge:03} addition of resource sensitivity to the lexicon. We argue that although the problem that phrase-structure rules address is real, we should seek a solution that does not involve abandoning the central hypotheses of the \ccg theory.
+
+\section{Hat Categories}
+
+This section describes an extension to \ccg that allows the grammar to represent form and function simultaneously, addressing the problems we have described. Our solution is to modify the \ccg category objects themselves, adding a new attribute, \emph{hat}. The hat attribute contains a category that the original category (which we call the \emph{base}) can then be unarily transformed into. The term \emph{hat} is a reference to our notation for the new property, but it also reflects the fact that the category can now behave in two ways, according to its form, and according to its function. A category that specifies a hat is termed a \emph{hat category}.
+
+A hat, such as \cf{NP\bs NP}, is written as a superscript to a base category such as \cf{S[ng]\bs NP}, producing a hat category such as \cf{(S[ng]\bs NP)^{NP\bs NP}/NP}. A simple book-keeping rule, \textsc{unhat} (\cH), performs the unary transformation. For instance, the \cf{(S[ng]\bs NP)^{NP\bs NP}/NP} category allows an analysis of a reduced subject relative, such as \emph{stalking} in the noun phrase \emph{the cat quietly stalking the rat}:
+
+\begin{center}
+\deriv{6}{
+\rm the & \rm cat & \rm quietly & \rm stalking & \rm the & \rm rat \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP/N} &
+\cf{N} &
+\cf{(S\bs NP)/(S\bs NP)} &
+\cf{(S[ng]\bs NP)^{NP\bs NP}/NP} &
+\cf{NP/N} &
+\cf{N} \\
+\fapply{2} \\
+\mc{2}{\cf{NP}} \\
+\fapply{6} \\
+\mc{6}{\cf{NP}} \\
+&&& \fapply{3} \\
+&&& \mc{3}{\cf{(S[ng]\bs NP)^{NP\bs NP}}} \\
+&& \fapply{4} \\
+&& \mc{4}{\cf{(S[ng]\bs NP)^{NP\bs NP}}} \\
+&& \unhat{4} \\
+&& \mc{4}{\cf{NP\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{NP}}
+}
+\end{center}
+
+The hat category allows \emph{quietly} to modify \emph{stalking} according to its form, a verb phrase, rather than its function, a nominal modifier. The only change to the grammar we must make to accomodate the hat categories is the addition of a simple book-keeping rule, \textsc{unhat}, to perform the unary transformation:
+
+\begin{equation}
+\cf{\cf{X^Y}} \;\;\Rightarrow_\cH\;\; \cf{Y}
+\end{equation}
+
+Hat categories lexically specify unary productions, adding considerable descriptive power, without changing the grammar's weak generative capacity. The additional descriptive power allows  constituent type to be represented consistently in the grammar. Although we have designed hat categories for use in \ccg, the extension might be applied to any categorial grammar, so we often phrase our discussion more generally. However, we have not considered the details of our proposal's interaction with the full variety of mechanisms that have been developed for various categorial grammars.
+
+The section is structured as follows. First, we define our extension to the \ccg category objects. We then describe the new unhat rule we add to the grammar, and comment on its behaviour during unification. We then detail how analyses with hat categories interact with the various combinatory rules, which do not require any changes. Finally, we discuss how hat categories affect the grammar's generative power, sketching a proof that shows they are equivalent in weak generative power to both a standard \ccg grammar and the \ccgbank grammar.
+
+\section{Lexical Control of Type Changing}
+
+There are two conflicting demands we would like \ccg categories to meet:
+
+\begin{enumerate}
+ \item \emph{Type transparency}. This means that the lexical category should fully specify the function of the constituent headed by the word it is assigned to.
+ \item \emph{Form transparency}. This means that the lexical category should specify the form of its category, to ensure its modifiers do not have to refer to its internal structure.
+\end{enumerate}
+ 
+\ccgbank deploys a solution that achieves \emph{form transparency} at the expense of \emph{type transparency}, by allowing type-changing rules that are not lexically specified. One way to recover the lost type transparency would be to demand that lexical categories specify what type changing rule (if any) the category can eventually undergo. If we can propagate this information successfully through the derivation, we will be able to switch on different type changing rules during category assignment, and thereby achieve type transparency.
+
+For instance, imagine we have two type-changing rules we wish to include in our grammar:
+
+ \begin{eqnarray}
+  \eqnpsrule{\cf{NP\bs NP}}{}{\cf{S[ng]\bs NP}} \label{psrule1}\\
+  \eqnpsrule{\cf{(S\bs NP)\bs (S\bs NP)}}{}{\cf{S[ng]\bs NP}} \label{psrule2}
+ \end{eqnarray}
+
+With these two rules, there will be three ways the \cf{S[ng]\bs NP} category might behave in a derivation. What we need are three different categories to control this:
+
+ \begin{enumerate}
+  \item \cf{(S[ng]\bs NP)^{\bowtie}} would allow no rules to be applied;
+  \item \cf{(S[ng]\bs NP)^{1}} would allow rule \ref{psrule1} to be applied, but not rule \ref{psrule2};
+  \item \cf{(S[ng]\bs NP)^{2}} would allow rule \ref{psrule2} to be applied, but not rule \ref{psrule1}.
+ \end{enumerate}
+
+This puts control back into the lexicon, but the grammar is still cluttered with rules specific to the analysis, corpus and language. We would like to make the grammar small and language universal, as the \ccg theory requires. We can achieve this by recording the rule itself in the category, rather than simply recording a reference to it. Of course, there is no reason to record the right hand side of the rule, since that will always be the category itself. Instead, we can just specify how the category can be rewritten:
+
+\begin{enumerate}
+ \item \cf{S[ng]\bs NP} cannot be rewritten at all
+ \item \cf{(S[ng]\bs NP)^{NP\bs NP}} can be rewritten as \cf{NP\bs NP}
+ \item \cf{(S[ng]\bs NP)^{(S\bs NP)\bs (S\bs NP)}} can be rewritten as \cf{(S\bs NP)\bs (S\bs NP)}
+\end{enumerate}
+
+This way, we only need to introduce one extra rule schema into the grammar, which does not refer to any specific categories:
+
+\begin{eqnarray}
+ \cf{X^Y} \;\;\Rightarrow_\cH\;\; \cf{Y}
+\end{eqnarray}
+
+This rule simply unpacks the category, performing the type change that has been lexically specified. Figure \ref{hat_avm} shows an attribute-value matrix representation of the hat category \cf{(S[ng]\bs NP)^{NP\bs NP}}. An attribute has been added to store the hat \cf{NP\bs NP}. The \cf{NP} argument of the hat is coindexed with the \cf{NP} argument of the base category. The \cf{NP} argument is also coindexed with the hat's result, reflecting the fact that \cf{NP\bs NP} is a modifier category, whose head will be the head of its argument.
+
+\begin{figure}
+\centering
+\begin{avm}
+[{}  cat  & \cf{\(S\[ng\]\bs NP\)^{NP\bs NP}/NP}     \\
+     res  & [{} cat  & \cf{\(S\[ng\]\bs NP\)^{NP\bs NP}} \\
+                res  & [{} cat  & \cf{S}\\
+	                feat & \cf{ng}\\
+                        hat  & \[\]\\
+                       ]\\
+	        arg  & \cf{NP_1} \\
+	        dir  & \bks \\
+	        hat  & [{} cat & \cf{NP\bs NP}\\
+                           res    & \cf{NP}\\
+                           arg    & \cf{NP_1}\\
+                           dir    & \bks \\
+                           hat    & \[\] \\
+                       ] \\
+            ]\\
+     arg  & \cf{NP} \\
+     dir  & \cf{/} \\
+     hat & \[\]
+     ]
+\end{avm}
+\caption[Attribute-value matrix representation of a hat category.]{Attribute-value matrix representation of a hat category.}\label{hat_avm}
+\end{figure}
+
+\section{Restricting Disjunction}
+\label{sec:disjunction}
+
+In our description above, we said that the hat category \cf{(S[ng]\bs NP)^{NP\bs NP}} \emph{can} be rewritten as \cf{NP\bs NP}. This is partly inadequate, because it underspecifies the constituent's function. What we want is a category that \emph{must} be written as \cf{NP\bs NP}.
+
+\citet{steedman:00} presents several principles to guide the development of a grammar within the \ccg formalism. One of these principles was briefly discussed in Section \ref{sec:descriptive_power}. The Principle of Head Categorial Uniqueness states:
+
+\begin{headcat}
+A single non-disjunctive lexical category for the head of a given construction specifies both the bounded dependencies that arise when its complements
+are in canonical position and the unbounded dependencies that arise when those complements are displaced under relativization, co-ordination, and the like.
+\end{headcat}
+
+We take \emph{non-disjunctive} to mean that the category specifies exactly one set of functional relationships. Its argument structure must be exactly specified, and so must its interaction with the rest of the derivation. Our unary transformations threaten this specificity, by potentially allowing the category to function as either the base or the hat. This can easily be seen in a category like \cf{(S[ng]\bs NP)^{S[ng]}}, which could be used to simulate a drop slash \citep{msccg} by making its subject optional. It can also be seen in a category like \cf{PP^{(S\bs NP)\bs (S\bs NP)}}, whose status as a complement or an adjunct is indeterminate. This is the problem with disjunctive categories: they make the grammar less lexicalised, because the category underspecifies the function of the constituent headed by that word.
+
+\subsection{Null Mode Stipulation}
+
+This section describes a stipulation that ensures hat categories with complex bases, such as \cf{(S[ng]\bs NP)^{NP}}, are non-disjunctive. We make these categories non-disjunctive by preventing them from applying their arguments. This is done by adopting \citepos{tse:honours} suggestion of an additional \emph{null} mode, in addition to the slash modes described by \citet{baldridge:03}, briefly reviewed in Section \ref{sec:mmccg_background}.
+
+What is the point of a null argument --- why not just assign the category \cf{S[ng]^{NP\bs NP}/NP} instead? The null mode (\nullmodetext) prevents the slash from being used in any combinatory rules, even application. This allows structural arguments to be added, which can then be used for co-indexation and consistent modification. For instance, consider the following two categories:
+
+\begin{eqnarray}
+ \cf{(S[ng]\bs\nullmode NP_y)^{NP\bs NP_y}/NP_z}\label{hat_rrc}\\
+\cf{(S[ng]\bs NP_{y})/NP_{z}}\\
+\end{eqnarray}
+
+Specifying the null mode argument on example \ref{hat_rrc} allows the two categories to share the same argument structure, with the argument of the hat in example \ref{hat_rrc} effectively replaced the null moded argument, as occurs in a reduced subject relative. The null argument also allows modifiers to receive their canonical categories:
+
+\begin{center}
+ \deriv{3}{
+\rm Seeing & \rm things & \rm clearly \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{(S[ng]\bs\nullmode NP)^{NP}/NP} &
+\cf{NP} &
+\cf{(S\bs NP)\bs (S\bs NP)} \\
+\fapply{2} \\
+\mc{2}{\cf{(S[ng]\bs\nullmode NP)^{NP}}} \\
+\bapply{3} \\
+\mc{3}{\cf{(S[ng]\bs\nullmode NP)^{NP}}}
+}
+\end{center}
+
+The mechanism that allows the hat to be preserved during modification is described in Section \ref{sec:app_interaction}. The modification succeeds here because the adjunct category \cf{(S\bs NP)\bs (S\bs NP)} does not specify any modes on its slashes: if a permissive mode were assigned to the \cf{NP} argument slash, that slash would fail to unify with the slash in the null argument.
+
+The fact that a null mode will not unify with a less restrictive mode is also important in preventing disjunction. Without this property, the argument could simply type-raise and apply as the functor, routing around the application restriction:
+\begin{center}
+\deriv{2}{
+\rm *~I & \rm seeing \\
+\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S[ng]\bs\nullmode NP)^{NP}} \\
+\ftype{1} \\
+\mc{1}{\cf{S/\smode (S\bs\smode NP)}} \\
+\asterisk{2} \\
+\mc{2}{\cf{S[ng]}}
+}
+\end{center}
+
+ This is not possible, however, because type-raise categories are always assigned application-only slashes, creating categories like \cf{T/\smode(T\bs\smode X)}. The star-moded slash \cf{\bs\smode} will fail to unify with the null-moded slash \cf{\bs\nullmode}, blocking the argument from being applied.
+
+\subsection{Null Hat Stipulation}
+\label{sec:null_hats}
+
+The second case we need to prevent is a hat category being applied as an argument. We want to prevent something like the following:
+
+\begin{center}
+\deriv{4}{
+\rm Pat & \rm is & \rm collecting & \rm stamps \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/(S[ng]\bs NP)} &
+\cf{(S[ng]\bs\nullmode NP)^{NP}/NP} &
+\cf{NP} \\
+&& \fapply{2} \\
+&& \mc{2}{\cf{(S[ng]\bs\nullmode NP)^{NP}}} \\
+& \fapply{3} \\
+& \mc{3}{\cf{S[dcl]\bs NP}} \\
+\bapply{4} \\
+\mc{4}{\cf{S[dcl]}}
+}
+\end{center}
+
+The hat category above is able to function identically to the non-hat version, which is not what we want, following the Principle of Head Categorial Uniqueness discussed in Section \ref{sec:disjunction}. However, we cannot impose a blanket ban on using categories that specify a hat as arguments, because we will need to apply adjuncts to these categories.
+
+Once again, we can achieve this by adding a simple stipulation for what will constitute a well-formed category in the lexicon. Instead of a null mode, this stipulation relies on a \emph{null hat}. A null hat is a value that the hat attribute can take on that blocks unification with any non-null, non-empty hat value:
+
+ \begin{equation}
+  \cf{(S[dcl]\bs NP)/(S[ng]\bs NP)^{\nullhat}}\;\;\cf{(S[ng]\bs NP)^{NP}}\;\Rightarrow\;\emptyset\\
+ \end{equation}
+
+We can then stipulate that arguments that represent \emph{complements} must have a null hat value, while arguments that represent adjuncts must have empty hat values, allowing unification with any hat category. We will leave null and empty hats implicit in our notation, in order to avoid clutter. In Section \ref{sec:combinator_implementation}, we describe how we simulate this behaviour in the \candc parser by including an `adjuncts only' constraint in the rules, instead of relying on the unification engine. We also use rule restrictions instead of multi-modal slashes.
+
+\subsection{Single Hat Stipulation}
+\label{sec:single_hat}
+
+The null hat and null mode stipulations together ensure that if a category has a hat, that hat must be used for the derivation to succeed. This means that a category that specifies two hats on different results is contradictory:
+
+\begin{eqnarray}
+ \cf{(((S[ng]\bs NP)^{NP})/NP)^{NP\bs NP}}
+\end{eqnarray}
+
+A category like this valid syntactically according to the definition we have set out, but it is semantically non-functional. We add a stipulation banning categories of this type from our analyses.
+
+
+
+\section{Interaction with the Grammar}
+
+In this section, we describe how the unification algorithm and combinatory rules behave with respect to the hat attribute we have added.
+
+\subsection{Hat Categories and Unification}
+
+Hat categories are handled the same as any other field during unification. If the two hat fields cannot be unified, unification fails; and if one hat field has an empty value, it inherits the hat field of the other category when unification passes.
+
+\subsection{Application and Adjunction}
+\label{sec:app_interaction}
+
+This section describes how the application rules interact with hat categories. It also describes the interaction with modifier categories, where the result and argument are coindexed. This behaviour is all predicted by the unification semantics, so the adjunction interactions will also reoccur with composition. Since forward and backward application work analogously, but with the order of the categories reversed, we will confine our discussion to forward application. During forward application, the argument of the left-side category is unified with the right-side category. The result of the left-side category is returned unchanged:
+
+% X^Y/Z Z --> X^Y
+\begin{eqnarray}
+\cf{S[ng]^{NP}/PP} & \cf{PP} & \Rightarrow\;\; S[ng]^{NP}
+\end{eqnarray}
+
+If the category on the right has a hat specified, unification will fail if the argument has a null hat specified, but will pass if its hat attribute is empty or its hat matches. As we discuss in Section \ref{sec:null_hats}, we stipulate that modifier arguments have an empty hat, while complement arguments have a null hat. We have not used arguments which specify a category value for their hat attribute in our analyses, but such an argument would unify if and only if its hat attribute unified with the applicand:
+
+% X/Z Z^Y --> X
+\begin{eqnarray}
+\cf{NP_y/NP_y} &\cf{NP^{S\bs S}}  & \Rightarrow\;\;\cf{NP^{S\bs S}}\label{hat_adjunct} \\
+\cf{(S[dcl]\bs NP)/NP^{\nullhat}} &\cf{NP^{S\bs S}}  & \Rightarrow\;\;\emptyset \\
+\cf{(S[dcl]\bs NP)/NP^{S\bs S}} & \cf{NP^{S\bs S}} & \Rightarrow\;\;S[dcl]\bs NP \\
+\cf{(S[dcl]\bs NP)/NP^{S/S}} & \cf{NP^{S\bs S}} & \Rightarrow\;\;\emptyset
+\end{eqnarray}
+
+When the left-side category is a modifier, as in \ref{hat_adjunct}, the hat category from the right-side category will be transmitted across to the result, since the argument and result in a modifier are coindexed, and adjunct categories specify empty hat values. This is much like the familiar example of a modifier applying to a category with a feature: 
+
+\begin{eqnarray}
+ \cf{(S\bs NP)_y/(S\bs NP)_y} & \cf{S[ng]\bs NP} & \Rightarrow\;\; \cf{S[ng]\bs NP}
+\end{eqnarray}
+
+The coindexation mechanism performs the same as it always has, ensuring that modifiers are functions that return their arguments unchanged. Because the coindexing is recursive, hat fields specified within the category's result are also transmitted during unification:
+
+\begin{eqnarray}
+ \cf{(S\bs NP)_y/(S\bs NP)_y} & \cf{S[dcl]^{NP}\bs NP} & \Rightarrow\;\; \cf{S[dcl]^{NP}\bs NP}
+\end{eqnarray}
+
+
+\subsection{Composition}
+
+The forward, backward, harmonic and crossing composition rules all interact with hat categories in the same way, whether the rule is simple or generalised. To illustrate this, we need to establish some terminology. Composition rules take the \term{result portion} of the \term{functor}, and if the \term{overlap} matches, add the \term{argument portion} of the \term{argument category} to produce the \term{product category}. In harmonic composition, the product's slash is the same as the functor's slash. In crossing composition, it is reversed. For an instance of simple harmonic forward composition:
+
+\begin{eqnarray}
+ \cf{X/Y} & \cf{Y/Z} & \Rightarrow_\cB\;\; \cf{X/Z}
+\end{eqnarray}
+
+\cf{X/Y} is the \emph{functor category},  \cf{Y/Z} is the \emph{argument category}, \cf{X} is the \emph{result portion}, \cf{Z} is the \emph{argument portion}, \cf{Y} is the \emph{overlap} and \cf{/} is the \emph{slash}.
+
+% \begin{itemize}
+%  \item \cf{X/Y} is the functor
+%  \item \cf{Y/Z} is the argument
+%  \item \cf{X} is the result portion
+%  \item \cf{Z} is the argument portion
+%  \item \cf{Y} is the overlap
+%  \item \cf{/} is the slash
+% \end{itemize}
+
+In generalised backward crossing composition, the functor occurs on the righthand side, and the \emph{argument portion} can cover multiple arguments:
+
+\begin{eqnarray}
+ \cf{(S[dcl]/PP)/NP} & \cf{S\bs S} & \Rightarrow_\cBx\;\; \cf{(S[dcl]/PP)/NP}
+\end{eqnarray}
+
+Successful composition involves the following unification operations.\footnote{This discussion assumes for simplicity that the result category is constructed anew, and unified with the appropriate parts of the original categories. The combinatory rules can also be implemented such that the result category is constructed from pointers to the appropriate pieces of the original categories.} For each unification, the categories being unified are bolded.
+
+\begin{itemize}
+ \item The \term{overlap} of the \term{functor} and the \term{argument}
+\begin{eqnarray}
+ \cf{X/\textbf{Y}} & \cf{\textbf{Y}/Z} & \Rightarrow_\cBx\;\; \cf{X/Z}\\
+ \cf{(\textbf{S[dcl]}/PP)/NP} & \cf{S\bs \textbf{S}} & \Rightarrow_\cBx\;\; \cf{(S[dcl]/PP)/NP}
+\end{eqnarray}
+
+\item The \term{result portion} of the \term{functor} and the \term{result portion} of the \term{product}
+
+\begin{eqnarray}
+ \cf{\textbf{X}/Y} & \cf{Y/Z} & \Rightarrow_\cB\;\; \cf{\textbf{X}/Z}\\
+ \cf{((\textbf{S[dcl]}/PP)/NP} & \cf{\textbf{S}\bs S} & \Rightarrow_\cB\;\; \cf{(\textbf{S[dcl]}/NP)/PP}
+\end{eqnarray}
+
+\item Each category in the \term{argument portion} of the \term{argument} is unified with the corresponding category in the \term{argument portion} of the \term{product}
+
+\begin{eqnarray}
+ \cf{X/Y} & \cf{Y/\textbf{Z}} & \Rightarrow \cf{X/\textbf{Z}}\\
+ \cf{((S[dcl]/\textbf{PP})/\textbf{NP}} & \cf{S\bs S} & \Rightarrow \cf{(S[dcl]/\textbf{PP})/\textbf{NP}}
+\end{eqnarray}
+
+\end{itemize}
+
+Each of these unification operations can involve a hat category. We will ignore the null hat stipulation described in Section \ref{sec:null_hats} here, because it is easier to see what is going on if we do not use modifier categories:
+
+\begin{eqnarray}
+ \cf{X/Y}   & \cf{Y^A/Z} & \Rightarrow \cf{X/Z}\label{comp1}\\
+ \cf{X^A/Y} & \cf{Y/Z}   & \Rightarrow \cf{X^A/Z}\label{comp2}\\
+ \cf{X/Y}   & \cf{Y/Z^A} & \Rightarrow \cf{X/Z^A}\label{comp3}\\
+ \cf{X/Y^A} & \cf{Y/Z}   & \Rightarrow \cf{X/Z}\label{comp4}
+\end{eqnarray}
+
+Of these four possibilities, only \ref{comp1} and \ref{comp2} occur in our analyses, because we never introduce categories with arguments that specify a hat. The null hat stipulation would also prevent the case shown in \ref{comp1}  from occurring, unless the category on the left were an adjunct.
+
+\subsection{Hat Categories and Associativity}
+\label{sec:hat_associativity}
+Hat categories potentially pose a problem for function associativity. Consider the following two categories:
+
+\begin{eqnarray}
+\cf{((S[ng]\bs NP)/NP)^{NP\bs NP}}\\
+\cf{(S[ng]/NP)^{NP\bs NP}\bs NP}\\
+\end{eqnarray}
+
+The categories only differ in the order they specify their arguments, but the second bracketing allows a derivation that the first one does not:
+\begin{center}
+\deriv{6}{
+\rm Robin & \rm admired & \rm the & \rm stamps & \rm Pat & \rm collected \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{NP/N} &
+\cf{N} &
+\cf{NP} &
+\cf{(S[pss]/NP)^{NP\bs NP}\bs NP} \\
+&& \fapply{2} & \bapply{2} \\
+&& \mc{2}{\cf{NP}} & \mc{2}{\cf{(S[pss]/NP)^{NP\bs NP}}} \\
+&&&& \unhat{2} \\
+&&&& \mc{2}{\cf{NP\bs NP}} \\
+&& \bapply{4} \\
+&& \mc{4}{\cf{NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{S[dcl]\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{S[dcl]}}
+}
+\end{center}
+
+Simulating associativity by restructuring the arguments in a lexical category is unsatisfactory, as described in Section \ref{sec:ab_sucks}. \emph{collected} must be assigned a category that specifies its arguments in their canonical positions. What we need is a way to type-raise the subject, \emph{Pat}, and compose it with the verb, \emph{collected}, to produce the category \cf{(S[pss]/NP)^{NP\bs NP}}:
+
+\begin{center}
+ \deriv{6}{
+\rm Robin & \rm admired & \rm the & \rm stamps & \rm Pat & \rm collected \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(S[dcl]\bs NP)/NP} &
+\cf{NP/N} &
+\cf{N} &
+\cf{NP} &
+\cf{((S[pss]\bs NP)/NP)^{NP\bs NP}} \\
+&& \fapply{2} & \ftype{1} \\
+&& \mc{2}{\cf{NP}} & \mc{1}{\cf{S/(S\bs NP)}} \\
+&&&& \fcomp{2} \\
+&&&& \mc{2}{\cf{(S[pss]/NP)^{NP\bs NP}}} \\
+&&&& \unhat{2} \\
+&&&& \mc{2}{\cf{NP\bs NP}} \\
+&& \bapply{4} \\
+&& \mc{4}{\cf{NP}} \\
+& \fapply{5} \\
+& \mc{5}{\cf{S[dcl]\bs NP}} \\
+\bapply{6} \\
+\mc{6}{\cf{S[dcl]}}
+}
+\end{center}
+
+This assumes an implementation of the composition rules where the result is supplied from the functor, but all of the other properties are supplied from the argument category. This would explain why composition rules must inherit the slash directionality of the argument category. Note that the head of the constituent \emph{Pat collected} should come from the argument too: the head is \emph{collected}, not the functor \emph{Pat}. It therefore does not seem exceptional that the hat value should be inherited too.
+
+\subsection{Coordination}
+
+There are several different proposals for coordination in categorial grammars. The accepted current analysis, from \citet{baldridge:03}, uses  application and multi-modal slashes \citep{steedman:pedia}. However, the \citet{steedman:00} analysis using a ternary conjunction combinator remains very relevant. The analysis implemented in \ccgbank uses two binary rules to simulate the ternary analysis, because the addition of a ternary rule complicates the \cky chart-parsing algorithm \citep{hock:cl07}.
+
+The \citet{baldridge:03} \mmccg analysis allows coordination to be implemented using the application rule, by assigning the coordinator the category \cf{(X\bs\smode X)/\smode X}. The multi-modal slashes are required to avoid type-raised categories from composing with the coordinator category, over-generating faulty derivations as described in Section \ref{sec:mmccg_background}. This treatment of coordination uses the application rules, so the interaction with hat categories is as expected from Section \ref{sec:app_interaction}.
+
+The \citet{steedman:00} ternary analysis uses two categories and a coordinator:
+
+\begin{eqnarray}
+ \cf{X} & conj~\cf{X} & \Rightarrow \cf{X}
+\end{eqnarray}
+
+The two \cf{X} categories are unified, allowing a hat category to be transferred from one side of a coordinated phrase to the other, as shown in \ref{hat_coord}. Coordination will be blocked if the hat categories do not unify, as in \ref{hat_coord_conflict} and \ref{hat_coord_block}:
+
+\begin{eqnarray}
+ \cf{NP}          & conj~\cf{NP^{S/S}}      & \Rightarrow \cf{NP^{S/S}} \label{hat_coord}\\ 
+ \cf{NP^{S\bs S}} & conj~\cf{NP^{S/S}}      & \Rightarrow \emptyset \label{hat_coord_conflict}\\     
+ \cf{NP^{S\bs S}} & conj~\cf{NP^{\nullhat}} & \Rightarrow \emptyset \label{hat_coord_block}
+\end{eqnarray}
+
+Because ternary rules are undesirable for parsing, and the \mmccg analysis had not yet been developed, \citet{hock:thesis03} implemented coordination using two binary rules:
+\begin{center}
+\deriv{3}{
+\rm Apples & \rm and & \rm oranges \\
+\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{conj} &
+\cf{NP} \\
+\conj{2} \\
+\mc{2}{\cf{NP[conj]}} \\
+\conj{3} \\
+\mc{3}{\cf{NP}}
+}
+\end{center}
+
+During the second rule application, the \cf{NP} categories are unified, ensuring that hat categories interact with this implementation as we would expect.
+
+
+
+
+\section{Consequences for Generative Power}
+\label{sec:wgp_proof}
+\begin{figure}
+ \centering
+\begin{parsetree}
+(.\cf{P}.
+  (.\cf{S}.)
+  (.\cf{H}.
+    (.\cf{B}.
+      (.\cf{L}.
+        (.\cf{LL}.)
+        (.\cf{LR}.)
+      )
+      (.\cf{R}.)
+    )
+  )
+)
+
+\end{parsetree}
+\caption[Parse tree with unary production.]{A parse tree with a unary production, used to illustrate our proof that unary rules do not increase the weak generative power of \ccg.\label{fig:unhat}}
+\end{figure}
+
+
+In the standard definition \citep{chomsky:aspects}, a grammar \emph{weakly} generates a set of sentences (also called a language), and \emph{strongly} generates a set of structural descriptions. In general, greater strong generative power (\textsc{sgp}) is desirable if it does not lead to an increase in weak generative power (\textsc{wgp}) \citep{joshi:00}. \textsc{sgp} allows for more nuanced linguistic descriptions, giving the opportunity for more efficient and less ambiguous analyses. On the other hand, an increase in \textsc{wgp} is problematic. If a linguistic theory claims --- as \ccg does --- that the formalism is a model of the human language faculty, rather than simply a notational device, then the \textsc{wgp} of the formalism constitutes a prediction about the set of languages that will naturally occur. Since that set is fairly well established, a change in \textsc{wgp} will generally make the grammar psychologically implausible.
+
+It is easy to see that hat categories do not increase the grammar's \textsc{wgp}. We do this by showing that no unary rule increases the \textsc{wgp}. Consider the example of a unary rule, shown in Figure \ref{fig:unhat}. We can convert this derivation into a standard \ccg analysis by replacing the child node \cf{B} with its unary parent \cf{H}. This does not affect the production \psbinary{\cf{P}}{\cf{S}}{\cf{H}}, so the only potential problem is in the new \psbinary{\cf{H}}{\cf{L}}{\cf{R}} production. This production might not be a licensed by a \ccg combinator.
+
+However, for any licensed production \psbinary{\cf{A}}{\cf{L}}{\cf{R}}, it is always possible to switch the parent node \cf{A} for a new parent \cf{B} by replacing one or both children, producing a valid production \psbinary{\cf{B}}{\cf{L'}}{\cf{R'}}. In Section \ref{sec:relabel_rule}, we describe a simple set of rules to do this in a desirable way for our conversion process. For the purposes of this proof, we will ignore the niceties that produce desirable derivations, and simply show that a valid rule can be constructed.
+
+For any \ccg category \cf{B}, it is trivial to construct a valid combinatory rule that produces \cf{B} as its result. We will use forward application:
+
+\begin{eqnarray}
+ \cf{B/R} & \cf{R} & \Rightarrow \;\; \cf{B}
+\end{eqnarray}
+
+We can therefore flatten any unary rule and produce a valid \ccg derivation as follows. First, replace the child \cf{B} with the parent \cf{H}. Next, replace the left child of \cf{B} with a functor category \cf{H/R}, where \cf{H} is the original righthand child of \cf{B}. Now propagate the change down the tree, by replacing the lefthand child of what used to be \cf{L} with a category \cf{(H/R)/LR}, where \cf{LR} was the original category of the righthand child of \cf{L}. Continue propagating the changes in this way until you arrive at lexical categories. The only unary rule that can be encountered is a type-raising production, which has the form \cf{T/(T\bs TL)}. If this occurs, simply replace the \cf{TL} part of the category of the parent and the child with the new category, and continue propagating the changes down the tree.
+
+This proves that no unary rule can extend the weak generative power of a \ccg grammar. The only rule we have added is the \textsc{unhat} rule, so it follows that the weak generative power is unaltered.
+
+\section{Conclusion}
+
+
+\end{document}

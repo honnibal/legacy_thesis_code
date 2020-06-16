@@ -1,0 +1,145 @@
+Seeing|(S[ng]\_nullNP)^{NP}/NP things|NP clearly|(S\NP)\(S\NP)
+fapply Seeing things (S[ng]\_nullNP)^{NP}
+bapply Seeing clearly (S[ng]\_nullNP)^{NP}
+
+Pat|NP is|(S[dcl]\NP)/(S[ng]\NP) collecting|(S[ng]\_nullNP)^{NP}/NP stamps|NP
+fapply collecting stamps (S[ng]\_nullNP)^{NP}/NP
+fapply is stamps S[dcl]\NP
+bapply Pat stamps S[dcl]
+
+Robin|NP admired|(S[dcl]\NP)/NP the|NP/N stamps|N Pat|NP collected|(S[pss]/NP)^{NP\NP}\NP
+fapply the stamps NP
+bapply Pat collected (S[pss]/NP)^{NP\NP}
+unhat Pat collected NP\NP
+bapply the collected NP
+fapply admired collected S[dcl]\NP
+bapply Robin collected S[dcl]
+
+Robin|NP admired|(S[dcl]\NP)/NP the|NP/N stamps|N Pat|NP collected|((S[pss]\NP)/NP)^{NP\NP}
+fapply the stamps NP
+ftype Pat Pat S/(S\NP)
+fcomp Pat collected (S[pss]/NP)^{NP\NP}
+unhat Pat collected NP\NP
+bapply the collected NP
+fapply admired collected S[dcl]\NP
+bapply Robin collected S[dcl]
+
+Apples|NP and|conj oranges|NP
+conj Apples and NP[conj]
+conj Apples oranges NP
+
+the|NP/N cat|N quietly|(S\NP)/(S\NP) stalking|(S[ng]\NP)^{NP\NP}/NP the|NP/N rat|N
+fapply the cat NP
+fapply the rat NP
+fapply stalking rat (S[ng]\NP)^{NP\NP}
+fapply quietly rat (S[ng]\NP)^{NP\NP}
+unhat quietly rat NP\NP
+bapply the rat NP
+
+I|NP seeing|(S[ng]\_nmodeNP)^NP
+ftype I I S/_smode(S\_smodeNP)
+asterisk I seeing S[ng]
+
+people|N giving|(S[ng]\NP)^{N\N}/PP generously|(S\NP)\(S\NP)
+bxcomp giving generously (S[ng]\NP)^{N\N}
+unhat giving generously N\N
+bapply people generously N
+
+people|N^{NP} giving|(S[ng]\NP)^{N\N}/PP generously|(S\NP)\(S\NP) to|PP/NP charities|N^{NP}
+unhat people people NP
+asterisk giving giving (N\N)/PP
+unhat charities charities NP
+
+people|N^{NP} giving|(S[ng]\NP)^{N\N}/PP generously|(S\NP)\(S\NP) to|PP/NP charities|N^{NP}
+unhat people people NP
+bxcomp giving generously (S[ng]\NP)^{N\N}/PP
+unhat charities charities NP
+fapply to charities PP
+fapply giving charities (S[ng]\NP)^{N\N}
+asterisk people charities S[ng]
+
+people|N^{NP} are|(S[dcl]\NP)/(S[ng]\NP) giving|(S[ng]\NP)^{N\N}/PP generously|(S\NP)\(S\NP) to|PP/NP charities|N^{NP}
+unhat people people NP
+bxcomp giving generously (S[ng]\NP)^{N\N}/PP
+unhat charities charities NP
+fapply to charities PP
+fapply giving charities (S[ng]\NP)^{N\N}
+asterisk are charities S[dcl]\NP
+
+people|N^{NP} giving|(S[ng]\NP)^{N\N}/PP generously|(S\NP)\(S\NP) to|PP/NP charities|N^{NP} are|(S[dcl]\NP)/(S[adj]\NP) happier|S[adj]\NP
+bxcomp giving generously (S[ng]\NP)^{N\N}/PP
+unhat charities charities NP
+fapply are happier S[dcl]\NP
+fapply to charities PP
+fapply giving charities (S[ng]\NP)^{N\N}
+unhat giving charities N\N
+bapply people charities N^{NP}
+unhat people charities NP
+bapply people happier S[dcl]
+
+people|N^{NP} is|(S[dcl]\NP)^y/(S[ng]\NP)^y giving|(S[ng]\NP)^{N\N}/PP to|PP/NP charities|N^{NP} are|(S[dcl]\NP)/(S[adj]\NP) happier|S[adj]\NP
+unhat charities charities NP
+fapply are happier S[dcl]\NP
+fapply to charities PP
+fapply giving charities (S[ng]\NP)^{N\N}
+fapply is charities (S[dcl]\NP)^{N\N}
+unhat is charities N\N
+bapply people charities N^{NP}
+unhat people charities NP
+bapply people happier S[dcl]
+
+are|(S[dcl]\NP)/(S[ng]\NP)^\nullhat giving|(S[ng]\NP)^{N\N}/PP
+asterisk are giving (S[dcl]\NP)/PP
+
+giving|((S[ng]\NP)/PP)^{N\N} to|PP/NP
+asterisk giving to ((S[ng]\NP)/NP)
+
+gifts|N they|NP gave|((S[dcl]\NP)/NP)^{N\N}
+ftype they they S/(S\NP)
+fcomp they gave (S[dcl]/NP)^{N\N}
+unhat they gave N\N
+bapply gifts gave N
+
+they|NP gave|((S[dcl]_{gave}\NP_y)_{gave}/NP_z)_{gave}
+ftype they they (S_y/(S\NP_{people})_y)_{people}
+fcomp they gave (S_{gave}/NP_z)_{gave}
+
+pay|(S[b]\NP)^{S[b]\NP} for|PP^{(S\NP)\(S\NP)}/NP it|NP
+fapply for it PP^{(S\NP)\(S\NP)}
+fapply pay it S[b]\NP
+
+pay|((S[b]\NP)/PP)^{S[b]\NP} for|PP^{(S\NP)\(S\NP)}/NP it|NP
+unhat pay pay S[b]\NP
+fapply for it PP^{(S\NP)\(S\NP)}
+unhat for it (S\NP)\(S\NP)
+bapply pay it S[b]\NP
+
+Bob|NP_b saw|(S[dcl]_x\NP_y)/NP_z Gil|NP_g
+fapply saw Gil S[dcl]_x\NP_y
+bapply Bob Gil S[dcl]_x
+
+man|N who|(N\N)/(S[dcl]\NP) saw|(S[dcl]\NP)/NP Bob|NP
+fapply saw Bob S[dcl]\NP
+fapply who Bob N\N
+bapply man Bob N
+
+man|N seeing|(S[ng]\NP)^{N\N}/NP Bob|NP
+fapply seeing Bob (S[ng]\NP)^{N\N}
+unhat seeing seeing N\N
+bapply man Bob N
+
+people|N giving|(S[ng]\NP)^{N\N}/PP to~charities|PP
+fapply giving to~charities (S[ng]\NP)^{N\N}
+unhat giving to~charities N\N
+bapply people to~charities N
+
+people|N giving|(S[ng]\NP)^{N\N}/PP generously|(S\NP)\(S\NP) to~charities|PP
+bxcomp giving generously (S[ng]\NP)^{N\N}/PP
+fapply giving to~charities (S[ng]\NP)^{N\N}
+unhat giving to~charities N\N
+bapply people to~charities N
+
+Pat|NP tripped|S[dcl]\NP walking|(S[ng]\NP)^{(S\NP)\(S\NP)} quickly|(S\NP)\(S\NP)
+bapply walking quickly (S[ng]\NP)^{(S\NP)\(S\NP)}
+unhat walking quickly (S\NP)\(S\NP)
+bapply Pat quickly S[dcl]

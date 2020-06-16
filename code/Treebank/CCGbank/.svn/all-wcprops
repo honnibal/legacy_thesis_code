@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/matt/!svn/ver/206/code/Treebank/CCGbank
+END
+_CCGFile.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/matt/!svn/ver/206/code/Treebank/CCGbank/_CCGFile.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/matt/!svn/ver/163/code/Treebank/CCGbank/__init__.py
+END
+_CCGSentence.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/matt/!svn/ver/206/code/Treebank/CCGbank/_CCGSentence.py
+END
+_CCGNode.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/matt/!svn/ver/206/code/Treebank/CCGbank/_CCGNode.py
+END
+_CCGLeaf.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/matt/!svn/ver/206/code/Treebank/CCGbank/_CCGLeaf.py
+END
+_Production.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/matt/!svn/ver/206/code/Treebank/CCGbank/_Production.py
+END
+_CCGbank.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/matt/!svn/ver/206/code/Treebank/CCGbank/_CCGbank.py
+END

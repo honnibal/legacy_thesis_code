@@ -1,0 +1,41 @@
+0\% & clause class & major (98\%) & minor (1\%)\\ 
+1\% & agency & effective (69\%) & middle (28\%)\\ 
+1\% & assessment & non-assessed (98\%)\\ 
+1\% & conjunction & non-conjuncted (76\%) & conjuncted (22\%)\\ 
+1\% & polarity & positive (98\%)\\ 
+1\% & rank & ranking (55\%) & shifted (42\%)\\ 
+1\% & secondary or beta clause & true (62\%) & false (36\%)\\ 
+1\% & status & bound (68\%) & free (30\%)\\ 
+1\% & vocative & no vocative (98\%)\\ 
+29\% & deicticity & temporal (57\%) & modal (12\%)\\ 
+29\% & indicative mood person & non-interactant (67\%) & interactant (2\%)\\ 
+29\% & subject ellipsis & worded subject (69\%) & ellipsed subject (0\%)\\ 
+30\% & effective voice & operative (57\%) & receptive (11\%)\\ 
+31\% & finiteness & finite (40\%) & non-finite (27\%)\\ 
+37\% & interdependency type & expansion clause (52\%) & projection clause (9\%)\\ 
+37\% & taxis & parataxis (37\%) & hypotaxis (25\%)\\ 
+42\% & primary tense & present (38\%) & past (19\%) & future (0\%)\\ 
+47\% & expansion clause type & enhancing clause (34\%) & elaborating clause (11\%) & extending clause (6\%)\\ 
+57\% & embed type & nominal qualifier (33\%) & other qualifier (8\%) & adverbial qualifier (0\%)\\ 
+57\% & shift type & embedded (42\%)\\ 
+69\% & mood type & indicative (29\%) & imperative (0\%)\\ 
+69\% & theme selection & unmarked (17\%) & marked (12\%)\\ 
+70\% & indicative subject presumption & explicit indicative subject (29\%)\\ 
+70\% & indicative type & declarative (29\%)\\ 
+70\% & thematic equative & no thematic equative (28\%) & double nominalisation (0\%)\\ 
+70\% & theme predication & non-predicated theme (29\%)\\ 
+77\% & textual theme & textual theme (19\%) & no textual theme (3\%)\\ 
+87\% & theme matter & as transitivity role (12\%)\\ 
+87\% & theme role & as adjunct (10\%) & as participant (1\%)\\ 
+88\% & receptive agency & non-agentive (8\%) & agentive (2\%)\\ 
+97\% & interactant type & speaker (1\%) & addressee (1\%)\\ 
+99\% & imperative mood person & jussive (0\%)\\ 
+99\% & imperative type & non-optative (0\%)\\ 
+99\% & jussive type & explicit jussive subject (0\%)\\ 
+100\% & assessment theme\\ 
+100\% & interrogative type\\ 
+100\% & negative type\\ 
+100\% & nominalisation position\\ 
+100\% & non subject wh selection\\ 
+100\% & vocative theme\\ 
+100\% & wh selection

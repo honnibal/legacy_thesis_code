@@ -1,0 +1,136 @@
+\documentclass[phd,sit,logo,twoside,11pt,rightchapter,notimes,a4paper]{
+style/infthesis}
+%\documentclass[11pt,twoside,final,english]{ahudson-harvard_dave}
+%\documentclass[11pt,twoside,final]{book}
+
+\include{config}
+\include{names}
+
+\usepackage{bm,float}
+\usepackage{times}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{mathptmx}
+\usepackage{latexsym}
+\usepackage{mattLI}
+\usepackage{natbib}
+\usepackage{parsetree}
+\usepackage{xspace}
+\usepackage{lcovington}
+\usepackage{avm}
+\usepackage{subfig}
+\usepackage{rotating}
+
+\avmfont{\sc}
+\avmoptions{sorted,active}
+\avmvalfont{\rm}
+\avmsortfont{\scriptsize\it}
+
+\usepackage{xyling_dave}
+
+\usepackage{latexsym}
+\usepackage[ot2enc]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphics,color}
+\usepackage{xspace}
+%\usepackage{longtable}
+\usepackage{amsmath, amsthm, amssymb}
+%\usepackage{caption}
+
+\setcounter{secnumdepth}{4}
+%\setcounter{tocdepth}{3}
+
+%\setcounter{tocdepth}{2}
+
+\newcommand{\degreemonth}{August}
+\newcommand{\degreeyear}{2009}
+\newcommand{\degree}{Doctor of Philosophy}
+\newcommand{\field}{Computer Science}
+\newcommand{\department}{School of Information Technologies}
+\newcommand{\advisor}{James R. Curran}
+
+
+
+\abstract{
+Combinatory Categorial Grammar \citep[\ccg, ][]{steedman:00} is a lexicalised
+grammar formalism, which means that each word is associated with a category that
+specifies its argument structure and grammatical function. This accounts for the fact that
+different words have different argument structures, and allows the grammar to
+generate semantic analyses, instead of skeletal brackets. \ccg's lexicalisation has
+been found to improve parsing speed and accuracy \citep{clark:cl07}, and constitutes
+ a strong theoretical claim about what aspects of language are universal.
+
+However, wide-coverage \ccg parsing and generation systems currently use
+a set of type-changing rules that make their grammars less lexicalised.
+The rules were included to address sparse data problems that wide-coverage
+categorial grammars otherwise encounter. Without type-changing rules, categorial
+grammars require a proliferation of modifier categories, because the grammar
+is not always able to abstract away irrelevant detail about derivational context
+when constructing modifier categories.
+
+We analyse this modifier category proliferation problem in detail, and conclude
+that the \ccg formalism makes it difficult to write efficient grammars for these
+constructs. The inefficiencies
+are introduced because the formalism has difficulty exploiting generalisations about
+syntactic form. This motivates some system of type-changing rules, in order to
+have more words receive categories that reflect their syntactic form. However,
+the existing system of type-changing rules reduces the level of lexicalisation
+in \ccg, weakening some of the formalism's most important properties.
+
+We propose a solution that allows type-changing rules to be lexicalised. Our proposal
+involves a modification to the category objects. \ccg
+categories are composed of a number of attributes, including a type, a
+directional slash, and a feature structure. We propose an additional attribute,
+that represents the grammatical function that the category will
+later perform in the derivation. This allows the immediate type to represent the
+constituent's syntactic form, enabling better analyses of form/function discrepancies.
+To avoid overusing \emph{function}, we dub this new attribute a \emph{hat}.
+
+To investigate the modifier category proliferation problem and evaluate our solution,
+we create and compare two versions of \ccgbank. In addition to our \hatsys solution,
+we create a \nounary version of the corpus, which uses no type-changing rules.
+We evaluate these corpora by training and evaluating a
+state-of-the-art \ccg parser on the different versions of the corpus. We find
+that the \nounary corpus makes parsing more difficult: accuracy decreased by
+2.2\%.
+The \hatsys version, however, achieved accuracy within 0.3\% of the original parser,
+and increased in speed by 48\%.
+
+In language processing, efficiency has often been contrasted with linguistic
+desirability or depth, but this distinction is artificial. Linguistic theories
+are keenly interested in how the human parser works as quickly as it does, and
+lexicalised grammars may be part of the answer. We have identified a key problem
+in the \ccg theory, one aspect of which has caused \ccg parsers to adopt a lower
+level of lexicalisation. By restoring that lost lexicalisation, we bring \ccg
+parsing practice back in line with the core claims of the theory, to its
+immediate practical advantage.
+}
+
+\begin{document}
+
+\include{frontmatter}
+
+\include{introduction}
+
+\include{background}
+
+ \include{new_cat_dep}
+% 
+ \include{hat_categories}
+% 
+ \include{hat_corpus}
+% 
+\include{results}
+% 
+ \include{conclusion}
+% 
+ \include{type_changing_rules}
+
+\bibliography{thesis}
+
+\bibliographystyle{aclnat}
+
+\end{document}

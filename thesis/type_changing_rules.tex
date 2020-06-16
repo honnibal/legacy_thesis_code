@@ -1,0 +1,73 @@
+\begin{appendix}
+\chapter{Type-Changing Grammar of \ccgbank}
+
+\label{appendix:type-changing}
+
+
+ \begin{tabular}{ r | rcl }
+\hline
+Frequency & \multicolumn{3}{c}{Unary Type-Changing Rule} \\
+\hline\hline
+115533 & \cf{N}& $\longrightarrow$  &\cf{NP} \\
+3323 & \cf{S[pss]\bs NP}& $\longrightarrow$  &\cf{NP\bs NP} \\
+1506 & \cf{S[ng]\bs NP}& $\longrightarrow$  &\cf{NP\bs NP} \\
+1333 & \cf{S[adj]\bs NP}& $\longrightarrow$  &\cf{NP\bs NP} \\
+1323 & \cf{S[to]\bs NP}& $\longrightarrow$  &\cf{(S\bs NP)\bs (S\bs NP)} \\
+1227 & \cf{S[ng]\bs NP}& $\longrightarrow$  &\cf{(S\bs NP)\bs (S\bs NP)} \\
+1176 & \cf{S[to]\bs NP}& $\longrightarrow$  &\cf{NP\bs NP} \\
+1174 & \cf{S[to]\bs NP}& $\longrightarrow$  &\cf{N\bs N} \\
+873 & \cf{S[dcl]/NP}& $\longrightarrow$  &\cf{NP\bs NP} \\
+309 & \cf{S[ng]\bs NP}& $\longrightarrow$  &\cf{NP} \\
+206 & \cf{S[ng]\bs NP}& $\longrightarrow$  &\cf{S/S} \\
+176 & \cf{S[dcl]}& $\longrightarrow$  &\cf{NP\bs NP} \\
+141 & \cf{S[pss]\bs NP}& $\longrightarrow$  &\cf{S/S} \\
+124 & \cf{S[to]\bs NP}& $\longrightarrow$  &\cf{S/S} \\
+115 & \cf{S[adj]\bs NP}& $\longrightarrow$  &\cf{(S\bs NP)\bs (S\bs NP)} \\
+103 & \cf{S[ng]\bs NP}& $\longrightarrow$  &\cf{(S\bs NP)/(S\bs NP)} \\
+99 & \cf{(S[to]\bs NP)/NP}& $\longrightarrow$  &\cf{NP\bs NP} \\
+87 & \cf{S[ng]\bs NP}& $\longrightarrow$  &\cf{S\bs S} \\
+85 & \cf{S[pss]\bs NP}& $\longrightarrow$  &\cf{(S\bs NP)\bs (S\bs NP)} \\
+62 & \cf{S[dcl]}& $\longrightarrow$  &\cf{S\bs S} \\
+59 & \cf{S[adj]\bs NP}& $\longrightarrow$  &\cf{S/S} \\
+43 & \cf{S[pss]\bs NP}& $\longrightarrow$  &\cf{(S\bs NP)/(S\bs NP)} \\
+27 & \cf{NP}& $\longrightarrow$  &\cf{S/(S/NP)} \\
+22 & \cf{S[dcl]\bs NP}& $\longrightarrow$  &\cf{NP\bs NP} \\
+16 & \cf{S[dcl]}& $\longrightarrow$  &\cf{((S\bs NP)\bs (S\bs NP))\bs ((S\bs NP)\bs (S\bs NP))} \\
+15 & \cf{S[dcl]}& $\longrightarrow$  &\cf{S/S} \\
+15 & \cf{S[adj]\bs NP}& $\longrightarrow$  &\cf{(S\bs NP)/(S\bs NP)} \\
+12 & \cf{S[dcl]/S[dcl]}& $\longrightarrow$  &\cf{S/S} \\
+12 & \cf{S[adj]\bs NP}& $\longrightarrow$  &\cf{(S[adj]\bs NP)\bs (S[adj]\bs NP)} \\
+12 & \cf{S[dcl]}& $\longrightarrow$  &\cf{(S/S)\bs (S/S)} \\
+10 & \cf{S[ng]}& $\longrightarrow$  &\cf{(S\bs NP)\bs (S\bs NP)} \\
+\hline
+\end{tabular}
+
+\begin{tabular}{ r | rcl }
+\hline
+Frequency & \multicolumn{3}{c}{Invalid Binary Rule} \\
+\hline\hline
+241 & \cf{S[dcl]/S[dcl]}& $\longrightarrow$  &\cf{S/S} \\
+193 & \cf{, NP}& $\longrightarrow$  &\cf{(S\bs NP)\bs (S\bs NP)} \\
+155 & \cf{S[dcl]/S[dcl]}& $\longrightarrow$  &\cf{(S\bs bs NP)/(S\bs bs NP)} \\
+76 & \cf{S[dcl]/S[dcl]}& $\longrightarrow$  &\cf{(S\bs bs NP)\bs bs (S\bs bs NP)} \\
+61 & \cf{conj S[em]}& $\longrightarrow$  &\cf{S[dcl][conj]} \\
+50 & \cf{NP}& $\longrightarrow$  &\cf{S/S} \\
+48 & \cf{S[dcl]/S[dcl]}& $\longrightarrow$  &\cf{S\bs bs S} \\
+29 & \cf{S[dcl]\bs bs S[dcl]}& $\longrightarrow$  &\cf{S/S} \\
+29 & \cf{NP[nb]/N NP\bs NP}& $\longrightarrow$  &\cf{NP[nb]/N} \\
+20 & \cf{conj PP}& $\longrightarrow$  &\cf{S[adj]\bs NP[conj]} \\
+18 & \cf{conj NP}& $\longrightarrow$  &\cf{S[adj]\bs NP[conj]} \\
+18 & \cf{conj S[adj]\bs NP}& $\longrightarrow$  &\cf{NP[conj]} \\
+17 & \cf{S[dcl]}& $\longrightarrow$  &\cf{S/S} \\
+16 & \cf{S[dcl]\bs bs S[dcl]}& $\longrightarrow$  &\cf{(S\bs bs NP)/(S\bs bs NP)} \\
+13 & \cf{(NP\bs NP)/(S[dcl]\bs NP) (NP\bs NP)\bs (NP\bs NP)}& $\longrightarrow$  &\cf{(NP\bs NP)/(S[dcl]\bs NP)} \\
+12 & \cf{S[dcl]/S[dcl]}& $\longrightarrow$  &\cf{NP\bs bs NP} \\
+11 & \cf{conj S[ng]\bs NP}& $\longrightarrow$  &\cf{S[adj]\bs NP[conj]} \\
+11 & \cf{S[dcl]\bs bs S[dcl]}& $\longrightarrow$  &\cf{(S\bs bs NP)\bs bs (S\bs bs NP)} \\
+10 & \cf{conj S[ng]\bs NP}& $\longrightarrow$  &\cf{S[pss]\bs NP[conj]} \\
+10 & \cf{((S[dcl]\bs NP)/PP)/NP (S\bs NP)\bs (((S\bs NP)/PP)/NP)}& $\longrightarrow$  &\cf{S[dcl]\bs NP} \\
+\hline
+\end{tabular}
+
+\end{appendix}
+

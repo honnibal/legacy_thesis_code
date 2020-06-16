@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/matt/!svn/ver/136/code/summarise
+END
+summarisers.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/matt/!svn/ver/135/code/summarise/summarisers.py
+END
+urlToText.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/matt/!svn/ver/136/code/summarise/urlToText.py
+END
+document.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/matt/!svn/ver/135/code/summarise/document.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/matt/!svn/ver/136/code/summarise/__init__.py
+END
+wiki_doc_freqs.txt
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/matt/!svn/ver/134/code/summarise/wiki_doc_freqs.txt
+END
+punkt.py
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/matt/!svn/ver/136/code/summarise/punkt.py
+END
+standardiser.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/matt/!svn/ver/135/code/summarise/standardiser.py
+END
+tokeniser.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/matt/!svn/ver/134/code/summarise/tokeniser.py
+END
+BeautifulSoup.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/matt/!svn/ver/136/code/summarise/BeautifulSoup.py
+END
+_stops.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/matt/!svn/ver/134/code/summarise/_stops.py
+END

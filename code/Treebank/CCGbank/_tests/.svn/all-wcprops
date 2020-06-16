@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/matt/!svn/ver/133/code/Treebank/CCGbank/_tests
+END
+testCorpus.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/matt/!svn/ver/85/code/Treebank/CCGbank/_tests/testCorpus.py
+END
+_profile.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/matt/!svn/ver/133/code/Treebank/CCGbank/_tests/_profile.py
+END
+testFile.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/matt/!svn/ver/85/code/Treebank/CCGbank/_tests/testFile.py
+END
+productionTypes.txt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/matt/!svn/ver/85/code/Treebank/CCGbank/_tests/productionTypes.txt
+END
+testRoot.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/matt/!svn/ver/85/code/Treebank/CCGbank/_tests/testRoot.py
+END

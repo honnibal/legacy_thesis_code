@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/matt/!svn/ver/206/code/scripts
+END
+markedupAbsences.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/matt/!svn/ver/206/code/scripts/markedupAbsences.py
+END
+stagGrep.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/matt/!svn/ver/197/code/scripts/stagGrep.py
+END
+fixAutoAnnotated.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/matt/!svn/ver/127/code/scripts/fixAutoAnnotated.py
+END
+editMarkedup.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/matt/!svn/ver/197/code/scripts/editMarkedup.py
+END
+filterMarkedup.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/matt/!svn/ver/203/code/scripts/filterMarkedup.py
+END
+validateGrammar.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/matt/!svn/ver/197/code/scripts/validateGrammar.py
+END
+extractGrammar.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/matt/!svn/ver/137/code/scripts/extractGrammar.py
+END
+getLexicon.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/matt/!svn/ver/127/code/scripts/getLexicon.py
+END
+latexDerivation.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/matt/!svn/ver/127/code/scripts/latexDerivation.py
+END
+analyseLex.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/matt/!svn/ver/197/code/scripts/analyseLex.py
+END
+convertInflectOutput.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/matt/!svn/ver/175/code/scripts/convertInflectOutput.py
+END

@@ -1,0 +1,75 @@
+some|NP of|(NP\NP)/NP these|NP/N issues|N
+fapply these issues NP
+fapply of issues NP\NP
+bapply some issues NP
+
+some|NP/PP of|PP/NP these|NP/N issues|N
+fapply these issues NP
+fapply of issues PP
+fapply some issues NP
+
+Rome|NP 's|(NP/N)\NP destruction|N of|(NP\NP)/NP Carthage|NP
+bapply Rome 's NP/N
+fapply of Carthage NP\NP
+fapply Rome Carthage NP
+bapply of Carthage NP
+
+Rome|NP 's|(NP/(N/PP))\NP destruction|(N/PP)/PP of|PP/NP Carthage|NP
+bapply Rome 's NP/(N/PP)
+fapply of Carthage PP
+fapply destruction Carthage N/PP
+fapply Rome Carthage NP
+
+The|NP/N destruction|N/PP of|PP/NP Carthage|NP
+fapply of Carthage NP
+fapply destruction Carthage N
+fapply The Carthage NP
+
+Carthage|NP 's|(NP/(PP/N))\NP destruction|PP/N
+bapply Carthage 's NP/(PP/N)
+fapply Carthage destruction NP
+
+Google|NP acquired|((S[dcl]\NP)/PP)/NP YouTube|NP for|PP/NP $1.65bn|NP
+fapply acquired YouTube (S[dcl]\NP)/PP
+fapply for $1.65bn PP_{$1.65bn}
+fapply acquired $1.65bn S[dcl]\NP
+bapply Google $1.65bn S[dcl]
+
+YouTube|NP ,|, which|(NP\NP_y)/(S[dcl]_z\NP_y)_z was|(S[dcl]\NP)/(S[pss]\NP) acquired|((S[pss]\NP_\patient{z})/PP_\price{w})/PP_\agent{y} by|PP_y/NP_y Google|NP for|PP_y/NP_y \$1.65bn|NP
+fapply YouTube , NP
+fapply by Google PP_{Google}
+fapply for \$1.65bn PP_{\$1.65bn}
+fapply acquired Google (S[pss]\NP_\patient{z})/PP_\price{w}
+fapply acquired \$1.65bn S[pss]\NP_\patient{z}
+fapply which \$1.65bn NP\NP_\patient{z}
+bapply YouTube \$1.65bn NP
+
+Google|NP 's|(NP_y/N_y)\NP_z acquisition|N of|(NP_y\NP_y)/NP_z YouTube|NP
+bapply Google 's NP_y/N_y
+fapply of YouTube NP_y\NP_y
+fapply Google acquisition NP_{acquisition}
+bapply Google YouTube NP_{acquisition}
+
+Google|NP 's|(NP_y/(N_y/PP_z))\NP_z acquisition|(N/PP_\agent{y})/PP_\patient{z} of|PP_y/NP_y YouTube|NP
+bapply Google 's NP_y/(N_y/PP_{Google})
+fapply of YouTube PP_{YouTube}
+fapply acquisition YouTube N/PP_\agent{y}
+fapply Google YouTube NP
+
+Google|NP 's|(NP_y/(N_y/PP_z))\NP_z decision|(N/PP_y)/(S[to]_z\NP_y)_z to~acquire|(S[to]\NP_\agent{y})/NP_\patient{z} YouTube|NP
+bapply Google 's NP_y/(N_y/PP_{Google})
+fapply to~acquire YouTube S[to]\NP
+fapply decision YouTube N/PP_\agent{y}
+fapply Google YouTube NP
+
+all|NP/NP staff|N on|(NP\NP)/NP casual|N/N contracts|N
+psgrule staff staff NP
+fapply casual contracts N
+psgrule casual contracts NP
+fapply on contracts NP\NP
+bapply staff contracts NP
+fapply all contracts NP
+
+Google|NP bought|(S\NP)/NP YouTube|NP
+fapply bought YouTube S\NP
+bapply Google YouTube S

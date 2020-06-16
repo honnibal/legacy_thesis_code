@@ -1,0 +1,173 @@
+import math
+from collections import defaultdict
+import re
+
+class Lexicon(object):
+    def __init__(self, location):
+        lex = {}
+        wordFreqs = defaultdict(int)
+        posDict = defaultdict(lambda: defaultdict(int))
+        stagDict = defaultdict(lambda: defaultdict(int))
+        # Dict of dict of ints
+        cats = defaultdict(lambda: defaultdict(int))
+        for line in open(location):
+            if not line.strip():
+                continue
+            word, pos, stags = self._processLine(line)
+            key = (word, pos)
+            lex[key] = stags
+            for stag, freq in stags.items():
+                cats[stag][key] += freq
+                posDict[pos][stag] += freq
+                stagDict[word][stag] += freq
+                wordFreqs[word] += freq
+        self.lex = lex
+        self.cats = cats
+        self.posDict = posDict
+        self.stagDict = stagDict
+        self.wordFreqs = wordFreqs
+
+    def _processLine(self, line):
+        pieces = line.split('\t')
+        word = pieces.pop(0)
+        pos = pieces.pop(0)
+        stags = {}
+        for piece in pieces:
+            stag, freq = piece.split('=')
+            stags[stag] = int(freq)
+        return word, pos, stags
+
+    def freqDist(self, theDict):
+        freqDist = defaultdict(int)
+        for key1, freqs in theDict.items():
+            total = sum(freqs.values())
+            freqDist[total] += 1
+        return freqDist
+
+    def catsAtFreqThresh(self, stopPoint):
+        """
+        Plot how many categories remain in the category set as we increase
+        a frequency threshold
+        """
+        freqDist = self.freqDist(self.cats)
+        mostFreq = max(freqDist.keys())
+        rows = []
+        catsSeen = 0
+        totalCats = len(self.cats)
+        for threshold in xrange(0, mostFreq):
+            totalCats -= freqDist.get(threshold, 0)
+            if threshold >= stopPoint:
+                break
+            rows.append(totalCats)
+        return rows
+
+    def coverageAtThresh(self, stopPoint):
+        freqDist = self.freqDist(self.cats)
+        mostFreq = max(freqDist.keys())
+        total = sum([sum(freqs.values()) for freqs in self.cats.values()])
+        rows = []
+        currCover = total
+        for frequency in xrange(0, mostFreq):
+            if frequency >= stopPoint:
+                break
+            catsAtFreq = freqDist.get(frequency, 0)
+            tokens = frequency*catsAtFreq
+            currCover -= tokens
+            rows.append(float(currCover)/total)
+        return rows
+
+    def coverageOnUnseen(self, unseen):
+        n = float(sum(unseen.wordFreqs.values()))
+        covered = 0
+        sizes = defaultdict(int)
+        for (word, pos), stags in unseen.lex.items():
+            tagDict = self.getTagDict(word, pos)
+            size = len(tagDict)
+            for stag, freq in stags.items():
+                if stag in tagDict:
+                    covered += freq
+                sizes[size] += freq
+        sizeTotal = sum([size*freq for size, freq in sizes.items()])
+        return covered/n, sizeTotal/n
+            
+
+    def getMissing(self, other, cutoff):
+        absentees = []
+        for cat in self.cats:
+            if cat not in other.cats:
+                freqs = self.cats[cat]
+                total = sum(freqs.values())
+                if total >= cutoff:
+                    absentees.append((total, cat, freqs))
+        absentees.sort()
+        absentees.reverse()
+        return absentees
+
+    def avgEnt(self):
+        totalEnt = 0.0
+        tokens = 0
+        for word, pos in self.lex:
+            tagDict = self.getTagDict(word, pos)
+            totalFreq = sum(tagDict.values())
+            entropy = self.calcEntropy(tagDict.values())
+            totalEnt += entropy
+            tokens += totalFreq
+        avgEnt = totalEnt/tokens
+        return avgEnt
+        
+    def calcEntropy(self, dist):
+        total = sum(dist)
+        totalEntropy = 0.0
+        for freq in dist:
+            proportion = float(freq) / total
+            entropy = -(proportion * math.log(proportion, 2))
+            totalEntropy += entropy
+        return totalEntropy
+
+    def entropyChanges(self, other):
+        changes = []
+        for word, ownFreqs in self.lex.items():
+            if word not in other.lex:
+                print word
+                continue
+            otherFreqs = other.lex[word]
+            
+            ownEntropy = self.calcEntropy(ownFreqs.values())
+            otherEntropy = self.calcEntropy(otherFreqs.values())
+            change = ownEntropy - otherEntropy
+            changes.append((change, word, ownEntropy, otherEntropy))
+        changes.sort()
+        changes.reverse()
+        return changes
+
+    def catsPerWord(self, thresh):
+        """
+        Calculate the average size of a word's tag dict
+        """
+        totalCats = 0
+        words = 0
+        for word, wordFreqs in self.lex.items():
+            dictSize = len([f for f in wordFreqs.values() if f >= thresh])
+            totalCats += dictSize
+            if sum(wordFreqs.values()) >= 20:
+                words += 1
+        return float(totalCats)/float(words)
+
+    def getTagDict(self, word, pos):
+        if self.wordFreqs[word] < 20:
+            tagDict = dict(self.posDict[pos])
+        else:
+            tagDict = dict(self.stagDict[word])
+            # Remove categories that occur with the word less than 5 times,
+            # and categories whose frequency is less than 1/500 of the most
+            # frequent and remove categories less frequent than 10
+        frequencyComparison = max(tagDict.values())/500.0
+        for stag, freq in tagDict.items():
+            if freq < 1 or freq < frequencyComparison or \
+               sum(self.cats[stag].values()) < 10:
+                tagDict.pop(stag)
+        return tagDict
+            
+            
+if __name__ == '__main__':
+    lex = Lexicon('/home/mhonn/Data/CCGBank/Morph/v0.92tr/lexicons/02-21.lex')

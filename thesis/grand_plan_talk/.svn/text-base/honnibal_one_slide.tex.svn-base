@@ -1,0 +1,30 @@
+\begin{plain}{Transparent SRL with CCG}
+\scalebox{0.7}{
+\deriv{5}{
+\rm Google & \rm 's & \rm decision & \rm to~acquire & \rm YouTube \\
+\uline{1}&\uline{1}&\uline{1}&\uline{1}&\uline{1} \\
+\cf{NP} &
+\cf{(NP_y/(N_y/PP_z)_y)\bs NP_z} &
+\cf{(N/PP_y)/(S[to]_z\bs NP_y)_z} &
+\cf{(S[to]\bs NP_\agent{y})/NP_\patient{z}} &
+\cf{NP} \\
+\bapply{2} && \fapply{2} \\
+\mc{2}{\cf{NP_y/(N_y/PP_{Google})}} && \mc{2}{\cf{S[to]\bs NP_\agent{y}}} \\
+&& \fapply{3} \\
+&& \mc{3}{\cf{N/PP_\agent{y}}} \\
+\fapply{5} \\
+\mc{5}{\cf{NP}}
+}
+}
+Acquire:
+\begin{itemize}
+ \item \patient{z}=YouTube
+ \item \agent{y}=Google
+\end{itemize}
+Decision:
+\begin{itemize}
+ \item z=acquire
+ \item y=Google
+\end{itemize}
+
+\end{plain}

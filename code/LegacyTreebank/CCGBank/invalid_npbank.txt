@@ -1,0 +1,6 @@
+wsj_0595.15
+Parent Cat: (S[b]\NP)/NP
+Child 0: (S[b]\NP)/NP
+Context: ((S[b]\NP)/NP ((S[b]\NP)/NP (VB own)))
+Answers: {}
+wsj_0595.15
